@@ -35,32 +35,32 @@
 
                     <div class="form-group">
                         <label for="first-name">Rut</label>
-                        <input type="text" class="form-control" placeholder="Rut" id="Rut" required>
+                        <input type="text" class="form-control" placeholder="Rut" id="Rut" pattern="\d{3,8}-[\d|kK]{1}" title="Debe ser un Rut válido" required>
 
                     </div>
 
                     <div class="form-group">
                         <label for="first-name">Nombres</label>
-                        <input type="text" class="form-control" placeholder="Nombres" id="Nombre" required>
+                        <input type="text" class="form-control" placeholder="Nombres" id="Nombre" required  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
                         <label for="first-name">Apellido Paterno</label>
-                        <input type="text" class="form-control" placeholder="Apellido Paterno" id="ApellidoP" required>
+                        <input type="text" class="form-control" placeholder="Apellido Paterno" id="ApellidoP" required  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
                     <div class="form-group">
                         <label for="first-name">Apellido Materno</label>
-                        <input type="text" class="form-control" placeholder="Apellido Materno" id="Nombre" required>
+                        <input type="text" class="form-control" placeholder="Apellido Materno" id="AppelidoM" required    onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
                         <label for="first-name">Fecha Nacimiento</label>
-                        <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" required>
+                        <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" required >
                     </div>
 
                     <div class="form-group">
                         <label for="first-name">Email</label>
-                        <input type="email" class="form-control" placeholder="correo@correo.cl" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required >
+                        <input type="email" class="form-control" placeholder="correo@correo.cl" id="Correo" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$"  title="Debe ser un Correo Valido" required  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
