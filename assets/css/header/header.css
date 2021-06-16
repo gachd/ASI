@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+
+.blanco{ background:rgba(255,255,255,1.00) !important;}
+.table-hover>tbody>tr.blanco:hover>td{background:#F4F4F4;}
+.verde{background:rgba(208, 233, 198, 0.42) !important}
+.azul{background:rgb(240, 242, 253) !important;}
+h1{font-size:14px;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+	/*border-bottom: 1px dashed #cccccc;*/
+   }
+
+.padre {
+  /* IMPORTANTE */
+  display: table;
+}
+
+.hijo {
+  /* IMPORTANTE */
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.descargar{
+    float: right;
+    margin: 5px;
+}
+
+.buscador1 {
+    width: 30.666667%;
+   
+    /*background: yellow;*/
+    float: left;
+        padding-top: 9px;
+}
+.buscador2 {
+    width: 30.666667%;
+   
+    /*background: yellow;*/
+    float: right;
+        padding-top: 9px;
+}

@@ -1,0 +1,36 @@
+<style  type="text/css">
+	@page oficio {
+		size: 210mm 330mm;
+		margin: 2cm;
+	}
+	div.tamaño {page: oficio;}
+	di.row {width: 100%;}
+	.tbl-inf-af tr {height: 18px;}
+	.tbl-inf-af tr td {font-size: 10px;}
+	.tbl-inf-af th {font-size: 12px;}
+	.tbl-inf-af {margin-left: 16%;}
+
+	.container {
+		width: 1000px;
+	}
+	.col-md-4 img {
+		display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+	}
+	table th,td,tr {
+		border: 1px solid black;
+        border-collapse: collapse;
+	}
+	table th{
+	   background-color: #006b3a;
+	   color: white;
+	}
+	table tr{
+		height: 35px;
+	}
+	
+
+
+</style>

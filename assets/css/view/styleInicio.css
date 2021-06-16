@@ -1,0 +1,645 @@
+
+table#cantidad{
+
+  border: 1px solid green;
+
+   width: 80%;
+
+  margin: auto;
+
+  margin-top: 10px;
+
+  text-align: center;
+
+}
+
+#cantidad tr td{
+
+  border: 1px solid green;
+
+}
+
+#cantidad th{
+
+   border: 1px solid green;
+
+   text-align: center;
+
+}
+
+table.menu_socios{
+
+  border:1px solid black;
+
+  width: 80%;
+
+  margin: auto;
+
+  margin-top: 10px;
+
+}
+
+table.menu_cargas{
+
+  border:1px solid black;
+
+  width: 80%;
+
+  margin: auto;
+
+  margin-top: 10px;
+
+}
+
+table.menu_pagos{
+
+   border:1px solid black;
+
+  width: 80%;
+
+  margin: auto;
+
+  margin-top: 10px;
+
+}
+
+table.menu_listado{
+
+   border:1px solid black;
+
+  width: 80%;
+
+  margin: auto;
+
+  margin-top: 10px;
+
+}
+
+.menu_socios th{
+
+  border:1px solid black;
+
+  font-size: 20px;
+
+}
+
+.menu_cargas th{
+
+  border:1px solid black;
+
+  font-size: 20px;
+
+}
+
+.menu_pagos th{
+
+  border:1px solid black;
+
+  font-size: 20px;
+
+}
+
+.menu_listado th{
+
+  border:1px solid black;
+
+  font-size: 20px;
+
+}
+
+table img{
+
+  width: 100px;
+
+}
+
+.contenedor{
+
+  width: 500px;
+
+}
+
+h1{
+
+  text-align: center;
+
+  font-size: 30px;
+
+}
+
+.estado{
+
+  width: 50%;
+
+  margin: auto;
+
+}
+
+.estado img{
+
+  width: 40px;
+
+  height: 40px;
+
+}
+
+.badge{
+
+  background: white;
+
+  color: black;
+
+  font-size: 1.5em;
+
+}
+
+.label{
+
+  padding: .5em .6em .4em;
+
+}
+
+#mostrar{
+
+  width: 80%;
+
+  margin: auto;
+
+}
+
+
+
+.btn-cargas {
+
+transform-style: preserve-3d;
+
+
+
+    border: none;
+
+    background: #ff6439;
+
+    color: #f2f2f2;
+
+    padding: 10px;
+
+    font-size: 14px;
+
+    border-radius: 5px;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    transition: all 500ms ease;
+
+
+
+
+
+}
+
+.btn-cargas:after {
+
+    top: -100%;
+
+    left: 0px;
+
+    width: 100%;
+
+    padding: 10px 0;
+
+    position: absolute;   
+
+    border-radius: 5px;
+
+    content: 'ENTRAR';
+
+    transform-origin: left bottom;
+
+    transform: rotateX(90deg);
+
+    background: rgba(0,0,0,0);
+
+    color: #ff6439;
+
+    box-shadow: inset 0 0 0 3px #ff6439;
+
+}
+
+.btn-cargas:hover {
+
+transform-origin: center bottom;
+
+transform: rotateX(-90deg) translateY(100%);
+
+}
+
+.btn-socio{
+
+transform-style: preserve-3d;
+
+
+
+    border: none;
+
+    background: #434343;
+
+    color: #f2f2f2;
+
+    padding: 10px;
+
+    font-size:14px;
+
+    border-radius: 5px;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    transition: all 500ms ease;
+
+
+
+
+
+}
+
+.btn-socio:after {
+
+    top: -100%;
+
+    left: 0px;
+
+    width: 100%;
+
+    padding: 10px 0;
+
+    position: absolute;    
+
+    border-radius: 5px;
+
+    content: 'ENTRAR';
+
+    transform-origin: left bottom;
+
+    transform: rotateX(90deg);
+
+    background: rgba(0,0,0,0);
+
+    color: #434343;
+
+    box-shadow: inset 0 0 0 3px #434343;
+
+}
+
+.btn-socio:hover {
+
+transform-origin: center bottom;
+
+transform: rotateX(-90deg) translateY(100%);
+
+}
+
+.btn-res{
+
+transform-style: preserve-3d;
+
+
+
+    border: none;
+
+    background: #6e1821;
+
+    color: #f2f2f2;
+
+    padding: 10px;
+
+    font-size: 14px;
+
+    border-radius: 5px;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    transition: all 500ms ease;
+
+
+
+
+
+}
+
+.btn-res:after {
+
+    top: -100%;
+
+    left: 0px;
+
+    width: 100%;
+
+    padding: 10px 0;
+
+    position: absolute;    
+
+    border-radius: 5px;
+
+    content: 'ENTRAR';
+
+    transform-origin: left bottom;
+
+    transform: rotateX(90deg);
+
+    background: rgba(0,0,0,0);
+
+    color: #6e1821;
+
+    box-shadow: inset 0 0 0 3px #6e1821;
+
+}
+
+.btn-res:hover {
+
+transform-origin: center bottom;
+
+transform: rotateX(-90deg) translateY(100%);
+
+}
+
+.btn-pago{
+
+transform-style: preserve-3d;
+
+
+
+    border: none;
+
+    background: #ecbd0c;
+
+    color: #f2f2f2;
+
+    padding: 10px;
+
+    font-size: 14px;
+
+    border-radius: 5px;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    transition: all 500ms ease;
+
+
+
+
+
+}
+
+.btn-pago:after {
+
+    top: -100%;
+
+    left: 0px;
+
+    width: 100%;
+
+    padding: 10px 0;
+
+    position: absolute;    
+
+    border-radius: 5px;
+
+    content: 'ENTRAR';
+
+    transform-origin: left bottom;
+
+    transform: rotateX(90deg);
+
+    background: rgba(0,0,0,0);
+
+    color: #ecbd0c;
+
+    box-shadow: inset 0 0 0 3px #ecbd0c;
+
+}
+
+.btn-pago:hover {
+
+transform-origin: center bottom;
+
+transform: rotateX(-90deg) translateY(100%);
+
+}
+
+.btn-estadistica{
+
+transform-style: preserve-3d;
+
+
+
+    border: none;
+
+    background: #00b9f1;
+
+    color: #f2f2f2;
+
+    padding: 10px;
+
+    font-size: 14px;
+
+    border-radius: 5px;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    transition: all 500ms ease;
+
+
+
+
+
+}
+
+.btn-estadistica:after {
+
+    top: -100%;
+
+    left: 0px;
+
+    width: 100%;
+
+    padding: 10px 0;
+
+    position: absolute;    
+
+    border-radius: 5px;
+
+    content: 'ENTRAR';
+
+    transform-origin: left bottom;
+
+    transform: rotateX(90deg);
+
+    background: rgba(0,0,0,0);
+
+    color: #00b9f1;
+
+    box-shadow: inset 0 0 0 3px #00b9f1;
+
+}
+
+.btn-estadistica:hover {
+
+transform-origin: center bottom;
+
+transform: rotateX(-90deg) translateY(100%);
+
+}
+
+.btn-informe{
+
+transform-style: preserve-3d;
+
+
+
+    border: none;
+
+    background: #334560;
+
+    color: #f2f2f2;
+
+    padding: 10px;
+
+    font-size: 14px;
+
+    border-radius: 5px;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    transition: all 500ms ease;
+
+
+
+
+
+}
+
+.btn-informe:after {
+
+    top: -100%;
+
+    left: 0px;
+
+    width: 100%;
+
+    padding: 10px 0;
+
+    position: absolute;    
+
+    border-radius: 5px;
+
+    content: 'ENTRAR';
+
+    transform-origin: left bottom;
+
+    transform: rotateX(90deg);
+
+    background: rgba(0,0,0,0);
+
+    color: #334560;
+
+    box-shadow: inset 0 0 0 3px #334560;
+
+}
+
+.btn-informe:hover {
+
+transform-origin: center bottom;
+
+transform: rotateX(-90deg) translateY(100%);
+
+}
+
+.btn-cuota{
+
+transform-style: preserve-3d;
+
+
+
+    border: none;
+
+    background: #f98500;
+
+    color: #f2f2f2;
+
+    padding: 10px;
+
+    font-size: 14px;
+
+    border-radius: 5px;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    transition: all 500ms ease;
+
+
+
+
+
+}
+
+.btn-cuota:after {
+
+    top: -100%;
+
+    left: 0px;
+
+    width: 100%;
+
+    padding: 10px 0;
+
+    position: absolute;    
+
+    border-radius: 5px;
+
+    content: 'ENTRAR';
+
+    transform-origin: left bottom;
+
+    transform: rotateX(90deg);
+
+    background: rgba(0,0,0,0);
+
+    color: #f98500;
+
+    box-shadow: inset 0 0 0 3px #f98500;
+
+}
+
+.btn-cuota:hover {
+
+transform-origin: center bottom;
+
+transform: rotateX(-90deg) translateY(100%);
+
+}
+
+.well{
+
+  width: 80%;
+
+  margin: auto;
+
+}
+
+a img{
+  width: 100px!important;
+}
+
