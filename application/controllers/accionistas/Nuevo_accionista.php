@@ -39,40 +39,44 @@ class nuevo_accionista extends CI_Controller
 
 	public function index()
 	{
+		$_POST['msj'] = '';
 
+		if (isset($_POST['rut'])) {
 
-		$date  = "";
+			$persona = $this->model_persona->existe_persona($_POST['rut']);
+			if ($persona) {
 
-		$data['comunas']	= $this->model_persona->all_comunas($date);
-		$data['laboral']	= $this->model_persona->all_condicionlab($date);
-		$data['estado_civil']	= $this->model_persona->all_estadocivil($date);
-		$data['provincia']	= $this->model_persona->all_provincias($date);
-		$data['region']	= $this->model_persona->all_region($date);
-
-
+				$_POST['msj'] = '1';
+			} else {
+				$rut=$_POST['rut'];
+				redirect('accionistas/nuevo_accionista/datos_persona/'.$rut);
+			}
+		}
 
 
 		$this->load->view('plantilla/Head');
 
-		$this->load->view('accionistas/accionista_rut', $data);
+		$this->load->view('accionistas/accionista_rut');
 
 		$this->load->view('plantilla/Footer');
 	}
 
 
-	public function datos_persona()
+	public function datos_persona($rut)
 	{
 
 
-		$date  = "";
 
+
+
+		$date  = "";
+		
+		$data['rut']=$rut;
 		$data['comunas']	= $this->model_persona->all_comunas($date);
 		$data['laboral']	= $this->model_persona->all_condicionlab($date);
 		$data['estado_civil']	= $this->model_persona->all_estadocivil($date);
 		$data['provincia']	= $this->model_persona->all_provincias($date);
 		$data['region']	= $this->model_persona->all_region($date);
-		$data['rut']	= $this->input->post('rut');
-
 
 
 
@@ -150,12 +154,5 @@ class nuevo_accionista extends CI_Controller
 		);
 
 		$this->model_socios->insertar($data);
-
-
-
-
-
-
-
 	}
 }
