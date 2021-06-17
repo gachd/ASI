@@ -20,6 +20,10 @@ class nuevo_accionista extends CI_Controller
 
 		$this->load->model('model_socios');
 
+
+		$this->load->model('model_persona');
+
+
 		$this->load->helper('url');
 
 		$this->load->helper('form');
@@ -39,11 +43,37 @@ class nuevo_accionista extends CI_Controller
 
 		$date  = "";
 
-		$data['comunas']	= $this->model_socios->all_comunas($date);
+		$data['comunas']	= $this->model_persona->all_comunas($date);
+		$data['laboral']	= $this->model_persona->all_condicionlab($date);
+		$data['estado_civil']	= $this->model_persona->all_estadocivil($date);
+		$data['provincia']	= $this->model_persona->all_provincias($date);
+		$data['region']	= $this->model_persona->all_region($date);
 
-		$data['laboral']	= $this->model_socios->all_condicionlab($date);
 
-		$data['estado_civil']	= $this->model_socios->all_estadocivil($date);
+
+
+		$this->load->view('plantilla/Head');
+
+		$this->load->view('accionistas/accionista_rut', $data);
+
+		$this->load->view('plantilla/Footer');
+	}
+
+
+	public function datos_persona()
+	{
+
+
+		$date  = "";
+
+		$data['comunas']	= $this->model_persona->all_comunas($date);
+		$data['laboral']	= $this->model_persona->all_condicionlab($date);
+		$data['estado_civil']	= $this->model_persona->all_estadocivil($date);
+		$data['provincia']	= $this->model_persona->all_provincias($date);
+		$data['region']	= $this->model_persona->all_region($date);
+		$data['rut']	= $this->input->post('rut');
+
+
 
 
 		$this->load->view('plantilla/Head');
@@ -52,6 +82,9 @@ class nuevo_accionista extends CI_Controller
 
 		$this->load->view('plantilla/Footer');
 	}
+
+
+
 
 
 	public function agregarSocio()
@@ -116,7 +149,7 @@ class nuevo_accionista extends CI_Controller
 			'prsn_nac' => $nac = $this->input->post('nac')
 		);
 
-		$this->model_socios->insertar($data); //INSERT PERSONAS
+		$this->model_socios->insertar($data);
 
 
 

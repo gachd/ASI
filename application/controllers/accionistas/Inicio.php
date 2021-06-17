@@ -111,10 +111,8 @@ class inicio extends CI_Controller {
      $nombres[$i] = 'MINORITARIOS';
      $i = $i+1;
      for($j=0;$j<$i;$j++){
-
-$data [] = [(string)$nombres[$j],(int)$rango[$j]];
-
-}
+        $data [] = [(string)$nombres[$j],(int)$rango[$j]];
+      }
 
 echo json_encode($data);
 

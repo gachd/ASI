@@ -277,6 +277,9 @@
     window.open(url, '_blank');
   });
 
+
+
+
   $(document).ready(function() {
     $.ajax({
       url: "<?php echo base_url(); ?>accionistas/inicio/mostrarGrafico",
@@ -288,7 +291,7 @@
 
         var chart = new Highcharts.Chart(options);
         chart.setTitle({
-          text: 'Accionistas Stadio Italiano di Concepción S.A.'
+          text: 'Accionistas S.A.'
         });
       },
       error: function(data) {
@@ -299,6 +302,11 @@
 
 
 
+
+
+
+
+  
   var options = {
     chart: {
       plotBackgroundColor: null,
@@ -361,6 +369,9 @@
     series: [{}]
 
   };
+
+
+
 </script>
 
 </html>
