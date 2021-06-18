@@ -47,45 +47,46 @@ class nuevo_accionista extends CI_Controller
 			if ($persona) {
 
 				$_POST['msj'] = '1';
+				$this->load->view('plantilla/Head');
+
+				$this->load->view('accionistas/accionista_rut');
+
+				$this->load->view('plantilla/Footer');
 			} else {
-				$rut=$_POST['rut'];
-				redirect('accionistas/nuevo_accionista/datos_persona/'.$rut);
+				$rut = $_POST['rut'];
+				//redirect('accionistas/nuevo_accionista/datos_persona/'.$rut);
+
+
+
+				$date  = "";
+
+				$data['rut'] = $rut;
+				$data['comunas']	= $this->model_persona->all_comunas($date);
+				$data['laboral']	= $this->model_persona->all_condicionlab($date);
+				$data['estado_civil']	= $this->model_persona->all_estadocivil($date);
+				$data['provincia']	= $this->model_persona->all_provincias($date);
+				$data['region']	= $this->model_persona->all_region($date);
+
+
+
+				$this->load->view('plantilla/Head');
+
+				$this->load->view('accionistas/nuevo_accionista', $data);
+
+				$this->load->view('plantilla/Footer');
 			}
+		}else{
+			$this->load->view('plantilla/Head');
+
+			$this->load->view('accionistas/accionista_rut');
+
+			$this->load->view('plantilla/Footer');
 		}
 
-
-		$this->load->view('plantilla/Head');
-
-		$this->load->view('accionistas/accionista_rut');
-
-		$this->load->view('plantilla/Footer');
 	}
 
 
-	public function datos_persona($rut)
-	{
-
-
-
-
-
-		$date  = "";
-		
-		$data['rut']=$rut;
-		$data['comunas']	= $this->model_persona->all_comunas($date);
-		$data['laboral']	= $this->model_persona->all_condicionlab($date);
-		$data['estado_civil']	= $this->model_persona->all_estadocivil($date);
-		$data['provincia']	= $this->model_persona->all_provincias($date);
-		$data['region']	= $this->model_persona->all_region($date);
-
-
-
-		$this->load->view('plantilla/Head');
-
-		$this->load->view('accionistas/nuevo_accionista', $data);
-
-		$this->load->view('plantilla/Footer');
-	}
+	
 
 
 

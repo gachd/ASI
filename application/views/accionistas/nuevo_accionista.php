@@ -18,12 +18,14 @@
 <body>
 
     <div class="main">
+        
 
 
         <div class="container-fluid">
+
             <form action="" method="post">
                 <div class="container" id="advanced-search-form">
-                    <h2>Nuevo Accionista</h2>
+                    <h2>Datos Personales</h2>
 
 
                     <div class="form-group">
@@ -166,9 +168,44 @@
 
 
                     <div class="clearfix"></div>
+
+                </div>
+                <!-- Datos de accionista -->
+                <div class="container" id="advanced-search-form">
+                    <h2>Datos de Accionista</h2>
+
+
+
+                    <div class="form-group">
+                        <label for="first-name">Libro</label>
+                        <input type="text" class="form-control" placeholder="Libro" id="Libro" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                    </div>
+                    <div class="form-group">
+                        <label for="first-name">Foja</label>
+                        <input type="text" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="first-name">Fecha Ingreso</label>
+                        <input type="text" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" required>
+                    </div>
+
+                   
+
+                    <div class="clearfix"></div>
                     <button class="btn btn-info btn-lg btn-responsive" id="guardar"> <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
 
                 </div>
+
+
+
+
+
+
+
+
+
+
 
 
             </form>
@@ -185,6 +222,10 @@
 
         $(function() {
             $("#txt_fechaIn").datepicker();
+        });
+        
+        $(function() {
+            $("#FechaIgreso").datepicker();
         });
     </script>
 </body>

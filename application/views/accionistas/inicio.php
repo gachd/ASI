@@ -189,7 +189,7 @@
 
 
                         echo '<tr class="odd gradeX">';
-                        echo '<td><div class="col-md-7">' . $s->prsn_rut . '</div><div class="col-md-4"><a  href="' . base_url() . '/socios/ficha/detalle/' . $s->prsn_rut . '"><span class="ico badge badge-info"><i class="glyphicon glyphicon-search"></i></span></a></div></td>';
+                        echo '<td>'. $s->prsn_rut . '</td>';
                         echo '<td>' . $s->prsn_nombres . '</td>';
                         echo '<td>' . $s->prsn_apellidopaterno . '</td>';
                         echo '<td>' . $s->prsn_apellidomaterno . '</td>';

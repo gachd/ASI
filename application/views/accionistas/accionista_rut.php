@@ -18,7 +18,11 @@
 <body>
 
     <div class="main">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
+        </div>
         <div class="container" id="advanced-search-form">
+
             <div class="container-fluid">
                 <h1>Ingrese el rut</h1>
 
@@ -47,6 +51,11 @@
 
 
 <script>
+    $("#menuprincipal").click(function() {
+        window.location.href = "<?php echo base_url(); ?>accionistas/inicio";
+    });
+
+
     function checkRut(rut) {
         // Despejar Puntos
         var valor = rut.value.replace('.', '');
