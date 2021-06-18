@@ -14,11 +14,16 @@
 
 
 </head>
+<style>
+    .oculto {
+        display: none;
+    }
+</style>
 
 <body>
 
     <div class="main">
-        
+
 
 
         <div class="container-fluid">
@@ -34,33 +39,33 @@
 
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group " id="tipoP">
                         <label>Tipo de Persona</label>
                         <div class="radio">
                             <label class="radio-inline">
-                                <input type="radio" name="optradio" value="Natural" required>Natural</label>
+                                <input type="radio" name="optradio" value="1" required>Natural</label>
                             <label class="radio-inline">
-                                <input type="radio" name="optradio" value="Juridica">Juridica</label>
+                                <input type="radio" name="optradio" value="2">Juridica</label>
                         </div>
                     </div>
 
 
 
                     <div class="form-group">
-                        <label for="first-name">Nombres</label>
-                        <input type="text" class="form-control" placeholder="Nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <label for="first-name">Nombre</label>
+                        <input type="text" class="form-control" placeholder="Nombre" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group oculto" id="divapellidoP">
                         <label for="first-name">Apellido Paterno</label>
                         <input type="text" class="form-control" placeholder="Apellido Paterno" id="ApellidoP" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group oculto" id="apellidoM">
                         <label for="first-name">Apellido Materno</label>
                         <input type="text" class="form-control" placeholder="Apellido Materno" id="AppelidoM" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group oculto" id="divfechaN">
                         <label for="first-name">Fecha Nacimiento</label>
                         <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" required>
                     </div>
@@ -138,7 +143,7 @@
 
 
 
-                    <div class="form-group">
+                    <div class="form-group oculto" id="divestdoC">
                         <label for="estado civil">Estado Civil</label>
                         <select class="form-control" name="estadocivil" id="estadocivil">
                             <option value=""> Seleccionar </option>
@@ -153,7 +158,7 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group " id="divgenero">
                         <label>Género</label>
                         <div class="radio">
                             <label class="radio-inline">
@@ -177,9 +182,19 @@
 
 
                     <div class="form-group">
-                        <label for="first-name">Libro</label>
-                        <input type="text" class="form-control" placeholder="Libro" id="Libro" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <label for="libro">libro</label>
+                        <select class="form-control" name="estadocivil" id="estadocivil">
+                            <option value=""> Seleccionar </option>
+                            <?php
+                            foreach ($libro as $i) {
+
+                                echo ' <option value="' . $i->id_libro . '"   ' . set_select("libro", $i->id_libro) . '>' . $i->id_libro . '</option>';
+                            }
+                            ?>
+
+                        </select>
                     </div>
+
                     <div class="form-group">
                         <label for="first-name">Foja</label>
                         <input type="text" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
@@ -190,12 +205,21 @@
                         <input type="text" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" required>
                     </div>
 
-                   
+
 
                     <div class="clearfix"></div>
                     <button class="btn btn-info btn-lg btn-responsive" id="guardar"> <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
 
                 </div>
+                <div class="form-group">
+                    <label for="">Titulos</label>
+                    <select name="titlo" id="tiloid">
+                    
+                    </select>
+                </div>
+
+
+                
 
 
 
@@ -211,7 +235,39 @@
             </form>
 
 
-        </div>
+            
+            <div id="items">
+            <button id="add">Agregar Campos</button>
+                <div><input type="text" name="input[]">
+            </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+          
+
+
+
+
+
+    </div>
 
     </div>
 
@@ -223,10 +279,64 @@
         $(function() {
             $("#txt_fechaIn").datepicker();
         });
-        
+
         $(function() {
             $("#FechaIgreso").datepicker();
         });
+
+
+
+
+        $('#tipoP input').on('change', function() {
+
+            var personaT = $('input[name=optradio]:checked', '#tipoP').val()
+
+            switch (personaT) {
+
+                case "1":
+
+                    $("#divapellidoP").show();
+                    $("#apellidoM").show();
+                    $("#divfechaN").show();
+                    $("#divestdoC").show();
+                    $("#divgenero").show();
+
+
+                    break;
+
+                case "2":
+
+                    $("#divapellidoP").hide();
+                    $("#apellidoM").hide();
+                    $("#divfechaN").hide();
+                    $("#divestdoC").hide();
+                    $("#divgenero").hide();
+
+
+                    break;
+
+
+            }
+
+
+
+        });
+
+
+
+
+        //when the Add Field button is clicked
+        $("#add").click(function(e) {
+
+            $("#items").append('<div><input name="input[]" type="text" /><button class="delete">X</button></div>');
+        });
+
+        $("body").on("click", ".delete", function(e) {
+            $(this).parent("div").remove();
+        });
+
+
+        
     </script>
 </body>
 

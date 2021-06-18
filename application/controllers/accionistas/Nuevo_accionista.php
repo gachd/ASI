@@ -19,6 +19,7 @@ class nuevo_accionista extends CI_Controller
 		$this->load->library('session');
 
 		$this->load->model('model_socios');
+		$this->load->model('model_libro');
 
 
 		$this->load->model('model_persona');
@@ -61,11 +62,12 @@ class nuevo_accionista extends CI_Controller
 				$date  = "";
 
 				$data['rut'] = $rut;
-				$data['comunas']	= $this->model_persona->all_comunas($date);
-				$data['laboral']	= $this->model_persona->all_condicionlab($date);
-				$data['estado_civil']	= $this->model_persona->all_estadocivil($date);
-				$data['provincia']	= $this->model_persona->all_provincias($date);
-				$data['region']	= $this->model_persona->all_region($date);
+				$data['comunas']	= $this->model_persona->all_comunas();
+				$data['laboral']	= $this->model_persona->all_condicionlab();
+				$data['estado_civil']	= $this->model_persona->all_estadocivil();
+				$data['provincia']	= $this->model_persona->all_provincias();
+				$data['region']	= $this->model_persona->all_region();
+				$data['libro']	= $this->model_libro->all_libros();
 
 
 
