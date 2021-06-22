@@ -1,5 +1,6 @@
 <?php
 
+require_once APPPATH.'/vendor/autoload.php';
 
 
 class inicio extends CI_Controller
@@ -79,7 +80,6 @@ class inicio extends CI_Controller
 
    public function mostrarGrafico()
    {
-
       $accionistas = $this->model_accionistas->accionistas();
 
       $data = [];
@@ -117,11 +117,98 @@ class inicio extends CI_Controller
    }
 
 
-   public function listadoLibros (){
 
 
 
+
+   public function mostrarGrafico1()
+   {
+      $accionistas = $this->model_accionistas->nro_acciones_all();
+
+      $data = [];
+
+      $rango = [];
+      $nombres = [];
+
+      $i = 0;
+      $cont = 0;
+      foreach ($accionistas as $s) {
+
+         $nro_acciones = $s->nro_acciones;
+
+         if ($nro_acciones != 1) {
+
+            if ($s->prsn_apellidopaterno == '') {
+               $nombres[$i] = $s->prsn_nombres;
+               $rango[$i] = $s->numero_acciones;
+            } else {
+               $nombres[$i] = $s->prsn_nombres . ' ' . $s->prsn_apellidopaterno;
+               $rango[$i] = $s->numero_acciones;
+            }
+            $i = $i + 1;
+         } else {
+            $cont = $cont + 1;
+         }
+      }
+
+
+
+      for ($j = 0; $j < $i; $j++) {
+         $data[] = [(string)$nombres[$j], (int)$rango[$j]];
+      }
+
+      echo json_encode($data);
+   }
+
+
+   public function listadoLibros()
+   {
+   }
+
+
+
+
+
+   function informes()
+   {
+
+      $informe = "" . $this->uri->segment('4') . "";
+
+
+
+      if (empty($informe)) {
+         $informe = $this->input->post('informe');
+      }
+
+      $hoy = date("Y-m-d H:i:s");
+
+      $cabecera = "";
+      $pie = "<div>Pág {PAGENO}/{nb}</div>";
+      $orientacion = "L";
+
+
+
+      switch ($informe) {
+         case 1:
+            $data['accionista'] = $this->model_accionistas->nro_acciones_all();
+            $html = $this->load->view('accionistas/reporte_accionistaCMF', $data, true);
+            break;
+     
+         default:
+            
+            break;
+      }
+      //$html = mb_convert_encoding($html, 'UTF-8', 'ISO-8859-1');
+      ob_end_clean();
+      $html = html_entity_decode($html);
+      $mpdf = new \Mpdf\Mpdf(['debug' => true]);
+      //  $stylesheet = file_get_contents(base_url().'/assets/css/pdf.css'); // la ruta a tu css 
+      // $mpdf->WriteHTML($stylesheet,1);
+      $mpdf->AddPage($orientacion);
+      $mpdf->SetHTMLHeader($cabecera);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($html);
+      $mpdf->SetHTMLFooter($pie);
+      $mpdf->Output();
    }
 }
-
-

@@ -137,7 +137,11 @@ class socios extends CI_Controller {
     
 
 
-    if(empty($informe)) {$informe = $this->input->post('informe');}
+    if(empty($informe)) {
+      
+      $informe = $this->input->post('informe');
+      
+    }
     
 
 

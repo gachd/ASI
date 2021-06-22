@@ -78,9 +78,8 @@
 
                     <select class="form-control " name="tipo" id="select_tipo">
                       <option value="">seleccionar</option>
-                      <option value="1">Completo</option>
-                      <option value="2">Socios activos</option>
-                      <option value="3">Socios honorarios</option>
+                      <option value="1">Todos</option>
+
                     </select>
 
                   </div>
@@ -149,7 +148,7 @@
                     echo '<tr class="odd gradeX">';
                     echo '<td>' . $u->prsn_nombres . ' ' . $u->prsn_apellidopaterno . '</td>';
                     echo '<td>' . $u->fecha_emision . '</td>';
-                    echo '<td>' . $u->nro_acciones . '</td>';
+                    echo '<td>' . $u->numero_acciones . '</td>';
                   }
                 }
                 ?>
@@ -193,8 +192,9 @@
                         echo '<td>' . $s->prsn_nombres . '</td>';
                         echo '<td>' . $s->prsn_apellidopaterno . '</td>';
                         echo '<td>' . $s->prsn_apellidomaterno . '</td>';
-                        echo '<td>' . $s->nro_acciones . '</td>';
+                        echo '<td>' . $s->numero_acciones . '</td>';
                         $rut = $s->prsn_rut;
+                        
                         $titulo = $this->model_accionistas->nro_titulo($rut);
                         if (!empty($titulo)) {
                           echo '<td>';
@@ -273,7 +273,7 @@
   $("a[id=pdf]").click(function() {
     /*alert('Evento click sobre un input text con id="nombre2"');*/
     informe = $('#select_tipo').val();
-    url = "<?php echo base_url(); ?>socios/socios/informes/" + informe;
+    url = "<?php echo base_url(); ?>accionistas/inicio/informes/" + informe;
     window.open(url, '_blank');
   });
 
@@ -282,12 +282,13 @@
 
   $(document).ready(function() {
     $.ajax({
-      url: "<?php echo base_url(); ?>accionistas/inicio/mostrarGrafico",
+      url: "<?php echo base_url(); ?>accionistas/inicio/mostrarGrafico1",
       dataType: 'json',
       contentType: "application/json; charset=utf-8",
       method: "GET",
       success: function(data) {
         options.series[0].data = data;
+        console.log(data);
 
         var chart = new Highcharts.Chart(options);
         chart.setTitle({
