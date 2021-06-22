@@ -30,7 +30,7 @@ class nueva extends CI_Controller {
 		$data['subcategorias'] = $this -> model_actividades->getSubcate();
 		$data['trabajos']	=$this -> model_actividades -> getAllWORK($date);	
 		//$data['depend'] = $this -> model_actividades->getDepen();	
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('actividades/index',$data);
 		$this->load->view('plantilla/Footer');	
 
@@ -57,7 +57,7 @@ class nueva extends CI_Controller {
 		$data['subcategorias'] = $this -> model_actividades->getSubcate();
 		$data['trabajos']	=$this -> model_actividades -> getAllWORK($date);	
 		//$data['depend'] = $this -> model_actividades->getDepen();	
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('actividades/index',$data);
 		$this->load->view('plantilla/Footer');
 		}

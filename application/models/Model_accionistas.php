@@ -7,12 +7,12 @@ class model_accionistas extends CI_Model{
 	function insertar($data)
 	{
 
-		$this->db->insert('s_personas', $data);
+		$this->db->insert('s_accionista', $data);
 	}
 
 	 function accionistas(){
 
-	 	$p = $this ->db->query('SELECT  * , SUM(a.nro_acciones) as nro_acciones,t.nro_titulo from s_accionista a, s_personas p, s_titulos t where a.prsn_rut = p.prsn_rut AND a.id_titulo = t.id_titulos group by p.prsn_rut order by t.nro_titulo asc');
+	 	$p = $this ->db->query('SELECT  * from s_accionista a, s_personas p where a.prsn_rut = p.prsn_rut');
 
 		return $p -> result();
 
@@ -20,7 +20,7 @@ class model_accionistas extends CI_Model{
 
 	function nro_acciones($rut){
 
-	 	$p = $this ->db->query('SELECT SUM(a.nro_acciones) as total from s_accionista a, s_titulos t where a.prsn_rut = "'.$rut.'" AND a.id_titulo = t.id_titulos');
+	 	$p = $this ->db->query('SELECT SUM(a.nro_acciones) as total from s_accionista a, s_titulos t where a.prsn_rut = "'.$rut.'" AND ');
          $res2 = $p->result_array();
 
          $result = $res2[0]['total'];
@@ -30,14 +30,14 @@ class model_accionistas extends CI_Model{
 
 	function datos_ac($rut){
 
-	 	$p = $this ->db->query('SELECT  * from s_accionista a ,s_titulos t , s_transaccion tr where a.prsn_rut = "'.$rut.'" AND a.id_titulo = t.id_titulos  AND tr.id_accionista = a.id_accionista');
+	 	$p = $this ->db->query('SELECT  * from s_accionista a ,s_titulos t , s_transaccion tr where a.prsn_rut = "'.$rut.'"  AND tr.id_accionista = a.id_accionista');
 	 	return $p-> result();
         
 
 	}
 
 	function nro_titulo($rut){
-		$p = $this ->db->query('SELECT  t.nro_titulo from s_accionista a, s_titulos t where a.prsn_rut = "'.$rut.'" AND a.id_titulo = t.id_titulos');
+		$p = $this ->db->query('SELECT  t.nro_titulo from s_accionista a, s_titulos t where a.prsn_rut = "'.$rut.'" ');
 
 		return $p -> result();
 	}
@@ -58,9 +58,27 @@ class model_accionistas extends CI_Model{
 
 
     function ultimos(){
-    	$p = $this ->db->query('SELECT  * from s_accionista a, s_personas p, s_titulos t where a.prsn_rut = p.prsn_rut AND a.id_titulo = t.id_titulos order by t.fecha_emision desc limit 5');
+    	$p = $this ->db->query('SELECT * from s_accionista a, s_personas p where a.prsn_rut = p.prsn_rut limit 5');
     	return $p -> result();
     }
+
+	function ultimoId()
+	{
+
+		$this->db->select_max('id_accionista');
+
+		$this->db->from('s_accionista');
+
+		$query2 = $this->db->get();
+
+		// $num_rows = $query2->num_rows();
+
+		$res2 = $query2->result_array();
+
+		$result = $res2[0]['id_accionista'];
+
+		return $result;
+	}
 
 
 }

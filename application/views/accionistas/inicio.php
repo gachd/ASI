@@ -87,7 +87,7 @@
                 </form>
               </div>
               <div class="col-md-3">
-                <a href="#" title="Exportar Excel" id="pdf" class="descargar btn btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF</a>
+                <a href="#" title="Exportar PDF" id="pdf" class="descargar btn btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF</a>
 
               </div>
 
@@ -189,7 +189,7 @@
 
 
                         echo '<tr class="odd gradeX">';
-                        echo '<td>'. $s->prsn_rut . '</td>';
+                        echo '<td>' . $s->prsn_rut . '</td>';
                         echo '<td>' . $s->prsn_nombres . '</td>';
                         echo '<td>' . $s->prsn_apellidopaterno . '</td>';
                         echo '<td>' . $s->prsn_apellidomaterno . '</td>';
@@ -199,7 +199,7 @@
                         if (!empty($titulo)) {
                           echo '<td>';
                           foreach ($titulo as $t) {
-                            echo '#' . $t->nro_titulo . ' ';
+                            echo ' #' . $t->nro_titulo . ' ';
                           }
                           echo '</td>';
                         }
@@ -306,7 +306,7 @@
 
 
 
-  
+
   var options = {
     chart: {
       plotBackgroundColor: null,
@@ -369,9 +369,6 @@
     series: [{}]
 
   };
-
-
-
 </script>
 
 </html>

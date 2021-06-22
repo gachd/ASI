@@ -20,7 +20,7 @@
 		    $data['subcategoria'] = $this -> model_trabajos -> getsubcategoria($categoria);
 	        $data['sectores'] = $this -> model_trabajos->getSector();	
 		    $data['categorias'] = $this -> model_trabajos->getCategorias();	
-		    $this->load->view('plantilla/Head');
+		    $this->load->view('plantilla/Head_v1');
 		    $this->load->view('trabajos/gestion_trabajos',$data);
 		    $this->load->view('plantilla/Footer');		
 

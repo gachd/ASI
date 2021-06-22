@@ -25,7 +25,7 @@ class  inicio extends CI_Controller {
 		$data['work_categorias'] = $this -> model_trabajos->getCategorias();		
          
 		
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('reportes/inicio',$data);
 		$this->load->view('plantilla/Footer');		
 	}

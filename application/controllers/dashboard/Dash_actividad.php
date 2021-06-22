@@ -24,7 +24,7 @@ public function index()
 		$data['total_mes_cat']= $this->model_dash->toal_mes_categoria();
 		$data['total_prsns_mes']= $this->model_dash->total_prsns_mes($mes,$year);
 		
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('dashboard/dash_actividades',$data);
 		$this->load->view('plantilla/Footer');		
 	}

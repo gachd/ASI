@@ -20,7 +20,7 @@ class planificacion extends CI_Controller {
 		$data['sectores'] = $this -> model_trabajos->getSector();
 		$data['categorias'] = $this -> model_trabajos->getCategorias();	
 		
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('trabajos/planificacion',$data);
 		$this->load->view('plantilla/Footer');		
 	}	

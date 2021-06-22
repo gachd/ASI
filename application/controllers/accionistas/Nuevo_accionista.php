@@ -20,9 +20,9 @@ class nuevo_accionista extends CI_Controller
 
 		$this->load->model('model_socios');
 		$this->load->model('model_libro');
-
-
+		$this->load->model('model_titulo');
 		$this->load->model('model_persona');
+		$this->load->model('model_accionistas');
 
 
 		$this->load->helper('url');
@@ -48,7 +48,7 @@ class nuevo_accionista extends CI_Controller
 			if ($persona) {
 
 				$_POST['msj'] = '1';
-				$this->load->view('plantilla/Head');
+				$this->load->view('plantilla/Head_v1');
 
 				$this->load->view('accionistas/accionista_rut');
 
@@ -71,91 +71,124 @@ class nuevo_accionista extends CI_Controller
 
 
 
-				$this->load->view('plantilla/Head');
+				$this->load->view('plantilla/Head_v1');
 
 				$this->load->view('accionistas/nuevo_accionista', $data);
 
 				$this->load->view('plantilla/Footer');
 			}
-		}else{
-			$this->load->view('plantilla/Head');
+		} else {
+			$this->load->view('plantilla/Head_v1');
 
 			$this->load->view('accionistas/accionista_rut');
 
 			$this->load->view('plantilla/Footer');
 		}
+	}
+	public function ultimo(){
 
+		echo $Ultimo_Accionista = $this->model_accionistas->ultimoId();
+		echo $ultimo = $Ultimo_Accionista +1;
+		
+
+	
 	}
 
 
-	
 
 
 
 
 
-	public function agregarSocio()
+
+	public function agregaraccionista()
 	{
 
 
 
-		$prsn_id = $this->model_socios->ultimoId();
+		$prsn_id = $this->model_persona->ultimoId();
+		$rut = $_POST['rutP'];
+		$prsn_tipo = $this->input->post('optradio');
+
+		
 
 
 
-		$data = array(
+
+
+
+		$dataP = array(
+
 
 			'prsn_id' => $prsn_id = $prsn_id + 1,
 
-			'prsn_rut' => $rut_socio  = $this->input->post('rut'),
+			'prsn_rut' => $rut,
 
-			'prsn_apellidopaterno' => $paterno = $this->input->post('paterno'),
+			'prsn_apellidopaterno' => $paterno = $this->input->post('ApellidoP'),
 
-			'prsn_apellidomaterno' => $materno = $this->input->post('materno'),
+			'prsn_apellidomaterno' => $materno = $this->input->post('ApellidoM'),
 
 			'prsn_nombres' => $nombres = $this->input->post('nombres'),
 
-			'prsn_fechanacimi' => $fecha_nac = $this->input->post('fecha_nac'),
+			'prsn_fechanacimi' => $fecha_nac = $this->input->post('FechaN'),
 
 			'prsn_sexo' => $sexo = $this->input->post('sexo'),
 
-			'prsn_descendiente' => $desc = $this->input->post('desc'),
+			'prsn_email' => $correo = $this->input->post('Correo'),
 
-			'prsn_direccion' =>  $direc = $this->input->post('direc'),
 
-			'prsn_sectorvive' => $sector = $this->input->post('sector'),
+			'prsn_direccion' =>  $direc = $this->input->post('Direccion'),
 
-			'prsn_email' =>  $email = $this->input->post('email'),
+			'prsn_fono_movil' => $tel_cel = $this->input->post('Fono'),
 
-			'prsn_fono_casa' => $tel_fijo = $this->input->post('tel_fijo'),
 
-			'prsn_fono_movil' => $tel_cel = $this->input->post('tel_cel'),
 
-			'prsn_fono_trabajo' => $tel_emp  = $this->input->post('tel_emp'),
+			'prsn_tipo' => $prsn_tipo,
 
-			'prsn_profesion' => $prof = $this->input->post('prof'),
 
-			'prsn_tipo' => $prsn_tipo = 0,
-
-			'prsn_direccion_empresa' => $direc_emp = $this->input->post('direc_emp'),
-
-			'prsn_foto' => $prsn_foto = 0,
 
 			'prsn_fallecido' => $prsn_fallecido = 0,
 
-			'prsn_empresa' => $emp = $this->input->post('emp'),
-
-			's_nacionalidades_nac_id' => $nacionalidad = $this->input->post('nacionalidad'),
-
-			's_condicion_laboral_condlab_id' => $laboral = $this->input->post('laboral'),
 
 			's_estado_civil_estacivil_id' => $estadocivil = $this->input->post('estadocivil'), //persona natural
 
 			's_comunas_comuna_id' => $comu = $this->input->post('comu'),
 
-			'prsn_nac' => $nac = $this->input->post('nac')
+			'provincia_id' => $region = $this->input->post('provi'),
+
+			'region_id' => $region = $this->input->post('region'),
+
 		);
 
-		$this->model_socios->insertar($data);
+		$dataA = array(
+			'prsn_rut' => $rut,			
+			
+			'foja_accionista' => $foja_accionista = $this->input -> post('foja'),
+			'libro_accionista' => $libro_accionista = $this->input ->post('libro'),
+		);
+
+
+
+		
+
+		$dataT = array(
+			
+			'id_accionista'=> $Ultimo_Accionista = $this->model_accionistas->ultimoId(),
+			
+			'numero_acciones' => $num_acciones = $this->input->post('NumAcciones'),
+			
+
+
+		);
+
+
+
+		$this->model_persona->insertar($dataP);
+
+		$this->model_accionistas->insertar($dataA);
+
+		$this->model_titulo->nuevo_titulo($dataT);
+
+		redirect('accionistas/inicio');
 	}
 }

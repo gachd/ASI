@@ -1,3 +1,16 @@
+<?php 
+
+
+
+if ( isset($this->session->userdata['logueado']))
+{
+  redirect('calendario');
+
+}
+
+
+?>
+
 <!doctype html>
 <html>
 

@@ -30,7 +30,7 @@ public function index(){
 
 
 
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 
 		$this->load->view('socios/asignarCuota',$data);
 
@@ -224,7 +224,7 @@ public function buscarsocio(){
 
         //$datos = json_encode($data);
 
-       $this->load->view('plantilla/Head');
+       $this->load->view('plantilla/Head_v1');
 
        $this->load->view('socios/asignarCuotaPago',$data);
 

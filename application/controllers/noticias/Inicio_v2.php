@@ -13,7 +13,7 @@ function __construct() {
 	
 	public function index(){
 		$noti['noti'] = $this->model_noticias->getNoticias();
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('noticias/noticias',$noti);
 		$this->load->view('plantilla/Footer');		
 

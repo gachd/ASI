@@ -26,7 +26,7 @@ public function index(){
 	    
         $data['activos'] = $this -> model_socios -> sociosActivos();
         $data['honorario'] = $this -> model_socios -> sociosHonorarios();
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 
 		$this->load->view('socios/dashboard',$data);
 

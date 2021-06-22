@@ -11,7 +11,7 @@
 	
 	public function index(){
 		$data['pendientes'] = $this -> model_actividades ->autorizar_actividad();	
-			$this->load->view('plantilla/Head');
+			$this->load->view('plantilla/Head_v1');
 		$this->load->view('actividades/autorizacion',$data);
 		$this->load->view('plantilla/Footer');		
 		

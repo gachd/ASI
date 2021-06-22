@@ -26,7 +26,7 @@ public function index(){
 	    
         $data['agenda'] = $this -> model_socios -> agendaSocios();
         
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('socios/agenda',$data);
 		$this->load->view('plantilla/Footer');		
 

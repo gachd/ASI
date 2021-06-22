@@ -46,9 +46,29 @@ class model_persona extends CI_Model
         $region = $this->db->get('s_regiones');
         return $region->result();
     }
+
+    
     function insertar($data)
     {
 
         $this->db->insert('s_personas', $data);
     }
+
+    function ultimoId()
+		{
+
+			$this->db->select_max('prsn_id');
+
+			$this->db->from('s_personas');
+
+			$query2 = $this->db->get();
+
+			// $num_rows = $query2->num_rows();
+
+			$res2 = $query2->result_array();
+
+			$result = $res2[0]['prsn_id'];
+
+			return $result;
+		}
 }

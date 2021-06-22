@@ -17,7 +17,7 @@ class inicio extends CI_Controller {
 	public function index(){
 		$data['sector']=$this->model_dependencias->getSector();
 		//$data['tipo_vegetacion']=$this->model_dependencias->tipo_vegetacion();
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('dependencias/inicio',$data);
 		$this->load->view('plantilla/Footer');		
 
@@ -533,7 +533,7 @@ if(!empty($trabajos)){
 		if($this -> form_validation -> run() === false){
 		$data['sector']=$this->model_dependencias->getSector();
 		$data['tipo_vegetacion']=$this->model_dependencias->tipo_vegetacion();
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('dependencias/inicio',$data);
 		$this->load->view('plantilla/Footer');	
 			}

@@ -20,7 +20,7 @@
 		$date  = "";
 		$data['query'] = $this -> model_actividades ->getAll($date);
 		$data['trabajos']	=$this -> model_actividades -> getAllWORK($date);	
-		$this->load->view('plantilla/Head');
+		$this->load->view('plantilla/Head_v1');
 		$this->load->view('actividades/calendario',$data);
 		$this->load->view('plantilla/Footer');	
 		}

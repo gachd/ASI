@@ -68,7 +68,7 @@ class inicio extends CI_Controller
       $data['cont'] = $cont;
 
 
-      $this->load->view('plantilla/Head');
+      $this->load->view('plantilla/Head_v1');
 
       $this->load->view('accionistas/inicio', $data);
 
