@@ -4,7 +4,7 @@
 
 if ( isset($this->session->userdata['logueado']))
 {
-  redirect('calendario');
+  redirect('accionistas/inicio');
 
 }
 

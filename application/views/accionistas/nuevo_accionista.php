@@ -31,7 +31,7 @@
             <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionista" method="post">
                 <div class="container" id="advanced-search-form">
                     <h2>Datos Personales</h2>
-                    
+
 
 
                     <div class="form-group">
@@ -60,16 +60,16 @@
 
                     <div class="form-group oculto" id="divapellidoP">
                         <label for="first-name">Apellido Paterno</label>
-                        <input type="text" class="form-control" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" class="form-control" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
                     <div class="form-group oculto" id="apellidoM">
                         <label for="first-name">Apellido Materno</label>
-                        <input type="text" class="form-control" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM"  onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" class="form-control" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group oculto" id="divfechaN">
                         <label for="first-name">Fecha Nacimiento</label>
-                        <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN" >
+                        <input type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
                     </div>
 
                     <div class="form-group">
@@ -157,7 +157,7 @@
                         <label>Género</label>
                         <div class="radio">
                             <label class="radio-inline">
-                                <input type="radio" name="sexo" value="1" >Masculino</label>
+                                <input type="radio" name="sexo" value="1">Masculino</label>
                             <label class="radio-inline">
                                 <input type="radio" name="sexo" value="0">Femenino</label>
                         </div>
@@ -192,39 +192,28 @@
 
                     <div class="form-group">
                         <label for="first-name">Foja</label>
-                        <input type="text"  name ="foja"class="form-control" placeholder="Foja" id="Foja" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
-                        <label for="first-name">Fecha Ingreso</label>
-                        <input type="text" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso"  name= "fechaIng"required>
+                        <label ">Fecha Ingreso</label>
+                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" required>
                     </div>
                     <div class="form-group " id="tipoAccion">
-                        <label>Tipo de Accio</label>
+                        <label>Tipo de Accion</label>
                         <div class="radio">
                             <label class="radio-inline">
                                 <input type="radio" name="optaccion" value="1" required>Nueva</label>
-                      
+
                         </div>
                     </div>
                     <div class="form-group">
                         <label ">Numero de Acciones</label>
-                        <input type="number" class="form-control" placeholder="Numero acciones" name="NumAcciones" id="numacciones" required>
+                        <input type=" number" class="form-control" placeholder="Numero acciones" name="NumAcciones" id="numacciones" required>
                     </div>
-                    <div class="form-group oculto">
-                        <label for="provincia">Titulo anterior</label>
 
-                        <select class="form-control" name="anteriorT" id="provi" >
-                            <option value=""> Seleccionar </option>
-                            <?php
-                            foreach ($provincia as $i) {
 
-                                echo ' <option value="' . $i->provincia_id  . '" ' . set_select("provincia", $i->provincia_id) . '>' . $i->provincia_nombre . '</option>';
-                            }
 
-                            ?>
-                        </select>
-                    </div>
 
 
 
@@ -232,115 +221,275 @@
                     <div class="clearfix"></div>
                     <button class="btn btn-info btn-lg btn-responsive" id="guardar"> <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
 
+
+
+
                 </div>
             </form>
 
 
 
 
-        </div>
+            <div class="container" id="advanced-search-form">
 
-        <div id="items" class="oculto">
-            <button id="add">Agregar Campos</button>
-            <div><input type="text" name="input[]">
+
+                <div class="aditional-questions aditionals text">
+                    <div class="aditional-box duplicate-btn">
+                        <p class="aditional-text" for="">Pregunta
+                            <a class="btn btn-primary agregar add" href="javascript: void(0)" type="button"><span></span>Agregar</a>
+                        </p>
+                    </div>
+                    <div class="duplicate all">
+                        <div class="up-box-question" style="text-align: center">
+                            <a class="remove-aditional" href="javascript: void(0)"><span class="glyphicon glyphicon-trash icon"></span></a>
+                        </div>
+                        <div class="box-question" style="text-align: center">
+                            <div class="row">
+                                <label class="type-question-text">Tipo de Pregunta</label>
+                                <div class="col-md-12">
+                                    <select class="form-control select" name="">
+                                        <option value="1">Text</option>
+                                        <option value="2">Verificar</option>
+                                    </select>
+                                </div>
+                                <div class="row ocultar">
+                                    <div class="col-md-12">
+                                        <label class="type-question-text" for="">Titulo</label>
+
+                                        <div class="form-group">
+                                            <input type="text" id="" class="form-control text general" placeholder="Número de indentificación">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row verificar">
+                                    <div class="text option" style="margin-top:10px; text-align: center">
+                                        <a class="btn btn-primary addRow" href="javascript: void(0)" type="button"><span></span>Agregar Opcion</a>
+                                    </div>
+                                    <br>
+                                    <div class="optionRow">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
             </div>
         </div>
 
-        <script type="text/javascript">
-            $(function() {
-                $("#FechaN").datepicker();
-            });
 
-            $(function() {
-                $("#txt_fechaIn").datepicker();
-            });
 
-            $(function() {
-                $("#FechaIgreso").datepicker();
-            });
+
+    </div>
+
+    <script type="text/javascript">
+       
 
 
 
 
-            $('#tipoP input').on('change', function() {
 
-                var personaT = $('input[name=optradio]:checked', '#tipoP').val()
-
-                switch (personaT) {
-
-                    case "1":
-
-                        $("#divapellidoP").show();
-                        $("#apellidoM").show();
-                        $("#divfechaN").show();
-                        $("#divestdoC").show();
-                        $("#divgenero").show();
-
-
-                        break;
-
-                    case "2":
-
-                        $("#divapellidoP").hide();
-                        $("#apellidoM").hide();
-                        $("#divfechaN").hide();
-                        $("#divestdoC").hide();
-                        $("#divgenero").hide();
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '< Ant',
+            nextText: 'Sig >',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércole xs', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
 
 
-                        break;
 
 
-                }
 
 
+        $(function() {
+
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+
+            $("#FechaN").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0"
 
             });
+            $("#FechaIgreso").datepicker({
+                dateFormat: "yy-mm-dd",
+
+
+            });;
+        });
+
+
+
+        $('#tipoP input').on('change', function() {
+
+            var personaT = $('input[name=optradio]:checked', '#tipoP').val()
+
+            switch (personaT) {
+
+                case "1":
+
+                    $("#divapellidoP").show();
+                    $("#apellidoM").show();
+                    $("#divfechaN").show();
+                    $("#divestdoC").show();
+                    $("#divgenero").show();
+
+
+                    break;
+
+                case "2":
+
+                    $("#divapellidoP").hide();
+                    $("#apellidoM").hide();
+                    $("#divfechaN").hide();
+                    $("#divestdoC").hide();
+                    $("#divgenero").hide();
+
+
+                    break;
+
+
+            }
+
+
+
+        });
 
 
 
 
-            //when the Add Field button is clicked
-            $("#add").click(function(e) {
 
-                $("#items").append('<div><input name="input[]" type="text" /><button class="delete">X</button></div>');
+
+
+
+
+
+        //Cambio del fomulario segun accion nuevo o cedida
+
+        $('#tipoAccion input').on('change', function() {
+
+            var accionT = $('input[name=optaccion]:checked', '#tipoAccion').val()
+
+            switch (accionT) {
+
+                case "1":
+
+
+
+
+                    break;
+
+                case "2":
+
+
+
+
+
+                    break;
+
+
+            }
+
+
+
+        });
+
+
+
+
+
+
+
+        $(document).ready(function() {
+
+            $('.verificar').hide();
+            $('.duplicate').hide();
+
+            var count = 2;
+
+            //duplicate
+            $('a.add').on('click', function() {
+
+                //clone
+                var row = $('.duplicate').clone();
+                $(row).insertAfter('.duplicate-btn');
+                $(row).show();
+
+                //add new ids
+                $(row).find('select').attr('id', 'select_' + count);
+                $(row).find('verificar').attr('id', 'verificar_' + count);
+
+                //remove duplicate class
+                $(row).removeClass('duplicate');
+
+                //onchange of select
+                $('select').on('change', function() {
+
+                    var value = $(this).val();
+                    var select = $(this).parent();
+                    if (value == 1) {
+                        $(select).siblings('.inputed').show();
+                        $(select).siblings('.ocultar').hide();
+                    } else {
+                        $(select).siblings('.inputed').hide();
+
+                    }
+                    if (value == 2) {
+                        $(select).siblings('.ocultar').show();
+                        $(select).siblings('.verificar').show();
+                    } else {
+                        $(select).siblings('.verificar').hide();
+                        $(select).siblings('.ocultar').show();
+                    }
+
+                });
+
+                //click of remove pregunta
+                $(".up-box-question").on("click", ".remove-aditional", function() {
+
+                    $(this).closest(".all").remove();
+
+                });
+
+                $(".optionRow").on("click", ".remove-option", function() {
+
+                    $(this).closest(".option-row").remove();
+
+                });
+                //Agrega opciones
+                $(".addRow").unbind("click");
+
+
+                $(".addRow").click(function() {
+                    var html = "<div class='option-row' id='rowtk" + count + "'><div class='form-group'><div class='input-group select'><input type='text' class='form-control' placeholder='Añade opción' /><span class='input-group-btn'><button class='btn btn-primary remove-option' type='button'><a class='remove-tipe' href='javascript: void(0)'><span class='glyphicon glyphicon-trash' style='color:white'></span></a></button></span></div></div></div>";
+
+                    var form = $(html);
+
+                    $(this).closest(".verificar").find(".optionRow").append(form);
+
+                });
             });
+            count++;
 
-            $("body").on("click", ".delete", function(e) {
-                $(this).parent("div").remove();
-            });
-
-
-                //Cambio del fomulario segun accion nuevo o cedida
-
-            $('#tipoAccion input').on('change', function() {
-
-                var accionT = $('input[name=optaccion]:checked', '#tipoAccion').val()
-
-                switch (accionT) {
-
-                    case "1":
-
-                       
-
-
-                        break;
-
-                    case "2":
-
-                        
-                     
-
-
-                        break;
-
-
-                }
-
-
-
-            });
-        </script>
+        });
+    </script>
 </body>
 
 </html>

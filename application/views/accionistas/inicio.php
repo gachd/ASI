@@ -116,20 +116,20 @@
 
               <tr class="bg-primary">
                 <td>Suscritas</td>
-                <td><strong><?php echo $suscritas ?></strong></td>
+                <td>Total de acciones</td>
               </tr>
               <tr class="bg-success">
                 <td>Emitidas</td>
-                <td><strong><?php echo $emitidas ?></strong></td>
+                <td><strong>
+                    <div class="col-md-7"><?php echo $emitidas ?> </div>
+                  </strong></td>
               </tr>
               <tr class="bg-warning">
                 <td>Saldo acciones suscritas</td>
-                <td><strong><?php echo $saldo ?></strong></td>
+                <td></td>
               </tr>
-              <tr class="bg-danger">
-                <td>Por emitir</td>
-                <td><strong><?php echo $cont ?></strong></td>
-              </tr>
+
+
             </table>
 
           </div>
@@ -137,7 +137,7 @@
             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
               <thead class="thead-light">
                 <tr>
-                  <th width="40%">Accionista</th>
+                  <th width="40%">Accionist </th>
                   <th>Fecha</th>
                   <th># Acciones</th>
                 </tr>
@@ -168,51 +168,91 @@
             </div>
             <div class="panel-body">
               <div class="table-responsive">
-                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
                   <thead>
                     <tr>
 
-                      <th width="15%">Rut</th>
-                      <th width="14%">Nombre</th>
-                      <th width="14%">Apellido Paterno</th>
-                      <th width="14%">Apellido Materno</th>
-                      <th width="14%">Cantidad Acciones</th>
-                      <th width="8%">N° Título</th>
+                      <th>Rut</th>
+                      <th>Nombre</th>
+                      <th>Apellido Paterno</th>
+                      <th>Apellido Materno</th>
+                      <th>Cantidad Acciones</th>
+                      <th>N° Título </th>
+                      <th>Acciones </th>
 
 
                     </tr>
                   </thead>
                   <tbody>
-                    <?php if (!empty($accionistas)) {
-                      foreach ($accionistas as $s) {
+                    <?php foreach ($accionistas as $s) { 
 
 
-                        echo '<tr class="odd gradeX">';
-                        echo '<td>' . $s->prsn_rut . '</td>';
-                        echo '<td>' . $s->prsn_nombres . '</td>';
-                        echo '<td>' . $s->prsn_apellidopaterno . '</td>';
-                        echo '<td>' . $s->prsn_apellidomaterno . '</td>';
-                        echo '<td>' . $s->numero_acciones . '</td>';
-                        $rut = $s->prsn_rut;
-                        
-                        $titulo = $this->model_accionistas->nro_titulo($rut);
-                        if (!empty($titulo)) {
-                          echo '<td>';
-                          foreach ($titulo as $t) {
-                            echo ' #' . $t->nro_titulo . ' ';
-                          }
-                          echo '</td>';
+                      echo '<tr class="odd gradeX">';
+                      echo '<td><div class="col-md-7">' . $s->prsn_rut . '</div><div class="col-md-4"><a  href=inicio/editar/' . $s->id_accionista . '><span class="ico badge badge-info">Editar</span></a></div></td>';
+                      echo '<td><div class="col-md-7">' . $s->prsn_nombres . '</td>';
+                      echo '<td><div class="col-md-7">' . $s->prsn_apellidopaterno . '</td>';
+                      echo '<td><div class="col-md-7">' . $s->prsn_apellidomaterno . '</td>';
+                      echo '<td><div class="col-md-7">' . $s->numero_acciones . '</td>';
+                      $rut = $s->prsn_rut;
+
+                      $titulo = $this->model_accionistas->nro_titulo($rut);
+                      if (!empty($titulo)) {
+                        echo '<td>';
+                        foreach ($titulo as $t) {
+                          echo ' #' . $t->nro_titulo . ' ';
                         }
-
-
-
-                        echo '</tr>';
+                        echo '</td>';
                       }
+
+                      echo '<td>                                  
+                        
+                        <a href=editar/
+                         class="btn btn-primary" 
+                          data-toggle="modal" 
+                          data-target="#exampleModal" 
+                          data-id="@mdo"
+
+                          >Editar</a>                        
+                        </br>
+                        <a href="">Baja </a>
+                        </td>';
+
+
+
+                      echo '</tr>';
                     }
+
                     ?>
+                    <a href=""></a>
 
                   </tbody>
                 </table>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="form-group">
+                            <label for="recipient-name" class="control-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="control-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -220,6 +260,10 @@
       </div>
     </div>
   </div>
+
+
+
+
   <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -240,7 +284,62 @@
 
 
 </body>
+
+
+
+
+
+
 <script type="text/javascript">
+
+
+
+
+
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+
+
+
+
+  $(document).ready(function() {
+    $('#grid').DataTable({
+      "oLanguage": {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+          "sFirst": "Primero",
+          "sLast": "Último",
+          "sNext": "Siguiente",
+          "sPrevious": "Anterior"
+        },
+        "oAria": {
+          "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+      }
+    });
+  });
+
+
   $("#menuprincipal").click(function() {
     window.location.href = "<?php echo base_url(); ?>socios/inicio";
   });
@@ -248,27 +347,6 @@
     window.location.href = "<?php echo base_url(); ?>accionistas/nuevo_accionista";
   });
 
-  function detallePagos(rut) {
-    var rutSocio = rut;
-
-    $.ajax({ //empieza funcion que envia valores a controlador
-
-      cache: false,
-
-      type: "POST",
-
-      data: {
-        "rut": rutSocio
-      },
-
-      url: "<?php echo base_url() ?>socios/socios/detallePagos",
-
-      success: function(data) {
-
-
-      }
-    });
-  }
 
   $("a[id=pdf]").click(function() {
     /*alert('Evento click sobre un input text con id="nombre2"');*/

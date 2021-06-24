@@ -173,9 +173,11 @@ class nuevo_accionista extends CI_Controller
 
 		$dataT = array(
 			
-			'id_accionista'=> $Ultimo_Accionista = $this->model_accionistas->ultimoId(),
+			'id_accionista'=> $prsn_id,
 			
 			'numero_acciones' => $num_acciones = $this->input->post('NumAcciones'),
+
+			'fecha' => $fecha_titulo = $this->input->post('NumAcciones'),
 			
 
 

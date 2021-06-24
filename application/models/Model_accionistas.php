@@ -12,7 +12,7 @@ class model_accionistas extends CI_Model{
 
 	 function accionistas(){
 
-	 	$p = $this ->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY  t.id_accionista');
+	 	$p = $this ->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_titulos t, s_personas p WHERE t.estado = "1" AND a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY t.id_accionista');
 
 		return $p -> result();
 
@@ -20,7 +20,7 @@ class model_accionistas extends CI_Model{
 
 	function nro_acciones($rut){
 
-	 	$p = $this ->db->query('SELECT SUM(t.numero_acciones) as total FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.prsn_rut = "'.$rut.'"  ');
+	 	$p = $this ->db->query('SELECT SUM(t.numero_acciones) as total FROM s_accionista a, s_titulos t, s_personas p WHERE t.estado = "1" a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.prsn_rut = "'.$rut.'"  ');
          $res2 = $p->result_array();
 
          $result = $res2[0]['total'];
@@ -52,16 +52,16 @@ class model_accionistas extends CI_Model{
 
 	function suscritas(){
 
-		$p = $this ->db->query('SELECT * from s_acciones');
+		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as suscritas FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista');
 		return $p -> result();
 	}
 
 
-	function poremitir(){
+	// function poremitir(){
 
-		$p = $this ->db->query('SELECT count(estado) as cont from s_titulos where estado = 0');
-		return $p -> result();
-	}
+	// 	$p = $this ->db->query('SELECT count(estado) as cont from s_titulos where estado = 0');
+	// 	return $p -> result();
+	// }
 
 
     function ultimos(){

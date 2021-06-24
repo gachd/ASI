@@ -48,25 +48,23 @@ class inicio extends CI_Controller
 
       $data['accionistas'] = $this->model_accionistas->accionistas();
       $data['ultimos'] = $this->model_accionistas->ultimos();
-      $suscritas = $this->model_accionistas->suscritas();
+      $emitidas = $this->model_accionistas->suscritas();
 
-      foreach ($suscritas as $s) {
+      foreach ($emitidas as $s) {
 
-         $capital = $s->capital;
-         $actual = $s->total_actual;
-         $emitidas = $capital - $actual;
-      }
-      $poremitir = $this->model_accionistas->poremitir();
-      foreach ($poremitir as $p) {
-
-         $cont = $p->cont;
+         $capital = $s->suscritas;
+   
       }
 
+      // $poremitir = $this->model_accionistas->poremitir();
+      // foreach ($poremitir as $p) {
 
-      $data['suscritas'] = $capital;
-      $data['saldo'] = $actual;
-      $data['emitidas'] = $emitidas;
-      $data['cont'] = $cont;
+      //    $cont = $p->cont;
+      // }
+
+
+      $data['emitidas'] = $capital;
+    
 
 
       $this->load->view('plantilla/Head_v1');
@@ -78,43 +76,43 @@ class inicio extends CI_Controller
 
 
 
-   public function mostrarGrafico()
-   {
-      $accionistas = $this->model_accionistas->accionistas();
+   // public function mostrarGrafico()
+   // {
+   //    $accionistas = $this->model_accionistas->accionistas();
 
-      $data = [];
+   //    $data = [];
 
-      $rango = [];
-      $nombres = [];
+   //    $rango = [];
+   //    $nombres = [];
 
-      $i = 0;
-      $cont = 0;
-      foreach ($accionistas as $s) {
+   //    $i = 0;
+   //    $cont = 0;
+   //    foreach ($accionistas as $s) {
 
-         $nro_acciones = $s->nro_acciones;
+   //       $nro_acciones = $s->nro_acciones;
 
-         if ($nro_acciones != 1) {
-            $rango[$i] = $nro_acciones;
-            if ($s->prsn_apellidopaterno == '') {
-               $nombres[$i] = $s->prsn_nombres;
-            } else {
-               $nombres[$i] = $s->prsn_nombres . ' ' . $s->prsn_apellidopaterno;
-            }
-            $i = $i + 1;
-         } else {
-            $cont = $cont + 1;
-         }
-      }
+   //       if ($nro_acciones != 1) {
+   //          $rango[$i] = $nro_acciones;
+   //          if ($s->prsn_apellidopaterno == '') {
+   //             $nombres[$i] = $s->prsn_nombres;
+   //          } else {
+   //             $nombres[$i] = $s->prsn_nombres . ' ' . $s->prsn_apellidopaterno;
+   //          }
+   //          $i = $i + 1;
+   //       } else {
+   //          $cont = $cont + 1;
+   //       }
+   //    }
 
-      $rango[$i] = $cont;
-      $nombres[$i] = 'MINORITARIOS';
-      $i = $i + 1;
-      for ($j = 0; $j < $i; $j++) {
-         $data[] = [(string)$nombres[$j], (int)$rango[$j]];
-      }
+   //    $rango[$i] = $cont;
+   //    $nombres[$i] = 'MINORITARIOS';
+   //    $i = $i + 1;
+   //    for ($j = 0; $j < $i; $j++) {
+   //       $data[] = [(string)$nombres[$j], (int)$rango[$j]];
+   //    }
 
-      echo json_encode($data);
-   }
+   //    echo json_encode($data);
+   // }
 
 
 
@@ -161,8 +159,10 @@ class inicio extends CI_Controller
    }
 
 
-   public function listadoLibros()
+   public function editar($id_accionista)
    {
+
+      echo $id_accionista;
    }
 
 
@@ -184,7 +184,7 @@ class inicio extends CI_Controller
 
       $cabecera = "";
       $pie = "<div>Pág {PAGENO}/{nb}</div>";
-      $orientacion = "L";
+      $orientacion = "P";
 
 
 

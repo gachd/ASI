@@ -2687,36 +2687,37 @@
 
   $("select[name=SocPa]").change(function() {
 
-    //    alert($('select[name=SocPa]').val());
+     alert($('select[name=SocPa]').val());
 
     // agregarSocPat();
 
-
-
-
-
     var cont = 1;
-
     var numFilas = $("#tablePat tr").length;
-
     cont = numFilas + cont;
 
     if (cont < 3) {
 
-      var text = $('#SocPa').find(':selected').text(); //Capturo el Nombre del parentesco- Texto dentro del Select
+      var text = $('#SocPa').find(':selected').text(); //Captura el Nombre del ptroinador- Texto dentro del Select
+      var sel = $('#SocPa').find(':selected').val(); //captura el value= rut del selecct patrocinador
 
-      var sel = $('#SocPa').find(':selected').val();
       if (sel != 0) {
         if (cont == 2) {
+
+
           if ($('#Soc2').length > 0) {
+
             $('#Soc2').attr('id', 'Soc1');
+
           }
+
+
           var children = document.getElementById('Soc1').getElementsByTagName('td')[1].innerHTML;
 
         }
 
-        if (sel !== children) {
 
+
+        if (sel !== children) {
           var newtr = '<tr class="Soc" id="Soc' + cont + '"  data-id="' + cont + '"  >';
 
           newtr = newtr + '<td id="nom_Soc" class="iSoc" >' + text + '</td>';

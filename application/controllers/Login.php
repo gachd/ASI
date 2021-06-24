@@ -32,7 +32,7 @@ class Login extends CI_Controller
 				$this->session->set_userdata($usuario_data);
 
 
-				redirect(base_url() . 'calendario');
+				redirect(base_url() . 'accionistas/inicio');
 			} else {
 
 				$_POST['msj'] = '1';
