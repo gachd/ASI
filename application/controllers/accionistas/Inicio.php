@@ -1,6 +1,6 @@
 <?php
 
-require_once APPPATH.'/vendor/autoload.php';
+require_once APPPATH . '/vendor/autoload.php';
 
 
 class inicio extends CI_Controller
@@ -17,11 +17,19 @@ class inicio extends CI_Controller
 
       $this->load->model('model_reportes');
 
+      $this->load->model('model_socios');
+      $this->load->model('model_libro');
+      $this->load->model('model_titulo');
+      $this->load->model('model_persona');
+      $this->load->model('model_accionistas');
+
       $this->load->model('model_trabajos');
 
       $this->load->model('model_turnos');
 
       $this->load->model('model_actividades');
+      $this->load->model('model_sa');
+
 
       $this->load->model('model_socios');
       $this->load->model('model_accionistas');
@@ -48,23 +56,28 @@ class inicio extends CI_Controller
 
       $data['accionistas'] = $this->model_accionistas->accionistas();
       $data['ultimos'] = $this->model_accionistas->ultimos();
-      $emitidas = $this->model_accionistas->suscritas();
-
-      foreach ($emitidas as $s) {
-
-         $capital = $s->suscritas;
-   
-      }
-
-      // $poremitir = $this->model_accionistas->poremitir();
-      // foreach ($poremitir as $p) {
-
-      //    $cont = $p->cont;
-      // }
 
 
-      $data['emitidas'] = $capital;
-    
+      $emitidas = $this->model_accionistas->totalemitidas();
+      $totalemitidas = $emitidas[0]->total_emitidas;
+      $data['emitidas'] = $totalemitidas;
+
+
+      $sa = $this->model_sa->datos_sa();
+      $total_acciones = $sa[0]->Acciones;
+      $data['sa'] = $total_acciones;
+
+      $saldo =  $total_acciones - $totalemitidas;
+
+      $data['saldo'] = $saldo;
+
+
+
+
+
+
+
+
 
 
       $this->load->view('plantilla/Head_v1');
@@ -159,11 +172,26 @@ class inicio extends CI_Controller
    }
 
 
-   public function editar($id_accionista)
+   public function editar($id)
+
    {
 
-      echo $id_accionista;
+      $data['accionista'] = $this->model_accionistas->datosaccionista($id);
+
+      $data['comunas']   = $this->model_persona->all_comunas();
+      $data['laboral']   = $this->model_persona->all_condicionlab();
+      $data['estado_civil']   = $this->model_persona->all_estadocivil();
+      $data['provincia']   = $this->model_persona->all_provincias();
+      $data['region']   = $this->model_persona->all_region();
+
+
+
+
+
+
+      $this->load->view('accionistas/update_accionista', $data);
    }
+
 
 
 
@@ -190,12 +218,16 @@ class inicio extends CI_Controller
 
       switch ($informe) {
          case 1:
-            $data['accionista'] = $this->model_accionistas->nro_acciones_all();
+            $data['accionista'] = $this->model_accionistas->accionistas_alfabetico();
             $html = $this->load->view('accionistas/reporte_accionistaCMF', $data, true);
             break;
-     
+         case 2:
+            $data['accionista'] = $this->model_accionistas->accionistas_mayoritarios();
+            $html = $this->load->view('accionistas/reporte_mayoritarios', $data, true);
+            break;
+
          default:
-            
+
             break;
       }
       //$html = mb_convert_encoding($html, 'UTF-8', 'ISO-8859-1');

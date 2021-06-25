@@ -58,12 +58,14 @@
       <div class="row well">
 
         <div class="content-box-large">
-          <div class="col-md-2">
-            <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
-          </div>
-          <div class="col-md-2">
+          
+          <div class="col-md-1">
             <button type="button" class="btn btn-success" id="newaccionista"><span class="badge"><i class="glyphicon glyphicon-plus"></i> Nuevo <br> Accionista</span></button>
           </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-primary" id="titulos"><span class="badge"><i class="glyphicon glyphicon-plus"></i> Titulos <br> Accionista</span></button>
+          </div>
+
           <div class="col-md-6">
             <nav class="navbar navbar-default nav-titulo">
               <div class="col-md-3">
@@ -79,6 +81,7 @@
                     <select class="form-control " name="tipo" id="select_tipo">
                       <option value="">seleccionar</option>
                       <option value="1">Todos</option>
+                      <option value="2">Mayoritarios</option>
 
                     </select>
 
@@ -116,17 +119,17 @@
 
               <tr class="bg-primary">
                 <td>Suscritas</td>
-                <td>Total de acciones</td>
+                <td><?php echo $sa ?></td>
               </tr>
               <tr class="bg-success">
                 <td>Emitidas</td>
                 <td><strong>
-                    <div class="col-md-7"><?php echo $emitidas ?> </div>
+                    <?php echo $emitidas ?>
                   </strong></td>
               </tr>
               <tr class="bg-warning">
                 <td>Saldo acciones suscritas</td>
-                <td></td>
+                <td><?php echo $saldo ?></td>
               </tr>
 
 
@@ -137,18 +140,20 @@
             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
               <thead class="thead-light">
                 <tr>
-                  <th width="40%">Accionist </th>
+                  <th width="40%">Accionistas </th>
                   <th>Fecha</th>
                   <th># Acciones</th>
                 </tr>
               </thead>
               <tbody>
+              
                 <?php if (!empty($ultimos)) {
+                  
                   foreach ($ultimos as $u) {
                     echo '<tr class="odd gradeX">';
                     echo '<td>' . $u->prsn_nombres . ' ' . $u->prsn_apellidopaterno . '</td>';
-                    echo '<td>' . $u->fecha_emision . '</td>';
-                    echo '<td>' . $u->numero_acciones . '</td>';
+                    echo '<td>' . $u->fecha . '</td>';
+                    echo '<td>' . $u->accionesA . '</td>';
                   }
                 }
                 ?>
@@ -178,7 +183,7 @@
                       <th>Apellido Materno</th>
                       <th>Cantidad Acciones</th>
                       <th>N° Título </th>
-                      <th>Acciones </th>
+                      
 
 
                     </tr>
@@ -204,20 +209,7 @@
                         echo '</td>';
                       }
 
-                      echo '<td>                                  
-                        
-                        <a href=editar/
-                         class="btn btn-primary" 
-                          data-toggle="modal" 
-                          data-target="#exampleModal" 
-                          data-id="@mdo"
-
-                          >Editar</a>                        
-                        </br>
-                        <a href="">Baja </a>
-                        </td>';
-
-
+                   
 
                       echo '</tr>';
                     }
@@ -227,32 +219,7 @@
 
                   </tbody>
                 </table>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
-                      </div>
-                      <div class="modal-body">
-                        <form>
-                          <div class="form-group">
-                            <label for="recipient-name" class="control-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                          </div>
-                          <div class="form-group">
-                            <label for="message-text" class="control-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -297,15 +264,6 @@
 
 
 
-$('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body input').val(recipient)
-})
 
 
 
@@ -340,8 +298,9 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   });
 
 
-  $("#menuprincipal").click(function() {
-    window.location.href = "<?php echo base_url(); ?>socios/inicio";
+
+  $("#titulos").click(function() {
+    window.location.href = "<?php echo base_url(); ?>accionistas/titulos";
   });
   $("#newaccionista").click(function() {
     window.location.href = "<?php echo base_url(); ?>accionistas/nuevo_accionista";

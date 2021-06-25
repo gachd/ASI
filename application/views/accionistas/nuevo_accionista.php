@@ -177,7 +177,7 @@
 
 
                     <div class="form-group">
-                        <label for="libro">libro</label>
+                        <label for="libro">Libro</label>
                         <select class="form-control" name="libro" id="libro">
                             <option value=""> Seleccionar </option>
                             <?php
@@ -199,7 +199,7 @@
                         <label ">Fecha Ingreso</label>
                         <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" required>
                     </div>
-                    <div class="form-group " id="tipoAccion">
+                    <!-- <div class="form-group " id="tipoAccion">
                         <label>Tipo de Accion</label>
                         <div class="radio">
                             <label class="radio-inline">
@@ -210,7 +210,7 @@
                     <div class="form-group">
                         <label ">Numero de Acciones</label>
                         <input type=" number" class="form-control" placeholder="Numero acciones" name="NumAcciones" id="numacciones" required>
-                    </div>
+                    </div> -->
 
 
 
@@ -233,47 +233,7 @@
             <div class="container" id="advanced-search-form">
 
 
-                <div class="aditional-questions aditionals text">
-                    <div class="aditional-box duplicate-btn">
-                        <p class="aditional-text" for="">Pregunta
-                            <a class="btn btn-primary agregar add" href="javascript: void(0)" type="button"><span></span>Agregar</a>
-                        </p>
-                    </div>
-                    <div class="duplicate all">
-                        <div class="up-box-question" style="text-align: center">
-                            <a class="remove-aditional" href="javascript: void(0)"><span class="glyphicon glyphicon-trash icon"></span></a>
-                        </div>
-                        <div class="box-question" style="text-align: center">
-                            <div class="row">
-                                <label class="type-question-text">Tipo de Pregunta</label>
-                                <div class="col-md-12">
-                                    <select class="form-control select" name="">
-                                        <option value="1">Text</option>
-                                        <option value="2">Verificar</option>
-                                    </select>
-                                </div>
-                                <div class="row ocultar">
-                                    <div class="col-md-12">
-                                        <label class="type-question-text" for="">Titulo</label>
-
-                                        <div class="form-group">
-                                            <input type="text" id="" class="form-control text general" placeholder="Número de indentificación">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row verificar">
-                                    <div class="text option" style="margin-top:10px; text-align: center">
-                                        <a class="btn btn-primary addRow" href="javascript: void(0)" type="button"><span></span>Agregar Opcion</a>
-                                    </div>
-                                    <br>
-                                    <div class="optionRow">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
 
 
 
@@ -325,7 +285,7 @@
                 dateFormat: "yy-mm-dd",
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "-100:+0"
+                yearRange: "-100:-18"
 
             });
             $("#FechaIgreso").datepicker({

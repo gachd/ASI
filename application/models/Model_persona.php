@@ -47,7 +47,15 @@ class model_persona extends CI_Model
         return $region->result();
     }
 
+
+    function update($data,$id)
+    {
+
     
+        $this->db->where('prsn_id', $id);
+        $this->db->update('s_personas', $data);
+    }
+
     function insertar($data)
     {
 
@@ -55,20 +63,20 @@ class model_persona extends CI_Model
     }
 
     function ultimoId()
-		{
+    {
 
-			$this->db->select_max('prsn_id');
+        $this->db->select_max('prsn_id');
 
-			$this->db->from('s_personas');
+        $this->db->from('s_personas');
 
-			$query2 = $this->db->get();
+        $query2 = $this->db->get();
 
-			// $num_rows = $query2->num_rows();
+        // $num_rows = $query2->num_rows();
 
-			$res2 = $query2->result_array();
+        $res2 = $query2->result_array();
 
-			$result = $res2[0]['prsn_id'];
+        $result = $res2[0]['prsn_id'];
 
-			return $result;
-		}
+        return $result;
+    }
 }

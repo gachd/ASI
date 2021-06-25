@@ -106,21 +106,17 @@ class nuevo_accionista extends CI_Controller
 
 
 
-		$prsn_id = $this->model_persona->ultimoId();
+		$prsnID = $this->model_accionistas->ultimoId();
+		$prsn_id= $prsnID + 1;
+
 		$rut = $_POST['rutP'];
 		$prsn_tipo = $this->input->post('optradio');
-
-		
-
-
-
-
 
 
 		$dataP = array(
 
 
-			'prsn_id' => $prsn_id = $prsn_id + 1,
+			'prsn_id' => $prsn_id,
 
 			'prsn_rut' => $rut,
 
@@ -165,23 +161,29 @@ class nuevo_accionista extends CI_Controller
 			
 			'foja_accionista' => $foja_accionista = $this->input -> post('foja'),
 			'libro_accionista' => $libro_accionista = $this->input ->post('libro'),
+			'fecha' => $fechaingreso = $this->input->post('fechaIng')
 		);
 
 
 
 		
 
-		$dataT = array(
+		// $dataT = array(
 			
-			'id_accionista'=> $prsn_id,
+		// 	'id_accionista'=> $prsn_id,
 			
-			'numero_acciones' => $num_acciones = $this->input->post('NumAcciones'),
+		// 	'numero_acciones' => $num_acciones = $this->input->post('NumAcciones'),
 
-			'fecha' => $fecha_titulo = $this->input->post('NumAcciones'),
+		// 	//'fecha' => $fecha_titulo = $this->input->post('NumAcciones'),
+
+		// 	'estado' => $estado = 1,
+
+
+
 			
 
 
-		);
+		// );
 
 
 
@@ -189,8 +191,87 @@ class nuevo_accionista extends CI_Controller
 
 		$this->model_accionistas->insertar($dataA);
 
-		$this->model_titulo->nuevo_titulo($dataT);
+		// $this->model_titulo->nuevo_titulo($dataT);
 
 		redirect('accionistas/inicio');
 	}
+
+
+
+
+
+	public function updateaccionista()
+	{
+
+
+
+		
+		$idP = $_POST['idP'];
+
+		
+
+
+		$dataP = array(
+
+
+			
+
+			
+
+			'prsn_apellidopaterno' => $paterno = $this->input->post('ApellidoP'),
+
+			'prsn_apellidomaterno' => $materno = $this->input->post('ApellidoM'),
+
+			'prsn_nombres' => $nombres = $this->input->post('nombres'),
+
+			'prsn_fechanacimi' => $fecha_nac = $this->input->post('FechaN'),
+
+			'prsn_sexo' => $sexo = $this->input->post('sexo'),
+
+			'prsn_email' => $correo = $this->input->post('Correo'),
+
+
+			'prsn_direccion' =>  $direc = $this->input->post('Direccion'),
+
+			'prsn_fono_movil' => $tel_cel = $this->input->post('Fono'),
+
+
+
+
+
+			'prsn_fallecido' => $prsn_fallecido = 0,
+
+
+			's_estado_civil_estacivil_id' => $estadocivil = $this->input->post('estadocivil'), //persona natural
+
+			's_comunas_comuna_id' => $comu = $this->input->post('comu'),
+
+			'provincia_id' => $region = $this->input->post('provi'),
+
+			'region_id' => $region = $this->input->post('region'),
+
+		);
+
+
+		
+
+
+
+
+		$this->model_persona->update($dataP,$idP);
+
+
+		redirect('accionistas/inicio');
+	}
+
+
+	
+
+	
+
+
+
+
+
+
 }

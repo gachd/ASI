@@ -9,6 +9,7 @@ class model_accionistas extends CI_Model{
 
 		$this->db->insert('s_accionista', $data);
 	}
+	
 
 	 function accionistas(){
 
@@ -18,9 +19,10 @@ class model_accionistas extends CI_Model{
 
 	}
 
+
 	function nro_acciones($rut){
 
-	 	$p = $this ->db->query('SELECT SUM(t.numero_acciones) as total FROM s_accionista a, s_titulos t, s_personas p WHERE t.estado = "1" a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.prsn_rut = "'.$rut.'"  ');
+	 	$p = $this ->db->query('SELECT SUM(t.numero_acciones) as total FROM s_accionista a, s_titulos t, s_personas p WHERE t.estado = "1" AND a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.prsn_rut = "'.$rut.'"  ');
          $res2 = $p->result_array();
 
          $result = $res2[0]['total'];
@@ -33,7 +35,24 @@ class model_accionistas extends CI_Model{
 		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY  t.id_accionista');
 		
 		return $p -> result();
+
 	}
+	function accionistas_alfabetico(){
+
+		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, a.fecha, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND t.estado=1 GROUP BY t.id_accionista ORDER BY p.prsn_nombres ASC');
+		
+		return $p -> result();
+	}
+
+
+	function accionistas_mayoritarios(){
+
+		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND t.estado=1 GROUP BY t.id_accionista ORDER BY numero_acciones DESC LIMIT 5');
+		
+		return $p -> result();
+	}
+	
+
 
 	function datos_ac($rut){
 
@@ -56,6 +75,12 @@ class model_accionistas extends CI_Model{
 		return $p -> result();
 	}
 
+	function accionista_sincontar_accion (){
+
+		$p = $this->db->query('SELECT p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_personas p WHERE a.prsn_rut = p.prsn_rut ORDER BY a.prsn_rut');
+		return $p -> result();
+	}
+
 
 	// function poremitir(){
 
@@ -65,7 +90,7 @@ class model_accionistas extends CI_Model{
 
 
     function ultimos(){
-    	$p = $this ->db->query('SELECT * from s_accionista a, s_personas p where a.prsn_rut = p.prsn_rut limit 5');
+    	$p = $this ->db->query('SELECT SUM(t.numero_acciones) as accionesA, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.fecha from s_accionista a, s_personas p, s_titulos t where a.prsn_rut = p.prsn_rut AND t.id_accionista=a.id_accionista AND  t.estado=1 GROUP BY t.id_accionista ORDER BY `a`.`fecha` DESC LIMIT 5');
     	return $p -> result();
     }
 
@@ -87,6 +112,25 @@ class model_accionistas extends CI_Model{
 		return $result;
 	}
 
+
+	function datosaccionista($id){
+
+		$p = $this ->db->query('SELECT * FROM s_accionista a, s_personas p WHERE p.prsn_rut = a.prsn_rut AND a.id_accionista = "'.$id.'"');
+		return $p -> result();
+
+
+	}
+
+	function totalemitidas(){
+
+		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as total_emitidas FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista');
+		return $p -> result();
+
+
+	}
+
+
+	
 
 }
 

@@ -104,7 +104,7 @@ function getPuntosRut($rut)
                 <tr>
                     <td width="30%" rowspan="2" align="left" style="padding-bottom:15px;"><img src="<?php echo base_url(); ?>/assets/images/logo_instituciones_mini.png" width="130" style="margin-right:25px;" /></td>
                     <td colspan="2">
-                        <h2>Listado de accionistas </h2>
+                        <h2>Listado de accionistas mayoritarios</h2>
                     </td>
                     <td></td>
                 </tr>
@@ -130,11 +130,7 @@ function getPuntosRut($rut)
                     <th>#</th>
                     <th>Rut</th>
                     <th>Nombre</th>
-                    
                     <th>Acciones</th>
-                    <th>Incorporación</th>
-
-
 
 
                 </tr>
@@ -150,8 +146,6 @@ function getPuntosRut($rut)
                         echo '<td><div class="col-md-7">' . getPuntosRut($s->prsn_rut) . '</div></div></td>';
                         echo '<td>'. $s->prsn_nombres . " " . $s->prsn_apellidopaterno ." ". $s->prsn_apellidomaterno . '</td>';
                         echo '<td>' . $s->numero_acciones . '</td>';
-                        echo '<td>' . $s->fecha . '</td>';
-
 
 
 
