@@ -85,6 +85,8 @@ class nuevo_accionista extends CI_Controller
 			$this->load->view('plantilla/Footer');
 		}
 	}
+
+
 	public function ultimo(){
 
 		echo $Ultimo_Accionista = $this->model_accionistas->ultimoId();
@@ -263,6 +265,40 @@ class nuevo_accionista extends CI_Controller
 
 		redirect('accionistas/inicio');
 	}
+
+
+
+	public function ProvinciaporRegion(){
+
+		
+		header('Content-Type: application/json');
+		
+	
+		$id=$_POST['id'];
+		$provincia = $this->model_persona->ListarRegionDeProvincia($id);
+		
+
+		print_r( json_encode ( $provincia ) );
+
+        
+     }
+
+	 public function ComunaporProvincia(){
+
+		
+		header('Content-Type: application/json');
+		
+	
+		$id=$_POST['id'];
+		$comuna = $this->model_persona->ListarProvinciaDecomuna($id);
+		
+
+		print_r( json_encode ( $comuna ) );
+
+        
+     }
+
+
 
 
 	

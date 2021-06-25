@@ -6,6 +6,19 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo base_url(); ?>assets/icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url(); ?>assets/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>assets/icon/favicon-16x16.png">
+	<link rel="manifest" href="<?php echo base_url(); ?>assets/icon/site.webmanifest">
+	<link rel="mask-icon" href="<?php echo base_url(); ?>assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#2b5797">
+	<meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
 
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -51,7 +64,9 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">ASI</a>
+
+
+				<a class="navbar-brand" href="#"><img width="40" src="<?php echo base_url(); ?>/assets/logo.png"></a>
 
 			</div>
 			<?php
@@ -88,8 +103,8 @@
 
 
 						// 	echo '<li class="dropdown">
-        				// 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          				// 			Actividades <b class="caret"></b></a>		
+						// 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						// 			Actividades <b class="caret"></b></a>		
 						// 			<ul class="dropdown-menu">';
 						// 	foreach ($sub_menu as $sm) {
 						// 		$perm_nombre = $sm->perm_nombre;
@@ -107,8 +122,8 @@
 						// 		$sub_menu = $ci->model_login->sub_menu(0, 2);
 						// 	}
 						// 	echo '<li class="dropdown">
-        				// 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-         				// 			 Trabajos <b class="caret"></b></a>		
+						// 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						// 			 Trabajos <b class="caret"></b></a>		
 						// 			<ul class="dropdown-menu">';
 						// 	foreach ($sub_menu as $sm) {
 						// 		$perm_nombre = $sm->perm_nombre;
@@ -124,10 +139,12 @@
 						// 	echo ' <li><a href="' . base_url() . 'trabajos/report_diarios">Requerimientos</a></li>';
 						// }
 						if (($principal == 7) or ($principal == 0)) {
-							echo ' <li ><a href="' . base_url() . 'socios/inicio" >Socios</a> </li>
+							echo ' 
 							<li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas</a> </li>';
-						  }
+						}
 					}
+
+					// <li ><a href="' . base_url() . 'socios/inicio" >Socios</a> </li>
 
 
 
@@ -199,7 +216,7 @@
 				<ul class=" nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<?php print_r($this->session->userdata('username'));  ?> <b class="caret"></b></a>
+							<?php print_r($this->session->userdata('username'));  ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo base_url(); ?>login/logout" onClick="logout()">Cerrar sesión</a></li>
 
@@ -207,7 +224,7 @@
 					</li>
 
 
-					
+
 					<!-- <li><a href="../navbar/">Default</a></li>
             <li><a href="../navbar-static-top/">Static top</a></li>
             <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->

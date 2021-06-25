@@ -79,4 +79,26 @@ class model_persona extends CI_Model
 
         return $result;
     }
+
+
+    function ListarRegionDeProvincia($id)
+    {
+
+        $p = $this ->db->query('SELECT * FROM s_provincia WHERE s_regiones_region_id = "'.$id.'" ');
+        return $p -> result();        
+      
+    }
+
+    
+    function ListarProvinciaDecomuna($id)
+    {
+
+        $p = $this ->db->query('SELECT * FROM s_comunas WHERE s_provincia_provincia_id = "'.$id.'" ');
+        return $p -> result();        
+      
+    }
+
+
+
+
 }

@@ -173,7 +173,7 @@ class titulos extends CI_Controller
 
         );
 
-
+        // print_r($_REQUEST['field_name']);
 
 
 

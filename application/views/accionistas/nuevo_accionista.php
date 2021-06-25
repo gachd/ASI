@@ -117,6 +117,7 @@
                             }
 
                             ?>
+
                         </select>
                     </div>
 
@@ -126,13 +127,8 @@
 
                         <select class="form-control" name="comu" id="comu" required>
                             <option value=""> Seleccionar </option>
-                            <?php
-                            foreach ($comunas as $i) {
+                            
 
-                                echo ' <option value="' . $i->comuna_id . '" ' . set_select("comuna", $i->comuna_id) . '>' . $i->comuna_nombre . '</option>';
-                            }
-
-                            ?>
                         </select>
                     </div>
 
@@ -199,6 +195,20 @@
                         <label ">Fecha Ingreso</label>
                         <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" required>
                     </div>
+
+
+
+                    <!-- <div class="field_wrapper">
+                        <div>
+                            <select class="form-control" name="field_name[]" id="comu" required>
+                            <option value=""> Seleccionar </option>
+                            <option value="1" >1</option> <option value="2" >2</option> <option value="3" >3</option>
+                            
+
+                        </select>
+                            <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png" /></a>
+                        </div>
+                    </div> -->
                     <!-- <div class="form-group " id="tipoAccion">
                         <label>Tipo de Accion</label>
                         <div class="radio">
@@ -233,7 +243,7 @@
             <div class="container" id="advanced-search-form">
 
 
-            
+
 
 
 
@@ -248,12 +258,6 @@
     </div>
 
     <script type="text/javascript">
-       
-
-
-
-
-
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',
@@ -335,121 +339,129 @@
 
 
 
+        $(document).ready(function() {
+            // Bloqueamos el SELECT de los cursos
+            $("#provi").prop('disabled', true);
+            $("#comu").prop('disabled', true);
+
+
+            // Hacemos la lógica que cuando nuestro SELECT cambia de valor haga algo
+            $("#region").change(function() {
+                // Guardamos el select de cursos
+                var provincia = $("#provi");
+
+                // Guardamos el select de alumnos
+                var region = $(this);
+
+                if ($(this).val() != '') {
+                    $.ajax({
+                        data: {
+                            id: region.val()
+                        },
+                        url: "<?php echo base_url(); ?>/accionistas/nuevo_accionista/ProvinciaporRegion",
+                        type: 'POST',
+                        dataType: 'json',
+                        beforeSend: function() {
+                            region.prop('disabled', true);
+                        },
+                        success: function(r) {
+                            region.prop('disabled', false);
+
+                            // Limpiamos el select
+                            provincia.find('option').remove();
+
+                            $(r).each(function(i, v) { // indice, valor
+                                provincia.append('<option value="' + v.provincia_id + '">' + v.provincia_nombre + '</option>');
+                            })
+
+                            provincia.prop('disabled', false);
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                            region.prop('disabled', false);
+                        }
+                    });
+                } else {
+                    provincia.find('option').remove();
+                    provincia.prop('disabled', true);
+                }
+            })
 
 
 
+            $("#provi").change(function() {
+                // Guardamos el select de cursos
+                var comuna = $("#comu");
 
+                // Guardamos el select de alumnos
+                var provincia = $(this);
 
+                if ($(this).val() != '') {
+                    $.ajax({
+                        data: {
+                            id: provincia.val()
+                        },
+                        url: "<?php echo base_url(); ?>/accionistas/nuevo_accionista/ComunaporProvincia",
+                        type: 'POST',
+                        dataType: 'json',
+                        beforeSend: function() {
+                            provincia.prop('disabled', true);
+                        },
+                        success: function(r) {
+                            provincia.prop('disabled', false);
 
-        //Cambio del fomulario segun accion nuevo o cedida
+                            // Limpiamos el select
+                            comuna.find('option').remove();
 
-        $('#tipoAccion input').on('change', function() {
+                            $(r).each(function(i, v) { // indice, valor
+                                comuna.append('<option value="' + v.comuna_id + '">' + v.comuna_nombre + '</option>');
+                            })
 
-            var accionT = $('input[name=optaccion]:checked', '#tipoAccion').val()
-
-            switch (accionT) {
-
-                case "1":
-
-
-
-
-                    break;
-
-                case "2":
-
-
-
-
-
-                    break;
-
-
-            }
-
-
-
-        });
-
-
-
-
+                            comuna.prop('disabled', false);
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                            provincia.prop('disabled', false);
+                        }
+                    });
+                } else {
+                    comuna.find('option').remove();
+                    comuna.prop('disabled', true);
+                }
+            })
+        })
 
 
 
         $(document).ready(function() {
-
-            $('.verificar').hide();
-            $('.duplicate').hide();
-
-            var count = 2;
-
-            //duplicate
-            $('a.add').on('click', function() {
-
-                //clone
-                var row = $('.duplicate').clone();
-                $(row).insertAfter('.duplicate-btn');
-                $(row).show();
-
-                //add new ids
-                $(row).find('select').attr('id', 'select_' + count);
-                $(row).find('verificar').attr('id', 'verificar_' + count);
-
-                //remove duplicate class
-                $(row).removeClass('duplicate');
-
-                //onchange of select
-                $('select').on('change', function() {
-
-                    var value = $(this).val();
-                    var select = $(this).parent();
-                    if (value == 1) {
-                        $(select).siblings('.inputed').show();
-                        $(select).siblings('.ocultar').hide();
-                    } else {
-                        $(select).siblings('.inputed').hide();
-
-                    }
-                    if (value == 2) {
-                        $(select).siblings('.ocultar').show();
-                        $(select).siblings('.verificar').show();
-                    } else {
-                        $(select).siblings('.verificar').hide();
-                        $(select).siblings('.ocultar').show();
-                    }
-
-                });
-
-                //click of remove pregunta
-                $(".up-box-question").on("click", ".remove-aditional", function() {
-
-                    $(this).closest(".all").remove();
-
-                });
-
-                $(".optionRow").on("click", ".remove-option", function() {
-
-                    $(this).closest(".option-row").remove();
-
-                });
-                //Agrega opciones
-                $(".addRow").unbind("click");
-
-
-                $(".addRow").click(function() {
-                    var html = "<div class='option-row' id='rowtk" + count + "'><div class='form-group'><div class='input-group select'><input type='text' class='form-control' placeholder='Añade opción' /><span class='input-group-btn'><button class='btn btn-primary remove-option' type='button'><a class='remove-tipe' href='javascript: void(0)'><span class='glyphicon glyphicon-trash' style='color:white'></span></a></button></span></div></div></div>";
-
-                    var form = $(html);
-
-                    $(this).closest(".verificar").find(".optionRow").append(form);
-
-                });
+            var maxField = 10; //Input fields increment limitation
+            var addButton = $('.add_button'); //Add button selector
+            var wrapper = $('.field_wrapper'); //Input field wrapper
+            var fieldHTML = '<div> <select class="form-control" name="field_name[]" id="comu" required><<option value="1" >1</option> <option value="2" >2</option> <option value="3" >3</option><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="remove-icon.png"/></a></div>'; //New input field html 
+            var x = 1; //Initial field counter is 1
+            $(addButton).click(function() { //Once add button is clicked
+                if (x < maxField) { //Check maximum number of input fields
+                    x++; //Increment field counter
+                    $(wrapper).append(fieldHTML); // Add field html
+                }
             });
-            count++;
+            $(wrapper).on('click', '.remove_button', function(e) { //Once remove button is clicked
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+
+
+
 
         });
     </script>
+
+
+
+
+
+
 </body>
 
 </html>
