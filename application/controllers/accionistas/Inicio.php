@@ -136,6 +136,9 @@ class inicio extends CI_Controller
    {
       $accionistas = $this->model_accionistas->nro_acciones_all();
 
+      
+
+
       $data = [];
 
       $rango = [];
@@ -143,9 +146,10 @@ class inicio extends CI_Controller
 
       $i = 0;
       $cont = 0;
+
       foreach ($accionistas as $s) {
 
-         $nro_acciones = $s->nro_acciones;
+         $nro_acciones = $s->numero_acciones;
 
          if ($nro_acciones != 1) {
 
@@ -161,6 +165,8 @@ class inicio extends CI_Controller
             $cont = $cont + 1;
          }
       }
+      
+
 
 
 
@@ -168,7 +174,12 @@ class inicio extends CI_Controller
          $data[] = [(string)$nombres[$j], (int)$rango[$j]];
       }
 
-      echo json_encode($data);
+      $data[$j]=["MINORISTAS",$cont];
+
+      
+
+      echo json_encode($data,JSON_UNESCAPED_UNICODE);
+      
    }
 
 
@@ -187,9 +198,15 @@ class inicio extends CI_Controller
 
 
 
-
+      $this->load->view('plantilla/Head_v1');
 
       $this->load->view('accionistas/update_accionista', $data);
+
+      $this->load->view('plantilla/Footer');
+
+
+     
+
    }
 
 

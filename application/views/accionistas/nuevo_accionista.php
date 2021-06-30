@@ -21,7 +21,7 @@
 </style>
 
 <body>
-
+    <br>
     <div class="main">
 
 
@@ -55,7 +55,7 @@
 
                     <div class="form-group">
                         <label for="first-name">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text"  class="form-control" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group oculto" id="divapellidoP">
@@ -64,7 +64,7 @@
                     </div>
                     <div class="form-group oculto" id="apellidoM">
                         <label for="first-name">Apellido Materno</label>
-                        <input type="text" class="form-control" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text"  class="form-control" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group oculto" id="divfechaN">
@@ -74,7 +74,7 @@
 
                     <div class="form-group">
                         <label for="first-name">Email</label>
-                        <input type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$" title="Debe ser un Correo Valido" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo"  title="Debe ser un Correo Valido" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
@@ -110,13 +110,7 @@
 
                         <select class="form-control" name="provi" id="provi" required>
                             <option value=""> Seleccionar </option>
-                            <?php
-                            foreach ($provincia as $i) {
 
-                                echo ' <option value="' . $i->provincia_id  . '" ' . set_select("provincia", $i->provincia_id) . '>' . $i->provincia_nombre . '</option>';
-                            }
-
-                            ?>
 
                         </select>
                     </div>
@@ -127,7 +121,7 @@
 
                         <select class="form-control" name="comu" id="comu" required>
                             <option value=""> Seleccionar </option>
-                            
+
 
                         </select>
                     </div>
@@ -153,7 +147,7 @@
                         <label>Género</label>
                         <div class="radio">
                             <label class="radio-inline">
-                                <input type="radio" name="sexo" value="1">Masculino</label>
+                                <input type="radio" name="sexo" id="gen1" value="1">Masculino</label>
                             <label class="radio-inline">
                                 <input type="radio" name="sexo" value="0">Femenino</label>
                         </div>
@@ -166,6 +160,9 @@
                     <div class="clearfix"></div>
 
                 </div>
+
+
+
                 <!-- Datos de accionista -->
                 <div class="container" id="advanced-search-form">
                     <h2>Datos de Accionista</h2>
@@ -195,6 +192,66 @@
                         <label ">Fecha Ingreso</label>
                         <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" required>
                     </div>
+                </div>
+
+
+
+                <div class="container" id="advanced-search-form">
+
+                    <div class="form-group  " id="divaccion">
+                        <label>Accion</label>
+                        <div class="radio">
+                            <label class="radio-inline">
+                                <input  type="radio" required name="accion" id="accionN" value="1">Nueva</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="accion" value="0">Cesion</label>
+                        </div>
+                    </div>
+                    <div class="form-group oculto" id="AccionesNuevoT">
+                        <label>Acciones del nuevo Accionista</label>
+                        <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off"  >
+                    </div>
+                    <div class="form-group">
+                        <label ">Fecha Titulo</label>
+                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
+                    </div>
+
+                    <div class="form-group procedente oculto" id="Aprocedente">
+                        <label for="Titulop">Titulo Procedente</label>
+
+                        <select class="form-control" name="TituloP" id="TituloP" >
+                            <option value=""> Seleccionar </option>
+
+
+                        </select>
+                    </div>
+
+                   
+                   
+                    <input type="hidden" id="AccionesANT" name="AccionesANT">
+                    <input type="hidden" id="IdAccionistaANT" name="IdAccionistaANT">
+
+
+
+
+                    <div class="form-group oculto" id="DivNumeroaTransferir">
+                        <label>Numero de acciones a tranferir</label>
+                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off" >
+                    </div>
+                   
+
+                    <div class="form-group oculto" id="DivFechaCesion">
+                        <label ">Fecha Cesion</label>
+                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
+                    </div>
+
+
+
+
+
+
+
+
 
 
 
@@ -231,10 +288,10 @@
                     <div class="clearfix"></div>
                     <button class="btn btn-info btn-lg btn-responsive" id="guardar"> <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
 
-
-
-
                 </div>
+
+
+
             </form>
 
 
@@ -294,6 +351,22 @@
             });
             $("#FechaIgreso").datepicker({
                 dateFormat: "yy-mm-dd",
+                changeYear: true,
+                yearRange: "-100:+0"
+
+
+            });;
+            $("#fechaT").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeYear: true,
+                yearRange: "-100:+0"
+
+
+            });;
+            $("#fechaC").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeYear: true,
+                yearRange: "-100:+0"
 
 
             });;
@@ -310,10 +383,15 @@
                 case "1":
 
                     $("#divapellidoP").show();
+                    $('#ApellidoP').prop('required', true);
                     $("#apellidoM").show();
+                    $('#ApellidoM').prop('required', true);
                     $("#divfechaN").show();
+                    $('#FechaN').prop('required', true);
                     $("#divestdoC").show();
+                    $('#estadocivil').prop('required', true);
                     $("#divgenero").show();
+                    $('#gen1').prop('required', true);
 
 
                     break;
@@ -321,10 +399,22 @@
                 case "2":
 
                     $("#divapellidoP").hide();
+                    $('#ApellidoP').prop('required', false).val('');
+
                     $("#apellidoM").hide();
+                    $('#ApellidoM').prop('required', false).val('');
+
                     $("#divfechaN").hide();
+                    $('#FechaN').prop('required', false).val('');
+
                     $("#divestdoC").hide();
+                    $('#estadocivil').prop('required', false).val('');
+
                     $("#divgenero").hide();
+
+                    $('#gen1').prop('required', false).val('');
+                    $('input[name=sexo]:checked').prop('checked', false);
+
 
 
                     break;
@@ -340,6 +430,69 @@
 
 
         $(document).ready(function() {
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+                success: function(response) {
+
+                    $('#TituloP').html(response).fadeIn();
+
+
+                },
+                error: function() {
+                    alert('Ocurrio un error en el servidor ..');
+                }
+            });
+
+            $("#TituloP").change(function() {
+                var tituloP = $(this).val();
+
+                if (tituloP != '') {
+                    $.ajax({
+                        type: "POST",
+                        data: {
+                            id: tituloP
+                        },
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
+                        success: function(r) {
+
+                        
+                            
+                            var Id_accionistaAnt = r.id_accionista
+
+                            var t = r.numero_acciones;                    
+                            
+                            $('#AccionesANT').attr("value", t);
+
+                            $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
+
+                            $('#NumNuevoCesion').attr("max", t);
+                            $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
+                };
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
             // Bloqueamos el SELECT de los cursos
             $("#provi").prop('disabled', true);
             $("#comu").prop('disabled', true);
@@ -347,6 +500,12 @@
 
             // Hacemos la lógica que cuando nuestro SELECT cambia de valor haga algo
             $("#region").change(function() {
+                $("#comu").prop('disabled', true);
+
+                $('#comu').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
+
+
+
                 // Guardamos el select de cursos
                 var provincia = $("#provi");
 
@@ -356,6 +515,7 @@
                 if ($(this).val() != '') {
                     $.ajax({
                         data: {
+
                             id: region.val()
                         },
                         url: "<?php echo base_url(); ?>/accionistas/nuevo_accionista/ProvinciaporRegion",
@@ -369,12 +529,15 @@
 
                             // Limpiamos el select
                             provincia.find('option').remove();
+                            provincia.append('<option value=""> Seleccionar </option>')
 
                             $(r).each(function(i, v) { // indice, valor
                                 provincia.append('<option value="' + v.provincia_id + '">' + v.provincia_nombre + '</option>');
                             })
-
                             provincia.prop('disabled', false);
+
+
+
                         },
                         error: function() {
                             alert('Ocurrio un error en el servidor ..');
@@ -412,6 +575,7 @@
 
                             // Limpiamos el select
                             comuna.find('option').remove();
+                            comuna.append('<option value=""> Seleccionar </option>')
 
                             $(r).each(function(i, v) { // indice, valor
                                 comuna.append('<option value="' + v.comuna_id + '">' + v.comuna_nombre + '</option>');
@@ -433,24 +597,58 @@
 
 
 
-        $(document).ready(function() {
-            var maxField = 10; //Input fields increment limitation
-            var addButton = $('.add_button'); //Add button selector
-            var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div> <select class="form-control" name="field_name[]" id="comu" required><<option value="1" >1</option> <option value="2" >2</option> <option value="3" >3</option><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="remove-icon.png"/></a></div>'; //New input field html 
-            var x = 1; //Initial field counter is 1
-            $(addButton).click(function() { //Once add button is clicked
-                if (x < maxField) { //Check maximum number of input fields
-                    x++; //Increment field counter
-                    $(wrapper).append(fieldHTML); // Add field html
-                }
-            });
-            $(wrapper).on('click', '.remove_button', function(e) { //Once remove button is clicked
-                e.preventDefault();
-                $(this).parent('div').remove(); //Remove field html
-                x--; //Decrement field counter
-            });
 
+
+
+
+        $('#divaccion input').on('change', function() {
+
+            var accion = $('input[name=accion]:checked', '#divaccion').val()
+
+            switch (accion) {
+
+                case "0"://cesion
+
+                    $("#Aprocedente").show();
+                    $('#TituloP').prop('required', true);
+                   
+                    $("#DivNumeroaTransferir").show();
+                    $('#ATrans').prop('required', true);
+
+                    $("#AccionesNuevoT").hide();
+                    $("#AccioniesNuevoT").prop('required',false).val('');
+
+                     
+                    $("#DivFechaCesion").show();
+                    $('#fechaC').prop('required', true);
+
+
+
+
+
+                    break;
+
+                case "1"://nueva
+
+
+                    $("#Aprocedente").hide();
+                    $('#TituloP').prop('required', false);
+
+                    $("#DivNumeroaTransferir").hide();                    
+                    $('#ATrans').prop('required', false).val('');
+
+                    $("#AccionesNuevoT").show();
+                    $("#AccioniesNuevoT").prop('required',true);
+
+                    $("#DivFechaCesion").hide();
+                    $('#fechaC').prop('required', false);
+
+
+
+                    break;
+
+
+            }
 
 
 

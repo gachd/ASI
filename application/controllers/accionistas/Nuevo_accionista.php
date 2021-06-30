@@ -87,13 +87,11 @@ class nuevo_accionista extends CI_Controller
 	}
 
 
-	public function ultimo(){
+	public function ultimo()
+	{
 
-		echo $Ultimo_Accionista = $this->model_accionistas->ultimoId();
-		echo $ultimo = $Ultimo_Accionista +1;
-		
-
-	
+		$Ultimo_Accionista = $this->model_accionistas->ultimoId();
+		return ($Ultimo_Accionista);
 	}
 
 
@@ -109,16 +107,17 @@ class nuevo_accionista extends CI_Controller
 
 
 		$prsnID = $this->model_accionistas->ultimoId();
-		$prsn_id= $prsnID + 1;
+		$AccionistaNuevo = $prsnID + 1;
 
 		$rut = $_POST['rutP'];
 		$prsn_tipo = $this->input->post('optradio');
+		$tipoaccion = $this->input->post('accion');
+
+
 
 
 		$dataP = array(
 
-
-			'prsn_id' => $prsn_id,
 
 			'prsn_rut' => $rut,
 
@@ -159,41 +158,208 @@ class nuevo_accionista extends CI_Controller
 		);
 
 		$dataA = array(
-			'prsn_rut' => $rut,			
-			
-			'foja_accionista' => $foja_accionista = $this->input -> post('foja'),
-			'libro_accionista' => $libro_accionista = $this->input ->post('libro'),
+
+			'prsn_rut' => $rut,
+
+			'foja_accionista' => $foja_accionista = $this->input->post('foja'),
+			'libro_accionista' => $libro_accionista = $this->input->post('libro'),
 			'fecha' => $fechaingreso = $this->input->post('fechaIng')
 		);
-
-
-
-		
-
-		// $dataT = array(
-			
-		// 	'id_accionista'=> $prsn_id,
-			
-		// 	'numero_acciones' => $num_acciones = $this->input->post('NumAcciones'),
-
-		// 	//'fecha' => $fecha_titulo = $this->input->post('NumAcciones'),
-
-		// 	'estado' => $estado = 1,
-
-
-
-			
-
-
-		// );
-
 
 
 		$this->model_persona->insertar($dataP);
 
 		$this->model_accionistas->insertar($dataA);
 
-		// $this->model_titulo->nuevo_titulo($dataT);
+
+		// MODULO DE TTITULO
+
+		//Nueva
+		
+
+		if ($tipoaccion == 1) {
+
+			$dataT = array(
+
+				'id_accionista' => $AccionistaNuevo,
+
+				'numero_acciones' => $num_acciones = $this->input->post('NuevaAcionesTitulo'),
+
+				'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+
+				'estado' => $estado = 1,
+			);
+
+			 $this->model_titulo->nuevo_titulo($dataT);
+		};
+
+		
+
+		//Cesion
+
+		if ($tipoaccion == 0) {
+
+
+			
+
+
+			$id_accionista_que_cede = $this->input->post('IdAccionistaANT');
+
+			$id_accionista_que_recibe = $AccionistaNuevo;
+
+			$numero_acciones_titulo_que_cede = $this->input->post('AccionesANT');
+
+			$cantidad_de_acciones_que_se_ceden = $this->input->post('NumNuevoCesion');
+
+			$titulo_que_precede = $this->input->post('TituloP');
+
+			$acciones_nuevo_titulo_anterior = $numero_acciones_titulo_que_cede - $cantidad_de_acciones_que_se_ceden;
+
+			
+
+			$ultimoID = $this->model_titulo->ultimoId();
+			$ultimo = $ultimoID[0]->maximo;
+
+
+			if($acciones_nuevo_titulo_anterior>0){
+
+				$dataAntiguoT = array(
+
+
+					'estado' => $estado = 0,
+		
+		
+		
+		
+				);	
+	
+	
+	
+	
+				$dataT_Nuevo = array(
+	
+					'id_accionista' => $id_accionista_que_recibe,
+	
+					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
+	
+					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+	
+					'estado' => $estado = 1,
+	
+				);
+	
+	
+				$dataT_Anterior = array(
+	
+					'id_accionista' => $id_accionista_que_cede,
+	
+					'numero_acciones' => $acciones_nuevo_titulo_anterior,
+	
+					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+	
+					'estado' => $estado = 1,
+	
+				);
+	
+				$dataTablaTanferencia1 = array(
+	
+	
+					'titulo_origen ' => $titulo_que_precede,
+	
+					'tiulo_actual' => $ultimo + 1,
+	
+					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+	
+				);
+				$dataTablaTanferencia2 = array(
+	
+	
+					'titulo_origen ' => $titulo_que_precede,
+	
+					'tiulo_actual' => $ultimo + 2,
+	
+					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+	
+				);
+	
+	
+	
+				 $this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+				 $this->model_titulo->nueva_cesion($dataTablaTanferencia1);	
+				 $this->model_titulo->nueva_cesion($dataTablaTanferencia2);
+				 $this->model_titulo->nuevo_titulo($dataT_Nuevo);
+				 $this->model_titulo->nuevo_titulo($dataT_Anterior);
+	
+
+			};
+
+
+			if($acciones_nuevo_titulo_anterior == 0){
+
+
+				$dataAntiguoT = array(
+
+
+					'estado' => $estado = 0,
+		
+		
+		
+				);	
+	
+	
+	
+				$dataT_Nuevo = array(
+	
+					'id_accionista' => $id_accionista_que_recibe,
+	
+					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
+	
+					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+	
+					'estado' => $estado = 1,
+	
+				);
+	
+	
+				
+	
+				$dataTablaTanferencia = array(
+	
+	
+					'titulo_origen ' => $titulo_que_precede,
+	
+					'tiulo_actual' => $ultimo + 1,
+	
+					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+	
+				);
+	
+	
+	
+				$this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+				$this->model_titulo->nueva_cesion($dataTablaTanferencia);	
+					
+				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
+				
+	
+
+
+			}
+
+
+
+
+		
+
+
+
+		};
+
+
+
+
+
+
 
 		redirect('accionistas/inicio');
 	}
@@ -207,18 +373,18 @@ class nuevo_accionista extends CI_Controller
 
 
 
-		
+
 		$idP = $_POST['idP'];
 
-		
+
 
 
 		$dataP = array(
 
 
-			
 
-			
+
+
 
 			'prsn_apellidopaterno' => $paterno = $this->input->post('ApellidoP'),
 
@@ -244,23 +410,25 @@ class nuevo_accionista extends CI_Controller
 			'prsn_fallecido' => $prsn_fallecido = 0,
 
 
-			's_estado_civil_estacivil_id' => $estadocivil = $this->input->post('estadocivil'), //persona natural
+			's_estado_civil_estacivil_id' => $estadocivil = $this->input->post('estadocivilP'),
 
-			's_comunas_comuna_id' => $comu = $this->input->post('comu'),
+			's_comunas_comuna_id' => $comu = $this->input->post('comuna'),
 
-			'provincia_id' => $region = $this->input->post('provi'),
+			'provincia_id' => $region = $this->input->post('proviP'),
 
 			'region_id' => $region = $this->input->post('region'),
+
+
 
 		);
 
 
-		
 
 
 
 
-		$this->model_persona->update($dataP,$idP);
+
+		$this->model_persona->update($dataP, $idP);
 
 
 		redirect('accionistas/inicio');
@@ -268,46 +436,32 @@ class nuevo_accionista extends CI_Controller
 
 
 
-	public function ProvinciaporRegion(){
 
-		
+	public function ProvinciaporRegion()
+	{
+
+
 		header('Content-Type: application/json');
-		
-	
-		$id=$_POST['id'];
+
+
+		$id = $_POST['id'];
 		$provincia = $this->model_persona->ListarRegionDeProvincia($id);
-		
 
-		print_r( json_encode ( $provincia ) );
 
-        
-     }
+		print_r(json_encode($provincia));
+	}
 
-	 public function ComunaporProvincia(){
+	public function ComunaporProvincia()
+	{
 
-		
+
 		header('Content-Type: application/json');
-		
-	
-		$id=$_POST['id'];
+
+
+		$id = $_POST['id'];
 		$comuna = $this->model_persona->ListarProvinciaDecomuna($id);
-		
-
-		print_r( json_encode ( $comuna ) );
-
-        
-     }
 
 
-
-
-	
-
-	
-
-
-
-
-
-
+		print_r(json_encode($comuna));
+	}
 }

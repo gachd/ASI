@@ -39,7 +39,7 @@ class titulos extends CI_Controller
 
 
     public function index()
-    
+
     {
 
         $data['titulos'] = $this->model_titulo->infoTitulo();
@@ -47,7 +47,7 @@ class titulos extends CI_Controller
 
         $this->load->view('plantilla/Head_v1');
 
-        $this->load->view('titulos/titulos',$data);
+        $this->load->view('titulos/titulos', $data);
 
         $this->load->view('plantilla/Footer');
     }
@@ -113,6 +113,48 @@ class titulos extends CI_Controller
 
         $this->load->view('plantilla/Footer');
     }
+
+
+    public function obtenerTitulos()
+    {
+
+        // header('Content-Type: application/json');
+
+        $titulos = $this->model_titulo->titulosactivos();
+        echo '<option value="">Seleccionar</option>';
+
+        foreach( $titulos as $t )
+    {
+        echo '<option value="'.$t->id_titulos.'">'.$t->id_titulos.'  '.$t->prsn_nombres.' '.$t->prsn_apellidopaterno .'</option>';
+         
+    }
+
+
+
+        // print_r(json_encode($titulos));
+
+
+    }
+
+
+    public function obtenerAccionesTitulo()
+    {
+        header('Content-Type: application/json');
+
+        $id=$_POST['id'];
+
+       
+
+        $titulo = $this->model_titulo->AccionesPorTitulo($id);
+        $t=$titulo[0];
+
+        print_r(json_encode($t));     
+
+
+    }
+
+
+
 
 
     public  function guadarCesionTitulo()
@@ -292,10 +334,4 @@ class titulos extends CI_Controller
 
         redirect('accionistas/inicio');
     }
-
-
-
-
-
-    
 }

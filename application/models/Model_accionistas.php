@@ -32,7 +32,7 @@ class model_accionistas extends CI_Model{
 
 	function nro_acciones_all(){
 
-		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY  t.id_accionista');
+		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND t.estado= 1 GROUP BY  t.id_accionista');
 		
 		return $p -> result();
 
@@ -63,7 +63,7 @@ class model_accionistas extends CI_Model{
 	}
 
 	function nro_titulo($rut){
-		$p = $this ->db->query('SELECT  t.id_titulos as nro_titulo from s_accionista a, s_titulos t where  a.id_accionista = t.id_accionista AND a.prsn_rut = "'.$rut.'"  ');
+		$p = $this ->db->query('SELECT  t.id_titulos as nro_titulo from s_accionista a, s_titulos t where  a.id_accionista = t.id_accionista AND t.estado = 1 AND a.prsn_rut = "'.$rut.'"  ');
 
 		return $p -> result();
 	}
@@ -71,7 +71,7 @@ class model_accionistas extends CI_Model{
 
 	function suscritas(){
 
-		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as suscritas FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista');
+		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as suscritas FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND t.estado=1');
 		return $p -> result();
 	}
 
@@ -123,7 +123,7 @@ class model_accionistas extends CI_Model{
 
 	function totalemitidas(){
 
-		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as total_emitidas FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista');
+		$p = $this ->db->query('SELECT SUM(t.numero_acciones)as total_emitidas FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND t.estado=1');
 		return $p -> result();
 
 
