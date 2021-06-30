@@ -56,7 +56,7 @@ class titulos extends CI_Controller
     {
 
 
-        $data['accionista'] = $this->model_accionistas->accionista_sincontar_accion();
+        $data['accionista'] = $this->model_accionistas->accionistas();
 
 
         $this->load->view('plantilla/Head_v1');
