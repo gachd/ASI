@@ -18,7 +18,7 @@ class model_titulo extends CI_Model
     function titulosactivos()
     {
 
-        $p = $this->db->query('SELECT t.id_titulos, p.prsn_nombres,p.prsn_apellidopaterno , p.prsn_apellidomaterno FROM s_titulos t, s_personas p, s_accionista a WHERE t.estado = 1 AND p.prsn_rut= a.prsn_rut and t.id_accionista= a.id_accionista GROUP by t.id_titulos ORDER BY t.id_titulos ASC');
+        $p = $this->db->query('SELECT t.id_titulos, p.prsn_nombres,p.prsn_apellidopaterno , p.prsn_apellidomaterno,p.prsn_rut, a.id_accionista,t.numero_acciones, t.fecha FROM s_titulos t, s_personas p, s_accionista a WHERE t.estado = 1 AND p.prsn_rut= a.prsn_rut and t.id_accionista= a.id_accionista GROUP by t.id_titulos ORDER BY t.id_titulos ASC');
         return $p->result();
     }
 
@@ -67,6 +67,14 @@ class model_titulo extends CI_Model
 
 
 
+    }
+
+    function historial_titulo($id)
+    {
+
+
+        $p = $this->db->query('SELECT * FROM s_titulos t, cesion_titulo c, s_accionista a, s_personas p WHERE c.tiulo_actual ="' . $id . '" AND c.tiulo_actual = t.id_titulos AND a.id_accionista= t.id_accionista AND a.prsn_rut= p.prsn_rut');
+        return $p->result_array();
     }
 
 

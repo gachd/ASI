@@ -38,7 +38,7 @@
                             <?php
                             foreach ($titulos as $t) {
 
-                                echo ' <option value="' . $t->id_titulos . '" >' . $t->id_titulos . '</option>';
+                                echo ' <option value="' . $t->id_titulos . '" >' . $t->id_titulos . '&nbsp;' . $t->prsn_nombres . '&nbsp;' . $t->prsn_apellidopaterno . '</option>';
                             }
                             ?>
 
@@ -62,6 +62,18 @@
 
                         </select>
                     </div>
+                    <input type="hidden" id="AccionesANT" name="AccionesANT">
+                    <input type="hidden" id="IdAccionistaANT" name="IdAccionistaANT">
+
+
+
+
+                    <div class="form-group" id="DivNumeroaTransferir">
+                        <label>Numero de acciones a tranferir</label>
+                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off">
+                    </div>
+
+
 
                     <div class="form-group">
                         <label for="fecha">Fecha Tranferencia</label>
@@ -181,5 +193,45 @@
 
 
         });
+    });
+
+    $("#tituloAnterior").change(function() {
+        var tituloP = $(this).val();
+
+        if (tituloP != '') {
+            $.ajax({
+                type: "POST",
+                data: {
+                    id: tituloP
+                },
+                url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
+                success: function(r) {
+
+
+
+                    var Id_accionistaAnt = r.id_accionista
+
+                    var t = r.numero_acciones;
+
+                    $('#AccionesANT').attr("value", t);
+
+                    $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
+
+                    $('#NumNuevoCesion').attr("max", t);
+                    $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
+
+
+                },
+                error: function() {
+                    alert('Ocurrio un error en el servidor ..');
+                }
+            });
+        };
+
+
+
+
+
+
     });
 </script>

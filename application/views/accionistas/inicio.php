@@ -14,6 +14,14 @@
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
 </head>
+
+<style> 
+ .table_wrapper{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+</style>
 <style>
   .ico.badge.badge-success {
     background-color: #08c222;
@@ -62,8 +70,11 @@
           <div class="col-md-1">
             <button type="button" class="btn btn-success" id="newaccionista"><span class="badge"><i class="glyphicon glyphicon-plus"></i> Nuevo <br> Accionista</span></button>
           </div>
-          <div class="col-md-2">
-            <button type="button" class="btn btn-primary" id="titulos"><span class="badge"><i class="glyphicon glyphicon-plus"></i> Titulos <br> Accionista</span></button>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary" id="titulos"><span class="badge"><i class="glyphicon glyphicon-ok"></i> Titulos <br> Accionista</span></button>
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-warning" id="fechas"><span class="badge"><i class="glyphicon glyphicon-search"></i> Buscar <br>Fecha</span></button>
           </div>
 
           <div class="col-md-6">
@@ -154,6 +165,7 @@
                     echo '<td>' . $u->prsn_nombres . ' ' . $u->prsn_apellidopaterno . '</td>';
                     echo '<td>' . $u->fecha . '</td>';
                     echo '<td>' . $u->accionesA . '</td>';
+                    echo '</tr>';
                   }
                 }
                 ?>
@@ -172,7 +184,7 @@
               <div class="panel-title">LISTADO DE ACCIONISTAS</div>
             </div>
             <div class="panel-body">
-              <div class="table-responsive">
+              <div class="table-responsive table_wrapper">
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
                   <thead>
                     <tr>
@@ -183,21 +195,24 @@
                       <th>Apellido Materno</th>
                       <th>Cantidad Acciones</th>
                       <th>N° Título </th>
+                      <th>Acciones </th>
                       
 
 
                     </tr>
                   </thead>
                   <tbody>
+
+                  <span></span>
                     <?php foreach ($accionistas as $s) { 
 
 
-                      echo '<tr class="odd gradeX">';
-                      echo '<td><div class="col-md-7">' . $s->prsn_rut . '</div><div class="col-md-4"><a  href=inicio/editar/' . $s->id_accionista . '><span class="ico badge badge-info">Editar</span></a></div></td>';
-                      echo '<td><div class="col-md-7">' . $s->prsn_nombres . '</td>';
-                      echo '<td><div class="col-md-7">' . $s->prsn_apellidopaterno . '</td>';
-                      echo '<td><div class="col-md-7">' . $s->prsn_apellidomaterno . '</td>';
-                      echo '<td><div class="col-md-7">' . $s->numero_acciones . '</td>';
+                      echo '<tr class="">';
+                      echo '<td><span>' . $s->prsn_rut . '</td>';
+                      echo '<td><div>' . $s->prsn_nombres . '</td>';
+                      echo '<td><div>' . $s->prsn_apellidopaterno . '</div></td>';
+                      echo '<td><div>' . $s->prsn_apellidomaterno . '</div></td>';
+                      echo '<td><div>' . $s->numero_acciones . '</div></td>';
                       $rut = $s->prsn_rut;
 
                       $titulo = $this->model_accionistas->nro_titulo($rut);
@@ -208,6 +223,8 @@
                         }
                         echo '</td>';
                       }
+
+                      echo '<td><a  href=inicio/editar/' . $s->id_accionista . '><span class="ico badge badge-info">Editar</span></a> <a  href=inicio/ver/' . $s->id_accionista . '><span class="ico badge badge-info">Ver</span></a></td>';
 
                    
 
@@ -304,6 +321,9 @@
   });
   $("#newaccionista").click(function() {
     window.location.href = "<?php echo base_url(); ?>accionistas/nuevo_accionista";
+  });
+  $("#fechas").click(function() {
+    window.location.href = "<?php echo base_url(); ?>accionistas/inicio/verfechas";
   });
 
 

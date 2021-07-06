@@ -55,16 +55,16 @@
 
                     <div class="form-group">
                         <label for="first-name">Nombre</label>
-                        <input type="text"  class="form-control" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text"  class="form-control" pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group oculto" id="divapellidoP">
                         <label for="first-name">Apellido Paterno</label>
-                        <input type="text" class="form-control" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" class="form-control" pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
                     <div class="form-group oculto" id="apellidoM">
                         <label for="first-name">Apellido Materno</label>
-                        <input type="text"  class="form-control" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text"  class="form-control"pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group oculto" id="divfechaN">
@@ -315,6 +315,7 @@
     </div>
 
     <script type="text/javascript">
+    
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',
@@ -613,7 +614,7 @@
                     $('#TituloP').prop('required', true);
                    
                     $("#DivNumeroaTransferir").show();
-                    $('#ATrans').prop('required', true);
+                    $('#NumNuevoCesion').prop('required', true);
 
                     $("#AccionesNuevoT").hide();
                     $("#AccioniesNuevoT").prop('required',false).val('');
@@ -632,16 +633,16 @@
 
 
                     $("#Aprocedente").hide();
-                    $('#TituloP').prop('required', false);
+                    $('#TituloP').prop('required', false).val('');
 
                     $("#DivNumeroaTransferir").hide();                    
-                    $('#ATrans').prop('required', false).val('');
+                    $('#NumNuevoCesion').prop('required', false).val('');
 
                     $("#AccionesNuevoT").show();
                     $("#AccioniesNuevoT").prop('required',true);
 
                     $("#DivFechaCesion").hide();
-                    $('#fechaC').prop('required', false);
+                    $('#fechaC').prop('required', false).val('');
 
 
 

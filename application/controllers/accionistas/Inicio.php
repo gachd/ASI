@@ -210,6 +210,76 @@ class inicio extends CI_Controller
    }
 
 
+   public function ver($id)
+
+   {
+
+      $data['accionista'] = $this->model_accionistas->datosaccionista($id);
+
+      $data['titulos'] = $this->model_accionistas->validar_estado($id);
+
+
+      
+
+
+
+
+      $this->load->view('plantilla/Head_v1');
+
+      $this->load->view('accionistas/show_accionista', $data);
+
+      $this->load->view('plantilla/Footer');
+
+
+     
+
+   }
+
+
+   public function verFechas()
+
+   {
+      // $data['accionista'] = $this->model_accionistas->datosaccionista($id);
+
+      // $data['titulos'] = $this->model_accionistas->validar_estado($id);
+      $data[] = '';
+
+      
+
+
+
+
+      $this->load->view('plantilla/Head_v1');
+
+      $this->load->view('accionistas/por_fechas', $data);
+
+      $this->load->view('plantilla/Footer');     
+
+   }
+
+
+   public function informe_fechas_accionistas()
+
+   {
+      $tipo=$this->input->post('tipoinforme');
+      $fecha1=$this->input->post('fecha1');
+      $fecha2=$this->input->post('fecha2');
+
+      $result=$this->model_accionistas->buscar_por_fecha($fecha1, $fecha2,$tipo);
+
+      
+
+      var_dump(json_encode($result)) ;
+      
+     
+
+
+   }
+
+
+
+
+
 
 
 

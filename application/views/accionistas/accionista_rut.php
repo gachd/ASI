@@ -30,7 +30,7 @@
                 <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/" method="post">
                     <div class="form-group">
 
-                        <input type="text" class="form-control" id="rut" autocomplete="off" placeholder="11111111-1" name="rut" oninput="checkRut(this)">
+                        <input type="text" class="form-control" id="rut" autocomplete="off" placeholder="11111111-1" name="rut" oninput="checkRut(this)" required>
                         <br>
                         <span> <?php if ($_POST['msj'] == 1) { ?>
                                 <strong>El Rut ya esta registrado</strong><br> Favor ingrese sus datos correctamente. <br>

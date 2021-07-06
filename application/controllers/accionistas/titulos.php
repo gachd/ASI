@@ -42,7 +42,7 @@ class titulos extends CI_Controller
 
     {
 
-        $data['titulos'] = $this->model_titulo->infoTitulo();
+        $data['titulos'] = $this->model_titulo->titulosactivos();
 
 
         $this->load->view('plantilla/Head_v1');
@@ -100,7 +100,7 @@ class titulos extends CI_Controller
 
 
         $data['titulos'] = $this->model_titulo->titulosactivos();
-        $data['accionista'] = $this->model_accionistas->accionista_sincontar_accion();
+        $data['accionista'] = $this->model_accionistas->accionistas();
 
 
 
@@ -123,11 +123,11 @@ class titulos extends CI_Controller
         $titulos = $this->model_titulo->titulosactivos();
         echo '<option value="">Seleccionar</option>';
 
-        foreach( $titulos as $t )
-    {
-        echo '<option value="'.$t->id_titulos.'">'.$t->id_titulos.'  '.$t->prsn_nombres.' '.$t->prsn_apellidopaterno .'</option>';
-         
-    }
+        foreach ($titulos as $t) {
+            echo '<option value="' . $t->id_titulos . '">' . $t->id_titulos . '  ' . $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . '</option>';
+        }
+
+        var_dump($titulos);
 
 
 
@@ -141,16 +141,14 @@ class titulos extends CI_Controller
     {
         header('Content-Type: application/json');
 
-        $id=$_POST['id'];
+        $id = $_POST['id'];
 
-       
+
 
         $titulo = $this->model_titulo->AccionesPorTitulo($id);
-        $t=$titulo[0];
+        $t = $titulo[0];
 
-        print_r(json_encode($t));     
-
-
+        print_r(json_encode($t));
     }
 
 
@@ -161,69 +159,161 @@ class titulos extends CI_Controller
     {
 
 
-        $id_accionista = $this->input->post('accionistaID');
-        $id_titulo_anterior = $this->input->post('tituloAnterior');
-        $acciones = $this->model_titulo->acciones_de_titulo($id_titulo_anterior);
+
+
+
+        $id_accionista_que_cede = $this->input->post('IdAccionistaANT');
+
+        $id_accionista_que_recibe = $this->input->post('accionistaID');
+
+        $numero_acciones_titulo_que_cede = $this->input->post('AccionesANT');
+
+        $cantidad_de_acciones_que_se_ceden = $this->input->post('NumNuevoCesion');
+
+        $titulo_que_precede = $this->input->post('tituloAnterior');
+
+        $acciones_nuevo_titulo_anterior = $numero_acciones_titulo_que_cede - $cantidad_de_acciones_que_se_ceden;
+
+
 
         $ultimoID = $this->model_titulo->ultimoId();
         $ultimo = $ultimoID[0]->maximo;
 
 
+        if ($acciones_nuevo_titulo_anterior > 0) {
+
+            $dataAntiguoT = array(
 
 
-        $num_acciones = $acciones[0]->numero_acciones;
-
-
-        $dataAntiguoT = array(
-
-
-            'estado' => $estado = 0,
+                'estado' => $estado = 0,
 
 
 
 
-        );
-
-
-        $dataNuevoT = array(
-
-
-            'id_accionista' => $id_accionista,
-
-            'numero_acciones' => $num_acciones,
-
-            'fecha' => $fecha_titulo = $this->input->post('fechaNtitulo'),
-
-            'estado' => $estado = 1,
+            );
 
 
 
 
-        );
+            $dataT_Nuevo = array(
 
-        $dataTablaTanferencia = array(
+                'id_accionista' => $id_accionista_que_recibe,
 
+                'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
 
-            'titulo_origen ' => $id_titulo_anterior,
+                'fecha' => $fecha_titulo = $this->input->post('fechaNtitulo'),
 
-            'tiulo_actual' => $ultimo + 1,
+                'estado' => $estado = 1,
 
-            'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
-
-
-
-
-        );
-
-        // print_r($_REQUEST['field_name']);
+            );
 
 
+            $dataT_Anterior = array(
 
-        $this->model_titulo->updatetitulos($dataAntiguoT, $id_titulo_anterior);
+                'id_accionista' => $id_accionista_que_cede,
 
-        $this->model_titulo->nueva_cesion($dataTablaTanferencia);
+                'numero_acciones' => $acciones_nuevo_titulo_anterior,
 
-        $this->model_titulo->nuevo_titulo($dataNuevoT);
+                'fecha' => $fecha_titulo = $this->input->post('fechaNtitulo'),
+
+                'estado' => $estado = 1,
+
+            );
+
+            $dataTablaTanferencia1 = array(
+
+
+                'titulo_origen ' => $titulo_que_precede,
+
+                'tiulo_actual' => $ultimo + 1,
+
+                'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
+
+            );
+            $dataTablaTanferencia2 = array(
+
+
+                'titulo_origen ' => $titulo_que_precede,
+
+                'tiulo_actual' => $ultimo + 2,
+
+                'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
+
+            );
+
+
+
+            $this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+            $this->model_titulo->nueva_cesion($dataTablaTanferencia1);
+            $this->model_titulo->nueva_cesion($dataTablaTanferencia2);
+            $this->model_titulo->nuevo_titulo($dataT_Nuevo);
+            $this->model_titulo->nuevo_titulo($dataT_Anterior);
+        };
+
+
+        if ($acciones_nuevo_titulo_anterior == 0) {
+
+
+            $dataAntiguoT = array(
+
+
+                'estado' => $estado = 0,
+
+
+
+            );
+
+
+
+            $dataT_Nuevo = array(
+
+                'id_accionista' => $id_accionista_que_recibe,
+
+                'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
+
+                'fecha' => $fecha_titulo = $this->input->post('fechaNtitulo'),
+
+                'estado' => $estado = 1,
+
+            );
+
+
+
+
+            $dataTablaTanferencia = array(
+
+
+                'titulo_origen ' => $titulo_que_precede,
+
+                'tiulo_actual' => $ultimo + 1,
+
+                'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
+
+            );
+
+
+
+            $this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+            $this->model_titulo->nueva_cesion($dataTablaTanferencia);
+
+            $this->model_titulo->nuevo_titulo($dataT_Nuevo);
+
+            //validar si el accionista tiene itulos activos si no los tiene se da de baja
+
+            $validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
+
+
+            if (empty($validar)) {
+                $dataAccionista = array(
+                    'estado_accionista' => $estadoaccionista = 0,
+                    'fecha_baja' => $fecha = date('Y-m-d'),
+                );
+                $this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
+            };
+        }
+
+
+
 
 
 
@@ -333,5 +423,46 @@ class titulos extends CI_Controller
         $this->model_titulo->nuevo_titulo($dataT);
 
         redirect('accionistas/inicio');
+    }
+
+
+    public function historial_titulo()
+    {
+
+        $idT = $this->input->post('Titulo');
+
+        $historial = $this->model_titulo->historial_titulo($idT);
+
+        $historial_t = array();
+        $i = 0;
+
+
+
+
+
+
+
+
+
+        while (!empty($historial)) {
+
+
+            $i++;
+
+            array_push($historial_t, $historial);
+            $historial = $this->model_titulo->historial_titulo($historial[0]['titulo_origen']);
+        }
+
+
+        $data['historial_t'] = $historial_t;
+        $data['indice'] = $i;
+
+
+
+        $this->load->view('plantilla/Head_v1');
+
+        $this->load->view('titulos/historial_titulo', $data);
+
+        $this->load->view('plantilla/Footer');
     }
 }
