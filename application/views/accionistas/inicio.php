@@ -142,12 +142,21 @@
                 <td>Saldo acciones suscritas</td>
                 <td><?php echo $saldo ?></td>
               </tr>
+              <tr >
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="bg-danger">
+                <td>Titulos por entregar</td>
+                <td><?php echo $no_entregados ?></td>
+              </tr>
 
 
             </table>
 
           </div>
           <div class="row">
+          <h5>Ultimos Accionitas</h5>
             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
               <thead class="thead-light">
                 <tr>
@@ -251,7 +260,7 @@
   <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://code.jquery.com/jquery.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
   <!-- jQuery UI -->
   <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->

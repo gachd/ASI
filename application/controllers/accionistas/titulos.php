@@ -42,7 +42,12 @@ class titulos extends CI_Controller
 
     {
 
+
+
+        $data['sin_entregar'] = $this->model_titulo->titulos_no_entregados();
+
         $data['titulos'] = $this->model_titulo->titulosactivos();
+
 
 
         $this->load->view('plantilla/Head_v1');
@@ -65,6 +70,54 @@ class titulos extends CI_Controller
 
         $this->load->view('plantilla/Footer');
     }
+    public  function entregados()
+    {
+
+        $data['titulos'] = $this->model_titulo->titulosactivos();
+
+
+        $data['accionista'] = $this->model_accionistas->accionistas();
+        $data['sin_entregar'] = $this->model_titulo->titulos_no_entregados();
+
+
+        $this->load->view('plantilla/Head_v1');
+
+        $this->load->view('titulos/titulos_no_entregado', $data);
+
+        $this->load->view('plantilla/Footer');
+    }
+
+
+    public  function entregar()
+    {
+
+        $fecha = $this->input->post('fecha');
+        $id_titulo = $this->input->post('Titulo');
+
+        $dataT = array(
+
+
+
+
+            'entrega' => $estadoEntrega = 1,
+
+            'fecha_entrega' => $fecha,
+
+
+        );
+
+        $this->model_titulo->updatetitulos($dataT, $id_titulo);
+
+
+        echo "<script>
+        alert('Registro Actualizado');
+        
+        </script>";
+
+        redirect('accionistas/titulos/entregados', 'refresh');
+    }
+
+
 
     public  function guadarNuevoTitulo()
     {
@@ -78,6 +131,8 @@ class titulos extends CI_Controller
             'fecha' => $fecha_titulo = $this->input->post('fechaT'),
 
             'estado' => $estado = 1,
+
+            'entrega' => $estadoEntrega = 0,
 
 
         );
@@ -205,6 +260,8 @@ class titulos extends CI_Controller
 
                 'estado' => $estado = 1,
 
+                'entrega' => $estadoEntrega = 0,
+
             );
 
 
@@ -217,6 +274,8 @@ class titulos extends CI_Controller
                 'fecha' => $fecha_titulo = $this->input->post('fechaNtitulo'),
 
                 'estado' => $estado = 1,
+
+                'entrega' => $estadoEntrega = 0,
 
             );
 
@@ -274,6 +333,8 @@ class titulos extends CI_Controller
                 'fecha' => $fecha_titulo = $this->input->post('fechaNtitulo'),
 
                 'estado' => $estado = 1,
+
+                'entrega' => $estadoEntrega = 0,
 
             );
 
@@ -406,6 +467,8 @@ class titulos extends CI_Controller
             //'fecha' => $fecha_titulo = $this->input->post('NumAcciones'),
 
             'estado' => $estado = 1,
+
+            'entrega' => $estadoEntrega = 0,
 
 
 

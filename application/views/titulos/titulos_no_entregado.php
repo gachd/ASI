@@ -14,12 +14,12 @@
 
 
 </head>
-<style> 
- .table_wrapper{
+<style>
+  .table_wrapper {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
-}
+  }
 </style>
 
 <body>
@@ -33,45 +33,23 @@
       <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
     </div>
 
-    <div class="container" id="advanced-search-form" style="border:1px solid ">
-      <h3><strong>Titulos</strong></h3>
-      <br>
-
-
-
-      <div class="col-md-5">
-        <button type="submit" id="nuevo" class="btn btn  btn-lg btn-block btn-success">Nuevo</button>
-      </div>
-      <div class="col-md-5">
-        <button type="submit" id="cesion" class="btn  btn-lg btn-block btn-warning">Cesion</button>
-      </div>
-
-
-
-
-
-    </div>
-
 
 
 
 
     <div class="container" id="advanced-search-form" style="border:1px solid ">
-      <h3><strong>HISTORIAL TITULOS ACTIVOS</strong></h3>
+      <h3><strong>Entrega de titulo</strong></h3>
       <br>
 
-      <form action="<?php echo base_url(); ?>accionistas/titulos/historial_titulo" method="post" class="form-inline">
+      <form action="<?php echo base_url(); ?>accionistas/titulos/entregar" method="post" >
 
 
         <div class="form-group">
-          <label>Seleccione titulo</label>
-
-
-
+          <label for="Titulo">Seleccione titulo</label>
           <select class="form-control" name="Titulo" id="Titulo" required>
             <option value=""> Seleccionar </option>
             <?php
-            foreach ($titulos as $i) {
+            foreach ($sin_entregar as $i) {
 
               echo ' <option value="' . $i->id_titulos   . '" >' . $i->id_titulos . '</option>';
             }
@@ -79,6 +57,11 @@
             ?>
           </select>
 
+        </div>
+
+        <div class="form-group">
+          <label>Seleccione Fecha</label>
+          <input class="form-control" type="text" name="fecha" id="Fecha" autocomplete="off" required>
         </div>
 
 
@@ -96,8 +79,9 @@
     </div>
 
 
+
     <div class="container table-responsive table_wrapper " id="advanced-search-form" style="border:1px solid ">
-      <h4><strong>TITULOS ACTIVOS</strong></h4>
+      <h4><strong>No entregados</strong></h4>
       <br>
       <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
         <thead>
@@ -124,16 +108,16 @@
 
           <?php
 
-          foreach($titulos as $t){
+          foreach ($sin_entregar as $t) {
 
 
             echo '<tr class="odd gradeX">';
-            echo '<td>' . $t->id_titulos. '</td>';
-            echo '<td>' . $t->numero_acciones. '</td>';
-            echo '<td>' . $t->fecha. '</td>';
-            echo '<td>' . $t->prsn_nombres.' '.$t->prsn_apellidopaterno.' '.$t->prsn_apellidomaterno. '</td>';
-            echo '<td>' . $t->prsn_rut. '</td>';
-         
+            echo '<td>' . $t->id_titulos . '</td>';
+            echo '<td>' . $t->numero_acciones . '</td>';
+            echo '<td>' . $t->fecha . '</td>';
+            echo '<td>' . $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . ' ' . $t->prsn_apellidomaterno . '</td>';
+            echo '<td>' . $t->prsn_rut . '</td>';
+
 
             echo '</tr>';
           }
@@ -152,9 +136,6 @@
     </div>
 
 
-  
-
-
 
 
 
@@ -169,7 +150,7 @@
 
 
 
-  </>
+  </div>
 
 </body>
 <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
@@ -193,12 +174,7 @@
   $("#menuprincipal").click(function() {
     window.location.href = "<?php echo base_url(); ?>accionistas/inicio";
   });
-  $("#nuevo").click(function() {
-    window.location.href = "<?php echo base_url(); ?>accionistas/titulos/nuevoTitulo";
-  });
-  $("#cesion").click(function() {
-    window.location.href = "<?php echo base_url(); ?>accionistas/titulos/cesionTitulo";
-  });
+
 
 
   $('#grid').DataTable({
@@ -228,33 +204,43 @@
     }
   });
 
+  $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércole xs', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
 
-  $('#grid2').DataTable({
-    "oLanguage": {
-      "sProcessing": "Procesando...",
-      "sLengthMenu": "Mostrar _MENU_ registros",
-      "sZeroRecords": "No se encontraron resultados",
-      "sEmptyTable": "Ningún dato disponible en esta tabla",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "sInfoPostFix": "",
-      "sSearch": "Buscar:",
-      "sUrl": "",
-      "sInfoThousands": ",",
-      "sLoadingRecords": "Cargando...",
-      "oPaginate": {
-        "sFirst": "Primero",
-        "sLast": "Último",
-        "sNext": "Siguiente",
-        "sPrevious": "Anterior"
-      },
-      "oAria": {
-        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-      }
-    }
-  });
+
+    $(function() {
+
+$.datepicker.setDefaults($.datepicker.regional['es']);
+
+
+
+$("#Fecha").datepicker({
+    dateFormat: "yy-mm-dd",
+    changeYear: true,
+    yearRange: "-100:+0"
+
+
+});;
+
+
+});
+
+
 </script>
 
 </html>

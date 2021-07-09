@@ -43,7 +43,7 @@
         <div class="container" id="advanced-search-form" style="border:1px solid ">
             <h3><strong>Reporte de Accionistas segun fecha</strong></h3>
             <br>
-            <form action="<?php echo base_url();?>accionistas/inicio/informe_fechas_accionistas" method="POST" > 
+            <form action="<?php echo base_url(); ?>accionistas/inicio/informe_fechas_accionistas2" method="POST">
                 <div class="form-group">
                     <label for="Tipoinforme">Tipo de informe</label>
                     <select class="form-control" name="tipoinforme" id="Tipoinforme" required>
@@ -65,23 +65,40 @@
 
                 <div class="form-group">
                     <label>Seleccione Fecha</label>
-                    <input class="form-control" type="text" name="fecha2" id="Fecha2" autocomplete="off" required >
+                    <input class="form-control" type="text" name="fecha2" id="Fecha2" autocomplete="off" required>
 
 
                 </div>
 
 
                 <div class="form-group">
-                    <button id="cesion" class="btn btn-default btn-lg btn-block">Buscar</button>
+
+                    <a href="#" id="Click" class="btn btn-default btn-lg btn-block">Buscar</a>
                 </div>
+                <div class="form-group">
 
-
-
-
-
-
-
+                    <button class="btn"><span class="glyphicon glyphicon-circle-arrow-down"> PDF</span></button>
+                </div>
             </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+        <div class="container" id="advanced-search-form">
+            <table class="table table-striped table-bordered" id="Tabla">
+            </table>
+
 
 
         </div>
@@ -107,7 +124,9 @@
 <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
 
 <!-- jQuery necessary for Bootstrap's JavaScript plugins -->
+
 <script src="https://code.jquery.com/jquery.js"></script>
+
 <!-- jQuery UI -->
 <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -119,6 +138,7 @@
 
 <script src="<?php echo base_url(); ?>/assets/js/custom.js"></script>
 <script src="<?php echo base_url(); ?>/assets/js/tables.js"></script>
+
 <!-- Latest compiled and minified CSS -->
 
 <script type="text/javascript">
@@ -163,6 +183,7 @@
 
 
         });;
+
         $("#Fecha2").datepicker({
             dateFormat: "yy-mm-dd",
             changeYear: true,
@@ -171,6 +192,139 @@
 
         });;
     });
+
+
+
+
+
+
+
+
+
+    $("#Click").click(function() {
+        $("#Tabla").empty()
+        cargarDatos();
+
+
+    });
+
+
+
+    function cargarDatos() {
+        var fecha1 = $("#Fecha1");
+        var fecha2 = $("#Fecha2");
+        var tipo = $("#Tipoinforme");
+
+
+
+        //console.log(DatosJson.alumnoUTP.length);
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>accionistas/inicio/informe_fechas_accionistas",
+            data: {
+
+                fecha1: fecha1.val(),
+                fecha2: fecha2.val(),
+                tipoinforme: tipo.val(),
+            },
+
+
+            success: function(response) {
+
+                console.log(response);
+                console.log(response.length);
+
+                if (response.length > 4) {
+
+                    //mostrar bajas
+
+                    if (tipo.val() == 0) {
+
+                        var datos = JSON.parse(response);
+
+                        $("#Tabla").append(
+                            '<tr><td>Nombre</td>' +
+                            '<td>Apellido paterno</td>' +
+                            '<td>Baja</td>' +
+                            '<td>Estado</td>');
+                        // alert(fecha1.val() + ' ' + fecha2.val() + ' ' + tipo.val())
+
+                        console.log(datos)
+                        for (i = 0; i < datos.length; i++) {
+
+                            $("#Tabla").append('<tr>' +
+                                '<td>' + datos[i].prsn_nombres + '</td>' +
+                                '<td>' + datos[i].prsn_apellidopaterno + '</td>' +
+                                '<td>' + datos[i].fecha_baja + '</td>' +
+                                '<td>' + datos[i].estado_accionista + '</td>' + '</tr>');
+                        }
+
+
+
+                    }
+
+                    //Mostrar incorporaciones
+                    if (tipo.val() == 1) {
+
+                        var datos = JSON.parse(response);
+
+                        $("#Tabla").append(
+                            '<tr><td>Nombre</td>' +
+                            '<td>Apellido paterno</td>' +
+                            '<td>Incorporacion</td>' +
+                            '<td>Estado</td>');
+                        // alert(fecha1.val() + ' ' + fecha2.val() + ' ' + tipo.val())
+
+                        console.log(datos)
+                        for (i = 0; i < datos.length; i++) {
+
+                            $("#Tabla").append('<tr>' +
+                                '<td>' + datos[i].prsn_nombres + '</td>' +
+                                '<td>' + datos[i].prsn_apellidopaterno + '</td>' +
+                                '<td>' + datos[i].fecha + '</td>' +
+                                '<td>' + datos[i].estado_accionista + '</td>' + '</tr>');
+                        }
+
+
+
+
+                    }
+
+
+
+
+                } else {
+
+                    swal({
+                        title: "No se encontraron registros",
+                        icon: "info",
+                        button: "OK",
+                    });
+
+
+                }
+
+
+
+
+            },
+            error: function() {
+                alert('Ocurrio un error en el servidor ..');
+
+            }
+        });
+
+
+
+        // for (i = 0; i < DatosJson.alumnoUTP.length; i++) {
+
+        //     $("#Table").append('<tr>' +
+        //         '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].nombre + '</td>' +
+        //         '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].apePaterno + '</td>' +
+        //         '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].edad + '</td>' + '</tr>');
+        // }
+    }
 </script>
 
 </html>

@@ -57,8 +57,12 @@ class inicio extends CI_Controller
       $data['accionistas'] = $this->model_accionistas->accionistas();
       $data['ultimos'] = $this->model_accionistas->ultimos();
 
+      $no_entregados = $this->model_titulo->nro_titulos_no_entregados();
+      $data['no_entregados'] =  $no_entregados[0]->no_entregados;
+
 
       $emitidas = $this->model_accionistas->totalemitidas();
+
       $totalemitidas = $emitidas[0]->total_emitidas;
       $data['emitidas'] = $totalemitidas;
 
@@ -136,7 +140,7 @@ class inicio extends CI_Controller
    {
       $accionistas = $this->model_accionistas->nro_acciones_all();
 
-      
+
 
 
       $data = [];
@@ -165,7 +169,7 @@ class inicio extends CI_Controller
             $cont = $cont + 1;
          }
       }
-      
+
 
 
 
@@ -174,12 +178,11 @@ class inicio extends CI_Controller
          $data[] = [(string)$nombres[$j], (int)$rango[$j]];
       }
 
-      $data[$j]=["MINORISTAS",$cont];
+      $data[$j] = ["MINORISTAS", $cont];
 
-      
 
-      echo json_encode($data,JSON_UNESCAPED_UNICODE);
-      
+
+      echo json_encode($data, JSON_UNESCAPED_UNICODE);
    }
 
 
@@ -203,10 +206,6 @@ class inicio extends CI_Controller
       $this->load->view('accionistas/update_accionista', $data);
 
       $this->load->view('plantilla/Footer');
-
-
-     
-
    }
 
 
@@ -219,7 +218,7 @@ class inicio extends CI_Controller
       $data['titulos'] = $this->model_accionistas->validar_estado($id);
 
 
-      
+
 
 
 
@@ -229,10 +228,6 @@ class inicio extends CI_Controller
       $this->load->view('accionistas/show_accionista', $data);
 
       $this->load->view('plantilla/Footer');
-
-
-     
-
    }
 
 
@@ -244,7 +239,7 @@ class inicio extends CI_Controller
       // $data['titulos'] = $this->model_accionistas->validar_estado($id);
       $data[] = '';
 
-      
+
 
 
 
@@ -253,27 +248,92 @@ class inicio extends CI_Controller
 
       $this->load->view('accionistas/por_fechas', $data);
 
-      $this->load->view('plantilla/Footer');     
-
+      $this->load->view('plantilla/Footer');
    }
 
 
    public function informe_fechas_accionistas()
 
    {
-      $tipo=$this->input->post('tipoinforme');
-      $fecha1=$this->input->post('fecha1');
-      $fecha2=$this->input->post('fecha2');
-
-      $result=$this->model_accionistas->buscar_por_fecha($fecha1, $fecha2,$tipo);
-
-      
-
-      var_dump(json_encode($result)) ;
-      
-     
 
 
+
+      $tipo = $this->input->post('tipoinforme');
+      $fecha1 = $this->input->post('fecha1');
+      $fecha2 = $this->input->post('fecha2');
+
+
+      switch ($tipo) {
+         case 0:
+
+            $result = $this->model_accionistas->buscar_por_fecha_baja($fecha1, $fecha2, $tipo);
+            break;
+
+
+
+         case 1:
+
+            $result = $this->model_accionistas->buscar_por_fecha_activo($fecha1, $fecha2, $tipo);
+            break;
+      }
+
+
+      print_r(json_encode($result));
+   }
+
+
+   public function informe_fechas_accionistas2()
+
+   {
+
+
+
+      $tipo = $this->input->post('tipoinforme');
+      $data['fecha1'] = $fecha1 = $this->input->post('fecha1');
+      $data['fecha2'] = $fecha2 = $this->input->post('fecha2');
+
+
+
+      $cabecera = "";
+      $pie = "<div>Pág {PAGENO}/{nb}</div>";
+      $orientacion = "P";
+
+
+
+      switch ($tipo) {
+         case 0:
+
+            $data['accionista'] = $this->model_accionistas->buscar_por_fecha_baja($fecha1, $fecha2, $tipo);
+            var_dump($data);
+            $html = $this->load->view('accionistas/reporte_bajas', $data, true);
+            break;
+
+
+
+
+
+         case 1:
+
+            $data['accionista'] = $this->model_accionistas->buscar_por_fecha_activo($fecha1, $fecha2, $tipo);
+            $html = $this->load->view('accionistas/reporte_incorporacion', $data, true);
+            break;
+      }
+
+
+
+
+      //$html = mb_convert_encoding($html, 'UTF-8', 'ISO-8859-1');
+      ob_end_clean();
+      $html = html_entity_decode($html);
+      $mpdf = new \Mpdf\Mpdf(['debug' => true]);
+      //  $stylesheet = file_get_contents(base_url().'/assets/css/pdf.css'); // la ruta a tu css 
+      // $mpdf->WriteHTML($stylesheet,1);
+      $mpdf->AddPage($orientacion);
+      $mpdf->SetHTMLHeader($cabecera);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($html);
+      $mpdf->SetHTMLFooter($pie);
+      $mpdf->Output();
    }
 
 

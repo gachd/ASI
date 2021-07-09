@@ -155,10 +155,19 @@
 		}
 
 
-		function buscar_por_fecha($fecha1, $fecha2,$tipo)
+		function buscar_por_fecha_activo($fecha1, $fecha2,$tipo)
 		{
 
-			$p = $this->db->query('SELECT p.prsn_rut,p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,a.fecha FROM s_personas p, s_accionista a WHERE p.prsn_rut=a.prsn_rut AND a.estado_accionista='.$tipo.' AND a.fecha<= "'. $fecha2 .'"  AND a.fecha>="' . $fecha1 . '"');
+			$p = $this->db->query('SELECT p.prsn_rut,p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,a.fecha,a.estado_accionista, a.fecha_baja FROM s_personas p, s_accionista a WHERE p.prsn_rut=a.prsn_rut AND a.estado_accionista='.$tipo.' AND a.fecha<= "'. $fecha2 .'"  AND a.fecha>="' . $fecha1 . '"');
+			return $p->result_array();
+
+			
+		}
+
+		function buscar_por_fecha_baja($fecha1, $fecha2,$tipo)
+		{
+
+			$p = $this->db->query('SELECT p.prsn_rut,p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,a.fecha,a.estado_accionista, a.fecha_baja FROM s_personas p, s_accionista a WHERE p.prsn_rut=a.prsn_rut AND a.estado_accionista='.$tipo.' AND a.fecha_baja<= "'. $fecha2 .'"  AND a.fecha_baja>="' . $fecha1 . '"');
 			return $p->result_array();
 
 			

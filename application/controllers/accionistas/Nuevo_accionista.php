@@ -247,6 +247,8 @@ class nuevo_accionista extends CI_Controller
 
 					'estado' => $estado = 1,
 
+					'entrega' => $estadoEntrega = 0,
+
 				);
 
 
@@ -259,6 +261,8 @@ class nuevo_accionista extends CI_Controller
 					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
 
 					'estado' => $estado = 1,
+
+					'entrega' => $estadoEntrega = 0,
 
 				);
 
@@ -317,6 +321,9 @@ class nuevo_accionista extends CI_Controller
 					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
 
 					'estado' => $estado = 1,
+
+
+					'entrega' => $estadoEntrega = 0,
 
 				);
 

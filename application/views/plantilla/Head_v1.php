@@ -50,6 +50,11 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+	<!-- Alertas -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
 
 </head>
 
@@ -140,11 +145,12 @@
 						// }
 						if (($principal == 7) or ($principal == 0)) {
 							echo ' 
-							<li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas</a> </li>';
+							<li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas</a> </li>
+							<li ><a href="' . base_url() . 'socios/inicio" >Socios</a> </li>';
 						}
 					}
 
-					// <li ><a href="' . base_url() . 'socios/inicio" >Socios</a> </li>
+					// 
 
 
 

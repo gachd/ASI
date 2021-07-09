@@ -38,11 +38,10 @@ class model_titulo extends CI_Model
         return $p->result();
     }
 
-    function updatetitulos($data,$id)
+    function updatetitulos($data, $id)
     {
         $this->db->where('id_titulos ', $id);
         $this->db->update('s_titulos', $data);
-
     }
 
     function nueva_cesion($data)
@@ -64,9 +63,6 @@ class model_titulo extends CI_Model
     {
         $p = $this->db->query('SELECT t.id_titulos,t.numero_acciones,t.id_accionista FROM s_titulos t WHERE t.id_titulos = "' . $id_titulo . '"');
         return $p->result();
-
-
-
     }
 
     function historial_titulo($id)
@@ -76,8 +72,19 @@ class model_titulo extends CI_Model
         $p = $this->db->query('SELECT * FROM s_titulos t, cesion_titulo c, s_accionista a, s_personas p WHERE c.tiulo_actual ="' . $id . '" AND c.tiulo_actual = t.id_titulos AND a.id_accionista= t.id_accionista AND a.prsn_rut= p.prsn_rut');
         return $p->result_array();
     }
+    function titulos_no_entregados()
+    {
 
 
+        $p = $this->db->query('SELECT * FROM s_titulos t, s_accionista a, s_personas p WHERE t.estado = 1 AND t.entrega = 0 AND p.prsn_rut= a.prsn_rut AND t.id_accionista = a.id_accionista GROUP by t.id_titulos');
+        return $p->result();
+    }
+
+    function nro_titulos_no_entregados()
+    {
 
 
+        $p = $this->db->query('SELECT COUNT(t.id_titulos) no_entregados FROM s_titulos t, s_accionista a, s_personas p WHERE t.estado = 1 AND t.entrega = 0 AND p.prsn_rut= a.prsn_rut AND t.id_accionista = a.id_accionista ');
+        return $p->result();
+    }
 }
