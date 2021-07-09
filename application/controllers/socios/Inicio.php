@@ -141,6 +141,7 @@ class inicio extends CI_Controller
             <td>Socorros Mutuos</td>
 
             <td>' . $cant_socorros . '</td>
+            
 
           </tr>
 

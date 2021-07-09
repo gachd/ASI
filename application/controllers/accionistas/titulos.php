@@ -108,11 +108,10 @@ class titulos extends CI_Controller
 
         $this->model_titulo->updatetitulos($dataT, $id_titulo);
 
+        $script = 'src="https://unpkg.com/sweetalert/dist/sweetalert.min.js">';
 
-        echo "<script>
-        alert('Registro Actualizado');
-        
-        </script>";
+
+        $this->session->set_flashdata('exito', 'Actualizado');
 
         redirect('accionistas/titulos/entregados', 'refresh');
     }

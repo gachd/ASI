@@ -6,7 +6,7 @@
 
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <title>Document</title>
+  <title>Socios</title>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/view/styleInicio.css">
 </head>
 
@@ -286,6 +286,7 @@
       },
 
       function(data) {
+        console.log(data);
 
         $("#mostrar").html(data);
 

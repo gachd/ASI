@@ -19,7 +19,10 @@
     display: block;
     overflow-x: auto;
     white-space: nowrap;
+
+    
 }
+
 </style>
 
 <body>
@@ -39,11 +42,14 @@
 
 
 
-      <div class="col-md-5">
+      <div >
         <button type="submit" id="nuevo" class="btn btn  btn-lg btn-block btn-success">Nuevo</button>
       </div>
-      <div class="col-md-5">
+      <div >
         <button type="submit" id="cesion" class="btn  btn-lg btn-block btn-warning">Cesion</button>
+      </div>
+      <div >
+        <button type="submit" id="pendientes" class="btn  btn-lg btn-block btn-secondary">Pendientes</button>
       </div>
 
 
@@ -198,6 +204,9 @@
   });
   $("#cesion").click(function() {
     window.location.href = "<?php echo base_url(); ?>accionistas/titulos/cesionTitulo";
+  });
+  $("#pendientes").click(function() {
+    window.location.href = "<?php echo base_url(); ?>accionistas/titulos/entregados";
   });
 
 

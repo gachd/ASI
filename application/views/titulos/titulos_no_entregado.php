@@ -33,6 +33,21 @@
       <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
     </div>
 
+   
+    <?php
+
+    if ($this->session->flashdata('exito'))
+
+    echo '<script>
+
+    toastr.success("Actualizado");
+    
+    </script>    
+    
+    '
+
+    ?>
+
 
 
 
@@ -41,7 +56,7 @@
       <h3><strong>Entrega de titulo</strong></h3>
       <br>
 
-      <form action="<?php echo base_url(); ?>accionistas/titulos/entregar" method="post" >
+      <form action="<?php echo base_url(); ?>accionistas/titulos/entregar" method="post">
 
 
         <div class="form-group">
@@ -205,42 +220,40 @@
   });
 
   $.datepicker.regional['es'] = {
-        closeText: 'Cerrar',
-        prevText: '< Ant',
-        nextText: 'Sig >',
-        currentText: 'Hoy',
-        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércole xs', 'Jueves', 'Viernes', 'Sábado'],
-        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-        weekHeader: 'Sm',
-        dateFormat: 'dd/mm/yy',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix: ''
-    };
+    closeText: 'Cerrar',
+    prevText: '< Ant',
+    nextText: 'Sig >',
+    currentText: 'Hoy',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércole xs', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+    weekHeader: 'Sm',
+    dateFormat: 'dd/mm/yy',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+  };
 
 
-    $(function() {
+  $(function() {
 
-$.datepicker.setDefaults($.datepicker.regional['es']);
-
-
-
-$("#Fecha").datepicker({
-    dateFormat: "yy-mm-dd",
-    changeYear: true,
-    yearRange: "-100:+0"
+    $.datepicker.setDefaults($.datepicker.regional['es']);
 
 
-});;
+
+    $("#Fecha").datepicker({
+      dateFormat: "yy-mm-dd",
+      changeYear: true,
+      yearRange: "-100:+0"
 
 
-});
+    });;
 
 
+  });
 </script>
 
 </html>

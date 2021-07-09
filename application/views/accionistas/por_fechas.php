@@ -43,7 +43,7 @@
         <div class="container" id="advanced-search-form" style="border:1px solid ">
             <h3><strong>Reporte de Accionistas segun fecha</strong></h3>
             <br>
-            <form action="<?php echo base_url(); ?>accionistas/inicio/informe_fechas_accionistas2" method="POST">
+            <form action="<?php echo base_url(); ?>accionistas/inicio/informe_fechas_accionistas2" method="POST"  target="_blank" >
                 <div class="form-group">
                     <label for="Tipoinforme">Tipo de informe</label>
                     <select class="form-control" name="tipoinforme" id="Tipoinforme" required>

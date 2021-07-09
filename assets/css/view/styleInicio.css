@@ -209,7 +209,7 @@ transform-style: preserve-3d;
 
     padding: 10px 0;
 
-    position: absolute;   
+    position: absolute;
 
     border-radius: 5px;
 
@@ -275,7 +275,7 @@ transform-style: preserve-3d;
 
     padding: 10px 0;
 
-    position: absolute;    
+    position: absolute;
 
     border-radius: 5px;
 
@@ -341,7 +341,7 @@ transform-style: preserve-3d;
 
     padding: 10px 0;
 
-    position: absolute;    
+    position: absolute;
 
     border-radius: 5px;
 
@@ -407,7 +407,7 @@ transform-style: preserve-3d;
 
     padding: 10px 0;
 
-    position: absolute;    
+    position: absolute;
 
     border-radius: 5px;
 
@@ -473,7 +473,7 @@ transform-style: preserve-3d;
 
     padding: 10px 0;
 
-    position: absolute;    
+    position: absolute;
 
     border-radius: 5px;
 
@@ -539,7 +539,7 @@ transform-style: preserve-3d;
 
     padding: 10px 0;
 
-    position: absolute;    
+    position: absolute;
 
     border-radius: 5px;
 
@@ -605,7 +605,7 @@ transform-style: preserve-3d;
 
     padding: 10px 0;
 
-    position: absolute;    
+    position: absolute;
 
     border-radius: 5px;
 
@@ -639,7 +639,7 @@ transform: rotateX(-90deg) translateY(100%);
 
 }
 
-a img{
+a.btn img{
   width: 100px!important;
 }
 

@@ -1,4 +1,6 @@
 <?php !isset($this->session->userdata['logueado']) ?   die('Página con acceso restringido. <a href="' . base_url() . 'Login">Click aquí para hacer login</a>')   :   ''; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,12 +65,13 @@
 		<div class="container">
 
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
+			
 
 
 				<a class="navbar-brand" href="#"><img width="40" src="<?php echo base_url(); ?>/assets/logo.png"></a>
@@ -145,7 +148,18 @@
 						// }
 						if (($principal == 7) or ($principal == 0)) {
 							echo ' 
-							<li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas</a> </li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Accionista<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+
+									<li><a href="'. base_url().'accionistas/inicio" >Inicio</a></li>
+									<li><a href=" '. base_url().'accionistas/titulos" >Titulos</a></li>
+
+								</ul>
+							</li>
+
+							
+							
 							<li ><a href="' . base_url() . 'socios/inicio" >Socios</a> </li>';
 						}
 					}
@@ -240,6 +254,7 @@
 		</div>
 	</nav>
 
+	
 
 	<div>
 

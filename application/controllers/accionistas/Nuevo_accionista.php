@@ -189,6 +189,8 @@ class nuevo_accionista extends CI_Controller
 				'fecha' => $fecha_titulo = $this->input->post('fechaT'),
 
 				'estado' => $estado = 1,
+
+				'entrega' => $estadoEntrega = 0,
 			);
 
 			$this->model_titulo->nuevo_titulo($dataT);
@@ -369,7 +371,7 @@ class nuevo_accionista extends CI_Controller
 
 
 
-
+		$this->session->set_flashdata('exito', 'Actualizado');
 
 
 		redirect('accionistas/inicio');

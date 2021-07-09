@@ -115,7 +115,7 @@ function getEstado($estado)
                 <tr>
                     <td width="30%" rowspan="2" align="left" style="padding-bottom:15px;"><img src="<?php echo base_url(); ?>/assets/images/logo_instituciones_mini.png" width="130" style="margin-right:25px;" /></td>
                     <td colspan="2">
-                        <h2>Incorporaciones desde <?php echo $fecha1 ?> al <?php echo $fecha2 ?></h2>
+                        <h3>Incorporaciones desde <?php echo $fecha1 ?> al <?php echo $fecha2 ?></h3>
                     </td>
                     <td></td>
                 </tr>

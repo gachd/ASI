@@ -8,21 +8,16 @@
 
   <title>MENU Accionitas</title>
 
-  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
-  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chartJS/Chart.min.js"></script>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+ 
 </head>
 
-<style> 
+<style>
  .table_wrapper{
     display: block;
     overflow-x: auto;
     white-space: nowrap;
 }
-</style>
-<style>
+
   .ico.badge.badge-success {
     background-color: #08c222;
   }
@@ -31,9 +26,9 @@
     background-color: #ff0000;
   }
 
-  body {
+  /* body {
     font-size: 12px;
-  }
+  } */
 
   a.button {
     -webkit-appearance: button;
@@ -48,6 +43,20 @@
     font-size: 14px;
   }
 </style>
+
+<?php
+
+    if ($this->session->flashdata('exito'))
+
+    echo '<script>
+
+    toastr.success("Agregado con exito");
+    
+    </script>    
+    
+    '
+
+    ?>
 
 <body>
 
@@ -66,7 +75,7 @@
       <div class="row well">
 
         <div class="content-box-large">
-          
+
           <div class="col-md-1">
             <button type="button" class="btn btn-success" id="newaccionista"><span class="badge"><i class="glyphicon glyphicon-plus"></i> Nuevo <br> Accionista</span></button>
           </div>
@@ -166,9 +175,9 @@
                 </tr>
               </thead>
               <tbody>
-              
+
                 <?php if (!empty($ultimos)) {
-                  
+
                   foreach ($ultimos as $u) {
                     echo '<tr class="odd gradeX">';
                     echo '<td>' . $u->prsn_nombres . ' ' . $u->prsn_apellidopaterno . '</td>';
@@ -193,7 +202,7 @@
               <div class="panel-title">LISTADO DE ACCIONISTAS</div>
             </div>
             <div class="panel-body">
-              <div class="table-responsive table_wrapper">
+              <div class="table table-responsive table_wrapper">
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
                   <thead>
                     <tr>
@@ -205,7 +214,7 @@
                       <th>Cantidad Acciones</th>
                       <th>N° Título </th>
                       <th>Acciones </th>
-                      
+
 
 
                     </tr>
@@ -213,7 +222,7 @@
                   <tbody>
 
                   <span></span>
-                    <?php foreach ($accionistas as $s) { 
+                    <?php foreach ($accionistas as $s) {
 
 
                       echo '<tr class="">';
@@ -235,7 +244,7 @@
 
                       echo '<td><a  href=inicio/editar/' . $s->id_accionista . '><span class="ico badge badge-info">Editar</span></a> <a  href=inicio/ver/' . $s->id_accionista . '><span class="ico badge badge-info">Ver</span></a></td>';
 
-                   
+
 
                       echo '</tr>';
                     }
@@ -245,7 +254,7 @@
 
                   </tbody>
                 </table>
-                
+
               </div>
             </div>
           </div>
@@ -259,6 +268,12 @@
 
   <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
 
+
+  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chartJS/Chart.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
   <!-- jQuery UI -->
