@@ -2208,11 +2208,10 @@
     for (i = 0; i < numFilas; i++) {
 
       $("#fecha_reg" + cont).datepicker({
-      changeMonth: true,
-      changeYear: true,
-      yearRange: '-100:+0',
-    }
-      );
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:+0',
+      });
 
       cont = cont + 1;
 
@@ -2224,13 +2223,11 @@
 
   $(function() {
 
-    $("#nac_carga").datepicker(
-      {
+    $("#nac_carga").datepicker({
       changeMonth: true,
       changeYear: true,
       yearRange: '-100:+0',
-    }
-    );
+    });
 
   });
 
@@ -2687,7 +2684,7 @@
 
   $("select[name=SocPa]").change(function() {
 
-     alert($('select[name=SocPa]').val());
+    alert($('select[name=SocPa]').val());
 
     // agregarSocPat();
 

@@ -1364,6 +1364,25 @@
 
 			return $cant->result();
 		}
+
+
+
+		function sociosAll()
+		{
+
+			$cant = $this->db->query('');
+
+			return $cant->result();
+		}
+
+
+
+
+
+
+
+
+
 	}
 
 
