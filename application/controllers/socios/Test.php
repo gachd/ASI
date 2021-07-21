@@ -90,33 +90,40 @@ class Test extends CI_Controller
     }
 
 
-    public function reporte_socio()
-    { 
+    private function reporte_socio($data)
+    {
 
 
 
         $spreadsheet = new Spreadsheet();
 
         $sheet = $spreadsheet->getActiveSheet();
-      
+
         $sheet->setCellValue('B1', 'RUT');
         $sheet->setCellValue('C1', 'Nombre');
         $sheet->setCellValue('D1', 'Edad');
         $sheet->setCellValue('E1', 'Sexo');
 
-        $data =  $this->model_test->activos();
-       
+        //$data =  $this->model_test->activos();
+        $total=0;
+
         $start = 2;
         foreach ($data as $s) {
-           
+
             $sheet->setCellValue('B' . $start, $this->getPuntosRut($s->prsn_rut));
             $sheet->setCellValue('C' . $start, $s->prsn_nombres . " " . $s->prsn_apellidopaterno . " " . $s->prsn_apellidomaterno);
-            $sheet->setCellValue('D' . $start, $s->edad );
+            $sheet->setCellValue('D' . $start, $this->getEdad($s->prsn_fechanacimi));
             $sheet->setCellValue('E' . $start, $this->getSexo($s->prsn_sexo));
 
             $start = $start + 1;
-            
+            $total++;
         }
+
+        
+        //Contador de socios seleccionados
+
+        $sheet->setCellValue('G5', 'Se encuentran un total de '.$total.' socios');
+        $sheet->getColumnDimension('G')->setAutoSize(true);
 
 
         $styleThinBlackBorderOutline = [
@@ -128,24 +135,24 @@ class Test extends CI_Controller
             ],
         ];
 
-        $sheet->setAutoFilter('B1:E'.$start);
+        $sheet->setAutoFilter('B1:E' . $start);
         //Font BOLD
         $sheet->getStyle('A1:E1')->getFont()->setBold(true);
-        $sheet->getStyle('B1:E'.$start)->applyFromArray($styleThinBlackBorderOutline);
+        $sheet->getStyle('B1:E' . $start)->applyFromArray($styleThinBlackBorderOutline);
         //Alignment
         //fONT SIZE
         $sheet->getStyle('A1:E2')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A2:E'.$start)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:E'.$start)->getFont()->setSize(12);
+        $sheet->getStyle('A2:E' . $start)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:E' . $start)->getFont()->setSize(12);
 
-        
+
         //Custom width for Individual Columns
-        $columnas = array('B','C','D','E');
-       
+        $columnas = array('B', 'C', 'D', 'E');
+
         foreach ($columnas as $col) {
             //$sheet->getColumnDimension($col)->setAutoSize(true);
             $sheet->getColumnDimension($col)->setAutoSize(true);
-         }
+        }
 
         $fecha = date('d-m-Y H:i:s');
 
@@ -162,7 +169,7 @@ class Test extends CI_Controller
 
 
 
-    public function reporte_carga()
+    private function reporte_carga($data)
     {
 
 
@@ -170,7 +177,7 @@ class Test extends CI_Controller
         $spreadsheet = new Spreadsheet();
 
         $sheet = $spreadsheet->getActiveSheet();
-        
+
         $sheet->setCellValue('B1', 'Rut Carga');
         $sheet->setCellValue('C1', 'Nombre');
         $sheet->setCellValue('D1', 'Edad');
@@ -178,21 +185,27 @@ class Test extends CI_Controller
         $sheet->setCellValue('F1', 'Parentesco');
         $sheet->setCellValue('G1', 'Rut Socio');
 
-        $data =  $this->model_test->cargas_activosALL();
+        //$data =  $this->model_test->cargas_activosALL();
         $nro = 1;
         $start = 2;
+        $total=0;
         foreach ($data as $c) {
-           
-            $sheet->setCellValue('B' . $start, $this->getPuntosRut($c->rut_carga));
+
+            $sheet->setCellValue('B' . $start, $this->getPuntosRut($c->prsn_rut));
             $sheet->setCellValue('C' . $start, $c->prsn_nombres . " " . $c->prsn_apellidopaterno . " " . $c->prsn_apellidomaterno);
-            $sheet->setCellValue('D' . $start, $c->edad );
+            $sheet->setCellValue('D' . $start, $this->getEdad($c->prsn_fechanacimi));
             $sheet->setCellValue('E' . $start, $this->getSexo($c->prsn_sexo));
             $sheet->setCellValue('F' . $start, $this->getParentestco($c->s_parentesco_pt_id));
-            $sheet->setCellValue('G' . $start, $this->getPuntosRut($c->rut_socio));
+            $sheet->setCellValue('G' . $start, $this->getPuntosRut($c->s_socios_prsn_rut));
 
             $start = $start + 1;
             $nro = $nro + 1;
+            $total++;
         }
+
+        $sheet->setCellValue('I5', 'Se encuentran un total de '.$total.' cargas');
+        $sheet->getColumnDimension('I')->setAutoSize(true);
+
 
 
         $styleThinBlackBorderOutline = [
@@ -205,26 +218,26 @@ class Test extends CI_Controller
         ];
 
         //Agregar Filtros
-        $sheet->setAutoFilter('B1:G'.$start);
+        $sheet->setAutoFilter('B1:G' . $start);
         //Fuente a Nregrita
         $sheet->getStyle('A1:G1')->getFont()->setBold(true);
-        $sheet->getStyle('B1:G'.$start)->applyFromArray($styleThinBlackBorderOutline);
+        $sheet->getStyle('B1:G' . $start)->applyFromArray($styleThinBlackBorderOutline);
         //Aliniamientado centrado
         //Tamano letra
         $sheet->getStyle('A1:G2')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A2:G'.$start)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:G'.$start)->getFont()->setSize(12);
+        $sheet->getStyle('A2:G' . $start)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:G' . $start)->getFont()->setSize(12);
 
-        
+
         //Custom width for Individual Columns
 
-        $columnas = array('B','C','D','E','F','G');
-       
+        $columnas = array('B', 'C', 'D', 'E', 'F', 'G');
+
         foreach ($columnas as $col) {
             //$sheet->getColumnDimension($col)->setAutoSize(true);
-            
+
             $sheet->getColumnDimension($col)->setAutoSize(true);
-         }
+        }
         $fecha = date('d-m-Y H:i:s');
 
         $writer = new Xlsx($spreadsheet);
@@ -237,6 +250,75 @@ class Test extends CI_Controller
 
         $writer->save('php://output');
     }
+
+
+
+
+
+    public function reportes()
+    {
+
+        $informe = $this->input->post('infomeExcel');
+        $genero = $this->input->post('genero');
+        $min = $this->input->post('min');
+        $max = $this->input->post('max');
+
+        var_dump($informe);
+        var_dump($genero);
+        var_dump($min);
+        var_dump($max);
+
+    
+
+
+        if ($informe == 'carga') {
+            echo 'CARGA';
+            echo $genero;
+
+            $data =  $this->model_test->rangoC($min, $max, $genero);  
+
+            
+            //var_dump($data);
+
+            $this->reporte_carga($data);
+
+
+
+
+            
+        }
+        if ($informe == 'socio') {
+            echo 'SOCIO';
+
+            $data = $this->model_test->rangoS($min, $max, $genero);
+            //var_dump($data);
+
+            $this->reporte_socio($data);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private function getSexo($sexo)
     {
@@ -280,6 +362,15 @@ class Test extends CI_Controller
         }
     }
 
+    private function getEdad($fechanacimiento)
+    {
 
-   
+        list($ano, $mes, $dia) = explode("-", $fechanacimiento);
+        $ano_diferencia  = date("Y") - $ano;
+        $mes_diferencia = date("m") - $mes;
+        $dia_diferencia   = date("d") - $dia;
+        if ($dia_diferencia < 0 || $mes_diferencia < 0)
+            $ano_diferencia--;
+        return $ano_diferencia;
+    }
 }
