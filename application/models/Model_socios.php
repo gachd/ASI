@@ -27,7 +27,9 @@
 
 		function ValidarSocio($rut)
 		{
-			$p = $this->db->query('SELECT prsn_rut from s_personas where prsn_rut = "' . $rut . '" ');
+			
+			// Validar que no sea socio
+			$p = $this->db->query('SELECT * from s_personas p, s_socios s where p.prsn_rut=s.prsn_rut AND p.prsn_rut = "' . $rut . '" ');
 			//  $resultado=mysql_query($consulta) or die (mysql_error());
 
 			if ($p->num_rows() > 0) {

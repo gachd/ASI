@@ -584,7 +584,7 @@
 
     .left-tab-process .tab-content {
 
-      background-color: #F1F1F1;
+      background-color: #f1f1f1;
 
       margin-left: 95px;
 
@@ -631,7 +631,7 @@
 
             <div class="col-md-1" style="width: 11%;">
 
-              <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
+              <img alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
 
             </div>
 
@@ -3447,29 +3447,44 @@
 
 
     $(document).ready(function() {
+
+      //Validacion de existencia socio
+
       $("#rut_socio").blur(function() {
+
         var rut_socio = $("#rut_socio").val();
-        $.post("<?php echo base_url() ?>socios/nuevo_socio/ValidaSocio", {
+
+        $.post("<?php echo base_url() ?>socios/nuevo_socio/ValidaSocio", 
+        
+        {
+
           rut: rut_socio
+
         }, function(data) {
+
           var result = data;
+
           if (result == 1) {
+
             $('#eduplicado').show();
             // $('#guardar_dp').css('display','none');
             vrfSocioDup = 1;
             validaInputSocio();
+
           } else {
+
             $('#eduplicado').hide();
             // $('#guardar_dp').css('display','block');
             vrfSocioDup = 0;
             validaInputSocio();
-
 
           }
 
         });
 
       });
+
+
     });
 
     $(document).ready(function() {

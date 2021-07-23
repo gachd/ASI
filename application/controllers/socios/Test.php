@@ -103,6 +103,7 @@ class Test extends CI_Controller
         $sheet->setCellValue('C1', 'Nombre');
         $sheet->setCellValue('D1', 'Edad');
         $sheet->setCellValue('E1', 'Sexo');
+        $sheet->setCellValue('F1', 'Correo');
 
         //$data =  $this->model_test->activos();
         $total=0;
@@ -114,10 +115,12 @@ class Test extends CI_Controller
             $sheet->setCellValue('C' . $start, $s->prsn_nombres . " " . $s->prsn_apellidopaterno . " " . $s->prsn_apellidomaterno);
             $sheet->setCellValue('D' . $start, $this->getEdad($s->prsn_fechanacimi));
             $sheet->setCellValue('E' . $start, $this->getSexo($s->prsn_sexo));
+            $sheet->setCellValue('F' . $start, $s->prsn_email);
 
             $start = $start + 1;
             $total++;
         }
+        $start = $start - 1;
 
         
         //Contador de socios seleccionados
@@ -137,17 +140,17 @@ class Test extends CI_Controller
 
         $sheet->setAutoFilter('B1:E' . $start);
         //Font BOLD
-        $sheet->getStyle('A1:E1')->getFont()->setBold(true);
-        $sheet->getStyle('B1:E' . $start)->applyFromArray($styleThinBlackBorderOutline);
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true);
+        $sheet->getStyle('B1:F' . $start)->applyFromArray($styleThinBlackBorderOutline);
         //Alignment
         //fONT SIZE
-        $sheet->getStyle('A1:E2')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A2:E' . $start)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:E' . $start)->getFont()->setSize(12);
+        $sheet->getStyle('A1:F2')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A2:F' . $start)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:F' . $start)->getFont()->setSize(12);
 
 
         //Custom width for Individual Columns
-        $columnas = array('B', 'C', 'D', 'E');
+        $columnas = array('B', 'C', 'D','E','F');
 
         foreach ($columnas as $col) {
             //$sheet->getColumnDimension($col)->setAutoSize(true);
@@ -158,7 +161,9 @@ class Test extends CI_Controller
 
         $writer = new Xlsx($spreadsheet);
 
+        //nombre archivo
         $filename = 'Socios ' . $fecha;
+        
         ob_end_clean();
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
@@ -202,6 +207,7 @@ class Test extends CI_Controller
             $nro = $nro + 1;
             $total++;
         }
+        $start = $start - 1;
 
         $sheet->setCellValue('I5', 'Se encuentran un total de '.$total.' cargas');
         $sheet->getColumnDimension('I')->setAutoSize(true);
@@ -263,38 +269,78 @@ class Test extends CI_Controller
         $min = $this->input->post('min');
         $max = $this->input->post('max');
 
-        var_dump($informe);
-        var_dump($genero);
-        var_dump($min);
-        var_dump($max);
+        if($max<$min || $min == $max){
+            $this->session->set_flashdata('rango','fail');
+            redirect('socios/test');
+
+
+        }else{
+
+            if ($informe == 'carga') {
+                
+    
+                $data =  $this->model_test->rangoC($min, $max, $genero);
+                
+                if(empty($data)){
+
+
+                    $this->session->set_flashdata('carga','vacia');
+                    redirect('socios/test');
+
+
+
+
+                }else{
+
+                    $this->reporte_carga($data);
+                    
+
+                }
+    
+                
+                //var_dump($data);
+    
+                
+    
+    
+    
+    
+                
+            }
+            if ($informe == 'socio') {
+                echo 'SOCIO';
+    
+                $data = $this->model_test->rangoS($min, $max, $genero);
+
+                if(empty($data)){
+
+
+                    $this->session->set_flashdata('socio','vacia');
+                    redirect('socios/test');
+
+
+
+
+                }else{
+                
+                
+
+                $this->reporte_socio($data);
+                
+                
+                
+                }
+            }
+
+
+        }
+
+
 
     
 
 
-        if ($informe == 'carga') {
-            echo 'CARGA';
-            echo $genero;
-
-            $data =  $this->model_test->rangoC($min, $max, $genero);  
-
-            
-            //var_dump($data);
-
-            $this->reporte_carga($data);
-
-
-
-
-            
-        }
-        if ($informe == 'socio') {
-            echo 'SOCIO';
-
-            $data = $this->model_test->rangoS($min, $max, $genero);
-            //var_dump($data);
-
-            $this->reporte_socio($data);
-        }
+       
     }
 
 

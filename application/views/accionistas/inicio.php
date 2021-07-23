@@ -157,7 +157,7 @@
               </tr>
               <tr class="bg-danger">
                 <td>Titulos por entregar</td>
-                <td><?php echo $no_entregados ?></td>
+                <td><a href="<?php echo base_url(); ?>accionistas/titulos/entregados"><?php echo $no_entregados ?></a> </td>
               </tr>
 
 

@@ -44,6 +44,59 @@ function getParentestco($id)
   }
 }
 
+    if ($this->session->flashdata('rango')){
+
+      echo '<script>
+
+      toastr.warning("Rango no valido");
+      
+      </script>    
+      
+      ';
+  
+
+    }
+
+    if ($this->session->flashdata('carga')){
+
+      echo '<script>
+
+      toastr.warning("No se econtraron datos");
+      
+      </script>    
+      
+      ';
+  
+
+    }
+    if ($this->session->flashdata('socio') == 'vacia' ){
+
+      echo '<script>
+
+      toastr.warning("No se econtraron datos");
+      
+      </script>    
+      
+      ';
+  
+
+    }
+    if ($this->session->flashdata('socio') == 'exito' ){
+
+      echo '<script>
+
+      toastr.success("Informe generado");
+      
+      </script>    
+      
+      ';
+  
+
+    }
+
+
+    
+
 
 ?>
 
@@ -129,34 +182,36 @@ function getParentestco($id)
 
 
 
-
-          <div class="col-md-3">
+          <div class="col-md-2">
 
             <div id="inicio">
 
-              <label>Rango edad</label>
+              <label>Desde</label>
 
               <div class="form-group">
 
-                <input class="form-control" required type="number" name="min" id="">
+                <input class="form-control" required type="number" name="min" id="min">
 
 
               </div>
             </div>
 
 
+    
+
+
 
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
 
             <div id="termino">
 
-              <label></label>
+              <label>hasta</label>
 
               <div class="form-group">
 
-                <input class="form-control" type="number" name="max" id="">
+                <input class="form-control" type="number" name="max" id="max">
 
 
 
@@ -171,7 +226,7 @@ function getParentestco($id)
 
             <div class="form-group">
 
-              <input class="btn btn-primary" type="submit" name="" id="" value="Generar">
+              <input id="generar" class="btn btn-primary" type="submit" name="" id="" value="Generar"  data-loading-text="Generando...">
               
 
 
@@ -385,7 +440,16 @@ function getParentestco($id)
       }
     });
 
+  
+
 
 
   });
+
+
+  $('#generar').on('click', function () {
+    var $btn = $(this).button('loading')
+    // business logic...
+    $btn.button('reset')
+  })
 </script>

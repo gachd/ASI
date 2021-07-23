@@ -75,6 +75,8 @@
 			return $cant->result();
 		}
 
+		
+
 		function rangoS($min, $max, $genero)
 
 		{
@@ -91,13 +93,13 @@
 					$gen = 0;
 				}
 
-				$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno, prsn_fechanacimi from s_personas p, s_socios s where p.prsn_rut = s.prsn_rut AND p.prsn_sexo = "'.$gen .'" AND  (YEAR(CURDATE())-YEAR(prsn_fechanacimi) + IF(DATE_FORMAT(CURDATE(),"%m-%d") > DATE_FORMAT(prsn_fechanacimi,"%m-%d"), 0 , -1 ) ) BETWEEN "' . $min . '" AND "' . $max . '"');
+				$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, prsn_fechanacimi from s_personas p, s_socios s where p.prsn_rut = s.prsn_rut AND p.prsn_sexo = "'.$gen .'" AND s.estado = 0  AND s.tipo_id=1 AND  (YEAR(CURDATE())-YEAR(prsn_fechanacimi) + IF(DATE_FORMAT(CURDATE(),"%m-%d") > DATE_FORMAT(prsn_fechanacimi,"%m-%d"), 0 , -1 ) ) BETWEEN "' . $min . '" AND "' . $max . '"');
 
 				return $cant->result();
 			}
 
 
-				$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno,p.prsn_sexo, prsn_fechanacimi from s_personas p, s_socios s where p.prsn_rut = s.prsn_rut AND (YEAR(CURDATE())-YEAR(prsn_fechanacimi) + IF(DATE_FORMAT(CURDATE(),"%m-%d") > DATE_FORMAT(prsn_fechanacimi,"%m-%d"), 0 , -1 ) ) BETWEEN "' . $min . '" AND "' . $max . '"');
+				$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno,p.prsn_sexo,p.prsn_email, prsn_fechanacimi from s_personas p, s_socios s where p.prsn_rut = s.prsn_rut AND s.estado = 0  AND s.tipo_id=1 AND  (YEAR(CURDATE())-YEAR(prsn_fechanacimi) + IF(DATE_FORMAT(CURDATE(),"%m-%d") > DATE_FORMAT(prsn_fechanacimi,"%m-%d"), 0 , -1 ) ) BETWEEN "' . $min . '" AND "' . $max . '"');
 
 
 

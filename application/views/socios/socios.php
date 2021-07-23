@@ -297,9 +297,9 @@
 
           </div>
 
-          
 
-         <!-- <div class="col-md-5">
+
+          <!-- <div class="col-md-5">
             <nav class="navbar navbar-default nav-titulo">
               <div class="col-md-3">
                 <label style="text-align:center;">GENERADOR DE LISTADOS</label>
@@ -530,17 +530,24 @@
 
   </div>
 
-  <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <!-- jQuery UI -->
-  <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="<?php echo base_url(); ?>/assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
-  <script src="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.js"></script>
-  <script src="<?php echo base_url(); ?>/assets/js/custom.js"></script>
-  <script src="<?php echo base_url(); ?>/assets/js/tables.js"></script>
-  <!-- Latest compiled and minified CSS -->
+  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chartJS/Chart.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+<!-- jQuery UI -->
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+
+<script src="<?php echo base_url(); ?>/assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
+
+<script src="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.js"></script>
+
+<script src="<?php echo base_url(); ?>/assets/js/custom.js"></script>
+<script src="<?php echo base_url(); ?>/assets/js/tables.js"></script>
 
 
 
@@ -575,12 +582,12 @@
 
     window.location.href = "<?php echo base_url(); ?>socios/dashboard";
 
-}); 
- $("#agenda").click(function() {
+  });
+  $("#agenda").click(function() {
 
     window.location.href = "<?php echo base_url(); ?>socios/agenda";
 
-}); 
+  });
 
   function detallePagos(rut) {
 
@@ -662,6 +669,36 @@
 
       .fadeOut(500);
 
+  });
+
+  $(document).ready(function() {
+
+    $('#example').DataTable({
+      "oLanguage": {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+          "sFirst": "Primero",
+          "sLast": "Último",
+          "sNext": "Siguiente",
+          "sPrevious": "Anterior"
+        },
+        "oAria": {
+          "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+      }
+    });
   });
 </script>
 
