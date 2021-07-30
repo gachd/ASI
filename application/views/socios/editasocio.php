@@ -859,7 +859,7 @@
 
     foreach ($socios as $s) {
 
-      echo '"' . $s->prsn_rut . '",';
+      echo ' " ' . $s->prsn_rut . '",';
     }
 
     ?>

@@ -8,15 +8,15 @@
 
   <title>MENU Accionitas</title>
 
- 
+
 </head>
 
 <style>
- .table_wrapper{
+  .table_wrapper {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
-}
+  }
 
   .ico.badge.badge-success {
     background-color: #08c222;
@@ -46,9 +46,9 @@
 
 <?php
 
-    if ($this->session->flashdata('exito'))
+if ($this->session->flashdata('exito'))
 
-    echo '<script>
+  echo '<script>
 
     toastr.success("Agregado con exito");
     
@@ -56,9 +56,9 @@
     
     '
 
-    ?>
+?>
 
-<body>
+<body class="container-fluid">
 
 
 
@@ -91,25 +91,37 @@
               <div class="col-md-3">
                 <label style="text-align:center;">GENERADOR DE LISTADOS</label>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-8">
 
                 <!-- tipo informe -->
                 <form class="form-inline">
+
+                  <div class="form-group">
+                    <label>Formato:</label>
+
+                    <select class="form-control " name="tipo" id="select_formato">
+                      <option value="0">seleccionar</option>
+                      <option value="1">Excel</option>
+                      <option value="2">PDF</option>
+
+                    </select>
+                  </div>
+
                   <div class="form-group">
                     <label>Tipo:</label>
 
-                    <select class="form-control " name="tipo" id="select_tipo">
-                      <option value="">seleccionar</option>
+                    <select class="form-control" name="tipo" id="select_tipo">
+                      <option value="0">seleccionar</option>
                       <option value="1">Todos</option>
                       <option value="2">Mayoritarios</option>
 
                     </select>
-
                   </div>
+
                 </form>
               </div>
-              <div class="col-md-3">
-                <a href="#" title="Exportar PDF" id="pdf" class="descargar btn btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF</a>
+              <div class="col-md-1">
+                <a href="#" title="Generar" id="pdf" class="descargar btn btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF</a>
 
               </div>
 
@@ -151,21 +163,30 @@
                 <td>Saldo acciones suscritas</td>
                 <td><?php echo $saldo ?></td>
               </tr>
-              <tr >
+              <tr>
                 <td></td>
                 <td></td>
               </tr>
               <tr class="bg-danger">
                 <td>Titulos por entregar</td>
-                <td><a href="<?php echo base_url(); ?>accionistas/titulos/entregados"><?php echo $no_entregados ?></a> </td>
+                <td>
+                <?php if ($no_entregados>0): ?>
+                  <a href="<?php echo base_url(); ?>accionistas/titulos/entregados"><?php echo $no_entregados ?></a> 
+
+                <?php endif; ?>
+                <?php if ($no_entregados==0): ?>
+                 <?php echo $no_entregados ?>
+
+                <?php endif; ?>
+                </td>
               </tr>
 
 
             </table>
 
           </div>
-          <div class="row">
-          <h5>Ultimos Accionitas</h5>
+          <div class="row panel">
+            <h5>Ultimos Accionitas</h5>
             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
               <thead class="thead-light">
                 <tr>
@@ -194,7 +215,7 @@
         </div>
 
       </div>
-      <div class="row" id="mostrarSocios">
+      <div class="row panel" id="mostrarSocios">
         <div class="col-md-12">
 
           <div class="content-box-large">
@@ -221,7 +242,7 @@
                   </thead>
                   <tbody>
 
-                  <span></span>
+                    <span></span>
                     <?php foreach ($accionistas as $s) {
 
 
@@ -299,16 +320,6 @@
 
 
 <script type="text/javascript">
-
-
-
-
-
-
-
-
-
-
   $(document).ready(function() {
     $('#grid').DataTable({
       "oLanguage": {
@@ -353,9 +364,31 @@
 
   $("a[id=pdf]").click(function() {
     /*alert('Evento click sobre un input text con id="nombre2"');*/
+
+    formato = $('#select_formato').val();
     informe = $('#select_tipo').val();
-    url = "<?php echo base_url(); ?>accionistas/inicio/informes/" + informe;
-    window.open(url, '_blank');
+
+    if (formato == 0 || informe == 0) {
+      swal("", "Ingrese una opcion valida", "warning");
+
+    } else {
+
+      if (formato == 1) {
+        toastr.options =  {"closeButton": true}
+        
+        url = "<?php echo base_url(); ?>accionistas/inicio/informesExcel/" + informe;
+        window.open(url, '_parent');
+        toastr.success("Informe Generado");
+        
+
+      }
+      if (formato == 2) {
+        url = "<?php echo base_url(); ?>accionistas/inicio/informes/" + informe;
+        window.open(url, '_blank');
+      }
+
+    }
+
   });
 
 

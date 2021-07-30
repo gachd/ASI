@@ -33,12 +33,12 @@
       <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
     </div>
 
-   
+
     <?php
 
     if ($this->session->flashdata('exito'))
 
-    echo '<script>
+      echo '<script>
 
     toastr.success("Actualizado");
     
@@ -52,11 +52,11 @@
 
 
 
-    <div class="container" id="advanced-search-form" style="border:1px solid ">
+    <div class="container wellp" >
       <h3><strong>Entrega de titulo</strong></h3>
       <br>
 
-      <form action="<?php echo base_url(); ?>accionistas/titulos/entregar" method="post">
+      <form class="form-inline row well" action="<?php echo base_url(); ?>accionistas/titulos/entregar" method="post">
 
 
         <div class="form-group">
@@ -82,7 +82,7 @@
 
 
 
-        <button type="submit" id="cesion" class="btn btn-default">Buscar</button>
+        <button type="submit" id="cesion" class="btn btn-default">Entregar</button>
 
 
 
@@ -95,58 +95,61 @@
 
 
 
-    <div class="container table-responsive table_wrapper " id="advanced-search-form" style="border:1px solid ">
-      <h4><strong>No entregados</strong></h4>
-      <br>
-      <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
-        <thead>
-          <tr>
+    <div class="container table-responsive well "  >
+      <div class="">
+        <h3><strong>No entregados</strong></h3>
+        <br>
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered " id="grid">
+          <thead>
+            <tr>
 
 
-            <th>Nro</th>
-            <th>Acciones</th>
-            <th>Fecha Emision</th>
-            <th>Poseedor</th>
-            <th>Rut</th>
-
-
-
-
-
-
-
-          </tr>
-        </thead>
-
-        <tbody>
-
-
-          <?php
-
-          foreach ($sin_entregar as $t) {
-
-
-            echo '<tr class="odd gradeX">';
-            echo '<td>' . $t->id_titulos . '</td>';
-            echo '<td>' . $t->numero_acciones . '</td>';
-            echo '<td>' . $t->fecha . '</td>';
-            echo '<td>' . $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . ' ' . $t->prsn_apellidomaterno . '</td>';
-            echo '<td>' . $t->prsn_rut . '</td>';
-
-
-            echo '</tr>';
-          }
-
-          ?>
+              <th>Nro</th>
+              <th>Acciones</th>
+              <th>Fecha Emision</th>
+              <th>Poseedor</th>
+              <th>Rut</th>
 
 
 
 
 
 
-        </tbody>
 
-      </table>
+            </tr>
+          </thead>
+
+          <tbody>
+
+
+            <?php
+
+            foreach ($sin_entregar as $t) {
+
+
+              echo '<tr class="odd gradeX">';
+              echo '<td>' . $t->id_titulos . '</td>';
+              echo '<td>' . $t->numero_acciones . '</td>';
+              echo '<td>' . $t->fecha . '</td>';
+              echo '<td>' . $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . ' ' . $t->prsn_apellidomaterno . '</td>';
+              echo '<td>' . $t->prsn_rut . '</td>';
+
+
+              echo '</tr>';
+            }
+
+            ?>
+
+
+
+
+
+
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
 

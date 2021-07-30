@@ -28,7 +28,7 @@
 
         <div class="container-fluid">
 
-            <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionista" method="post">
+            <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionista" method="post" enctype="multipart/form-data">
                 <div class="container" id="advanced-search-form">
                     <h2>Datos Personales</h2>
 
@@ -55,7 +55,7 @@
 
                     <div class="form-group">
                         <label for="first-name">Nombre</label>
-                        <input type="text"  class="form-control" pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" class="form-control" pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group oculto" id="divapellidoP">
@@ -64,7 +64,7 @@
                     </div>
                     <div class="form-group oculto" id="apellidoM">
                         <label for="first-name">Apellido Materno</label>
-                        <input type="text"  class="form-control"pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" class="form-control" pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group oculto" id="divfechaN">
@@ -74,7 +74,7 @@
 
                     <div class="form-group">
                         <label for="first-name">Email</label>
-                        <input type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo"  title="Debe ser un Correo Valido" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo" title="Debe ser un Correo Valido" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
                     <div class="form-group">
@@ -192,6 +192,11 @@
                         <label ">Fecha Ingreso</label>
                         <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="file">Carpeta Accionista (PDF)</label>
+                        <input type="file" class="form-control-file" id="file" name="userfile" accept="application/pdf" required>
+                    </div>
                 </div>
 
 
@@ -202,14 +207,14 @@
                         <label>Accion</label>
                         <div class="radio">
                             <label class="radio-inline">
-                                <input  type="radio" required name="accion" id="accionN" value="1">Nueva</label>
+                                <input type="radio" required name="accion" id="accionN" value="1">Nueva</label>
                             <label class="radio-inline">
                                 <input type="radio" name="accion" value="0">Cesion</label>
                         </div>
                     </div>
                     <div class="form-group oculto" id="AccionesNuevoT">
                         <label>Acciones del nuevo Accionista</label>
-                        <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off"  >
+                        <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label ">Fecha Titulo</label>
@@ -219,15 +224,15 @@
                     <div class="form-group procedente oculto" id="Aprocedente">
                         <label for="Titulop">Titulo Procedente</label>
 
-                        <select class="form-control" name="TituloP" id="TituloP" >
+                        <select class="form-control" name="TituloP" id="TituloP">
                             <option value=""> Seleccionar </option>
 
 
                         </select>
                     </div>
 
-                   
-                   
+
+
                     <input type="hidden" id="AccionesANT" name="AccionesANT">
                     <input type="hidden" id="IdAccionistaANT" name="IdAccionistaANT">
 
@@ -236,9 +241,9 @@
 
                     <div class="form-group oculto" id="DivNumeroaTransferir">
                         <label>Numero de acciones a tranferir</label>
-                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off" >
+                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off">
                     </div>
-                   
+
 
                     <div class="form-group oculto" id="DivFechaCesion">
                         <label ">Fecha Cesion</label>
@@ -315,7 +320,6 @@
     </div>
 
     <script type="text/javascript">
-    
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',
@@ -460,12 +464,12 @@
                         url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
                         success: function(r) {
 
-                        
-                            
+
+
                             var Id_accionistaAnt = r.id_accionista
 
-                            var t = r.numero_acciones;                    
-                            
+                            var t = r.numero_acciones;
+
                             $('#AccionesANT').attr("value", t);
 
                             $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
@@ -608,18 +612,18 @@
 
             switch (accion) {
 
-                case "0"://cesion
+                case "0": //cesion
 
                     $("#Aprocedente").show();
                     $('#TituloP').prop('required', true);
-                   
+
                     $("#DivNumeroaTransferir").show();
                     $('#NumNuevoCesion').prop('required', true);
 
                     $("#AccionesNuevoT").hide();
-                    $("#AccioniesNuevoT").prop('required',false).val('');
+                    $("#AccioniesNuevoT").prop('required', false).val('');
 
-                     
+
                     $("#DivFechaCesion").show();
                     $('#fechaC').prop('required', true);
 
@@ -629,17 +633,17 @@
 
                     break;
 
-                case "1"://nueva
+                case "1": //nueva
 
 
                     $("#Aprocedente").hide();
                     $('#TituloP').prop('required', false).val('');
 
-                    $("#DivNumeroaTransferir").hide();                    
+                    $("#DivNumeroaTransferir").hide();
                     $('#NumNuevoCesion').prop('required', false).val('');
 
                     $("#AccionesNuevoT").show();
-                    $("#AccioniesNuevoT").prop('required',true);
+                    $("#AccioniesNuevoT").prop('required', true);
 
                     $("#DivFechaCesion").hide();
                     $('#fechaC').prop('required', false).val('');

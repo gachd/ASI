@@ -15,7 +15,7 @@
 	<link rel="mask-icon" href="<?php echo base_url(); ?>assets/icon/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#2b5797">
 	<meta name="theme-color" content="#ffffff">
-	
+
 
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -52,21 +52,31 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
+	<style>
+		.div-wrapper {
+			display: block;
+			overflow-x: auto;
+			white-space: nowrap;
+
+
+		}
+	</style>
+
 
 </head>
 
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
+	<nav class="navbar navbar-default navbar-fixed-top ">
 		<div class="container">
 
 			<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-			
+
 
 
 				<a class="navbar-brand" href="#"><img width="40" src="<?php echo base_url(); ?>/assets/logo.png"></a>
@@ -147,8 +157,8 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Accionista<b class="caret"></b></a>
 								<ul class="dropdown-menu">
 
-									<li><a href="'. base_url().'accionistas/inicio" >Inicio</a></li>
-									<li><a href=" '. base_url().'accionistas/titulos" >Titulos</a></li>
+									<li><a href="' . base_url() . 'accionistas/inicio" >Inicio</a></li>
+									<li><a href=" ' . base_url() . 'accionistas/titulos" >Titulos</a></li>
 									
 
 								</ul>
@@ -161,9 +171,9 @@
 								<ul class="dropdown-menu">
 
 									
-									<li><a href="' . base_url() . 'socios/inicio" >Socios</a></li>
+									<li><a href="' . base_url() . 'socios/inicio" >Inicio</a></li>
 
-									<li><a href=" '. base_url().'socios/test" >Informes Edad</a></li>
+									<li><a href=" ' . base_url() . 'socios/InformesSocio" >Informes</a></li>
 
 								</ul>
 								
@@ -262,7 +272,7 @@
 		</div>
 	</nav>
 
-	
+
 
 	<div>
 

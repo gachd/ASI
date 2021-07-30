@@ -12,8 +12,13 @@
     @page oficio {
 
       size: 216mm 330mm;
+      margin: 5px;
 
+    }
+    @page carta {
 
+      size: 216mm 280mm;
+      margin: 5px;
 
     }
 

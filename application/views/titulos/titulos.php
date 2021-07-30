@@ -14,16 +14,7 @@
 
 
 </head>
-<style> 
- .table_wrapper{
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
 
-    
-}
-
-</style>
 
 <body>
   <br>
@@ -36,20 +27,20 @@
       <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
     </div>
 
-    <div class="container" id="advanced-search-form" style="border:1px solid ">
+    <div class="container well" id="advanced-search-form" style="border:1px solid ">
       <h3><strong>Titulos</strong></h3>
       <br>
 
 
 
       <div >
-        <button type="submit" id="nuevo" class="btn btn  btn-lg btn-block btn-success">Nuevo</button>
+        <a href="<?php echo base_url(); ?>accionistas/titulos/nuevoTitulo"  class="btn btn-lg btn-block btn-success">Nuevo</a>
       </div>
       <div >
-        <button type="submit" id="cesion" class="btn  btn-lg btn-block btn-warning">Cesion</button>
+        <a href="<?php echo base_url(); ?>accionistas/titulos/cesionTitulo" class="btn btn-lg btn-block btn-warning">Cesion</a>
       </div>
       <div >
-        <button type="submit" id="pendientes" class="btn  btn-lg btn-block btn-secondary">Pendientes</button>
+        <a  href="<?php echo base_url(); ?>accionistas/titulos/entregados" class="btn-lg btn-block btn btn-info">Pendientes</a>
       </div>
 
 
@@ -62,7 +53,7 @@
 
 
 
-    <div class="container" id="advanced-search-form" style="border:1px solid ">
+    <div class="container well" id="advanced-search-form" style="border:1px solid ">
       <h3><strong>HISTORIAL TITULOS ACTIVOS</strong></h3>
       <br>
 
@@ -102,7 +93,7 @@
     </div>
 
 
-    <div class="container table-responsive table_wrapper " id="advanced-search-form" style="border:1px solid ">
+    <div class="container table-responsive div-wrapper well" id="advanced-search-form" style="border:1px solid ">
       <h4><strong>TITULOS ACTIVOS</strong></h4>
       <br>
       <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
@@ -199,15 +190,7 @@
   $("#menuprincipal").click(function() {
     window.location.href = "<?php echo base_url(); ?>accionistas/inicio";
   });
-  $("#nuevo").click(function() {
-    window.location.href = "<?php echo base_url(); ?>accionistas/titulos/nuevoTitulo";
-  });
-  $("#cesion").click(function() {
-    window.location.href = "<?php echo base_url(); ?>accionistas/titulos/cesionTitulo";
-  });
-  $("#pendientes").click(function() {
-    window.location.href = "<?php echo base_url(); ?>accionistas/titulos/entregados";
-  });
+
 
 
   $('#grid').DataTable({

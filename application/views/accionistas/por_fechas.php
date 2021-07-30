@@ -202,6 +202,7 @@
 
 
     $("#Click").click(function() {
+
         $("#Tabla").empty()
         cargarDatos();
 
@@ -216,8 +217,7 @@
         var tipo = $("#Tipoinforme");
 
 
-
-        //console.log(DatosJson.alumnoUTP.length);
+      
 
         $.ajax({
             type: "POST",
@@ -248,7 +248,7 @@
                             '<td>Apellido paterno</td>' +
                             '<td>Baja</td>' +
                             '<td>Estado</td>');
-                        // alert(fecha1.val() + ' ' + fecha2.val() + ' ' + tipo.val())
+                        
 
                         console.log(datos)
                         for (i = 0; i < datos.length; i++) {

@@ -1,12 +1,12 @@
 <head>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <style>
     /* td,
@@ -72,8 +72,6 @@
         text-transform: uppercase;
         font-size: 12px;
     } */
-
-
 </style>
 
 
@@ -127,39 +125,36 @@ function getPuntosRut($rut)
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered center" id="mitabla">
             <thead>
                 <tr>
+
                     <th>#</th>
                     <th>Rut</th>
                     <th>Nombre</th>
-                    
                     <th>Acciones</th>
                     <th>Incorporación</th>
-
-
-
 
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($accionista)) {
 
-                    foreach ($accionista as $s) {
-                        $cont = $cont + 1;
+                <?php if (!empty($accionista)) : ?>
 
-                        echo '<tr class="odd gradeX">';
-                        echo '<td>' . $cont . '</td>';
-                        echo '<td><div class="col-md-7">' . getPuntosRut($s->prsn_rut) . '</div></div></td>';
-                        echo '<td>'. $s->prsn_nombres . " " . $s->prsn_apellidopaterno ." ". $s->prsn_apellidomaterno . '</td>';
-                        echo '<td>' . $s->numero_acciones . '</td>';
-                        echo '<td>' . $s->fecha . '</td>';
+                    <?php foreach ($accionista as $s) : ?>
 
+                        <?php $cont = $cont + 1; ?>
 
+                        <tr class="odd gradeX">
 
+                            <td><?php echo $cont ?></td>
+                            <td><div class="col-md-7"> <?php echo getPuntosRut($s->prsn_rut) ?> </div></td>
+                            <td><?php echo $s->prsn_nombres . " " . $s->prsn_apellidopaterno . " " . $s->prsn_apellidomaterno ?></td>
+                            <td><?php echo $s->numero_acciones ?></td>
+                            <td><?php echo  $s->fecha  ?></td>
 
-
-                        echo '</tr>';
-                    }
-                }
-                ?>
+                        </tr>
+                        
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                php
 
             </tbody>
         </table>

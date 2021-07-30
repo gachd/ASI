@@ -50,7 +50,7 @@
 		function accionistas_mayoritarios()
 		{
 
-			$p = $this->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND t.estado=1 GROUP BY t.id_accionista ORDER BY numero_acciones DESC LIMIT 5');
+			$p = $this->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno,a.fecha, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND t.estado=1 GROUP BY t.id_accionista ORDER BY numero_acciones DESC LIMIT 5');
 
 			return $p->result();
 		}

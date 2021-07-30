@@ -113,6 +113,35 @@ class nuevo_accionista extends CI_Controller
 		$prsn_tipo = $this->input->post('optradio');
 		$tipoaccion = $this->input->post('accion');
 
+	
+		$fecha = date('d-m-Y_H-i-s');
+		$path = './uploads/accionistas/'.$rut;
+
+		if (!file_exists($path)) {
+				mkdir($path, 0777, true);
+			}
+
+
+
+		$config['upload_path'] =  $path;
+		$config['allowed_types'] = 'pdf';
+		$config['file_name'] = $rut."_".$fecha;
+		$config['max_size'] = "50000";
+		$config['max_width'] = "2000";
+		$config['max_height'] = "2000";
+
+	  
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
+		if ($this->upload->do_upload('userfile')) {                        
+        
+			$this->upload->data();    
+		}                        
+			
+
+
 
 
 
@@ -165,6 +194,7 @@ class nuevo_accionista extends CI_Controller
 			'libro_accionista' => $libro_accionista = $this->input->post('libro'),
 			'fecha' => $fechaingreso = $this->input->post('fechaIng'),
 			'estado_accionista' => $estadoaccionista = 1,
+			'path' => $path,
 		);
 
 
