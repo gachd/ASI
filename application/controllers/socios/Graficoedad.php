@@ -103,7 +103,7 @@ class graficoedad extends CI_Controller
 				$result = $this->model_socios->CondSocio($tipoSoc);
 			}
 
-			
+
 			if ($tipoSocio == 3) {
 				$tipoSoc = $_POST['tipSoc'];
 				$result = $this->model_socios->Cond2Socio($tipoSoc);
@@ -499,7 +499,9 @@ class graficoedad extends CI_Controller
 		}
 
 		if ($tipoGraf == 3) {
+
 			if ($tipo == 1) {
+
 				$j = 1;
 
 				for ($i = 0; $i < 5; $i++) {
@@ -508,6 +510,8 @@ class graficoedad extends CI_Controller
 
 					$j = $j + 1;
 				}
+
+
 
 
 
@@ -573,5 +577,21 @@ class graficoedad extends CI_Controller
 
 			echo json_encode($data);
 		}
+	}
+
+
+
+
+	public function test()
+	{
+
+		$edadesSocios = ['[18-30]', '[31-40]', '[41-50]', '[51-60]', '[61-70]', '[71-80]', '[81-90]', '[91-100]'];
+		$rango = $this->model_socios->allSoociosVal();
+		$json = '[{"prsn_rut":"10139877-3"},{"caca":"10139877-3"}]';
+		$decode = json_decode($json);
+		var_dump($decode);
+	
+		$edadesJson = json_encode($edadesSocios);
+		var_dump($edadesJson);
 	}
 }

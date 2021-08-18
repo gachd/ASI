@@ -1,0 +1,16 @@
+
+Obtengo Rut Socio Activo
+
+
+SELECT DISTINCTROW p.prsn_rut, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, s.tipo_id FROM s_personas p, s_socios s WHERE s.prsn_rut = p.prsn_rut AND s.estado = 0  AND s.tipo_id=1 order by p.prsn_apellidopaterno
+
+
+ 
+Datos de carga del socio activo
+
+SELECT * FROM s_cargas_socios c,s_personas p WHERE c.s_socios_prsn_rut= '8100116-2' AND c.s_personas_prsn_rut= p.prsn_rut
+
+SELECT s_personas_prsn_rut as rut_carga,s_socios_prsn_rut as rut_socio,prsn_nombres,prsn_apellidopaterno,prsn_apellidomaterno,prsn_sexo,YEAR(CURDATE())-YEAR(p.prsn_fechanacimi)+IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(p.prsn_fechanacimi,'%m-%d'), 0 , -1 ) AS edad FROM s_cargas_socios c,s_personas p WHERE c.s_socios_prsn_rut= "8100116-2" AND c.s_personas_prsn_rut= p.prsn_rut
+
+
+

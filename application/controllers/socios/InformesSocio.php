@@ -84,11 +84,11 @@ class InformesSocio extends CI_Controller
             if (empty($cargas)) {
 
                 echo '<h1>SIN CARGAS</h1>';
-
-
-            }else{foreach ($cargas as $c) {
-                var_dump($c);
-            }}
+            } else {
+                foreach ($cargas as $c) {
+                    var_dump($c);
+                }
+            }
         }
     }
 
@@ -328,7 +328,7 @@ class InformesSocio extends CI_Controller
     {
 
 
-        $data['corp']=$corp;
+        $data['corp'] = $corp;
 
 
 
@@ -339,46 +339,46 @@ class InformesSocio extends CI_Controller
         switch ($corp) {
             case 1:
                 $activos = $this->model_informe->activos();
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
                 break;
             case 2:
-                $rutCorp="65106820-7";
+                $rutCorp = "65106820-7";
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
 
                 break;
             case 3:
-                $rutCorp="65467840-5";
+                $rutCorp = "65467840-5";
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
 
                 break;
             case 4:
-                $rutCorp="70331500-3";
+                $rutCorp = "70331500-3";
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
 
                 break;
             case 5:
-                $rutCorp="71888800-k";
+                $rutCorp = "71888800-k";
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
 
                 break;
             case 6:
-                $rutCorp="72265900-7";
+                $rutCorp = "72265900-7";
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
 
                 break;
@@ -392,16 +392,17 @@ class InformesSocio extends CI_Controller
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML($html);
 
-        $mpdf->Output();
+        //$mpdf->Output();
+        $mpdf->Output('Socios + Cargas.pdf', 'D');
     }
 
-    public function rangoSocio_pdf($corp,$sexo,$min,$max)
+    public function rangoSocio_pdf($corp, $sexo, $min, $max)
 
 
     {
 
 
-        $data['corp']=$corp;
+        $data['corp'] = $corp;
 
 
 
@@ -412,47 +413,47 @@ class InformesSocio extends CI_Controller
         switch ($corp) {
             case 1:
                 $activos = $this->model_informe->consolidado_rangoS($min, $max, $sexo);
-                
-                $data['activos']=$activos;
+
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
                 break;
             case 2:
-                $rutCorp="65106820-7";
-                $activos = $this->model_informe->corp_rangoS($min,$max,$sexo,$rutCorp);
+                $rutCorp = "65106820-7";
+                $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 3:
-                $rutCorp="65467840-5";
-                $activos = $this->model_informe->corp_rangoS($min,$max,$sexo,$rutCorp);
+                $rutCorp = "65467840-5";
+                $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 4:
-                $rutCorp="70331500-3";
-                $activos = $this->model_informe->corp_rangoS($min,$max,$sexo,$rutCorp);
+                $rutCorp = "70331500-3";
+                $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 5:
-                $rutCorp="71888800-k";
-                $activos = $this->model_informe->corp_rangoS($min,$max,$sexo,$rutCorp);
+                $rutCorp = "71888800-k";
+                $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 6:
-                $rutCorp="72265900-7";
-                $activos = $this->model_informe->corp_rangoS($min,$max,$sexo,$rutCorp);
+                $rutCorp = "72265900-7";
+                $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
@@ -470,13 +471,13 @@ class InformesSocio extends CI_Controller
     }
 
 
-    public function mayorSocio_pdf($corp,$sexo,$mayor)
+    public function mayorSocio_pdf($corp, $sexo, $mayor)
 
 
     {
 
 
-        $data['corp']=$corp;
+        $data['corp'] = $corp;
 
 
 
@@ -487,47 +488,47 @@ class InformesSocio extends CI_Controller
         switch ($corp) {
             case 1:
                 $activos = $this->model_informe->consolidado_mayorS($mayor, $sexo);
-                
-                $data['activos']=$activos;
+
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
                 break;
             case 2:
-                $rutCorp="65106820-7";
-                $activos = $this->model_informe->corp_mayorS($mayor, $sexo,$rutCorp);
+                $rutCorp = "65106820-7";
+                $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 3:
-                $rutCorp="65467840-5";
-                $activos = $this->model_informe->corp_mayorS($mayor, $sexo,$rutCorp);
+                $rutCorp = "65467840-5";
+                $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 4:
-                $rutCorp="70331500-3";
-                $activos = $this->model_informe->corp_mayorS($mayor, $sexo,$rutCorp);
+                $rutCorp = "70331500-3";
+                $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 5:
-                $rutCorp="71888800-k";
-                $activos = $this->model_informe->corp_mayorS($mayor, $sexo,$rutCorp);
+                $rutCorp = "71888800-k";
+                $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 6:
-                $rutCorp="72265900-7";
-                $activos = $this->model_informe->corp_mayorS($mayor, $sexo,$rutCorp);
+                $rutCorp = "72265900-7";
+                $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
@@ -544,13 +545,13 @@ class InformesSocio extends CI_Controller
         $mpdf->Output();
     }
 
-    public function menorSocio_pdf($corp,$sexo,$menor)
+    public function menorSocio_pdf($corp, $sexo, $menor)
 
 
     {
 
 
-        $data['corp']=$corp;
+        $data['corp'] = $corp;
 
 
 
@@ -561,47 +562,47 @@ class InformesSocio extends CI_Controller
         switch ($corp) {
             case 1:
                 $activos = $this->model_informe->consolidado_menorS($menor, $sexo);
-                
-                $data['activos']=$activos;
+
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
                 break;
             case 2:
-                $rutCorp="65106820-7";
-                $activos = $this->model_informe->corp_menorS($menor, $sexo,$rutCorp);
+                $rutCorp = "65106820-7";
+                $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 3:
-                $rutCorp="65467840-5";
-                $activos = $this->model_informe->corp_menorS($menor, $sexo,$rutCorp);
+                $rutCorp = "65467840-5";
+                $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 4:
-                $rutCorp="70331500-3";
-                $activos = $this->model_informe->corp_menorS($menor, $sexo,$rutCorp);
+                $rutCorp = "70331500-3";
+                $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 5:
-                $rutCorp="71888800-k";
-                $activos = $this->model_informe->corp_menorS($menor, $sexo,$rutCorp);
+                $rutCorp = "71888800-k";
+                $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
             case 6:
-                $rutCorp="72265900-7";
-                $activos = $this->model_informe->corp_menorS($menor, $sexo,$rutCorp);
+                $rutCorp = "72265900-7";
+                $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_socio', $data, true);
 
                 break;
@@ -626,13 +627,13 @@ class InformesSocio extends CI_Controller
 
 
 
-    public function rangoCarga_pdf($corp,$sexo,$min,$max)
+    public function rangoCarga_pdf($corp, $sexo, $min, $max)
 
 
     {
 
 
-        $data['corp']=$corp;
+        $data['corp'] = $corp;
 
 
 
@@ -643,55 +644,55 @@ class InformesSocio extends CI_Controller
         switch ($corp) {
             case 1:
                 $activos = $this->model_informe->consolidado_rangoC($min, $max, $sexo);
-                
-                $data['activos']=$activos;
+
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
                 break;
             case 2:
-                $rutCorp="65106820-7";
-                $activos = $this->model_informe->corp_rangoC($min,$max,$sexo,$rutCorp);
+                $rutCorp = "65106820-7";
+                $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 3:
-                $rutCorp="65467840-5";
-                $activos = $this->model_informe->corp_rangoC($min,$max,$sexo,$rutCorp);
+                $rutCorp = "65467840-5";
+                $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 4:
-                $rutCorp="70331500-3";
-                $activos = $this->model_informe->corp_rangoC($min,$max,$sexo,$rutCorp);
+                $rutCorp = "70331500-3";
+                $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 5:
-                $rutCorp="71888800-k";
-                $activos = $this->model_informe->corp_rangoC($min,$max,$sexo,$rutCorp);
+                $rutCorp = "71888800-k";
+                $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 6:
-                $rutCorp="72265900-7";
-                $activos = $this->model_informe->corp_rangoC($min,$max,$sexo,$rutCorp);
+                $rutCorp = "72265900-7";
+                $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
-                
+
 
                 break;
         }
         ob_end_clean();
         $html = html_entity_decode($html);
-        
+
 
         $mpdf = new \Mpdf\Mpdf(['debug' => true]);
         $mpdf->AddPage($orientacion);
@@ -699,18 +700,18 @@ class InformesSocio extends CI_Controller
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML($html);
 
-       $mpdf->Output();
+        $mpdf->Output();
     }
 
 
 
-    public function mayorCarga_pdf($corp,$sexo,$mayor)
+    public function mayorCarga_pdf($corp, $sexo, $mayor)
 
 
     {
 
 
-        $data['corp']=$corp;
+        $data['corp'] = $corp;
 
 
 
@@ -721,47 +722,47 @@ class InformesSocio extends CI_Controller
         switch ($corp) {
             case 1:
                 $activos = $this->model_informe->consolidado_mayorC($mayor, $sexo);
-                
-                $data['activos']=$activos;
+
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
                 break;
             case 2:
-                $rutCorp="65106820-7";
-                $activos = $this->model_informe->corp_mayorC($mayor, $sexo,$rutCorp);
+                $rutCorp = "65106820-7";
+                $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 3:
-                $rutCorp="65467840-5";
-                $activos = $this->model_informe->corp_mayorC($mayor, $sexo,$rutCorp);
+                $rutCorp = "65467840-5";
+                $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 4:
-                $rutCorp="70331500-3";
-                $activos = $this->model_informe->corp_mayorC($mayor, $sexo,$rutCorp);
+                $rutCorp = "70331500-3";
+                $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 5:
-                $rutCorp="71888800-k";
-                $activos = $this->model_informe->corp_mayorC($mayor, $sexo,$rutCorp);
+                $rutCorp = "71888800-k";
+                $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 6:
-                $rutCorp="72265900-7";
-                $activos = $this->model_informe->corp_mayorC($mayor, $sexo,$rutCorp);
+                $rutCorp = "72265900-7";
+                $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
@@ -779,13 +780,13 @@ class InformesSocio extends CI_Controller
     }
 
 
-    public function menorCarga_pdf($corp,$sexo,$menor)
+    public function menorCarga_pdf($corp, $sexo, $menor)
 
 
     {
 
 
-        $data['corp']=$corp;
+        $data['corp'] = $corp;
 
 
 
@@ -796,47 +797,48 @@ class InformesSocio extends CI_Controller
         switch ($corp) {
             case 1:
                 $activos = $this->model_informe->consolidado_menorC($menor, $sexo);
-                
-                $data['activos']=$activos;
+
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
+
                 break;
             case 2:
-                $rutCorp="65106820-7";
-                $activos = $this->model_informe->corp_menorC($menor, $sexo,$rutCorp);
+                $rutCorp = "65106820-7";
+                $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 3:
-                $rutCorp="65467840-5";
-                $activos = $this->model_informe->corp_menorC($menor, $sexo,$rutCorp);
+                $rutCorp = "65467840-5";
+                $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 4:
-                $rutCorp="70331500-3";
-                $activos = $this->model_informe->corp_menorC($menor, $sexo,$rutCorp);
+                $rutCorp = "70331500-3";
+                $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 5:
-                $rutCorp="71888800-k";
-                $activos = $this->model_informe->corp_menorC($menor, $sexo,$rutCorp);
+                $rutCorp = "71888800-k";
+                $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
             case 6:
-                $rutCorp="72265900-7";
-                $activos = $this->model_informe->corp_menorC($menor, $sexo,$rutCorp);
+                $rutCorp = "72265900-7";
+                $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
-                $data['activos']=$activos;
+                $data['activos'] = $activos;
                 $html = $this->load->view('socios\informes\informe_carga', $data, true);
 
                 break;
@@ -852,6 +854,146 @@ class InformesSocio extends CI_Controller
 
         $mpdf->Output();
     }
+
+
+    public function FechaEstado_pdf($corpFecha, $tipoFecha, $desdeFecha, $hastaFecha)
+
+    {
+
+
+
+        $data['corp'] = $corpFecha;
+        $data['estado'] = $tipoFecha;
+        $data['desde'] = $desdeFecha;
+        $data['hasta'] = $hastaFecha;
+
+
+
+        $cabecera = "Infomaaa";
+        
+        $orientacion = "P";
+
+        switch ($corpFecha) {
+            case 1:
+                $rutCorp = "Todas";
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+
+                $cont = 0;
+                foreach ($activos as $s) {
+                    $cont++;
+                }
+
+                $data['totales'] = $cont;
+
+                $data['activos'] = $activos;
+                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+                break;
+            case 2:
+                $rutCorp = "65106820-7";
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+                $cont = 0;
+                foreach ($activos as $s) {
+                    $cont++;
+                }
+
+                $data['totales'] = $cont;
+
+                $data['activos'] = $activos;
+                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+
+                break;
+            case 3:
+                $rutCorp = "65467840-5";
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+
+                $cont = 0;
+                foreach ($activos as $s) {
+                    $cont++;
+                }
+
+                $data['totales'] = $cont;
+
+                $data['activos'] = $activos;
+                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+
+                break;
+            case 4:
+                $rutCorp = "70331500-3";
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+
+                $cont = 0;
+                foreach ($activos as $s) {
+                    $cont++;
+                }
+
+                $data['totales'] = $cont;
+
+                $data['activos'] = $activos;
+                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+
+                break;
+            case 5:
+                $rutCorp = "71888800-k";
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+
+                $cont = 0;
+                foreach ($activos as $s) {
+                    $cont++;
+                }
+
+                $data['totales'] = $cont;
+
+                $data['activos'] = $activos;
+                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+
+                break;
+            case 6:
+                $rutCorp = "72265900-7";
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+
+                $cont = 0;
+                foreach ($activos as $s) {
+                    $cont++;
+                }
+
+                $data['totales'] = $cont;
+
+                $data['activos'] = $activos;
+                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+
+                break;
+        }
+        ob_end_clean();
+
+        $html = html_entity_decode($html);
+        $mpdf = new \Mpdf\Mpdf(['debug' => true]);
+        $mpdf->AddPage($orientacion);
+
+        
+        $mpdf->SetHTMLHeader($cabecera);
+        $mpdf->setFooter('Con fecha {DATE j-m-Y} Pag. {PAGENO} de {nb}');
+        $mpdf->shrink_tables_to_fit = 1;
+        $mpdf->SetHeader('');
+        $mpdf->WriteHTML($html);
+
+
+
+
+
+        $mpdf->Output();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

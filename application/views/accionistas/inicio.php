@@ -46,17 +46,54 @@
 
 <?php
 
-if ($this->session->flashdata('exito'))
+if ($this->session->flashdata('exito')){
+  
+  
+  echo '
+  <script>
 
-  echo '<script>
+  toastr.success("Agregado con exito");
+  
+  </script>    
+  
+  ';
+}
 
-    toastr.success("Agregado con exito");
-    
-    </script>    
-    
-    '
+
+
+
+//aviso cada 3 años
+$aviso =$todo_sa[0]->aviso_acciones;
+
+$fecha_aviso= new DateTime($todo_sa[0]->aviso_acciones);
+$hoy = new Datetime(date('Y/m/d'));
+$dif_año = $hoy->diff($fecha_aviso);
+$año=$dif_año->y;
+
+
+
+
 
 ?>
+
+<?php if($año== 3) {?>
+
+  <script>
+    swal({
+  title: "AVISO",
+  text: "No se pueden realizar ventas de acciones",
+  icon: "error",
+  button: "OK",
+});
+
+
+  </script>
+
+
+  <?php } ?>
+
+
+
 
 <body class="container-fluid">
 
@@ -86,7 +123,7 @@ if ($this->session->flashdata('exito'))
             <button type="button" class="btn btn-warning" id="fechas"><span class="badge"><i class="glyphicon glyphicon-search"></i> Buscar <br>Fecha</span></button>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-5">
             <nav class="navbar navbar-default nav-titulo">
               <div class="col-md-3">
                 <label style="text-align:center;">GENERADOR DE LISTADOS</label>
@@ -118,12 +155,14 @@ if ($this->session->flashdata('exito'))
                     </select>
                   </div>
 
+                  <div class="form-group">
+                    <a href="#" title="Generar" id="pdf" class="descargar btn  btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar</a>
+
+                  </div>
+
                 </form>
               </div>
-              <div class="col-md-1">
-                <a href="#" title="Generar" id="pdf" class="descargar btn btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF</a>
 
-              </div>
 
             </nav>
           </div>
@@ -170,14 +209,14 @@ if ($this->session->flashdata('exito'))
               <tr class="bg-danger">
                 <td>Titulos por entregar</td>
                 <td>
-                <?php if ($no_entregados>0): ?>
-                  <a href="<?php echo base_url(); ?>accionistas/titulos/entregados"><?php echo $no_entregados ?></a> 
+                  <?php if ($no_entregados > 0) : ?>
+                    <a href="<?php echo base_url(); ?>accionistas/titulos/entregados"><?php echo $no_entregados ?></a>
 
-                <?php endif; ?>
-                <?php if ($no_entregados==0): ?>
-                 <?php echo $no_entregados ?>
+                  <?php endif; ?>
+                  <?php if ($no_entregados == 0) : ?>
+                    <?php echo $no_entregados ?>
 
-                <?php endif; ?>
+                  <?php endif; ?>
                 </td>
               </tr>
 
@@ -374,12 +413,14 @@ if ($this->session->flashdata('exito'))
     } else {
 
       if (formato == 1) {
-        toastr.options =  {"closeButton": true}
-        
+        toastr.options = {
+          "closeButton": true
+        }
+
         url = "<?php echo base_url(); ?>accionistas/inicio/informesExcel/" + informe;
         window.open(url, '_parent');
         toastr.success("Informe Generado");
-        
+
 
       }
       if (formato == 2) {

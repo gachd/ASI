@@ -769,7 +769,10 @@
             <td><label style="font-size: 22px"><?php echo $nombre ?> <?php echo $ap_paterno ?> <?php echo $ap_materno ?></label></td>
           </tr>
 
+
         </table>
+
+   
 
 
 
@@ -901,6 +904,8 @@
 
                     <?php
 
+
+
                     foreach ($condicion as $cl) {
 
                       if ($cl->cond_id !=  $cond_id) {
@@ -969,7 +974,7 @@
 
                       if ($ts->tipo_id !=  $tipo_id) {
 
-                        echo ' <option value="' . $ts->tipo_id . '" ' . set_select("situacion_lab", $ts->tipo_id) . '>' . $ts->tipo_nombre . '</option>';
+                        echo ' <option value="' . $ts->tipo_id . '" ' . set_select("situacion_lab", $ts->tipo_id) . '>' . $ts->nombre . '</option>';
                       }
                     }
 

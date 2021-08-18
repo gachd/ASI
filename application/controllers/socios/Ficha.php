@@ -48,7 +48,7 @@
 
     $rut = $this->uri->segment(4);
 
-    //	echo 'rut: '.$rut;
+  	
 
     $data['rut'] = $rut;
 
@@ -79,6 +79,10 @@
 
   function cargar_cuotas()
   {
+
+    $cont = 0;
+
+
 
 
 
@@ -150,8 +154,4 @@
       }
     }
   }
-
-
-
-  
 }

@@ -65,7 +65,7 @@ class  ficha_socio extends CI_Controller
 		$mpdf->shrink_tables_to_fit = 1;
 		$mpdf->WriteHTML($html);
 		
-		$mpdf->Output();
+		$mpdf->Output('Ficha inscripcion socio.pdf','D');
 
 
 	}

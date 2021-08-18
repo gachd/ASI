@@ -78,7 +78,10 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'stadioitaliano',
+	
+	//'database' => 'stadioitaliano',
+	'database' => 'asi_produccion',
+	
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

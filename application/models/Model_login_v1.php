@@ -16,9 +16,9 @@ class model_login extends CI_Model
 	{
 
 		$query = $this->db->query('SELECT id_usuario,id_permiso,permisos.perm_desc,permisos.perm_principal
-FROM `user_permiso` 
-INNER JOIN permisos on user_permiso.id_permiso = permisos.perm_id
-WHERE id_usuario = "' . $usuario . '"');
+									FROM `user_permiso` 
+									INNER JOIN permisos on user_permiso.id_permiso = permisos.perm_id
+									WHERE id_usuario = "' . $usuario . '"');
 
 
 		if ($query) {

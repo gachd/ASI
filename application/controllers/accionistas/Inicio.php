@@ -93,6 +93,10 @@ class inicio extends CI_Controller
 
       $data['saldo'] = $saldo;
 
+      $data['todo_sa'] = $this->model_sa->datos_sa();
+     
+
+
 
 
 
@@ -535,6 +539,7 @@ class inicio extends CI_Controller
       header('Cache-Control: max-age=0');
 
       $writer->save('php://output');
+      
    }
 
 

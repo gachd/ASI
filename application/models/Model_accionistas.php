@@ -21,7 +21,7 @@
 		}
 
 
-		function nro_acciones($rut)
+		function   nro_acciones($rut)
 		{
 
 			$p = $this->db->query('SELECT SUM(t.numero_acciones) as total FROM s_accionista a, s_titulos t, s_personas p WHERE t.estado = "1" AND a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.prsn_rut = "' . $rut . '"  ');
@@ -102,27 +102,32 @@
 
 		function ultimoId()
 		{
+			//Ultimo ID de persona
 
-			$this->db->select_max('id_accionista');
+			$p = $this->db->query('select MAX(prsn_id) as maximo FROM s_personas ');
+			return $p->result();
+		}
+		function ultimoIdAccionista()
+		{
+			//Ultimo ID de persona
 
-			$this->db->from('s_accionista');
+			$p = $this->db->query('select MAX(id_accionista) as maximo FROM s_accionista');
+			return $p->result();
+		}
+		function ultimoIdTitulo()
+		{
+			//Ultimo ID de persona
 
-			$query2 = $this->db->get();
-
-			// $num_rows = $query2->num_rows();
-
-			$res2 = $query2->result_array();
-
-			$result = $res2[0]['id_accionista'];
-
-			return $result;
+			$p = $this->db->query('select MAX(id_titulos) as maxTitulo FROM s_titulos');
+			return $p->result();
 		}
 
 
 		function datosaccionista($id)
 		{
 
-			$p = $this->db->query('SELECT * FROM s_accionista a, s_personas p ,s_comunas comu, s_provincia pro, s_regiones regi WHERE p.prsn_rut = a.prsn_rut AND comu.comuna_id=p.s_comunas_comuna_id AND pro.provincia_id=p.provincia_id AND regi.region_id=p.region_id AND a.id_accionista = "' . $id . '"');
+			//$p = $this->db->query('SELECT DISTINCT a.id_accionista, p.prsn_rut,a.fecha,a.foja_accionista,a.libro_accionista,a.estado_accionista,a.fecha_baja,a.path,p.prsn_apellidopaterno,p.prsn_apellidomaterno,p.prsn_nombres,p.prsn_fechanacimi,p.prsn_sexo,p.prsn_direccion,p.prsn_email,p.prsn_fono_movil,p.prsn_tipo,p.s_estado_civil_estacivil_id,p.s_comunas_comuna_id,p.region_id,p.provincia_id, a.foja_accionista  FROM s_accionista a, s_personas p ,s_comunas comu, s_provincia pro, s_regiones regi WHERE p.prsn_rut = a.prsn_rut AND comu.comuna_id=p.s_comunas_comuna_id AND a.id_accionista = "'.$id.'"');
+			$p = $this->db->query('SELECT * FROM s_accionista a, s_personas p ,s_comunas comu, s_provincia pro, s_regiones regi WHERE p.prsn_rut = a.prsn_rut AND comu.comuna_id=p.s_comunas_comuna_id AND pro.provincia_id=comu.s_provincia_provincia_id AND regi.region_id=pro.s_regiones_region_id AND a.id_accionista = "' . $id . '"');
 			return $p->result();
 		}
 
@@ -142,7 +147,13 @@
 		function existe($rut)
 		{
 
-			$p = $this->db->query('SELECT * FROM s_personas p , s_accionista a WHERE p.prsn_rut = a.prsn_rut AND a.estado_accionista=1 AND p.prsn_rut ="' . $rut . '"');
+			$p = $this->db->query('SELECT a.prsn_rut  FROM s_personas p , s_accionista a WHERE p.prsn_rut = a.prsn_rut  AND p.prsn_rut ="' . $rut . '"');
+			return $p->result();
+		}
+		function existeSocio($rut)
+		{
+
+			$p = $this->db->query('SELECT s.prsn_rut  FROM s_personas p , s_socios s WHERE p.prsn_rut = s.prsn_rut  AND p.prsn_rut ="' . $rut . '"');
 			return $p->result();
 		}
 
@@ -155,22 +166,18 @@
 		}
 
 
-		function buscar_por_fecha_activo($fecha1, $fecha2,$tipo)
+		function buscar_por_fecha_activo($fecha1, $fecha2, $tipo)
 		{
 
-			$p = $this->db->query('SELECT p.prsn_rut,p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,a.fecha,a.estado_accionista, a.fecha_baja FROM s_personas p, s_accionista a WHERE p.prsn_rut=a.prsn_rut AND a.estado_accionista='.$tipo.' AND a.fecha<= "'. $fecha2 .'"  AND a.fecha>="' . $fecha1 . '"');
+			$p = $this->db->query('SELECT p.prsn_rut,p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,a.fecha,a.estado_accionista, a.fecha_baja FROM s_personas p, s_accionista a WHERE p.prsn_rut=a.prsn_rut AND a.estado_accionista=' . $tipo . ' AND a.fecha<= "' . $fecha2 . '"  AND a.fecha>="' . $fecha1 . '"');
 			return $p->result_array();
-
-			
 		}
 
-		function buscar_por_fecha_baja($fecha1, $fecha2,$tipo)
+		function buscar_por_fecha_baja($fecha1, $fecha2, $tipo)
 		{
 
-			$p = $this->db->query('SELECT p.prsn_rut,p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,a.fecha,a.estado_accionista, a.fecha_baja FROM s_personas p, s_accionista a WHERE p.prsn_rut=a.prsn_rut AND a.estado_accionista='.$tipo.' AND a.fecha_baja<= "'. $fecha2 .'"  AND a.fecha_baja>="' . $fecha1 . '"');
+			$p = $this->db->query('SELECT p.prsn_rut,p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,a.fecha,a.estado_accionista, a.fecha_baja FROM s_personas p, s_accionista a WHERE p.prsn_rut=a.prsn_rut AND a.estado_accionista=' . $tipo . ' AND a.fecha_baja<= "' . $fecha2 . '"  AND a.fecha_baja>="' . $fecha1 . '"');
 			return $p->result_array();
-
-			
 		}
 	}
 

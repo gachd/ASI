@@ -317,9 +317,12 @@
 
 
 
-			//$this->db->where("prsn_rut",$rut);		
-
-			$persona = $this->db->query('SELECT * FROM s_personas, s_condicion_laboral,s_estado_civil,s_nacionalidades,s_comunas,s_provincia,s_regiones WHERE prsn_rut="' . $rut . '" AND s_condicion_laboral_condlab_id = condlab_id AND s_estado_civil_estacivil_id = estacivil_id AND s_nacionalidades_nac_id = nac_id AND s_comunas_comuna_id = comuna_id AND s_provincia_provincia_id = provincia_id AND s_regiones_region_id=region_id');
+			//$this->db->where("prsn_rut",$rut);				
+			
+			//$persona = $this->db->query('SELECT * FROM s_personas, s_condicion_laboral,s_estado_civil,s_nacionalidades,s_comunas,s_provincia,s_regiones WHERE prsn_rut="' . $rut . '" AND s_condicion_laboral_condlab_id = condlab_id AND s_estado_civil_estacivil_id = estacivil_id AND s_nacionalidades_nac_id = nac_id AND s_comunas_comuna_id = comuna_id AND s_provincia_provincia_id = provincia_id AND s_regiones_region_id=region_id');
+			
+			
+			$persona = $this->db->query('SELECT * FROM s_personas p, s_condicion_laboral labo,s_estado_civil civil,s_nacionalidades pais,s_comunas comu,s_provincia provi,s_regiones regi WHERE prsn_rut="'.$rut.'" AND s_condicion_laboral_condlab_id = condlab_id AND s_estado_civil_estacivil_id = estacivil_id AND s_nacionalidades_nac_id = nac_id AND p.s_comunas_comuna_id = comu.comuna_id AND comu.s_provincia_provincia_id = provi.provincia_id AND provi.s_regiones_region_id=regi.region_id');
 
 
 
@@ -456,8 +459,11 @@
 		function all_comunas()
 		{
 
+			$this->db->order_by('comuna_nombre', 'ASC');
 			$com = $this->db->get('s_comunas');
+			
 
+			
 			return $com->result();
 		}
 
@@ -518,7 +524,8 @@
 
 
 
-			$tipo = $this->db->query('SELECT * FROM s_tipo_socio t, s_subcond s WHERE t.subcond = s.id_subcond');
+			//$tipo = $this->db->query('SELECT * FROM s_tipo_socio t, s_subcond s WHERE t.subcond = s.id_subcond');
+			$tipo = $this->db->query('SELECT t.nombre ,t.tipo_id FROM s_tipo_socio t, s_subcond s WHERE t.subcond = s.id_subcond');
 
 			return $tipo->result();
 		}
@@ -799,7 +806,7 @@
 
 			$result = $res2[0]['prsn_id'];
 
-			return $result;;
+			return $result;
 		}
 
 

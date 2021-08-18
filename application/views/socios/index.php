@@ -778,7 +778,7 @@
 
                     <li role="presentation" id="home" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i>  <span>Antecedentes Personales</span></a></li>
 
-                    <li role="presentation" id="dep"><a id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span>Intereses Deportivos</span></a></li>
+                    <li role="presentation" id="dep"><a id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span>Deportes</span></a></li>
 
                     <li role="presentation" id="soc"><a id="soc" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-user"></i>  <span>Socio</span></a></li>
 
@@ -838,15 +838,15 @@
 
                             <tr>
 
-                              <td>fecha de nacimiento</td>
+                              <td>Fecha de nacimiento</td>
 
-                              <td><input class="form-control w_fecha" type="text" name="txt_fecha" id="txt_fecha" required ?></td>
+                              <td><input class="form-control w_fecha" type="text" name="txt_fecha" id="txt_fecha" required readonly autocomplete="off"></td>
 
                             </tr>
 
                             <tr>
 
-                              <td>lugar nacimiento</td>
+                              <td>Lugar nacimiento</td>
 
                               <td><input type="text" class="form-control" id="nac" name="nac" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
 
@@ -854,7 +854,7 @@
 
                             <tr>
 
-                              <td>estado civil</td>
+                              <td>Estado civil</td>
 
                               <td><select class="form-control" name="estadocivil" id="estadocivil">
 
@@ -877,7 +877,7 @@
 
                             <tr>
 
-                              <td>nacionalidad</td>
+                              <td>Nacionalidad</td>
 
                               <td><select class="form-control" name="nacionalidad" id="nacionalidad">
 
@@ -1828,7 +1828,7 @@
 
                     </div>
 
-                    <div role="tabpanel" class="tab-pane" id="settings">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passage..</div>
+                    <div role="tabpanel" class="tab-pane" id="settings"></div>
 
                     <div role="tabpanel" class="tab-pane" id="extra">
 
@@ -3510,6 +3510,7 @@
           }
 
         });
+        
 
 
 

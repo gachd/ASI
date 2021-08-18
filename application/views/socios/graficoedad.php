@@ -211,6 +211,8 @@
 </html>
 
 <script type="text/javascript">
+
+
   function detalleGrafico(cat) {
 
     var gen = document.getElementById("genero").value;
@@ -219,6 +221,7 @@
 
     var tipoGraf = $('input:radio[name=tipoGraf]:checked').val();
 
+    alert(cat);
 
     if (tipoGraf == 1) {
 
@@ -464,6 +467,7 @@
                 // alert('value: ' + this.name);
 
                 detalleGrafico(this.name);
+                console.log(this.name);
 
 
 
@@ -539,7 +543,9 @@
 
 
         if (tipoGraf == 3) {
+
           $('#tipSocio').css('display', 'block');
+
           $('input[name=tip_Socio]').change(function() {
 
             var tipoSocio = $('input:radio[name=tip_Socio]:checked').val();
@@ -562,6 +568,8 @@
               dataType: 'json',
 
               success: function(data) {
+
+                console.log(data);
 
 
 

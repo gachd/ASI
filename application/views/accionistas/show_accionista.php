@@ -22,6 +22,19 @@
 
 <?php
 
+function getPuntosRut($rut)
+{
+
+    $rutTmp = explode("-", $rut);
+
+    return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
+}
+
+function formatFecha($fecha)
+{
+    return date("d-m-Y", strtotime($fecha));
+}
+
 $sum = 0;
 foreach ($titulos as $t) {
 
@@ -66,7 +79,7 @@ foreach ($titulos as $t) {
                                         <td class="text-primary">
                                             <?php
 
-                                            echo $accionista[0]->prsn_rut;
+                                            echo getPuntosRut($accionista[0]->prsn_rut);
 
 
 
@@ -120,7 +133,7 @@ foreach ($titulos as $t) {
                                         <td class="text-primary">
                                             <?php
 
-                                            echo $accionista[0]->fecha;
+                                            echo formatFecha($accionista[0]->fecha);
 
                                             ?>
                                         </td>
@@ -159,6 +172,18 @@ foreach ($titulos as $t) {
                                             echo $accionista[0]->prsn_fono_movil;
                                        
                                             ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span class="glyphicon glyphicon text-primary"></span>
+                                                Carpeta
+                                            </strong>
+                                        </td>
+                                        <td class="text-primary">
+                                            <a href="/ASI<?php echo $accionista[0]->path;?>">Archivo</a>
+                                           
                                         </td>
                                     </tr>
                                     <tr>

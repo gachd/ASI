@@ -608,6 +608,8 @@
 
 
 
+
+
   if (!empty($datos)) {
 
     foreach ($datos as $dp) {
@@ -688,6 +690,8 @@
 
 
 
+
+
     if ($sexo == 1) {
 
       $sexo_txt = "Masculino";
@@ -750,7 +754,7 @@
 
       <div class="col-md-1" style="width: 11%;">
 
-        <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
+        <img alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
 
         <center>
           <p> <b><?php echo $rut ?></b></p>
@@ -1601,6 +1605,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
+
     $(".deporte").click(function(evento) {
 
 
@@ -1677,25 +1682,21 @@
 
   $(function() {
 
-    $("#txt_fecha").datepicker(
-      {
+    $("#txt_fecha").datepicker({
       changeMonth: true,
       changeYear: true,
       yearRange: '-100:+0',
-    }
-    );
+    });
 
   });
 
   $(function() {
 
-    $("#nac_carga").datepicker(
-      {
+    $("#nac_carga").datepicker({
       changeMonth: true,
       changeYear: true,
       yearRange: '-100:+0',
-    }
-    );
+    });
 
   });
 

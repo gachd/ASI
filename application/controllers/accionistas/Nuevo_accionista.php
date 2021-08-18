@@ -45,37 +45,46 @@ class nuevo_accionista extends CI_Controller
 		if (!empty($_POST['rut'])) {
 
 			$persona = $this->model_accionistas->existe($_POST['rut']);
+			$socio = $this->model_accionistas->existeSocio($_POST['rut']);
+
+			
+
+
 			if ($persona) {
 
 				$_POST['msj'] = '1';
 				$this->load->view('plantilla/Head_v1');
-
 				$this->load->view('accionistas/accionista_rut');
-
 				$this->load->view('plantilla/Footer');
+
+
 			} else {
+				
 				$rut = $_POST['rut'];
-				//redirect('accionistas/nuevo_accionista/datos_persona/'.$rut);
-
-
-
-				$date  = "";
-
 				$data['rut'] = $rut;
-				$data['comunas']	= $this->model_persona->all_comunas();
-				$data['laboral']	= $this->model_persona->all_condicionlab();
-				$data['estado_civil']	= $this->model_persona->all_estadocivil();
+				$data['comunas'] = $this->model_persona->all_comunas();
+				$data['laboral'] = $this->model_persona->all_condicionlab();
+				$data['estado_civil'] = $this->model_persona->all_estadocivil();
 				$data['provincia']	= $this->model_persona->all_provincias();
 				$data['region']	= $this->model_persona->all_region();
 				$data['libro']	= $this->model_libro->all_libros();
 
 
+				if ($socio) {
 
-				$this->load->view('plantilla/Head_v1');
+					//si se valida que hay un socios, solo carga vista para agregar datos de accionista 
+					$this->load->view('plantilla/Head_v1');
+					$this->load->view('accionistas/nuevo_accionistaSocio', $data);
+					$this->load->view('plantilla/Footer');
 
-				$this->load->view('accionistas/nuevo_accionista', $data);
+				} else {	
 
-				$this->load->view('plantilla/Footer');
+					//si no carga la vista donde aparte ingrese datos personal
+
+					$this->load->view('plantilla/Head_v1');
+					$this->load->view('accionistas/nuevo_accionista', $data);
+					$this->load->view('plantilla/Footer');
+				}
 			}
 		} else {
 			$this->load->view('plantilla/Head_v1');
@@ -94,6 +103,20 @@ class nuevo_accionista extends CI_Controller
 		return ($Ultimo_Accionista);
 	}
 
+	public function test()
+	{
+
+
+		$IDMaximo = $this->model_accionistas->ultimoId();
+		$prsnID = $IDMaximo[0]->maximo;
+		var_dump($prsnID);
+
+
+		$IDMaximo = $this->model_accionistas->ultimoIdAccionista();
+		$prsnID = $IDMaximo[0]->maximo;
+		var_dump($prsnID);
+	}
+
 
 
 
@@ -105,41 +128,48 @@ class nuevo_accionista extends CI_Controller
 	{
 
 
+		$MaximoP = $this->model_accionistas->ultimoId();
+		$IDPersona = $MaximoP[0]->maximo;
+		$PersonaNuevaID = $IDPersona + 1;
 
-		$prsnID = $this->model_accionistas->ultimoId();
+
+		$IDMaximo = $this->model_accionistas->ultimoIdAccionista();
+		$prsnID = $IDMaximo[0]->maximo;
+
+
 		$AccionistaNuevo = $prsnID + 1;
 
 		$rut = $_POST['rutP'];
 		$prsn_tipo = $this->input->post('optradio');
 		$tipoaccion = $this->input->post('accion');
 
-	
+
 		$fecha = date('d-m-Y_H-i-s');
-		$path = './uploads/accionistas/'.$rut;
+		$path = './uploads/accionistas/' . $rut;
 
 		if (!file_exists($path)) {
-				mkdir($path, 0777, true);
-			}
+			mkdir($path, 0777, true);
+		}
 
 
 
 		$config['upload_path'] =  $path;
 		$config['allowed_types'] = 'pdf';
-		$config['file_name'] = $rut."_".$fecha;
+		$config['file_name'] = $rut . "_" . $fecha;
 		$config['max_size'] = "50000";
 		$config['max_width'] = "2000";
 		$config['max_height'] = "2000";
 
-	  
+
 
 		$this->load->library('upload', $config);
 		$this->upload->initialize($config);
 
-		if ($this->upload->do_upload('userfile')) {                        
-        
-			$this->upload->data();    
-		}                        
-			
+		if ($this->upload->do_upload('userfile')) {
+
+			$this->upload->data();
+		}
+
 
 
 
@@ -147,6 +177,8 @@ class nuevo_accionista extends CI_Controller
 
 		$dataP = array(
 
+
+			'prsn_id' => $PersonaNuevaID,
 
 			'prsn_rut' => $rut,
 
@@ -180,16 +212,14 @@ class nuevo_accionista extends CI_Controller
 
 			's_comunas_comuna_id' => $comu = $this->input->post('comu'),
 
-			'provincia_id' => $region = $this->input->post('provi'),
 
-			'region_id' => $region = $this->input->post('region'),
 
 		);
 
 		$dataA = array(
 
+			'id_accionista' => $AccionistaNuevo,
 			'prsn_rut' => $rut,
-
 			'foja_accionista' => $foja_accionista = $this->input->post('foja'),
 			'libro_accionista' => $libro_accionista = $this->input->post('libro'),
 			'fecha' => $fechaingreso = $this->input->post('fechaIng'),
@@ -211,6 +241,7 @@ class nuevo_accionista extends CI_Controller
 		if ($tipoaccion == 1) {
 
 			$dataT = array(
+
 
 				'id_accionista' => $AccionistaNuevo,
 
@@ -382,18 +413,279 @@ class nuevo_accionista extends CI_Controller
 
 
 				//validar si el accionista tiene itulos activos si no los tiene se da de baja
-				
+
 				$validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
 
-				
+
 				if (empty($validar)) {
-					$dataAccionista= array(
+					$dataAccionista = array(
 						'estado_accionista' => $estadoaccionista = 0,
-						'fecha_baja' => $fecha = date('Y-m-d'),	
+						'fecha_baja' => $fecha = date('Y-m-d'),
 					);
 					$this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
-					
+				};
+			};
+		};
 
+
+
+
+		$this->session->set_flashdata('exito', 'Actualizado');
+
+
+		redirect('accionistas/inicio');
+	}
+
+
+
+	public function agregaraccionistaSocio()
+	{
+
+
+		$IDMaximo = $this->model_accionistas->ultimoIdAccionista();
+		$prsnID = $IDMaximo[0]->maximo;
+
+
+		$AccionistaNuevo = $prsnID + 1;
+
+		$rut = $_POST['rutP'];
+		$prsn_tipo = $this->input->post('optradio');
+		$tipoaccion = $this->input->post('accion');
+
+
+		$fecha = date('d-m-Y_H-i-s');
+		$path = './uploads/accionistas/' . $rut;
+
+		if (!file_exists($path)) {
+			mkdir($path, 0777, true);
+		}
+
+
+
+		$config['upload_path'] =  $path;
+		$config['allowed_types'] = 'pdf';
+		$config['file_name'] = $rut . "_" . $fecha;
+		$config['max_size'] = "50000";
+		$config['max_width'] = "2000";
+		$config['max_height'] = "2000";
+
+
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
+		if ($this->upload->do_upload('userfile')) {
+
+			$this->upload->data();
+		}
+
+
+
+		$dataA = array(
+
+			'id_accionista' => $AccionistaNuevo,
+			'prsn_rut' => $rut,
+			'foja_accionista' => $foja_accionista = $this->input->post('foja'),
+			'libro_accionista' => $libro_accionista = $this->input->post('libro'),
+			'fecha' => $fechaingreso = $this->input->post('fechaIng'),
+			'estado_accionista' => $estadoaccionista = 1,
+			'path' => $path,
+		);
+
+
+		$this->model_accionistas->insertar($dataA);
+
+
+		// MODULO DE TTITULO
+
+		//Nueva
+
+
+		if ($tipoaccion == 1) {
+
+			$dataT = array(
+
+
+				'id_accionista' => $AccionistaNuevo,
+
+				'numero_acciones' => $num_acciones = $this->input->post('NuevaAcionesTitulo'),
+
+				'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+
+				'estado' => $estado = 1,
+
+				'entrega' => $estadoEntrega = 0,
+			);
+
+			$this->model_titulo->nuevo_titulo($dataT);
+		};
+
+
+
+		//Cesion
+
+		if ($tipoaccion == 0) {
+
+
+
+
+
+			$id_accionista_que_cede = $this->input->post('IdAccionistaANT');
+
+			$id_accionista_que_recibe = $AccionistaNuevo;
+
+			$numero_acciones_titulo_que_cede = $this->input->post('AccionesANT');
+
+			$cantidad_de_acciones_que_se_ceden = $this->input->post('NumNuevoCesion');
+
+			$titulo_que_precede = $this->input->post('TituloP');
+
+			$acciones_nuevo_titulo_anterior = $numero_acciones_titulo_que_cede - $cantidad_de_acciones_que_se_ceden;
+
+
+
+			$ultimoID = $this->model_titulo->ultimoId();
+			$ultimo = $ultimoID[0]->maximo;
+
+
+			if ($acciones_nuevo_titulo_anterior > 0) {
+
+				$dataAntiguoT = array(
+
+
+					'estado' => $estado = 0,
+
+
+
+
+				);
+
+
+
+
+				$dataT_Nuevo = array(
+
+					'id_accionista' => $id_accionista_que_recibe,
+
+					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
+
+					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+
+					'estado' => $estado = 1,
+
+					'entrega' => $estadoEntrega = 0,
+
+				);
+
+
+				$dataT_Anterior = array(
+
+					'id_accionista' => $id_accionista_que_cede,
+
+					'numero_acciones' => $acciones_nuevo_titulo_anterior,
+
+					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+
+					'estado' => $estado = 1,
+
+					'entrega' => $estadoEntrega = 0,
+
+				);
+
+				$dataTablaTanferencia1 = array(
+
+
+					'titulo_origen ' => $titulo_que_precede,
+
+					'tiulo_actual' => $ultimo + 1,
+
+					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+
+				);
+				$dataTablaTanferencia2 = array(
+
+
+					'titulo_origen ' => $titulo_que_precede,
+
+					'tiulo_actual' => $ultimo + 2,
+
+					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+
+				);
+
+
+
+				$this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+				$this->model_titulo->nueva_cesion($dataTablaTanferencia1);
+				$this->model_titulo->nueva_cesion($dataTablaTanferencia2);
+				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
+				$this->model_titulo->nuevo_titulo($dataT_Anterior);
+			};
+
+
+			if ($acciones_nuevo_titulo_anterior == 0) {
+
+
+				$dataAntiguoT = array(
+
+
+					'estado' => $estado = 0,
+
+
+
+				);
+
+
+
+
+				$dataT_Nuevo = array(
+
+					'id_accionista' => $id_accionista_que_recibe,
+
+					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
+
+					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+
+					'estado' => $estado = 1,
+
+
+					'entrega' => $estadoEntrega = 0,
+
+				);
+
+
+
+
+				$dataTablaTanferencia = array(
+
+
+					'titulo_origen ' => $titulo_que_precede,
+
+					'tiulo_actual' => $ultimo + 1,
+
+					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+
+				);
+
+
+
+				$this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+				$this->model_titulo->nueva_cesion($dataTablaTanferencia);
+
+				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
+
+
+				//validar si el accionista tiene itulos activos si no los tiene se da de baja
+
+				$validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
+
+
+				if (empty($validar)) {
+					$dataAccionista = array(
+						'estado_accionista' => $estadoaccionista = 0,
+						'fecha_baja' => $fecha = date('Y-m-d'),
+					);
+					$this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
 				};
 			};
 		};
@@ -437,7 +729,7 @@ class nuevo_accionista extends CI_Controller
 
 			'prsn_fechanacimi' => $fecha_nac = $this->input->post('FechaN'),
 
-			
+
 
 			'prsn_email' => $correo = $this->input->post('Correo'),
 
@@ -457,9 +749,6 @@ class nuevo_accionista extends CI_Controller
 
 			's_comunas_comuna_id' => $comu = $this->input->post('comuna'),
 
-			'provincia_id' => $region = $this->input->post('proviP'),
-
-			'region_id' => $region = $this->input->post('region'),
 
 
 
@@ -519,7 +808,4 @@ class nuevo_accionista extends CI_Controller
 			echo ('Dar de baja');
 		}
 	}
-
-
-
 }

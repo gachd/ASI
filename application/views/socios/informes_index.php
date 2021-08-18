@@ -5,12 +5,12 @@ $this->load->model('model_informe');
 function getSexo($sexo)
 {
 
-    if ($sexo == 1) {
-        return ("Masculino");
-    }
-    if ($sexo == 0) {
-        return ("Femenino");
-    }
+  if ($sexo == 1) {
+    return ("Masculino");
+  }
+  if ($sexo == 0) {
+    return ("Femenino");
+  }
 }
 
 function getPuntosRut($rut)
@@ -167,9 +167,8 @@ if ($this->session->flashdata('socio') == 'exito') {
         <div class="col-md-12 text-center">
 
           <div class="form-group">
-            <input id="Excel" class="btn btn-primary" type="submit" name="" id="" value="Generar" data-loading-text="Generando...">
-            <a href="#" id="Pantalla" class="btn btn-default ">Buscar</a>
-            <a href="#" id="PDF" class="btn btn-danger ">PDF</a>
+            <input id="Excel" class="btn btn-primary" type="submit" name="" id="" value="Generar Excel " data-loading-text="Generando...">
+
           </div>
 
         </div>
@@ -187,9 +186,10 @@ if ($this->session->flashdata('socio') == 'exito') {
 
 
   <div class="container well">
+    <h3 class="well"><strong>Informes Edades</strong></h3>
 
 
-    <div class="col-md-3">
+    <div class="col-md-3 well">
 
       <label for="">Corporacion</label>
       <select name="corp" id="corp" class="form-control" required>
@@ -206,7 +206,7 @@ if ($this->session->flashdata('socio') == 'exito') {
 
 
 
-    <div class="col-md-2">
+    <div class="col-md-2 well">
 
       <label for="">Tipo Persona</label>
       <select name="persona" id="persona" class="form-control" required>
@@ -221,7 +221,7 @@ if ($this->session->flashdata('socio') == 'exito') {
     </div>
 
 
-    <div id="div_genero" class="col-md-2" style="display:none">
+    <div id="div_genero" class="col-md-2 well" style="display:none">
 
       <label for="">Genero</label>
       <select name="sexo" id="sexo" class="form-control" required>
@@ -236,11 +236,11 @@ if ($this->session->flashdata('socio') == 'exito') {
     </div>
 
 
-    <div class="col-md-2">
+    <div class="col-md-2 ">
 
 
 
-      <div id="div_edad_socio" style="display:none">
+      <div id="div_edad_socio" style="display:none" class="well">
         <label for="">Edad</label>
 
         <select name="edad_socio" id="edad_socio" class="form-control" required>
@@ -263,7 +263,7 @@ if ($this->session->flashdata('socio') == 'exito') {
 
       </div>
 
-      <div id="div_edad_carga" style="display:none">
+      <div id="div_edad_carga" style="display:none" class="well">
         <label for="">Edad</label>
 
         <select name="edad_carga" id="edad_carga" class="form-control" required>
@@ -295,7 +295,7 @@ if ($this->session->flashdata('socio') == 'exito') {
     <div class="col-md-2">
 
 
-      <div id="div_desde" style="display:none">
+      <div id="div_desde" style="display:none" class="well">
 
         <label>Desde</label>
         <input class="form-control" required type="number" name="minimo" id="minimo">
@@ -304,12 +304,12 @@ if ($this->session->flashdata('socio') == 'exito') {
         <input class="form-control" type="number" name="maximo" id="maximo">
       </div>
 
-      <div id="div_mayor" style="display:none">
+      <div id="div_mayor" style="display:none" class="well">
         <label>Mayor que </label>
         <input class="form-control" required type="number" name="mayor" id="mayor">
       </div>
 
-      <div id="div_menor" style="display:none">
+      <div id="div_menor" style="display:none" class="well">
 
         <label>Menor que</label>
         <input class="form-control" type="number" name="menor" id="menor">
@@ -326,18 +326,96 @@ if ($this->session->flashdata('socio') == 'exito') {
 
       </div>
 
-      <div class="form-group">
-        <a href="#!" id="vista" class="btn btn-danger ">Ver</a>
+      <div class="form-group" ">
+        <!-- <a href=" #!" id="vista" class="btn btn-danger ">Ver</a> -->
+        <div class="" style="max-width: 100px;margin: auto;">
+          <a href="#!" id="pdf" class="btn btn-danger" style="width: 100%; margin: auto; max-width: 100x;">PDF</a>
 
-        <a href="#!" id="pdf" class="btn btn-danger ">PDF</a>
+        </div>
+
 
 
       </div>
 
 
     </div>
+  </div>
 
 
+
+
+
+
+
+  <div class="container well">
+    <h3 class="well"><strong>Informes por Estados</strong></h3>
+    <strong></strong>
+
+
+    <div class="col-md-3 well">
+
+      <label for="">Corporacion</label>
+      <select name="corpFechas" id="corpFechas" class="form-control" required>
+        <option value="">Seleccionar...</option>
+        <option value="1">Consolidado</option>
+        <option value="2">Stadio Italiano Di Concepción</option>
+        <option value="3">Scuola Italiana Di Concepcion</option>
+        <option value="4">Centro Italiano De Concepcion</option>
+        <option value="5">Stadio Atletico Italiano</option>
+        <option value="6">Sociedad Italiana De Socorros Mutuos</option>
+      </select>
+
+    </div>
+
+    <div class="col-md-2 well">
+
+      <label for="">Tipo</label>
+      <select name="Incorporaciones" id="IncorporacionesFecha" class="form-control" required>
+        <option value="">Seleccionar...</option>
+        <option value="1">Incorporaciones</option>
+        <option value="2">Bajas</option>
+      </select>
+
+    </div>
+
+
+
+    <div class="col-md-2 well">
+
+      <label>Desde</label>
+      <div class="">
+        <input class="form-control" type="text" name="desdeFecha" id="desdeFecha" style="background-color: white;" autocomplete="off" readonly>
+      </div>
+    </div>
+
+    <div class="col-md-2 well">
+      <label>Hasta</label>
+      <div class="">
+        <input class="form-control" type="text" name="hastaFecha" id="hastaFecha" style="background-color: white;" autocomplete="off" readonly>
+      </div>
+
+    </div>
+
+    <div class="col-md-12 text-center">
+
+      <div class="form-group">
+
+
+      </div>
+
+      <div class="form-group" ">
+  <!-- <a href=" #!" id="vista" class="btn btn-danger ">Ver</a> -->
+        <div class="" style="max-width: 100px;margin: auto;">
+          <a href="#!" id="FechasPDF" class="btn btn-danger" style="width: 100%; margin: auto; max-width: 100x;">PDF</a>
+
+        </div>
+
+
+
+      </div>
+
+
+    </div>
 
 
 
@@ -485,7 +563,68 @@ if ($this->session->flashdata('socio') == 'exito') {
 <!-- Latest compiled and minified CSS -->
 
 
-<script>
+<script type="text/javascript">
+
+  $.datepicker.regional['es'] = {
+    closeText: 'Cerrar',
+    prevText: '< Ant',
+    nextText: 'Sig >',
+    currentText: 'Hoy',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércole xs', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+    weekHeader: 'Sm',
+    dateFormat: 'dd/mm/yy',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+  };
+
+
+
+
+
+  $(function() {
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+
+    $('#desdeFecha, #hastaFecha').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      maxDate: +0,   
+      yearRange: "-100:+0",     
+      beforeShow: rangoCustom,
+      dateFormat: "yy-mm-dd",
+    });
+
+  });
+
+  function rangoCustom(input) {
+
+    if (input.id == 'hastaFecha') {
+      var minDate = new Date($('#desdeFecha').val());
+      
+      minDate.setDate(minDate.getDate() + 1)
+
+      return {
+        minDate: minDate
+
+      };
+    }
+
+    return {}
+
+  }
+
+
+
+
+
+
+
+
   $(document).ready(function() {
 
     $('.gridJQuery').DataTable({
@@ -517,6 +656,12 @@ if ($this->session->flashdata('socio') == 'exito') {
         }
       }
     });
+
+
+
+
+
+
   });
 
   $("#Pantalla").click(function() {
@@ -886,7 +1031,9 @@ if ($this->session->flashdata('socio') == 'exito') {
             if (corp == '1') {
               url = "<?php echo base_url(); ?>socios/InformesSocio/sociocarga_pdf/" + corp;
               console.log(url);
-              window.open(url, '_blank');
+              window.open(url);
+              
+              
 
             }
             if (corp == '2') {
@@ -978,7 +1125,7 @@ if ($this->session->flashdata('socio') == 'exito') {
 
 
                       console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_socio: ' + edad_socio, 'Mayor que:' + mayor);
-                      
+
                       url = "<?php echo base_url(); ?>socios/InformesSocio/mayorSocio_pdf/" + corp + "/" + sexo + "/" + mayor;
                       window.open(url, '_blank');
 
@@ -1111,7 +1258,7 @@ if ($this->session->flashdata('socio') == 'exito') {
 
                       console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
-                      
+
 
                       url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
                       window.open(url, '_blank');
@@ -1179,63 +1326,63 @@ if ($this->session->flashdata('socio') == 'exito') {
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
                   case "5":
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
                   case "6":
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
                   case "7":
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
                   case "8":
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
                   case "9":
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
                   case "10":
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
                   case "11":
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
                   case "12":
                     console.log('Corp: ' + corp, 'Persona:' + persona, 'sexo: ' + sexo, 'edad_carga: ' + edad_carga, 'rango de: ' + min + ' hasta:' + max);
 
                     url = "<?php echo base_url(); ?>socios/InformesSocio/rangoCarga_pdf/" + corp + "/" + sexo + "/" + min + "/" + max;
-                      window.open(url, '_blank');
+                    window.open(url, '_blank');
 
                     break;
 
@@ -1276,6 +1423,79 @@ if ($this->session->flashdata('socio') == 'exito') {
 
 
 
+
+
+
+  });
+
+
+
+
+
+
+
+
+  $("#FechasPDF").click(function() {
+
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "showDuration": "300",
+      "timeOut": "2500",
+    }
+
+    var corpFecha = $("#corpFechas option:selected").val();
+    var tipoFecha = $("#IncorporacionesFecha option:selected").val();
+    var desdeFecha = $("#desdeFecha").val();
+    var hastaFecha = $("#hastaFecha").val();
+
+
+
+
+
+
+
+    if (corpFecha) {
+
+      if (tipoFecha) {
+
+        if (desdeFecha) {
+
+          if (hastaFecha) {
+
+
+            url = "<?php echo base_url(); ?>socios/InformesSocio/FechaEstado_pdf/" + corpFecha + "/" + tipoFecha + "/" + desdeFecha + "/" + hastaFecha;
+            console.log(url);
+            window.open(url, '_blank');
+
+
+
+          } else {
+
+            toastr.warning('Seleccione hasta cual fecha')
+          }
+
+
+
+        } else {
+
+          toastr.warning('Seleccione Fecha Inicio')
+        }
+
+
+
+
+
+
+      } else {
+
+        toastr.warning('Seleccione Tipo de Informe')
+      }
+
+    } else {
+
+      toastr.warning('Seleccione Corporacion')
+    }
 
 
 

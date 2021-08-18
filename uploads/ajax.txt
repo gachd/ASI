@@ -1,0 +1,100 @@
+$.ajax({
+              type: "POST",
+              url: "<?php echo base_url(); ?>accionistas/inicio/informe_fechas_accionistas",
+              data: {
+
+                fecha1: fecha1,
+                fecha2: fecha2,
+                tipoinforme: tipo,
+              },
+
+
+              success: function(response) {
+
+                console.log(response);
+                console.log(response.length);
+
+                if (response.length > 4) {
+
+                  //mostrar bajas
+
+                  if (tipo == 0) {
+
+                    var datos = JSON.parse(response);
+
+                    $("#tablaVista").append(
+                      '<th><td>Nombre</td>' +
+                      '<td>Apellido paterno</td>' +
+                      '<td>Baja</td>' +
+                      '<td>Estado</td></th>');
+
+
+                    console.log(datos)
+                    for (i = 0; i < datos.length; i++) {
+
+                      $("#tablaVista").append('<tr>' +
+                        '<td>' + datos[i].prsn_nombres + '</td>' +
+                        '<td>' + datos[i].prsn_apellidopaterno + '</td>' +
+                        '<td>' + datos[i].fecha_baja + '</td>' +
+                        '<td>' + datos[i].estado_accionista + '</td>' + '</tr>');
+                    }
+
+                  }
+
+                  //Mostrar incorporaciones
+                  if (tipo == 1) {
+
+                    var datos = JSON.parse(response);
+
+                    $("#tablaVista").append(
+                      '<thead><<th>Nombre</th>' +
+                      '<th>Apellido paterno</th>' +
+                      '<th>Incorporacion</th>' +
+                      '<th>Estado</th></thead>');
+
+                    console.log(datos)
+                    for (i = 0; i < datos.length; i++) {
+
+                      $("#tablaVista").append('<tr>' +
+                        '<td>' + datos[i].prsn_nombres + '</td>' +
+                        '<td>' + datos[i].prsn_apellidopaterno + '</td>' +
+                        '<td>' + datos[i].fecha + '</td>' +
+                        '<td>' + datos[i].estado_accionista + '</td>' + '</tr>');
+                    }
+                    $("#tablaVista").addClass('tablaVista');
+                    tablaJQ();
+
+
+                  }
+
+                } else {
+
+                  swal({
+                    title: "No se encontraron registros",
+                    icon: "info",
+                    button: "OK",
+                  });
+                }
+              },
+              error: function() {
+
+                $("#tablaVista").append(
+
+                  '<thead>' +
+                  '<tr><td>Nombre</td>' +
+                  '<td>Apellido paterno</td>' +
+                  '<td>Incorporacion</td>' +
+                  '<td>Estado</td>' +
+                  '</thead>' +
+                  ' <tr><td>xax </td> aa <td> aa </td><td></td><td></td></tr>'
+                );
+
+
+                swal({
+                  title: "Error",
+                  icon: "error",
+                  button: "OK",
+                });
+
+              }
+            });

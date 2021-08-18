@@ -154,7 +154,7 @@
 
     .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
 
-.tab-nav > li > a::after { background: ##4b7006  none repeat scroll 0% 0%; color: #fff; }
+.tab-nav > li > a::after { background: #4b7006  none repeat scroll 0% 0%; color: #fff; }
 
 .tab-pane { padding: 15px 0; }
 
@@ -438,7 +438,7 @@ table#pagos thead>tr>td{
 
  
 
-.bloqueado{color:#9a9a99; background: #yellow;}
+.bloqueado{color:#9a9a99; background: yellow;}
 
 
 

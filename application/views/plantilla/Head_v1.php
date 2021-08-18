@@ -79,7 +79,7 @@
 
 
 
-				<a class="navbar-brand" href="#"><img width="40" src="<?php echo base_url(); ?>/assets/logo.png"></a>
+				<a class="navbar-brand" href="#"><img width="40" src="<?php echo base_url(); ?>/assets/logo.svg"></a>
 
 			</div>
 			<?php
@@ -273,7 +273,8 @@
 	</nav>
 
 
+</body>
 
-	<div>
 
-		<!-- Navigation -->
+
+<!-- Navigation -->

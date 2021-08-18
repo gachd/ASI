@@ -590,7 +590,7 @@
 
  * left tab
 
- * ===============================================
+ */
 </style>
 
 <body>
@@ -697,7 +697,7 @@
 
             <div class="col-md-1" style="width: 11%;">
 
-              <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
+            <img alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
 
             </div>
 

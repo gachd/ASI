@@ -78,7 +78,10 @@
 
 				//ambos
 				$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno,p.prsn_sexo,p.prsn_email, prsn_fechanacimi from s_personas p, s_socios s where p.prsn_rut = s.prsn_rut AND s.corporacion ="' . $corp . '" AND s.estado = 0  AND s.tipo_id=1 AND  (YEAR(CURDATE())-YEAR(prsn_fechanacimi) + IF(DATE_FORMAT(CURDATE(),"%m-%d") > DATE_FORMAT(prsn_fechanacimi,"%m-%d"), 0 , -1 ) ) >= "' . $mayor . '"');
+
+			
 			}
+			
 
 			return $cant->result();
 		}
@@ -283,7 +286,7 @@
 
 
 
-		function corp_rangoC($min, $max, $sexo,$corp)
+		function corp_rangoC($min, $max, $sexo, $corp)
 		{
 
 
@@ -311,7 +314,7 @@
 		}
 
 
-		function corp_mayorC($mayor, $sexo,$corp)
+		function corp_mayorC($mayor, $sexo, $corp)
 		{
 
 
@@ -339,7 +342,7 @@
 		}
 
 
-		function corp_menorC($menor, $sexo,$corp)
+		function corp_menorC($menor, $sexo, $corp)
 		{
 
 
@@ -366,7 +369,7 @@
 			return $cant->result();
 		}
 
-		
+
 
 
 
@@ -479,6 +482,63 @@
 
 
 			return $cant->result();
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+		function informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha)
+		{
+			
+
+			if ($rutCorp == "Todas") {
+
+
+				if ($tipoFecha == "1") {
+
+				
+					//incorporaciones
+
+					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut  AND s.fecha_registro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_registro");
+
+					return $sql->result();
+				}
+				if ($tipoFecha == "2") {
+					//bajas
+
+					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut  AND s.fecha_retiro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_retiro");
+
+					return $sql->result();
+				}
+			} else {
+
+				if ($tipoFecha == "1") {
+
+					//incorporaciones
+
+					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut AND s.corporacion = '"."$rutCorp"."' AND s.fecha_registro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_registro");
+
+					
+					return $sql->result();
+				}
+				if ($tipoFecha == "2") {
+					//bajas
+
+					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut AND s.corporacion = '"."$rutCorp"."' AND s.fecha_retiro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_retiro");
+
+
+					
+					return $sql->result();
+				}
+			}
 		}
 	}
 

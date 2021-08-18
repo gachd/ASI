@@ -69,7 +69,7 @@
 
                     <div class="form-group oculto" id="divfechaN">
                         <label for="first-name">Fecha Nacimiento</label>
-                        <input type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
+                        <input readonly style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
                     </div>
 
                     <div class="form-group">
@@ -190,7 +190,7 @@
 
                     <div class="form-group">
                         <label ">Fecha Ingreso</label>
-                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" required>
+                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" readonly required>
                     </div>
 
                     <div class="form-group">
@@ -218,7 +218,7 @@
                     </div>
                     <div class="form-group">
                         <label ">Fecha Titulo</label>
-                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
+                        <input type=" text" readonly style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
                     </div>
 
                     <div class="form-group procedente oculto" id="Aprocedente">
@@ -247,7 +247,7 @@
 
                     <div class="form-group oculto" id="DivFechaCesion">
                         <label ">Fecha Cesion</label>
-                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
+                        <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
                     </div>
 
 
@@ -351,30 +351,20 @@
                 dateFormat: "yy-mm-dd",
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "-100:-18"
+                maxDate: "-18y",            
+                yearRange: "-100:+0"
 
             });
-            $("#FechaIgreso").datepicker({
+
+            $("#fechaT,#fechaC,#FechaIgreso").datepicker({
                 dateFormat: "yy-mm-dd",
                 changeYear: true,
-                yearRange: "-100:+0"
+                maxDate: +0,
+                yearRange: "-100:+0",
 
 
-            });;
-            $("#fechaT").datepicker({
-                dateFormat: "yy-mm-dd",
-                changeYear: true,
-                yearRange: "-100:+0"
+            });
 
-
-            });;
-            $("#fechaC").datepicker({
-                dateFormat: "yy-mm-dd",
-                changeYear: true,
-                yearRange: "-100:+0"
-
-
-            });;
         });
 
 
