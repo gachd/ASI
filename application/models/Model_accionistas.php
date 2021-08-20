@@ -19,6 +19,13 @@
 
 			return $p->result();
 		}
+		function id_activos()
+		{
+
+			$p = $this->db->query('SELECT id_accionista FROM  s_accionista WHERE estado_accionista= "1"');
+
+			return $p->result();
+		}
 
 
 		function   nro_acciones($rut)
@@ -109,14 +116,14 @@
 		}
 		function ultimoIdAccionista()
 		{
-			//Ultimo ID de persona
+			//Ultimo ID de accionusta
 
 			$p = $this->db->query('select MAX(id_accionista) as maximo FROM s_accionista');
 			return $p->result();
 		}
 		function ultimoIdTitulo()
 		{
-			//Ultimo ID de persona
+			//Ultimo ID de titulo
 
 			$p = $this->db->query('select MAX(id_titulos) as maxTitulo FROM s_titulos');
 			return $p->result();

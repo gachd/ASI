@@ -144,6 +144,9 @@ class nuevo_accionista extends CI_Controller
 		$tipoaccion = $this->input->post('accion');
 
 
+		$NumeroTitulo = $this->input->post('NumeroTitulo');
+
+
 		$fecha = date('d-m-Y_H-i-s');
 		$path = './uploads/accionistas/' . $rut;
 
@@ -243,6 +246,8 @@ class nuevo_accionista extends CI_Controller
 			$dataT = array(
 
 
+				'id_titulos ' => $NumeroTitulo,
+
 				'id_accionista' => $AccionistaNuevo,
 
 				'numero_acciones' => $num_acciones = $this->input->post('NuevaAcionesTitulo'),
@@ -302,6 +307,8 @@ class nuevo_accionista extends CI_Controller
 
 				$dataT_Nuevo = array(
 
+					'id_titulos' => $NumeroTitulo,
+
 					'id_accionista' => $id_accionista_que_recibe,
 
 					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
@@ -316,6 +323,8 @@ class nuevo_accionista extends CI_Controller
 
 
 				$dataT_Anterior = array(
+
+					'id_titulos' => $NumeroTitulo + 1,
 
 					'id_accionista' => $id_accionista_que_cede,
 
@@ -334,7 +343,7 @@ class nuevo_accionista extends CI_Controller
 
 					'titulo_origen ' => $titulo_que_precede,
 
-					'tiulo_actual' => $ultimo + 1,
+					'tiulo_actual' => $NumeroTitulo,
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
@@ -344,7 +353,7 @@ class nuevo_accionista extends CI_Controller
 
 					'titulo_origen ' => $titulo_que_precede,
 
-					'tiulo_actual' => $ultimo + 2,
+					'tiulo_actual' => $NumeroTitulo + 1,
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
@@ -377,6 +386,8 @@ class nuevo_accionista extends CI_Controller
 
 				$dataT_Nuevo = array(
 
+					'id_titulos ' => $NumeroTitulo,
+
 					'id_accionista' => $id_accionista_que_recibe,
 
 					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
@@ -398,7 +409,7 @@ class nuevo_accionista extends CI_Controller
 
 					'titulo_origen ' => $titulo_que_precede,
 
-					'tiulo_actual' => $ultimo + 1,
+					'tiulo_actual' => $NumeroTitulo,
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
@@ -412,8 +423,10 @@ class nuevo_accionista extends CI_Controller
 				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
 
 
-				//validar si el accionista tiene itulos activos si no los tiene se da de baja
+				//validar si el accionista tiene tituloos activos si no los tiene se da de baja
 
+				/* 
+				
 				$validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
 
 
@@ -424,6 +437,9 @@ class nuevo_accionista extends CI_Controller
 					);
 					$this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
 				};
+ */
+
+
 			};
 		};
 
@@ -444,6 +460,8 @@ class nuevo_accionista extends CI_Controller
 
 		$IDMaximo = $this->model_accionistas->ultimoIdAccionista();
 		$prsnID = $IDMaximo[0]->maximo;
+
+		$NumeroTitulo = $this->input->post('NumeroTitulo');
 
 
 		$AccionistaNuevo = $prsnID + 1;
@@ -505,6 +523,8 @@ class nuevo_accionista extends CI_Controller
 
 			$dataT = array(
 
+				'id_titulos ' => $NumeroTitulo,
+
 
 				'id_accionista' => $AccionistaNuevo,
 
@@ -565,6 +585,8 @@ class nuevo_accionista extends CI_Controller
 
 				$dataT_Nuevo = array(
 
+					'id_titulos ' => $NumeroTitulo,
+
 					'id_accionista' => $id_accionista_que_recibe,
 
 					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
@@ -579,6 +601,7 @@ class nuevo_accionista extends CI_Controller
 
 
 				$dataT_Anterior = array(
+					'id_titulos ' => $NumeroTitulo+1,
 
 					'id_accionista' => $id_accionista_que_cede,
 
@@ -597,7 +620,7 @@ class nuevo_accionista extends CI_Controller
 
 					'titulo_origen ' => $titulo_que_precede,
 
-					'tiulo_actual' => $ultimo + 1,
+					'tiulo_actual' => $NumeroTitulo,
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
@@ -607,7 +630,7 @@ class nuevo_accionista extends CI_Controller
 
 					'titulo_origen ' => $titulo_que_precede,
 
-					'tiulo_actual' => $ultimo + 2,
+					'tiulo_actual' => $NumeroTitulo + 1,
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
@@ -640,6 +663,8 @@ class nuevo_accionista extends CI_Controller
 
 				$dataT_Nuevo = array(
 
+					'id_titulos ' => $NumeroTitulo,
+
 					'id_accionista' => $id_accionista_que_recibe,
 
 					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
@@ -661,7 +686,7 @@ class nuevo_accionista extends CI_Controller
 
 					'titulo_origen ' => $titulo_que_precede,
 
-					'tiulo_actual' => $ultimo + 1,
+					'tiulo_actual' => $NumeroTitulo,
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
@@ -677,6 +702,8 @@ class nuevo_accionista extends CI_Controller
 
 				//validar si el accionista tiene itulos activos si no los tiene se da de baja
 
+/* 
+
 				$validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
 
 
@@ -687,6 +714,8 @@ class nuevo_accionista extends CI_Controller
 					);
 					$this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
 				};
+ */
+				
 			};
 		};
 

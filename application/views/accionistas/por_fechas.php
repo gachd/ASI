@@ -30,8 +30,13 @@
 
     <div class="main">
 
-        <div class="col-md-1">
-            <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
+        <div class="container">
+
+            <ul class="breadcrumb">
+                <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
+
+                <li>Estado por Fecha</li>
+            </ul>
         </div>
 
 
@@ -40,63 +45,62 @@
 
 
 
-        <div class="container" id="advanced-search-form" style="border:1px solid ">
+
+
+        <div class="container">
             <h3><strong>Reporte de Accionistas segun fecha</strong></h3>
             <br>
-            <form action="<?php echo base_url(); ?>accionistas/inicio/informe_fechas_accionistas2" method="POST"  target="_blank" >
-                <div class="form-group">
-                    <label for="Tipoinforme">Tipo de informe</label>
-                    <select class="form-control" name="tipoinforme" id="Tipoinforme" required>
 
-                        <option value="">Seleccione</option>
-                        <option value="0">Bajas</option>
-                        <option value="1">Incorporaciones</option>
-
-                    </select>
-                </div>
+            <div class="well row">
+                <form action="<?php echo base_url(); ?>accionistas/inicio/informe_fechas_accionistas2" method="POST" target="_blank" ">
 
 
+                    <div class="form-group col-md-6">
+                        <label for="Tipoinforme">Tipo de informe</label>
+                        <select class="form-control" name="tipoinforme" id="Tipoinforme" required>
 
+                            <option value="">Seleccione</option>
+                            <option value="0">Bajas</option>
+                            <option value="1">Incorporaciones</option>
 
-                <div class="form-group">
-                    <label>Seleccione Fecha</label>
-                    <input class="form-control" type="text" name="fecha1" id="Fecha1" autocomplete="off" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Seleccione Fecha</label>
-                    <input class="form-control" type="text" name="fecha2" id="Fecha2" autocomplete="off" required>
-
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <a href="#" id="Click" class="btn btn-default btn-lg btn-block">Buscar</a>
-                </div>
-                <div class="form-group">
-
-                    <button class="btn"><span class="glyphicon glyphicon-circle-arrow-down"> PDF</span></button>
-                </div>
-            </form>
+                        </select>
+                    </div>
 
 
 
 
+                    <div class="form-group col-md-4">
+                        <label>Seleccione Fecha</label>
+                        <input class="form-control" type="text" name="fecha1" id="Fecha1" autocomplete="off" required>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Seleccione Fecha</label>
+                        <input class="form-control" type="text" name="fecha2" id="Fecha2" autocomplete="off" required>
 
 
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+
+                            <a href="#" id="Click" class="btn btn-default btn-lg">Buscar</a>
+                        </div>
+                        <div class="form-group">
+
+                            <button class="btn btn-default"><span class="glyphicon glyphicon-circle-arrow-down"> PDF</span></button>
+                        </div>
 
 
+                    </div>
 
-
-
-
+                </form>
+            </div>
 
         </div>
 
-        <div class="container" id="advanced-search-form">
-            <table class="table table-striped table-bordered" id="Tabla">
+        <div class="container table-responsive">
+            <table class="table  table-bordered" id="Tabla">
             </table>
 
 
@@ -195,6 +199,19 @@
 
 
 
+    function getEstado(estado) {
+
+        if (estado == 1) {
+
+            return "Activo";
+
+        } else {
+
+            return "Inactivo";
+
+        }
+
+    }
 
 
 
@@ -207,6 +224,7 @@
         cargarDatos();
 
 
+
     });
 
 
@@ -217,7 +235,7 @@
         var tipo = $("#Tipoinforme");
 
 
-      
+
 
         $.ajax({
             type: "POST",
@@ -244,11 +262,11 @@
                         var datos = JSON.parse(response);
 
                         $("#Tabla").append(
-                            '<tr><td>Nombre</td>' +
-                            '<td>Apellido paterno</td>' +
-                            '<td>Baja</td>' +
-                            '<td>Estado</td>');
-                        
+                            '<tr><th>Nombre</th>' +
+                            '<th>Apellido paterno</th>' +
+                            '<th>Baja</th>' +
+                            '<th>Estado Actual</th>');
+
 
                         console.log(datos)
                         for (i = 0; i < datos.length; i++) {
@@ -257,7 +275,7 @@
                                 '<td>' + datos[i].prsn_nombres + '</td>' +
                                 '<td>' + datos[i].prsn_apellidopaterno + '</td>' +
                                 '<td>' + datos[i].fecha_baja + '</td>' +
-                                '<td>' + datos[i].estado_accionista + '</td>' + '</tr>');
+                                '<td>' + getEstado(datos[i].estado_accionista) + '</td>' + '</tr>');
                         }
 
 
@@ -270,10 +288,10 @@
                         var datos = JSON.parse(response);
 
                         $("#Tabla").append(
-                            '<tr><td>Nombre</td>' +
-                            '<td>Apellido paterno</td>' +
-                            '<td>Incorporacion</td>' +
-                            '<td>Estado</td>');
+                            '<tr><th>Nombre</th>' +
+                            '<th>Apellido paterno</th>' +
+                            '<th>Incorporacion</th>' +
+                            '<th>Estado Actual</th>');
                         // alert(fecha1.val() + ' ' + fecha2.val() + ' ' + tipo.val())
 
                         console.log(datos)
@@ -283,7 +301,7 @@
                                 '<td>' + datos[i].prsn_nombres + '</td>' +
                                 '<td>' + datos[i].prsn_apellidopaterno + '</td>' +
                                 '<td>' + datos[i].fecha + '</td>' +
-                                '<td>' + datos[i].estado_accionista + '</td>' + '</tr>');
+                                '<td>' + getEstado(datos[i].estado_accionista) + '</td>' + '</tr>');
                         }
 
 

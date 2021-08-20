@@ -44,64 +44,67 @@
   }
 </style>
 
-<?php
 
-if ($this->session->flashdata('exito')){
-  
-  
-  echo '
+
+<?php if ($this->session->flashdata('exito')) {  ?>
+
   <script>
+    toastr.success("Agregado con exito");
+  </script>
 
-  toastr.success("Agregado con exito");
-  
-  </script>    
-  
-  ';
-}
+<?php } ?>
 
 
 
+<!-- aviso cada 3 años-->
+ <?php
 
-//aviso cada 3 años
-$aviso =$todo_sa[0]->aviso_acciones;
 
-$fecha_aviso= new DateTime($todo_sa[0]->aviso_acciones);
+$aviso = $todo_sa[0]->aviso_acciones;
+
+$fecha_aviso = new DateTime($todo_sa[0]->aviso_acciones);
 $hoy = new Datetime(date('Y/m/d'));
 $dif_año = $hoy->diff($fecha_aviso);
-$año=$dif_año->y;
-
-
-
+$año = $dif_año->y;
 
 
 ?>
 
-<?php if($año== 3) {?>
+<?php if ($año >= 3) { ?>
 
   <script>
     swal({
-  title: "AVISO",
-  text: "No se pueden realizar ventas de acciones",
-  icon: "error",
-  button: "OK",
-});
-
-
+      title: "AVISO",
+      text: "No se pueden realizar ventas de acciones",
+      icon: "error",
+      button: "OK",
+    });
   </script>
 
 
-  <?php } ?>
+<?php } ?>
 
 
 
 
 <body class="container-fluid">
+  <?php if (!empty($bajas)) {  ?>
+    <div class="bg-danger col-md-offset-8 col-md-2 fixed">
+      <h5>Hay accionistas sin titulo</h5>
+
+      <div><a href="inicio/bajas" class="btn btn-danger">ver</a></div>
+
+    </div>
+  <?php }  ?>
+
 
 
 
   <div class="main">
     <div class="header">
       <div class="container">
+
+
         <div class="row">
           <h1>Administración Accionistas</h1>
         </div>
@@ -206,19 +209,22 @@ $año=$dif_año->y;
                 <td></td>
                 <td></td>
               </tr>
-              <tr class="bg-danger">
-                <td>Titulos por entregar</td>
-                <td>
-                  <?php if ($no_entregados > 0) : ?>
-                    <a href="<?php echo base_url(); ?>accionistas/titulos/entregados"><?php echo $no_entregados ?></a>
+              <?php if ($no_entregados > 0) : ?>
+                <tr class="bg-danger">
+                  <td>Titulos por entregar</td>
+                  <td>
 
-                  <?php endif; ?>
-                  <?php if ($no_entregados == 0) : ?>
-                    <?php echo $no_entregados ?>
+                    <a href="<?php echo base_url(); ?>accionistas/titulos/entregados" class="btn btn-danger"><?php echo $no_entregados ?></a>
 
-                  <?php endif; ?>
-                </td>
-              </tr>
+
+                    <?php if ($no_entregados == 0) : ?>
+                      <?php echo $no_entregados ?>
+                    <?php endif; ?>
+
+                  </td>
+                </tr>
+
+              <?php endif; ?>
 
 
             </table>
@@ -254,8 +260,15 @@ $año=$dif_año->y;
         </div>
 
       </div>
+
+
+
+
+
+
       <div class="row panel" id="mostrarSocios">
         <div class="col-md-12">
+
 
           <div class="content-box-large">
             <div class="panel-heading">

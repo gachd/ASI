@@ -29,9 +29,17 @@
 
 
   <div class="main">
-    <div class="col-md-1">
-      <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
+
+    <div class="container">
+
+      <ul class="breadcrumb">
+        <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
+        <li><a href="/ASI/accionistas/titulos">Titulos</a></li>
+
+        <li>Entrega de Titulos</li>
+      </ul>
     </div>
+
 
 
     <?php
@@ -52,14 +60,14 @@
 
 
 
-    <div class="container wellp" >
-      <h3><strong>Entrega de titulo</strong></h3>
-      <br>
+    <div class="container ">
+
+
 
       <form class="form-inline row well" action="<?php echo base_url(); ?>accionistas/titulos/entregar" method="post">
+        <h3><strong>Entrega de titulo</strong></h3>
 
-
-        <div class="form-group">
+        <div class="form-group col-md-4">
           <label for="Titulo">Seleccione titulo</label>
           <select class="form-control" name="Titulo" id="Titulo" required>
             <option value=""> Seleccionar </option>
@@ -74,15 +82,17 @@
 
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-4">
           <label>Seleccione Fecha</label>
           <input class="form-control" type="text" name="fecha" id="Fecha" autocomplete="off" required>
         </div>
 
 
+        <div class="col-md-4">
+          <button type="submit" id="cesion" class="btn btn-default">Entregar</button>
+        </div>
 
 
-        <button type="submit" id="cesion" class="btn btn-default">Entregar</button>
 
 
 
@@ -95,7 +105,7 @@
 
 
 
-    <div class="container table-responsive well "  >
+    <div class="container table-responsive well ">
       <div class="">
         <h3><strong>No entregados</strong></h3>
         <br>

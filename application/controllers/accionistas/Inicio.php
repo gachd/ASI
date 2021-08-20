@@ -94,16 +94,23 @@ class inicio extends CI_Controller
       $data['saldo'] = $saldo;
 
       $data['todo_sa'] = $this->model_sa->datos_sa();
-     
+
+      $activos = $this->model_accionistas->id_activos();
+
+
+      $bajas = [];
 
 
 
+      foreach ($activos as $a) {
 
+         if (empty($this->model_accionistas->validar_estado($a->id_accionista))) {
 
+            array_push($bajas, $this->model_accionistas->datosaccionista($a->id_accionista));
+         }
+      }
 
-
-
-
+      $data['bajas'] = $bajas;
 
 
       $this->load->view('plantilla/Head_v1');
@@ -200,7 +207,12 @@ class inicio extends CI_Controller
          $data[] = [(string)$nombres[$j], (int)$rango[$j]];
       }
 
-      $data[$j] = ["MINORISTAS", $cont];
+      if ($cont!=0) {
+         $data[$j] = ["MINORISTAS", $cont];
+        
+      }
+
+      
 
 
 
@@ -272,6 +284,73 @@ class inicio extends CI_Controller
 
       $this->load->view('plantilla/Footer');
    }
+
+
+   public function bajas()
+
+   {
+      $activos = $this->model_accionistas->id_activos();
+
+
+      $bajas = [];
+
+      foreach ($activos as $a) {
+
+         if (empty($this->model_accionistas->validar_estado($a->id_accionista))) {
+
+            array_push($bajas, $this->model_accionistas->datosaccionista($a->id_accionista));
+         }
+      }
+
+      $data['bajas'] = $bajas;
+
+
+
+
+
+
+      $this->load->view('plantilla/Head_v1');
+
+      $this->load->view('accionistas/bajas', $data);
+
+      $this->load->view('plantilla/Footer');
+   }
+
+   public function dar_debaja()
+   {
+
+      $id_accionista = $this->input->post('accionista');
+      $fecha = $this->input->post('fecha1');
+
+
+      $baja = array(
+			
+         'estado_accionista'=> 0,
+		);
+
+   $this->model_accionistas->update($baja,$id_accionista);
+
+   $this->session->set_flashdata('exito', 'Actualizado');
+
+
+
+
+
+
+
+      
+
+     
+
+   
+
+
+		redirect('accionistas/inicio/bajas');
+      
+   }
+
+
+
 
 
    public function informe_fechas_accionistas()
@@ -435,7 +514,6 @@ class inicio extends CI_Controller
 
          $data = $this->model_accionistas->accionistas_mayoritarios();
          $this->reporte_excel_all($data, $informe);
-         
       }
    }
 
@@ -539,8 +617,10 @@ class inicio extends CI_Controller
       header('Cache-Control: max-age=0');
 
       $writer->save('php://output');
-      
    }
+
+
+
 
 
 

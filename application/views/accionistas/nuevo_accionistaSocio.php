@@ -85,6 +85,10 @@
                         <label>Acciones del nuevo Accionista</label>
                         <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off">
                     </div>
+                    <div class="form-group" id="NumeroNuevoT">
+                        <label>Numero de Titulo</label>
+                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off">
+                    </div>
                     <div class="form-group">
                         <label ">Fecha Titulo</label>
                         <input type=" text" readonly style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>

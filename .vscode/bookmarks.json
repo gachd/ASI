@@ -4,37 +4,37 @@
 			"path": "application/views/socios/agregarSocio.php",
 			"bookmarks": [
 				{
-					"line": 1290,
+					"line": 1295,
 					"column": 1,
 					"label": "Array guardado de datos"
 				},
 				{
-					"line": 1508,
+					"line": 1522,
 					"column": 15,
 					"label": "Guardar Cargas"
 				},
 				{
-					"line": 1649,
+					"line": 1663,
 					"column": 1,
 					"label": "Data Corp"
 				},
 				{
-					"line": 2447,
+					"line": 2461,
 					"column": 3,
 					"label": "Datos Persona"
 				},
 				{
-					"line": 2727,
+					"line": 2746,
 					"column": 33,
 					"label": "Guadar todo"
 				},
 				{
-					"line": 2783,
+					"line": 2808,
 					"column": 4,
 					"label": "Boton mostar consola Persona"
 				},
 				{
-					"line": 2792,
+					"line": 2817,
 					"column": 4,
 					"label": "Data Deportes"
 				}

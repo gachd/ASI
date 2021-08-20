@@ -224,12 +224,28 @@ class nuevo_socio extends CI_Controller
       $DatosCorp = json_decode($_POST['DatosCorp']);
       $DatosCargas = json_decode($_POST['DatosCargas']);
 
+      // llamo a las funciones donde agrego los datos
+
       $this->agregarSocio($DatosP);
       $this->agregarDep($DatosDeportes);
       $this->reg_Socio($DatosCorp);
-      $this->agregaCarga($DatosCargas);
 
-      
+      //Se valida que se ingresen cargas antes de guardar
+
+      if(empty($DatosCargas->Cargas) ){
+
+         $this->agregaCarga($DatosCargas);  
+
+      }
+
+ 
+
+      $devuelta = [
+         "rut" => $DatosP->rut,
+         "nombre" => $DatosP->nombres . ' ' . $DatosP->paterno . ' ' . $DatosP->materno,
+      ];
+
+      print_r(json_encode($devuelta));
    }
 
 
@@ -259,9 +275,9 @@ class nuevo_socio extends CI_Controller
 
          'prsn_rut' => $rut_socio  =  $DatosP->rut,  //$this->input->post('rut'),
 
-         'prsn_apellidopaterno' => $paterno =$DatosP->paterno,  // $this->input->post('paterno'),
+         'prsn_apellidopaterno' => $paterno = $DatosP->paterno,  // $this->input->post('paterno'),
 
-         'prsn_apellidomaterno' => $materno =$DatosP->materno,  // $this->input->post('materno'),
+         'prsn_apellidomaterno' => $materno = $DatosP->materno,  // $this->input->post('materno'),
 
          'prsn_nombres' => $nombres = $DatosP->nombres,  // $this->input->post('nombres'),
 
@@ -269,7 +285,7 @@ class nuevo_socio extends CI_Controller
 
          'prsn_sexo' => $sexo = $DatosP->sexo,  // $this->input->post('sexo'),
 
-         'prsn_descendiente' => $desc =$DatosP->desc,  // $this->input->post('desc'),
+         'prsn_descendiente' => $desc = $DatosP->desc,  // $this->input->post('desc'),
 
          'prsn_direccion' =>  $direc = $DatosP->direc,  // $this->input->post('direc'),
 
@@ -277,9 +293,9 @@ class nuevo_socio extends CI_Controller
 
          'prsn_email' =>  $email = $DatosP->email,  //$this->input->post('email'),
 
-         'prsn_fono_casa' => $tel_fijo =$DatosP->tel_fijo,  // $this->input->post('tel_fijo'),
+         'prsn_fono_casa' => $tel_fijo = $DatosP->tel_fijo,  // $this->input->post('tel_fijo'),
 
-         'prsn_fono_movil' => $tel_cel =$DatosP->tel_cel,  // $this->input->post('tel_cel'),
+         'prsn_fono_movil' => $tel_cel = $DatosP->tel_cel,  // $this->input->post('tel_cel'),
 
          'prsn_fono_trabajo' => $tel_emp  = $DatosP->tel_emp,  //$this->input->post('tel_emp'),
 
@@ -287,7 +303,7 @@ class nuevo_socio extends CI_Controller
 
          'prsn_tipo' => $prsn_tipo = 0,
 
-         'prsn_direccion_empresa' => $direc_emp =$DatosP->direc_emp,  // $this->input->post('direc_emp'),
+         'prsn_direccion_empresa' => $direc_emp = $DatosP->direc_emp,  // $this->input->post('direc_emp'),
 
          'prsn_foto' => $prsn_foto = 0,
 
@@ -297,16 +313,16 @@ class nuevo_socio extends CI_Controller
 
          's_nacionalidades_nac_id' => $nacionalidad = $DatosP->nacionalidad,  //$this->input->post('nacionalidad'),
 
-         's_condicion_laboral_condlab_id' => $laboral =$DatosP->laboral,  // $this->input->post('laboral'),
+         's_condicion_laboral_condlab_id' => $laboral = $DatosP->laboral,  // $this->input->post('laboral'),
 
-         's_estado_civil_estacivil_id' => $estadocivil =$DatosP->estadocivil,  // $this->input->post('estadocivil'), //persona natural
+         's_estado_civil_estacivil_id' => $estadocivil = $DatosP->estadocivil,  // $this->input->post('estadocivil'), //persona natural
 
          's_comunas_comuna_id' => $comu = $DatosP->comu,  //$this->input->post('comu'),
 
          'prsn_nac' => $nac = $DatosP->nac,  //$this->input->post('nac')
       );
 
-      var_dump($data);
+      
       $this->model_socios->insertar($data); //INSERT PERSONAS
    }
 
@@ -315,14 +331,14 @@ class nuevo_socio extends CI_Controller
    private function reg_Socio($DatosCorp)
    {
 
-     /*  $DATA     = json_decode($_POST['data']);
+      /*  $DATA     = json_decode($_POST['data']);
 
       $DATA_P    = json_decode($_POST['data_p']); 
       
       $rut_socio    = $_POST['rut'];
       
       */
-      
+
       $DATA   = $DatosCorp->Coporacion;
 
       $DATA_P = $DatosCorp->Patrocinador;
@@ -331,7 +347,7 @@ class nuevo_socio extends CI_Controller
 
 
 
-      
+
 
       $estado = 0; // 0 vigente 1 no vigente
 
@@ -402,8 +418,7 @@ class nuevo_socio extends CI_Controller
 
          $this->model_socios->insertarSocCorp($data);
 
-         var_dump($data);
-
+         
       }
 
       $id_soc = $this->model_socios->getIdSocio($rut_socio); //Consulta para obtener id socio
@@ -466,7 +481,7 @@ class nuevo_socio extends CI_Controller
 
 
          $this->model_socios->insertarSocPatro($data_p);
-         var_dump($data_p);
+         
       } //fin for para agregar cargas  
 
 
@@ -506,7 +521,7 @@ class nuevo_socio extends CI_Controller
 
       );
 
-      var_dump($data);
+     
 
 
       //Insertar deportes
@@ -526,12 +541,11 @@ class nuevo_socio extends CI_Controller
       $rut_socio    = $DatosCargas->RutSocio;
 
 
-      var_dump($DATA);
-      var_dump($rut_socio);
+      
 
       // $DATA     = json_decode($_POST['data']);
 
-     // $rut_socio    = $_POST['rut'];
+      // $rut_socio    = $_POST['rut'];
 
 
 
@@ -573,7 +587,7 @@ class nuevo_socio extends CI_Controller
 
       //por cada uo de estos arrays vamos a crear una query para poder hacer un update en la base de datos. y para eso necesitamos recorrer el array por cada uno de sus posiciones
 
-     
+
       $prsn_id = $this->model_socios->ultimoId();
 
       for ($i = 0; $i < count($DATA); $i++) {
@@ -638,7 +652,7 @@ class nuevo_socio extends CI_Controller
 
 
          $this->model_socios->insertar($data);
-         var_dump($data);
+         
 
 
 
@@ -671,7 +685,7 @@ class nuevo_socio extends CI_Controller
             'certificado' => $DATA[$i]->cert
          );
 
-         var_dump($data_carg);
+        
 
          $this->model_socios->insertar_carg($data_carg);
 
@@ -679,7 +693,7 @@ class nuevo_socio extends CI_Controller
 
          $prsn_id = $prsn_id + 1;
 
-         echo $prsn_id;
+        
       } //fin for para agregar cargas
    }
 }

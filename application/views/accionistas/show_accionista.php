@@ -50,12 +50,17 @@ foreach ($titulos as $t) {
 <body>
 
     <div class="main">
+        <div class="container">
 
+            <ul class="breadcrumb">
+                <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
 
-        <div class="col-md-1">
-
-            <a href="<?php echo base_url(); ?>accionistas/inicio" class="btn btn-primary"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></a>
+                <li>Ver Accionista</li>
+            </ul>
         </div>
+
+
+
 
         <div class="container bootstrap snippets bootdey">
             <div class="panel-body inf-content">
@@ -63,20 +68,18 @@ foreach ($titulos as $t) {
                     <div class="col-md-4">
                         <img alt="" style="width: 150px;" title="" class="img-circle img-thumbnail isTooltip" src="<?php echo base_url(); ?>assets\img\icon_accionista.png" data-original-title="Usuario">
 
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Accionista</strong><br>
-                        <div class="table-responsive">
-                            <table class="table table-user-information">
+                        
+                        <h3>
+                            <table class="table">
                                 <tbody>
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
-                                                Rut
+                                                
+                                                Rut:
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
                                             <?php
 
                                             echo getPuntosRut($accionista[0]->prsn_rut);
@@ -86,14 +89,15 @@ foreach ($titulos as $t) {
                                             ?>
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon-user  text-primary"></span>
-                                                Nombre
+                                                <span class="glyphicon glyphicon-user "></span>
+                                               
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
                                             <?php
 
                                             echo $accionista[0]->prsn_nombres;
@@ -108,14 +112,28 @@ foreach ($titulos as $t) {
                                         </td>
                                     </tr>
 
+                                </tbody>
+                            </table>
+                            </h3>
+                    </div>
+                    
+                    <div class="col-md-6">
+
+
+                        <div class="table-responsive">
+                            <table class="table table-user-information">
+                                <tbody>
+
+                                  
+
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon-envelope text-primary"></span>
+                                                <span class="glyphicon glyphicon-envelope "></span>
                                                 Correo
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
                                             <?php
 
                                             echo $accionista[0]->prsn_email;
@@ -126,11 +144,11 @@ foreach ($titulos as $t) {
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                                <span class="glyphicon glyphicon-calendar "></span>
                                                 Fecha de Integracion
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
                                             <?php
 
                                             echo formatFecha($accionista[0]->fecha);
@@ -141,11 +159,11 @@ foreach ($titulos as $t) {
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon text-primary"></span>
+                                                <span class="glyphicon glyphicon "></span>
                                                 Domicilio
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
                                             <?php
 
                                             echo $accionista[0]->prsn_direccion;
@@ -162,38 +180,38 @@ foreach ($titulos as $t) {
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon text-primary"></span>
+                                                <span class="glyphicon glyphicon "></span>
                                                 Fono
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
                                             <?php
 
                                             echo $accionista[0]->prsn_fono_movil;
-                                       
+
                                             ?>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon text-primary"></span>
+                                                <span class="glyphicon glyphicon "></span>
                                                 Carpeta
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
-                                            <a href="/ASI<?php echo $accionista[0]->path;?>">Archivo</a>
-                                           
+                                        <td class="">
+                                            <a href="/ASI<?php echo $accionista[0]->path; ?>">Archivo</a>
+
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon text-primary"></span>
+                                                <span class="glyphicon glyphicon "></span>
                                                 Libro/Foja
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
                                             <?php
 
                                             echo $accionista[0]->libro_accionista;
@@ -206,11 +224,11 @@ foreach ($titulos as $t) {
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon text-primary"></span>
+                                                <span class="glyphicon glyphicon "></span>
                                                 Acciones total
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
                                             <?php
 
                                             echo $sum;
@@ -220,11 +238,11 @@ foreach ($titulos as $t) {
                                     <tr>
                                         <td>
                                             <strong>
-                                                <span class="glyphicon glyphicon text-primary"></span>
+                                                <span class="glyphicon glyphicon "></span>
                                                 Titulos
                                             </strong>
                                         </td>
-                                        <td class="text-primary">
+                                        <td class="">
 
                                             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
                                                 <thead>

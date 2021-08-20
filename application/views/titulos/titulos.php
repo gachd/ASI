@@ -13,7 +13,11 @@
 
 
 
+
+
 </head>
+
+
 
 
 <body>
@@ -23,24 +27,34 @@
 
 
   <div class="main">
-    <div class="col-md-1">
-      <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
+    <div class="container ">
+
+      <!-- <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button> -->
+
+      <ul class="breadcrumb">
+        <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
+
+        <li>Titulos</li>
+      </ul>
+
     </div>
 
-    <div class="container well" id="advanced-search-form" style="border:1px solid ">
+    <div class="container well" style="border:1px solid ">
       <h3><strong>Titulos</strong></h3>
       <br>
 
 
 
-      <div >
-        <a href="<?php echo base_url(); ?>accionistas/titulos/nuevoTitulo"  class="btn btn-lg btn-block btn-success">Nuevo</a>
+      <div class="col-md-4" style="padding-bottom: 10px;">
+        <a href="<?php echo base_url(); ?>accionistas/titulos/nuevoTitulo" class="btn btn-lg btn-block btn-success">Nuevo</a>
       </div>
-      <div >
+
+      <div class="col-md-4" style="padding-bottom: 10px;">
         <a href="<?php echo base_url(); ?>accionistas/titulos/cesionTitulo" class="btn btn-lg btn-block btn-warning">Cesion</a>
       </div>
-      <div >
-        <a  href="<?php echo base_url(); ?>accionistas/titulos/entregados" class="btn-lg btn-block btn btn-info">Pendientes</a>
+
+      <div class="col-md-4" style="padding-bottom: 10px;">
+        <a href="<?php echo base_url(); ?>accionistas/titulos/entregados" class="btn-lg btn-block btn btn-info">Pendientes</a>
       </div>
 
 
@@ -53,14 +67,14 @@
 
 
 
-    <div class="container well" id="advanced-search-form" style="border:1px solid ">
+    <div class="container well" style="border:1px solid ">
       <h3><strong>HISTORIAL TITULOS ACTIVOS</strong></h3>
       <br>
 
       <form action="<?php echo base_url(); ?>accionistas/titulos/historial_titulo" method="post" class="form-inline">
 
 
-        <div class="form-group">
+        <div class="form-group  col-md-4">
           <label>Seleccione titulo</label>
 
 
@@ -78,10 +92,16 @@
 
         </div>
 
+        <div class="col-md-4 ">
+
+          <button type="submit" id="cesion" class="btn btn-primary">Buscar</button>
+
+        </div>
 
 
 
-        <button type="submit" id="cesion" class="btn btn-default">Buscar</button>
+
+
 
 
 
@@ -93,7 +113,7 @@
     </div>
 
 
-    <div class="container table-responsive div-wrapper well" id="advanced-search-form" style="border:1px solid ">
+    <div class="container table-responsive div-wrapper well" style="border:1px solid ">
       <h4><strong>TITULOS ACTIVOS</strong></h4>
       <br>
       <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
@@ -101,11 +121,12 @@
           <tr>
 
 
-            <th>Nro</th>
+            <th>Nro Titulo</th>
             <th>Acciones</th>
             <th>Fecha Emision</th>
             <th>Poseedor</th>
             <th>Rut</th>
+            <th>Fecha de entrega</th>
 
 
 
@@ -119,23 +140,35 @@
         <tbody>
 
 
-          <?php
 
-          foreach($titulos as $t){
+          <?php foreach ($titulos as $t) {    ?>
 
 
-            echo '<tr class="odd gradeX">';
-            echo '<td>' . $t->id_titulos. '</td>';
-            echo '<td>' . $t->numero_acciones. '</td>';
-            echo '<td>' . $t->fecha. '</td>';
-            echo '<td>' . $t->prsn_nombres.' '.$t->prsn_apellidopaterno.' '.$t->prsn_apellidomaterno. '</td>';
-            echo '<td>' . $t->prsn_rut. '</td>';
-         
+            <tr>
 
-            echo '</tr>';
-          }
+              <td><?php echo $t->id_titulos ?></td>
+              <td><?php echo $t->numero_acciones  ?></td>
+              <td><?php echo $t->fecha ?></td>
+              <td><?php echo $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . ' ' . $t->prsn_apellidomaterno  ?></td>
+              <td><?php echo $t->prsn_rut  ?></td>
+              <td>
+                <?php if ($t->fecha_entrega) { ?>
 
-          ?>
+                  <?php echo $t->fecha_entrega  ?>
+
+                <?php } else { ?>
+
+                  NO ENTREGADA
+
+                <?php } ?>
+              </td>
+
+
+            </tr>
+
+          <?php } ?>
+
+
 
 
 
@@ -149,7 +182,7 @@
     </div>
 
 
-  
+
 
 
 
@@ -166,7 +199,7 @@
 
 
 
-  </>
+    </>
 
 </body>
 <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">

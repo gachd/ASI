@@ -5,31 +5,43 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
     <meta charset="UTF-8">
 
-    <title>cesion de titulo</title>
+    <title>Cesion de titulo</title>
 
 
 
 </head>
 
+<br> <br> <br>
 <div class="container">
+
+
 
     <div class="main">
 
 
 
+
+
         <div class="container-fluid">
+
+            <div class="container">
+
+                <ul class="breadcrumb">
+                    <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
+                    <li><a href="/ASI/accionistas/titulos">Titulos</a></li>
+
+                    <li>Cesion de Titulo</li>
+                </ul>
+            </div>
             <form action="<?php echo base_url(); ?>accionistas/titulos/guadarCesionTitulo" method="post">
-                <div class="container" id="advanced-search-form">
+                <div class="container well">
                     <h1>Cesion Titulos</h1>
                     <br>
                     <br>
                     <br>
-                    <input type="hidden" name="" value="">
-
-                    <div class="form-group">
 
 
-
+                    <div class="form-group col-md-3">
 
                         <label for="accionista">Titulo anterior</label>
 
@@ -45,7 +57,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-3">
 
 
 
@@ -68,25 +80,37 @@
 
 
 
-                    <div class="form-group" id="DivNumeroaTransferir">
+                    <div class="form-group col-md-3" id="DivNumeroaTransferir">
                         <label>Numero de acciones a tranferir</label>
                         <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off">
                     </div>
 
 
 
-                    <div class="form-group">
+                    <div class="form-group col-md-3">
                         <label for="fecha">Fecha Tranferencia</label>
                         <input type="text" autocomplete="off" class="form-control" id="fechaTrans" name="fechaTrans" required>
+
                     </div>
-                    <div class="form-group">
+
+                    <div class="form-group col-md-4">
+                        <label>Numero de Titulo</label>
+                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off" required>
+                    </div>
+
+                    
+                    <div class="form-group col-md-3">
                         <label for="fecha">Fecha Nuevo Titulo</label>
                         <input type="text" autocomplete="off" class="form-control" id="fechaNtitulo" name="fechaNtitulo" required>
                     </div>
 
+                    <div class="col-md-12">
+
+                        <button type="Guardar" class="btn btn-default">Guardar</button>
+
+                    </div>
 
 
-                    <button type="Guadar" class="btn btn-default">Guardar</button>
                 </div>
 
 

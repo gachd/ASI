@@ -2674,6 +2674,7 @@
       $("li#carg").addClass("active");
     } else {
       alert('COMPLETE TODOS LOS CAMPOS');
+      
       $('#guardar_rs').attr('href', 'javascript:void(0)');
     }
 

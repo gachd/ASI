@@ -36,7 +36,7 @@ class Login extends CI_Controller
 			} else {
 
 				$_POST['msj'] = '1';
-				print_r($_POST);
+				
 				//	echo "<br />";
 
 

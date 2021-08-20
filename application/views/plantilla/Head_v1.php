@@ -48,9 +48,14 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 	<!-- Alertas -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="<?php echo base_url(); ?>/assets/js/sweetalert.min.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+	<!-- sweetalert2 -->
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.3/sweetalert2.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.3/sweetalert2.min.css">
 
 	<style>
 		.div-wrapper {
@@ -60,7 +65,78 @@
 
 
 		}
+
+		
+
+		div.fixed {
+
+			position: fixed;
+			border-radius: 5px;
+			width: auto;
+			padding-bottom: 3px;
+			align-content: center;
+			text-align: center;
+			box-shadow: 2px 2px 2px 2px grey;
+			z-index: 0;
+
+
+		}
+
+
+		ul.breadcrumb {
+
+
+			padding: 10px 16px;
+			list-style: none;
+			background-color: #eee;
+		}
+
+		ul.breadcrumb li {
+			display: inline;
+			font-size: 15px;
+		}
+
+		ul.breadcrumb li+li:before {
+			padding: 2px;
+			color: black;
+			content: "/\00a0";
+		}
+
+		ul.breadcrumb li a {
+			color: #0275d8;
+			text-decoration: none;
+		}
+
+		ul.breadcrumb li a:hover {
+			color: #01447e;
+			text-decoration: underline;
+		}
 	</style>
+
+	<script>
+		$.datepicker.regional['es'] = {
+			closeText: 'Cerrar',
+			prevText: '< Ant',
+			nextText: 'Sig >',
+			currentText: 'Hoy',
+			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+			dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércole xs', 'Jueves', 'Viernes', 'Sábado'],
+			dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+			dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+			weekHeader: 'Sm',
+			dateFormat: 'dd/mm/yy',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: ''
+		};
+
+		$(function() {
+			$.datepicker.setDefaults($.datepicker.regional['es']);
+		});
+	</script>
+
 
 
 </head>

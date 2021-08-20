@@ -15,8 +15,7 @@
 </head>
 
 <style>
-
- /*  TD se adapta pantalla de acuerdo a al ancho del dispositivo */
+  /*  TD se adapta pantalla de acuerdo a al ancho del dispositivo */
   @media only screen and (min-width: 0px) and (max-width: 550px) {
     .td_reponsive {
       display: inline-block;
@@ -84,7 +83,7 @@
     max-width: 100px;
   }
 
-/* Color a los input radio  */
+  /* Color a los input radio  */
 
   input[type='radio']:after {
     width: 15px;
@@ -113,8 +112,6 @@
     visibility: visible;
     border: 2px solid white;
   }
-
-  
 </style>
 
 <body>
@@ -1011,7 +1008,6 @@
 
 
 
-                            <button onclick="grabaTodoTabla('CargaSelect');" type="button" class="btn btn-primary">Guardar</button>
 
                             <div id="info-guardar"></div>
 
@@ -1021,7 +1017,7 @@
 
                         </div>
 
-                        <a href="#" class="btn btn-success" id="GuardarTodo">Guardar Todo</a>
+                        <a href="#" onclick="grabaTodoTabla('CargaSelect');" class="btn btn-success" id="GuardarTodo">Guardar Todo</a>
 
                       </div>
 
@@ -1265,7 +1261,7 @@
   var DatosCargas = new Object();
 
 
- // var validador = 0;
+  // var validador = 0;
 
 
 
@@ -1277,6 +1273,12 @@
     var tabPercent = tabWidth + "%";
     $('.nav-tabs li').width(tabPercent);
 
+  });
+
+  $('input[name="cargas"]').change(function() {
+    if ($(this).is(':checked') && $(this).val() == 'cargas_si') {
+      $('#myModal').modal('show');
+    }
   });
 
 
@@ -1320,7 +1322,16 @@
 
   $(function() {
 
-    $("#txt_fecha").datepicker();
+   
+
+    $("#txt_fecha").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true,
+                maxDate: "-18y",
+                yearRange: "-100:+0"
+
+            });
 
   });
 
@@ -1586,7 +1597,7 @@
 
     INFO = new FormData();
 
-    
+
 
     aInfo = JSON.stringify(DATA);
 
@@ -1874,7 +1885,7 @@
 
           newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-Soc"><i class="fa fa-times"></i></button></td></tr>';
 
-      /*     alert(sel);
+          /*     alert(sel);
           alert(children);
           alert(cont);
  */
@@ -2477,7 +2488,12 @@
 
         if (rut == 0 || nombres == 0 || ap_paterno == 0 || ap_materno == 0 || $('#sexo').val().trim() === '' || fecha_nac == 0 || tel_cel == 0 || email == 0 || direc == 0 || $('#estadocivil').val().trim() === '' || $('#nacionalidad').val().trim() === '' || $('#laboral').val().trim() === '' || $('#comu').val().trim() === '') {
 
-          alert('Complete todos los campos');
+          //alert('Complete todos los campos');
+          swal({
+            title: "Complete todos los campos",
+
+            icon: "warning",
+          });
 
 
 
@@ -2728,10 +2744,10 @@
     $("#GuardarTodo").click(function() {
 
 
-      console.log(DatosP);
-      console.log(DatosCorp);
-      console.log(DatosCargas);
-      console.log(DatosDeportes);
+      /*    console.log(DatosP);
+         console.log(DatosCorp);
+         console.log(DatosCargas);
+         console.log(DatosDeportes); */
 
 
 
@@ -2739,9 +2755,7 @@
 
         cache: false,
 
-        type: "POST",
-
-        dataType: "json",
+        type: "POST",     
 
         data: {
 
@@ -2757,19 +2771,26 @@
 
         success: function(data) {
 
-         
+          data = JSON.parse((data))
+
+          console.log(data);
+
+
           swal({
-            title: "Guardado con exito!",
-            text: "Socio",
+            title: "Guardado!",
+            text: "Con el rut: "+data['rut']+
+                  "     El socio: "+data['nombre'],
             icon: "success",
           });
 
         },
 
-        complete : function(xhr, status) {
+        error: function() {
+                alert('Ocurrio un error en el servidor ..');
 
-        alert('Guardado con exito');
-    }
+            }
+
+
 
 
       });
@@ -2822,35 +2843,35 @@
 
 
 
-/* 
-        $.ajax({
+        /* 
+                $.ajax({
 
-          cache: false,
+                  cache: false,
 
-          type: "POST",
+                  type: "POST",
 
-          dataType: "json",
+                  dataType: "json",
 
-          data: {
-            "arr": JSON.stringify(arr),
-            "rut": rut
-          },
+                  data: {
+                    "arr": JSON.stringify(arr),
+                    "rut": rut
+                  },
 
-          url: "<?php echo base_url() ?>socios/nuevo_socio/agregarDep",
+                  url: "<?php echo base_url() ?>socios/nuevo_socio/agregarDep",
 
-          success: function(data) {
-
-
-            $("#info-guardar").html(data);
-
-            $('#info-guardar').data('datper', 3);
+                  success: function(data) {
 
 
-          }
+                    $("#info-guardar").html(data);
+
+                    $('#info-guardar').data('datper', 3);
+
+
+                  }
 
 
 
-        }); */
+                }); */
 
         $("li#dep").removeClass("active");
 

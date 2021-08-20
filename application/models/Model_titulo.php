@@ -18,7 +18,7 @@ class model_titulo extends CI_Model
     function titulosactivos()
     {
 
-        $p = $this->db->query('SELECT t.id_titulos, p.prsn_nombres,p.prsn_apellidopaterno , p.prsn_apellidomaterno,p.prsn_rut, a.id_accionista,t.numero_acciones, t.fecha FROM s_titulos t, s_personas p, s_accionista a WHERE t.estado = 1 AND p.prsn_rut= a.prsn_rut and t.id_accionista= a.id_accionista GROUP by t.id_titulos ORDER BY t.id_titulos ASC');
+        $p = $this->db->query('SELECT t.id_titulos, p.prsn_nombres,p.prsn_apellidopaterno , p.prsn_apellidomaterno,p.prsn_rut, a.id_accionista,t.numero_acciones, t.fecha ,t.fecha_entrega  FROM s_titulos t, s_personas p, s_accionista a WHERE t.estado = 1 AND p.prsn_rut= a.prsn_rut and t.id_accionista= a.id_accionista GROUP by t.id_titulos ORDER BY t.id_titulos ASC');
         return $p->result();
     }
 
