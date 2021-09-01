@@ -61,7 +61,7 @@ class model_titulo extends CI_Model
 
     function AccionesPorTitulo($id_titulo)
     {
-        $p = $this->db->query('SELECT t.id_titulos,t.numero_acciones,t.id_accionista FROM s_titulos t WHERE t.id_titulos = "' . $id_titulo . '"');
+        $p = $this->db->query('SELECT t.id_titulos,t.numero_acciones,t.id_accionista,t.embargo, t.acciones_embargadas FROM s_titulos t WHERE t.id_titulos = "' . $id_titulo . '"');
         return $p->result();
     }
 

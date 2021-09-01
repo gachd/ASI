@@ -17,15 +17,17 @@
 <style>
   /*  TD se adapta pantalla de acuerdo a al ancho del dispositivo */
   @media only screen and (min-width: 0px) and (max-width: 550px) {
+
+
     .td_reponsive {
       display: inline-block;
       padding: 3px;
       width: 100%;
     }
+
+    
   }
-
-
-
+  
   .bs-callout-green h4 {
 
     color: #4b7006;
@@ -38,8 +40,6 @@
   .bs-callout-green {
 
     border-left: 5px solid #4b7006;
-
-
 
 
   }
@@ -250,8 +250,7 @@
                     <div role="tabpanel" class="tab-pane active" id="home">
 
                       <!-- datos personales -->
-                      <br>
-                      <br>
+                  <br>
                       <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
                         <h4>Datos Personales</h4>
@@ -841,27 +840,27 @@
 
                                 <tr>
 
-                                  <td><label><input name="chek_dep" type="checkbox" value="1"> Fútbol</label></td>
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="1"> Fútbol</label></td>
 
-                                  <td><label><input name="chek_dep" type="checkbox" value="2"> Basketball</label></td>
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="2"> Basketball</label></td>
 
-                                  <td><label><input name="chek_dep" type="checkbox" value="3"> Tenis</label></td>
-
-                                </tr>
-
-                                <tr>
-
-                                  <td><label><input name="chek_dep" type="checkbox" value="4"> Tiro al Plato</label></td>
-
-                                  <td><label><input name="chek_dep" type="checkbox" value="5"> Natación</label></td>
-
-                                  <td><label><input name="chek_dep" type="checkbox" value="6"> Voleiball</label></td>
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="3"> Tenis</label></td>
 
                                 </tr>
 
                                 <tr>
 
-                                  <td><label><input name="chek_dep" type="checkbox" value="7"> Pool</label></td>
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="4"> Tiro al Plato</label></td>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="5"> Natación</label></td>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="6"> Voleiball</label></td>
+
+                                </tr>
+
+                                <tr>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="7"> Pool</label></td>
 
                                 </tr>
 
@@ -1322,16 +1321,16 @@
 
   $(function() {
 
-   
+
 
     $("#txt_fecha").datepicker({
-                dateFormat: "yy-mm-dd",
-                changeMonth: true,
-                changeYear: true,
-                maxDate: "-18y",
-                yearRange: "-100:+0"
+      dateFormat: "yy-mm-dd",
+      changeMonth: true,
+      changeYear: true,
+      maxDate: "-18y",
+      yearRange: "-100:+0"
 
-            });
+    });
 
   });
 
@@ -2489,12 +2488,14 @@
         if (rut == 0 || nombres == 0 || ap_paterno == 0 || ap_materno == 0 || $('#sexo').val().trim() === '' || fecha_nac == 0 || tel_cel == 0 || email == 0 || direc == 0 || $('#estadocivil').val().trim() === '' || $('#nacionalidad').val().trim() === '' || $('#laboral').val().trim() === '' || $('#comu').val().trim() === '') {
 
           //alert('Complete todos los campos');
+
+
           swal({
-            title: "Complete todos los campos",
-
-            icon: "warning",
+            title: "Complete todos los datos",
+            text: "",
+            icon: "error",
+            button: "Aceptar",
           });
-
 
 
           $('#guardar_dp').attr('href', 'javascript:void(0)');
@@ -2755,7 +2756,7 @@
 
         cache: false,
 
-        type: "POST",     
+        type: "POST",
 
         data: {
 
@@ -2778,17 +2779,17 @@
 
           swal({
             title: "Guardado!",
-            text: "Con el rut: "+data['rut']+
-                  "     El socio: "+data['nombre'],
+            text: "Con el rut: " + data['rut'] +
+              "     El socio: " + data['nombre'],
             icon: "success",
           });
 
         },
 
         error: function() {
-                alert('Ocurrio un error en el servidor ..');
+          alert('Ocurrio un error en el servidor ..');
 
-            }
+        }
 
 
 

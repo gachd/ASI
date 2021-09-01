@@ -6,11 +6,21 @@
 
   <meta charset="UTF-8">
 
-  <title>Document</title>
+  <title>Ficha Socio</title>
 
 </head>
 
 <style>
+  @media only screen and (min-width: 0px) and (max-width: 550px) {
+
+
+    .td_reponsive {
+      display: inline-block;
+      padding: 3px;
+      width: 100%;
+    }
+  }
+
   .tbl-afiliacion {
     color: #353535;
 
@@ -47,21 +57,7 @@
 
 
 
-  .bs-callout {
 
-    /*padding: 20px;*/
-
-    padding: 0px 10px;
-
-    margin: 2px 5px;
-
-    border: 1px solid #eee;
-
-    border-left-width: 5px;
-
-    border-radius: 3px;
-
-  }
 
   .bs-callout-green h4 {
 
@@ -71,12 +67,7 @@
 
   .bs-callout-green {
 
-    border-left-color: #4b7006;
-
-    width: 30%;
-
-    float: left;
-
+    border-left: 5px solid #4b7006;
 
 
   }
@@ -504,34 +495,14 @@
 
   .bloqueado {
     color: #9a9a99;
-    background:yellow;
+    background: yellow;
   }
 
 
 
   /*==================================================
 
- * left tab
 
- * ===============================================*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*==================================================
-
- * left tab
-
- * ===============================================*/
 
 
 
@@ -581,14 +552,6 @@
 
 
   }
-
-
-
-
-
-  /*==================================================
-
- * left tab
 
  */
 </style>
@@ -697,7 +660,7 @@
 
             <div class="col-md-1" style="width: 11%;">
 
-            <img alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
+              <img alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
 
             </div>
 
@@ -831,7 +794,7 @@
 
                       <!-- datos personales -->
 
-                      <div class="bs-callout bs-callout-green">
+                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
                         <h4>Datos Personales</h4>
 
@@ -879,7 +842,7 @@
 
                       <!--DATOS DE CONTACTO -->
 
-                      <div class="bs-callout bs-callout-green">
+                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
                         <h4>Datos de Contacto</h4>
 
@@ -927,7 +890,7 @@
 
                       <!--DATOS DE trabajo -->
 
-                      <div class="bs-callout bs-callout-green">
+                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
                         <h4>Antecendes Laborales</h4>
 
@@ -993,7 +956,7 @@
 
                           <div class="panel-heading">Registro Corporaciones</div>
 
-                          <div class="panel-body">
+                          <div class="panel-body table-responsive">
 
                             <table width="100%" class="registro_socios table table-striped">
 
@@ -1444,7 +1407,7 @@
 
                           <div class="panel-heading">Registro de notificaciones </div>
 
-                          <div class="panel-body">
+                          <div class="panel-body table-responsive">
 
                             <table width="100%" id="reg_accion" class="table table-bordered table-hover">
 
@@ -1536,11 +1499,17 @@
                           $i = 0;
                           foreach ($datos as $d) {
 
-                            $titulos[$i] = $d->nro_titulo;
-                            $libro[$i] = $d->libro;
-                            $fojas[$i] = $d->fojas;
+
+
+                            $titulos[$i] =  $this->model_accionistas->nro_titulo($d->prsn_rut);
+
+                            $libro[$i] = $d->libro_accionista;
+                            $fojas[$i] = $d->foja_accionista;
                             $i++;
                           }
+
+
+
 
                           ?>
                           <div style="text-align: center;">
@@ -1552,7 +1521,12 @@
                               <tr>
                                 <th>N° Título</th>
                                 <?php for ($i = 0; $i < $largo; $i++) {
-                                  echo '<td><center>' . $titulos[$i] . '</center></td>';
+                                  echo '<td><center>';
+
+                                  foreach ($titulos[$i] as $t) {
+                                    echo ' #' . $t->nro_titulo;
+                                  }
+                                  echo '</center></td>';
                                 } ?>
 
                               </tr>
@@ -1739,7 +1713,7 @@
 
                           <div class="panel-heading">Pagos Cuotas Sociales</div>
 
-                          <div class="panel-body">
+                          <div class="panel-body table-responsive">
 
                             <table width="100%" id="pagos" class="table table-bordered table-hover">
 
@@ -1834,13 +1808,6 @@
 
 
 
-                            <span style="font-size: 24px;"> Total Pagado Cuotas: <?php $total_pag = number_format($total, 0, ",", ".");
-                                                                                  echo '$' . $total_pag; ?></span>
-
-                            <br>
-
-                            <span style="font-size: 24px;"> Deuda Total Cuotas: <?php $total_sal = number_format($saldo_total, 0, ",", ".");
-                                                                                echo '$' . $total_sal; ?></span>
 
 
 
@@ -1895,6 +1862,16 @@
 
 
                           </div>
+                          <div>
+                            <span style="font-size: 24px;"> Total Pagado Cuotas: <?php $total_pag = number_format($total, 0, ",", ".");
+                                                                                  echo '$' . $total_pag; ?></span>
+
+                            <br>
+
+                            <span style="font-size: 24px;"> Deuda Total Cuotas: <?php $total_sal = number_format($saldo_total, 0, ",", ".");
+                                                                                echo '$' . $total_sal; ?></span>
+
+                          </div>
 
                         </div>
 
@@ -1922,7 +1899,7 @@
 
                           <div class="panel-heading">Datos cargas familiares</div>
 
-                          <div class="panel-body">
+                          <div class="panel-body table-responsive">
 
                             <table width="100%" id="cargas" class="table table-bordered table-hover">
 

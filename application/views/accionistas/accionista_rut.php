@@ -17,34 +17,46 @@
 
 <body>
 
+    <div class="salto_linea">
+
+        <br>
+        <br>
+        <br>
+    </div>
+
     <div class="main">
-        <div class="col-md-2">
-            <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button>
+        <div class="container">
+
+            <ul class="breadcrumb">
+                <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
+                <li>Nuevo Accionista</li>
+            </ul>
+    </div>
+    <div class="container">
+
+        <div class="col-md-6 col-center">
+            <h1>Ingrese  rut</h1>
+
+
+            <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/" method="post">
+                <div class="form-group">
+
+                    <input type="text" class="form-control" id="rut" autocomplete="off" placeholder="11111111-1" name="rut" oninput="checkRut(this)" required>
+                    <br>
+                    <span style="color:red;"> <?php if ($_POST['msj'] == 1) { ?>
+                            <strong>El Rut ya esta registrado</strong><br> Favor ingrese sus datos correctamente. <br><br>
+                        <?php } ?> </span>
+                        
+                    <button type="submit" class="btn btn-primary">Ingresar</button>
+
+
+                </div>
+
+
+
+            </form>
         </div>
-        <div class="container" id="advanced-search-form">
-
-            <div class="container-fluid">
-                <h1>Ingrese el rut</h1>
-
-
-                <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/" method="post">
-                    <div class="form-group">
-
-                        <input type="text" class="form-control" id="rut" autocomplete="off" placeholder="11111111-1" name="rut" oninput="checkRut(this)" required>
-                        <br>
-                        <span> <?php if ($_POST['msj'] == 1) { ?>
-                                <strong>El Rut ya esta registrado</strong><br> Favor ingrese sus datos correctamente. <br>
-                            <?php } ?></span>
-                        <button type="submit" class="btn btn-primary">Ingresar</button>
-
-
-                    </div>
-
-
-
-                </form>
-            </div>
-        </div>
+    </div>
     </div>
 
 </body>

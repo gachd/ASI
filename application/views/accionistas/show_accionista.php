@@ -6,19 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
+
     <meta charset="UTF-8">
 
-    <title>Nuevo Accionista</title>
+    <title>Ficha Accionista</title>
 
 
 
 </head>
 <style>
+    .d-none {
+        display: none;
+    }
 
+    .open-dropdown {
+        font-weight: bold;
+    }
 </style>
-<br>
-<br><br><br>
+
 
 <?php
 
@@ -42,12 +47,71 @@ foreach ($titulos as $t) {
 
     $sum = $sum + $t->numero_acciones;
 }
+
+
+function listadoDirectorio($directorio)
+{
+
+
+    if (is_dir($directorio)) {
+
+        $listado = scandir($directorio);
+
+        $urlBase = base_url();
+
+        unset($listado[array_search('.', $listado, true)]);
+
+        unset($listado[array_search('..', $listado, true)]);
+
+        /*    var_dump($listado);
+        var_dump($directorio); */
+
+
+        if (count($listado) < 1) {
+            echo 'Directorio Vacio';
+        } else {
+            foreach ($listado as $elemento) {
+
+                if (!is_dir($directorio . '/' . $elemento)) {
+
+                    echo '<li style="list-style-type:none;"><a href="' . $urlBase . $directorio . '/' . $elemento . '" target="_blank">' . $elemento . '</a></li>';
+                    
+                }
+                if (is_dir($directorio . '/' . $elemento)) {
+                    echo '<li style="list-style-type:none;" class="open-dropdown "><a href="javascript:void(0)" class="btn btn-primary btn-xs">' . $elemento . '<b class="caret"></b> </a> </li>';
+                    echo '<ul class="dropdown d-none">';
+                    listadoDirectorio($directorio . '/' . $elemento);
+                    echo '</ul>';
+                
+                }
+            }
+        }
+        
+    } else {
+
+        echo 'No existe directorio';
+    }
+}
 //var_dump($accionista);
 
 
 ?>
 
+<div class="salto_linea">
+    <br>
+    <br>
+    <br>
+</div>
+
 <body>
+
+    <script>
+        $(document).ready(function() {
+            $(".open-dropdown").click(function() {
+                $(this).next("ul.dropdown").toggleClass('d-none');
+            });
+        });
+    </script>
 
     <div class="main">
         <div class="container">
@@ -62,20 +126,20 @@ foreach ($titulos as $t) {
 
 
 
-        <div class="container bootstrap snippets bootdey">
-            <div class="panel-body inf-content">
+        <div class="container ">
+            <div class="panel-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <img alt="" style="width: 150px;" title="" class="img-circle img-thumbnail isTooltip" src="<?php echo base_url(); ?>assets\img\icon_accionista.png" data-original-title="Usuario">
+                        <img alt="" style="max-width:150px;" title="" class="img-circle img-thumbnail isTooltip" src="<?php echo base_url(); ?>assets\img\icon_accionista.png" data-original-title="Usuario">
 
-                        
+
                         <h3>
                             <table class="table">
                                 <tbody>
                                     <tr>
                                         <td>
                                             <strong>
-                                                
+
                                                 Rut:
                                             </strong>
                                         </td>
@@ -94,7 +158,7 @@ foreach ($titulos as $t) {
                                         <td>
                                             <strong>
                                                 <span class="glyphicon glyphicon-user "></span>
-                                               
+
                                             </strong>
                                         </td>
                                         <td class="">
@@ -114,17 +178,17 @@ foreach ($titulos as $t) {
 
                                 </tbody>
                             </table>
-                            </h3>
+                        </h3>
                     </div>
-                    
-                    <div class="col-md-6">
+
+                    <div class="col-md-8">
 
 
                         <div class="table-responsive">
-                            <table class="table table-user-information">
+                            <table class="table ">
                                 <tbody>
 
-                                  
+
 
                                     <tr>
                                         <td>
@@ -169,9 +233,9 @@ foreach ($titulos as $t) {
                                             echo $accionista[0]->prsn_direccion;
                                             echo (' ,');
                                             echo $accionista[0]->comuna_nombre;
-                                            echo (', ');
+                                            echo (' , ');
                                             echo $accionista[0]->provincia_nombre;
-                                            echo (', ');
+                                            echo (' , ');
                                             echo $accionista[0]->region_nombre;
 
                                             ?>
@@ -196,11 +260,13 @@ foreach ($titulos as $t) {
                                         <td>
                                             <strong>
                                                 <span class="glyphicon glyphicon "></span>
-                                                Carpeta
+                                                Carpeta con Archivos
                                             </strong>
                                         </td>
-                                        <td class="">
-                                            <a href="/ASI<?php echo $accionista[0]->path; ?>">Archivo</a>
+                                        <td >
+                                            <!--  <a href="/ASI/<?php echo $accionista[0]->path; ?>">Archivo</a> -->
+
+                                            <?php listadoDirectorio($accionista[0]->path) ?>
 
                                         </td>
                                     </tr>
@@ -239,6 +305,31 @@ foreach ($titulos as $t) {
                                         <td>
                                             <strong>
                                                 <span class="glyphicon glyphicon "></span>
+                                                Socio
+                                            </strong>
+                                        </td>
+                                        <td class="">
+
+
+
+                                            <?php if (empty($socio)) { ?>
+
+                                                NO
+                                            <?php } else {  ?>
+
+
+
+
+                                                <a href="/ASI/socios/ficha/detalle/<?php echo $accionista[0]->prsn_rut ?> ">SI</a>
+
+                                            <?php } ?>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span class="glyphicon glyphicon "></span>
                                                 Titulos
                                             </strong>
                                         </td>
@@ -247,9 +338,9 @@ foreach ($titulos as $t) {
                                             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th>Titulo </th>
-                                                        <th>Fecha</th>
-                                                        <th>Acciones</th>
+                                                        <th align="center">Nro Titulo </th>
+                                                        <th align="center">Fecha</th>
+                                                        <th align="center">Acciones</th>
 
                                                     </tr>
                                                 </thead>
@@ -257,22 +348,19 @@ foreach ($titulos as $t) {
 
                                                     <?php
 
-                                                    foreach ($titulos as $t) {
+                                                    foreach ($titulos as $t) { ?>
 
-                                                        echo '<tr>';
+                                                        <tr>
 
-
-                                                        echo '<td>' . $t->id_titulos . '</td>';
-                                                        echo '<td>' . $t->fecha . '</td>';
-                                                        echo '<td>' . $t->numero_acciones . '</td>';
-
-
-
-                                                        echo '</tr>';
-                                                    }
+                                                            <td align="center"><?php echo $t->id_titulos  ?></td>
+                                                            <td align="center"><?php echo $t->fecha  ?> </td>
+                                                            <td align="center"><?php echo $t->numero_acciones  ?></td>
+                                                        
+                                                        </tr>
+                                                    <?php } ?>
 
 
-                                                    ?>
+
 
 
                                                 </tbody>

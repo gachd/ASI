@@ -1,33 +1,65 @@
-<style> 
- .table_wrapper{
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-}
+<style>
+    .table_wrapper {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 </style>
-<br>
-<br>
+
+
+<?php
+
+function getEstado($estado)
+{
+
+    if ($estado == 0) {
+
+        return "Inactivo";
+    } else {
+
+        return "Activo";
+    }
+}
+
+
+?>
+
+<div class="salto_linea">
+
+    <br>
+</div>
 <div class="container">
+    <div class="container">
+
+        <ul class="breadcrumb">
+            <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
+            <li><a href="/ASI/accionistas/titulos">Titulos</a></li>
+
+            <li>Historial de Titulo</li>
+        </ul>
+    </div>
     <div class="form-group">
 
     </div>
 
 
+
     <div class="table-responsive table_wrapper">
+        <h3>Historial del Titulo: <?php echo $historial_t[0][0]['tiulo_actual'] ?></h3>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
             <thead>
                 <tr>
 
 
-                    <th>Titulo Actual</th>
+                    <th>Titulo</th>
                     <th>Fecha Cesion</th>
-                    <th>Titulo Origen</th> 
-                    <th>Poseedor</th> 
-                    <th>Rut</th>                   
+                    <th>Titulo Origen</th>
+                    <th>Poseedor</th>
+                    <th>Rut</th>
                     <th>Cantidad Acciones</th>
                     <th>Estado</th>
 
-                   
+
 
 
 
@@ -39,30 +71,32 @@
 
 
 
-                <?php 
-                
-                for ($i = 0; $i <$indice; $i++) {
+                <?php
+
+                for ($i = 0; $i < $indice; $i++) {    ?>
 
 
-                    echo '<tr class="odd gradeX">';
-                    echo '<td>' . $historial_t[$i][0]['tiulo_actual'] . '</td>';
-                    echo '<td>' . $historial_t[$i][0]['fecha_cesion'] . '</td>';
-                    echo '<td>' . $historial_t[$i][0]['titulo_origen'] . '</td>';
-                    echo '<td>' . $historial_t[$i][0]['prsn_nombres'] . '</td>';
-                    echo '<td>' . $historial_t[$i][0]['prsn_rut'] . '</td>';
-                    echo '<td>' . $historial_t[$i][0]['numero_acciones'] . '</td>';
-                    echo '<td>' . $historial_t[$i][0]['estado'] . '</td>';
-                    
-                   
-                    echo '</tr>';
-                }
+                    <tr class="odd gradeX">
+                        <td> <?php echo $historial_t[$i][0]['tiulo_actual'] ?> </td>
+                        <td> <?php echo $historial_t[$i][0]['fecha_cesion'] ?> </td>
+                        <td> <?php echo $historial_t[$i][0]['titulo_origen'] ?> </td>
+                        <td> <?php echo $historial_t[$i][0]['prsn_nombres']  ?></td>
+                        <td> <?php echo $historial_t[$i][0]['prsn_rut'] ?> </td>
+                        <td> <?php echo $historial_t[$i][0]['numero_acciones'] ?> </td>
+                        <td> <?php echo getEstado($historial_t[$i][0]['estado'])  ?> </td>
 
-                ?>
+
+                    </tr>
+
+                <?php  } ?>
+
+
+
 
 
 
             </tbody>
-           
+
         </table>
 
     </div>

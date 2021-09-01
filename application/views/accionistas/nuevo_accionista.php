@@ -18,10 +18,30 @@
     .oculto {
         display: none;
     }
+
+    form {
+        color: #008000;
+        padding-bottom: 20px;
+    }
+
+    form .form-control {
+
+        padding: 12px 20px;
+        height: auto;
+        border-radius: 2px;
+    }
+
 </style>
 
+
+
 <body>
-    <br>
+
+    <div class="salto_linea">
+        <br>
+        <br>
+        <br>
+    </div>
     <div class="main">
 
 
@@ -29,67 +49,73 @@
         <div class="container-fluid">
 
             <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionista" method="post" enctype="multipart/form-data">
-                <div class="container" id="advanced-search-form">
+                <div class="container">
                     <h2>Datos Personales</h2>
 
 
 
-                    <div class="form-group">
+
+
+                    <div class="form-group col-md-4">
                         <label for="first-name">Rut</label>
                         <input type="text" value="<?php echo $rut  ?>" class="form-control" placeholder="Rut" id="Rut" pattern="\d{3,8}-[\d|kK]{1}" title="Debe ser un Rut válido" name="rut" required disabled>
                         <input id="prodId" name="rutP" type="hidden" value="<?php echo $rut  ?>">
 
                     </div>
 
-                    <div class="form-group " id="tipoP">
+                    <div class="form-group col-md-4" id="tipoP">
+
                         <label>Tipo de Persona</label>
-                        <div class="radio">
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio" value="1" required>Natural</label>
-                            <label class="radio-inline">
-                                <input type="radio" name="optradio" value="2">Juridica</label>
-                        </div>
+                        <br>
+
+                        <label class="radio-inline"><input type="radio" name="optradio" value="1" required>Natural</label>
+
+                        <label class="radio-inline"><input type="radio" name="optradio" value="2">Juridica</label>
+
+
+
+
                     </div>
 
 
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="first-name">Nombre</label>
-                        <input type="text" class="form-control" pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
-                    <div class="form-group oculto" id="divapellidoP">
+                    <div class="form-group col-md-4 oculto" id="divapellidoP">
                         <label for="first-name">Apellido Paterno</label>
-                        <input type="text" class="form-control" pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
-                    <div class="form-group oculto" id="apellidoM">
+                    <div class="form-group col-md-4 oculto" id="apellidoM">
                         <label for="first-name">Apellido Materno</label>
-                        <input type="text" class="form-control" pattern="^[A-Z-']+( [A-Z-']+)*$" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
-                    <div class="form-group oculto" id="divfechaN">
+                    <div class="form-group col-md-4 oculto" id="divfechaN">
                         <label for="first-name">Fecha Nacimiento</label>
                         <input readonly style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="first-name">Email</label>
                         <input type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo" title="Debe ser un Correo Valido" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="first-name">Fono</label>
                         <input type="text" name="Fono" class="form-control" placeholder="Telefono" id="Fono" minlength="8" maxlength="9" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="first-name">Dirección </label>
                         <input type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required>
                     </div>
 
 
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="region">Region</label>
 
                         <select class="form-control" name="region" id="region" required>
@@ -105,7 +131,7 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="provincia">Provincia</label>
 
                         <select class="form-control" name="provi" id="provi" required>
@@ -116,7 +142,7 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="comuna">Comuna</label>
 
                         <select class="form-control" name="comu" id="comu" required>
@@ -128,7 +154,7 @@
 
 
 
-                    <div class="form-group oculto" id="divestdoC">
+                    <div class="form-group col-md-4 oculto" id="divestdoC">
                         <label for="estado civil">Estado Civil</label>
                         <select class="form-control" name="estadocivil" id="estadocivil">
                             <option value=""> Seleccionar </option>
@@ -143,7 +169,7 @@
                     </div>
 
 
-                    <div class="form-group oculto " id="divgenero">
+                    <div class="form-group col-md-4 oculto " id="divgenero">
                         <label>Género</label>
                         <div class="radio">
                             <label class="radio-inline">
@@ -161,15 +187,19 @@
 
                 </div>
 
+                <br>
+                <br>
+                <br>
+
 
 
                 <!-- Datos de accionista -->
-                <div class="container" id="advanced-search-form">
+                <div class="container">
                     <h2>Datos de Accionista</h2>
 
 
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="libro">Libro</label>
                         <select class="form-control" name="libro" id="libro">
                             <option value=""> Seleccionar </option>
@@ -183,27 +213,43 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="first-name">Foja</label>
                         <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label ">Fecha Ingreso</label>
                         <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" readonly required>
+
                     </div>
 
-                    <div class="form-group">
-                        <label for="file">Carpeta Accionista (PDF)</label>
-                        <input type="file" class="form-control-file" id="file" name="userfile" accept="application/pdf" required>
+                    <div class="form-group col-md-4">
+                        <label for="miarchivo[]">Documentos Accionista</label>
+                        <div class="form-inline">
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="miarchivo[]" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>
+                                <div class="input-group-btn">
+                                    <a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_archivo"><i class="glyphicon glyphicon-plus"></i></a>
+                                </div>
+                            </div>
+                            <div id=nuevo_archivo>
+
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
 
+                <br>
+                <br>
+                <br>
 
 
-                <div class="container" id="advanced-search-form">
+                <div class="container">
 
-                    <div class="form-group  " id="divaccion">
+                    <div class="form-group col-md-4" id="divaccion">
                         <label>Accion</label>
                         <div class="radio">
                             <label class="radio-inline">
@@ -212,20 +258,20 @@
                                 <input type="radio" name="accion" value="0">Cesion</label>
                         </div>
                     </div>
-                    <div class="form-group oculto" id="AccionesNuevoT">
+                    <div class="form-group col-md-4 oculto" id="AccionesNuevoT">
                         <label>Acciones del nuevo Accionista</label>
                         <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off">
                     </div>
-                    <div class="form-group" id="NumeroNuevoT">
+                    <div class="form-group col-md-4" id="NumeroNuevoT">
                         <label>Numero de Titulo</label>
                         <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label ">Fecha Titulo</label>
                         <input type=" text" readonly style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
                     </div>
 
-                    <div class="form-group procedente oculto" id="Aprocedente">
+                    <div class="form-group col-md-4 procedente oculto" id="Aprocedente">
                         <label for="Titulop">Titulo Procedente</label>
 
                         <select class="form-control" name="TituloP" id="TituloP">
@@ -243,13 +289,13 @@
 
 
 
-                    <div class="form-group oculto" id="DivNumeroaTransferir">
+                    <div class="form-group col-md-4 oculto" id="DivNumeroaTransferir">
                         <label>Numero de acciones a tranferir</label>
                         <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off">
                     </div>
 
 
-                    <div class="form-group oculto" id="DivFechaCesion">
+                    <div class="form-group col-md-4 oculto" id="DivFechaCesion">
                         <label ">Fecha Cesion</label>
                         <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
                     </div>
@@ -294,7 +340,11 @@
 
 
 
-                    <div class="clearfix"></div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <button class="btn btn-info btn-lg btn-responsive" id="guardar"> <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
 
                 </div>
@@ -305,17 +355,6 @@
 
 
 
-
-            <div class="container" id="advanced-search-form">
-
-
-
-
-
-
-
-
-            </div>
         </div>
 
 
@@ -324,6 +363,29 @@
     </div>
 
     <script type="text/javascript">
+        //agregar archivo
+        $("#agregar_archivo").click(function() {
+            var html = '';
+
+            html += '<div class="input-group" id="inputFormRow">';
+            html += '<input type="file" class="form-control" id="miarchivo[]" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+            html += '<div class="input-group-btn">';
+            html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
+            html += '</div>';
+
+
+            $('#nuevo_archivo').append(html);
+        });
+
+        // Remover archivo
+        $(document).on('click', '#remover', function() {
+            $(this).closest('#inputFormRow').remove();
+        });
+
+
+
+
+
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',
@@ -355,7 +417,7 @@
                 dateFormat: "yy-mm-dd",
                 changeMonth: true,
                 changeYear: true,
-                maxDate: "-18y",            
+                maxDate: "-18y",
                 yearRange: "-100:+0"
 
             });
@@ -449,6 +511,9 @@
             $("#TituloP").change(function() {
                 var tituloP = $(this).val();
 
+
+
+
                 if (tituloP != '') {
                     $.ajax({
                         type: "POST",
@@ -459,10 +524,26 @@
                         success: function(r) {
 
 
+                            var embargo = r.embargo;
+                            var accionesEmbargo = r.acciones_embargadas;
 
-                            var Id_accionistaAnt = r.id_accionista
 
+
+                            var Id_accionistaAnt = r.id_accionista;
                             var t = r.numero_acciones;
+
+
+                            if (embargo == 1) {
+
+                                t = t - accionesEmbargo;
+
+                                swal({
+                                    title: 'Titulo con ' + accionesEmbargo + ' acciones embargadas',
+                                    icon: "warning",
+                                    button: "OK",
+                                });
+
+                            }
 
                             $('#AccionesANT').attr("value", t);
 

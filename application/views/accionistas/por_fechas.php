@@ -55,57 +55,57 @@
                 <form action="<?php echo base_url(); ?>accionistas/inicio/informe_fechas_accionistas2" method="POST" target="_blank" ">
 
 
-                    <div class="form-group col-md-6">
-                        <label for="Tipoinforme">Tipo de informe</label>
-                        <select class="form-control" name="tipoinforme" id="Tipoinforme" required>
+                    <div class=" form-group col-md-6">
+                    <label for="Tipoinforme">Tipo de informe</label>
+                    <select class="form-control" name="tipoinforme" id="Tipoinforme" required>
 
-                            <option value="">Seleccione</option>
-                            <option value="0">Bajas</option>
-                            <option value="1">Incorporaciones</option>
+                        <option value="">Seleccione</option>
+                        <option value="0">Bajas</option>
+                        <option value="1">Incorporaciones</option>
 
-                        </select>
-                    </div>
-
-
-
-
-                    <div class="form-group col-md-4">
-                        <label>Seleccione Fecha</label>
-                        <input class="form-control" type="text" name="fecha1" id="Fecha1" autocomplete="off" required>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label>Seleccione Fecha</label>
-                        <input class="form-control" type="text" name="fecha2" id="Fecha2" autocomplete="off" required>
-
-
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="form-group">
-
-                            <a href="#" id="Click" class="btn btn-default btn-lg">Buscar</a>
-                        </div>
-                        <div class="form-group">
-
-                            <button class="btn btn-default"><span class="glyphicon glyphicon-circle-arrow-down"> PDF</span></button>
-                        </div>
-
-
-                    </div>
-
-                </form>
+                    </select>
             </div>
 
+
+
+
+            <div class="form-group col-md-4 ">
+                <label>Seleccione Fecha Desde</label>
+                <input class="form-control .maxHoy" type="text" name="fecha1" id="Fecha1" autocomplete="off" required>
+            </div>
+
+            <div class="form-group col-md-4 ">
+                <label>Seleccione Fecha Hasta</label>
+                <input class="form-control .maxHoy" type="text" name="fecha2" id="Fecha2" autocomplete="off" required>
+
+
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+
+                    <a href="#" id="Click" class="btn btn-default btn-lg">Buscar</a>
+                </div>
+                <div class="form-group">
+
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-circle-arrow-down"> PDF</span></button>
+                </div>
+
+
+            </div>
+
+            </form>
         </div>
 
-        <div class="container table-responsive">
-            <table class="table  table-bordered" id="Tabla">
-            </table>
+    </div>
+
+    <div class="container table-responsive">
+        <table class="table  table-bordered" id="Tabla">
+        </table>
 
 
 
-        </div>
+    </div>
 
 
 
@@ -113,8 +113,8 @@
 
 
 
-        <br>
-        <br>
+    <br>
+    <br>
 
 
 
@@ -180,22 +180,39 @@
 
 
 
-        $("#Fecha1").datepicker({
-            dateFormat: "yy-mm-dd",
+        $("#Fecha1,#Fecha2").datepicker({
+            changeMonth: true,
             changeYear: true,
-            yearRange: "-100:+0"
-
-
-        });;
-
-        $("#Fecha2").datepicker({
+            maxDate: +0,
+            yearRange: "-100:+0",
+            beforeShow: rangoCustom,
             dateFormat: "yy-mm-dd",
-            changeYear: true,
-            yearRange: "-100:+0"
+
+        });
 
 
-        });;
+
+
     });
+
+
+    function rangoCustom(input) {
+
+        if (input.id == 'Fecha2') {
+            var minDate = new Date($('#Fecha1').val());
+
+            minDate.setDate(minDate.getDate() + 1)
+
+            return {
+                minDate: minDate
+
+            };
+        };
+
+        return {}
+
+    }
+
 
 
 
@@ -220,8 +237,22 @@
 
     $("#Click").click(function() {
 
-        $("#Tabla").empty()
-        cargarDatos();
+        if (!$("#Tipoinforme").val() == 0) {
+
+            $("#Tabla").empty()
+            cargarDatos();
+
+
+
+        } else {
+
+            swal({
+                title: "Seleccione el tipo de infome",
+                icon: "info",
+                button: "OK",
+            });
+        };
+
 
 
 
@@ -335,13 +366,6 @@
 
 
 
-        // for (i = 0; i < DatosJson.alumnoUTP.length; i++) {
-
-        //     $("#Table").append('<tr>' +
-        //         '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].nombre + '</td>' +
-        //         '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].apePaterno + '</td>' +
-        //         '<td align="center" style="dislay: none;">' + DatosJson.alumnoUTP[i].edad + '</td>' + '</tr>');
-        // }
     }
 </script>
 

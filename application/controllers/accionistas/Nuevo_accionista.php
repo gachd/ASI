@@ -47,7 +47,7 @@ class nuevo_accionista extends CI_Controller
 			$persona = $this->model_accionistas->existe($_POST['rut']);
 			$socio = $this->model_accionistas->existeSocio($_POST['rut']);
 
-			
+
 
 
 			if ($persona) {
@@ -56,10 +56,8 @@ class nuevo_accionista extends CI_Controller
 				$this->load->view('plantilla/Head_v1');
 				$this->load->view('accionistas/accionista_rut');
 				$this->load->view('plantilla/Footer');
-
-
 			} else {
-				
+
 				$rut = $_POST['rut'];
 				$data['rut'] = $rut;
 				$data['comunas'] = $this->model_persona->all_comunas();
@@ -76,10 +74,9 @@ class nuevo_accionista extends CI_Controller
 					$this->load->view('plantilla/Head_v1');
 					$this->load->view('accionistas/nuevo_accionistaSocio', $data);
 					$this->load->view('plantilla/Footer');
+				} else {
 
-				} else {	
-
-					//si no carga la vista donde aparte ingrese datos personal
+					//sino, carga la vista donde aparte ingrese datos personal
 
 					$this->load->view('plantilla/Head_v1');
 					$this->load->view('accionistas/nuevo_accionista', $data);
@@ -146,32 +143,17 @@ class nuevo_accionista extends CI_Controller
 
 		$NumeroTitulo = $this->input->post('NumeroTitulo');
 
+		/* Subida de archivos */
+		$archivo = $_FILES["miarchivo"]; //nombre del input file de la vista
 
-		$fecha = date('d-m-Y_H-i-s');
-		$path = './uploads/accionistas/' . $rut;
+		$this->Subir_Varios($rut, $archivo);
 
-		if (!file_exists($path)) {
-			mkdir($path, 0777, true);
-		}
-
-
-
-		$config['upload_path'] =  $path;
-		$config['allowed_types'] = 'pdf';
-		$config['file_name'] = $rut . "_" . $fecha;
-		$config['max_size'] = "50000";
-		$config['max_width'] = "2000";
-		$config['max_height'] = "2000";
+		$path = 'archivos/accionistas/' . $rut;
 
 
 
-		$this->load->library('upload', $config);
-		$this->upload->initialize($config);
+		/* Termino subida de archivos */
 
-		if ($this->upload->do_upload('userfile')) {
-
-			$this->upload->data();
-		}
 
 
 
@@ -425,7 +407,7 @@ class nuevo_accionista extends CI_Controller
 
 				//validar si el accionista tiene tituloos activos si no los tiene se da de baja
 
-				/* 
+				
 				
 				$validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
 
@@ -437,9 +419,7 @@ class nuevo_accionista extends CI_Controller
 					);
 					$this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
 				};
- */
-
-
+ 
 			};
 		};
 
@@ -471,31 +451,16 @@ class nuevo_accionista extends CI_Controller
 		$tipoaccion = $this->input->post('accion');
 
 
-		$fecha = date('d-m-Y_H-i-s');
-		$path = './uploads/accionistas/' . $rut;
+		/* Subida de archivos */
+		$archivo = $_FILES["miarchivo"]; //nombre del input file de la vista
 
-		if (!file_exists($path)) {
-			mkdir($path, 0777, true);
-		}
+		$this->Subir_Varios($rut, $archivo);
 
-
-
-		$config['upload_path'] =  $path;
-		$config['allowed_types'] = 'pdf';
-		$config['file_name'] = $rut . "_" . $fecha;
-		$config['max_size'] = "50000";
-		$config['max_width'] = "2000";
-		$config['max_height'] = "2000";
+		$path = 'archivos/accionistas/' . $rut;
 
 
 
-		$this->load->library('upload', $config);
-		$this->upload->initialize($config);
-
-		if ($this->upload->do_upload('userfile')) {
-
-			$this->upload->data();
-		}
+		/* Termino subida de archivos */
 
 
 
@@ -601,7 +566,7 @@ class nuevo_accionista extends CI_Controller
 
 
 				$dataT_Anterior = array(
-					'id_titulos ' => $NumeroTitulo+1,
+					'id_titulos ' => $NumeroTitulo + 1,
 
 					'id_accionista' => $id_accionista_que_cede,
 
@@ -702,7 +667,7 @@ class nuevo_accionista extends CI_Controller
 
 				//validar si el accionista tiene itulos activos si no los tiene se da de baja
 
-/* 
+				
 
 				$validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
 
@@ -714,8 +679,7 @@ class nuevo_accionista extends CI_Controller
 					);
 					$this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
 				};
- */
-				
+ 
 			};
 		};
 
@@ -739,6 +703,19 @@ class nuevo_accionista extends CI_Controller
 
 
 		$idP = $_POST['idP'];
+
+		$rut=$_POST['rutA'];
+
+		 $archivo = $_FILES["miarchivo"]; //nombre del input file de la vista
+
+
+
+		 //agregar archivos solo si hay archivos
+		 if (!empty($archivo)){
+
+		$this->Subir_Varios($rut, $archivo);
+
+		 }
 
 
 
@@ -835,6 +812,76 @@ class nuevo_accionista extends CI_Controller
 
 		if (empty($validar)) {
 			echo ('Dar de baja');
+		}
+	}
+
+
+
+
+
+
+
+	//private
+
+
+	private function Subir_Varios($user, $archivo)
+	{
+
+
+		$formatos = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
+
+		$fecha = date("Y.m.d_");
+
+
+
+		$Dir_archivos = 'archivos/accionistas/'; //carpeta donde se guadaran todos los archivos subidos del sistema.
+
+
+		foreach ($archivo['tmp_name'] as $key => $tmp_name) {
+			//condicional si el fuchero existe
+			if ($archivo["name"][$key]) {
+				// Nombres de archivos de temporales
+
+
+				$archivonombre = $fecha . $archivo["name"][$key];
+
+				$fuente = $archivo["tmp_name"][$key];
+
+				$carpeta = $Dir_archivos . $user . '/'; //Declaramos el nombre de la carpeta que guardara los archivos
+
+				if (!file_exists($carpeta)) {
+
+					mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+				}
+				var_dump($carpeta);
+
+				//Abrimos el directorio
+				$dir = opendir($carpeta);
+
+				$path_archivo = $carpeta . '/' . $archivonombre; //indicamos la ruta de destino de los archivos
+
+				$Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+
+
+				if (in_array($Tipo_archivo, $formatos)) {
+
+					if (move_uploaded_file($fuente, $path_archivo)) {
+
+						echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+					} else {
+
+						echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+					}
+				} else {
+
+					echo "Formato del archivo $archivonombre no valido.<br>";
+				}
+
+				closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+			}
 		}
 	}
 }

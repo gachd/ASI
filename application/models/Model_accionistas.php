@@ -12,6 +12,20 @@
 		}
 
 
+		function accionistas_es_socio($rut)
+		{
+
+			$this->db->select('prsn_rut');
+			$this->db->from('s_socios');
+			$this->db->where('prsn_rut', $rut);		
+
+			$p = $this->db->get();		
+
+			return $p->result();	
+		}
+
+
+
 		function accionistas()
 		{
 
@@ -19,6 +33,21 @@
 
 			return $p->result();
 		}
+		function accionistasALL()
+		{
+
+			$p = $this->db->query('SELECT p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_titulos t, s_personas p WHERE  a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY t.id_accionista');
+
+			return $p->result();
+		}
+		function accionistasALL_Activos()
+		{
+
+			$p = $this->db->query('SELECT p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_titulos t, s_personas p WHERE  a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.estado_accionista="1" GROUP BY t.id_accionista');
+
+			return $p->result();
+		}
+
 		function id_activos()
 		{
 
@@ -67,7 +96,8 @@
 		function datos_ac($rut)
 		{
 
-			$p = $this->db->query('SELECT  * from s_accionista a ,s_titulos t , s_transaccion tr where a.prsn_rut = "' . $rut . '"  AND tr.id_accionista = a.id_accionista');
+			//$p = $this->db->query('SELECT  * from s_accionista a ,s_titulos t , s_transaccion tr where a.prsn_rut = "' . $rut . '"  AND tr.id_accionista = a.id_accionista');
+			$p = $this->db->query('SELECT  * from s_accionista a ,s_titulos t where a.prsn_rut = "' . $rut . '"  AND t.id_accionista = a.estado_accionista group by a.id_accionista');
 			return $p->result();
 		}
 

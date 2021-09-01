@@ -97,6 +97,8 @@ class inicio extends CI_Controller
 
       $activos = $this->model_accionistas->id_activos();
 
+      
+
 
       $bajas = [];
 
@@ -251,18 +253,35 @@ class inicio extends CI_Controller
 
       $data['titulos'] = $this->model_accionistas->validar_estado($id);
 
+     
 
+      $rut_accionista=$data['accionista'][0]->prsn_rut;
 
+      $DirAccionista=$data['accionista'][0]->path;
 
+      
+  
 
+     
 
+      $data['socio'] = $this->model_accionistas->accionistas_es_socio($rut_accionista); 
+      
 
       $this->load->view('plantilla/Head_v1');
 
       $this->load->view('accionistas/show_accionista', $data);
 
-      $this->load->view('plantilla/Footer');
+      $this->load->view('plantilla/Footer'); 
+
+
    }
+
+
+ 
+
+
+
+
 
 
    public function verFechas()
@@ -326,6 +345,7 @@ class inicio extends CI_Controller
       $baja = array(
 			
          'estado_accionista'=> 0,
+         'fecha_baja'=> $fecha ,
 		);
 
    $this->model_accionistas->update($baja,$id_accionista);

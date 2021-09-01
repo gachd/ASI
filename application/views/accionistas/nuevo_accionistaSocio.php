@@ -18,27 +18,52 @@
     .oculto {
         display: none;
     }
+
+    form {
+        color: #008000;
+        padding-bottom: 20px;
+    }
+
+    form .form-control {
+
+        padding: 12px 20px;
+        height: auto;
+        border-radius: 2px;
+    }
+
+ 
 </style>
 
 <body>
-    <br>
+
+    <div class="salto_linea">
+        <br>
+        <br>
+        <br>
+    </div>
+
+
     <div class="main">
 
 
 
         <div class="container-fluid">
-            
+
 
             <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionistaSocio" method="post" enctype="multipart/form-data">
 
-                <div class="container" id="advanced-search-form">
-                <h1>Socio-Accionista</h1>
+                <div class="container">
+                    <h1>Socio-Accionista</h1>
+                    <br>
+                    <br>
+                    <br>
+                 
 
                     <h2>Datos de Accionista</h2>
-                    <input type="hidden" name="rutP" value="<?php echo $rut  ?>"> 
+                    <input type="hidden" name="rutP" value="<?php echo $rut  ?>">
 
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="libro">Libro</label>
                         <select class="form-control" name="libro" id="libro">
                             <option value=""> Seleccionar </option>
@@ -52,27 +77,39 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="first-name">Foja</label>
                         <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label ">Fecha Ingreso</label>
                         <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" readonly required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="file">Documento (PDF)</label>
-                        <input type="file" class="form-control-file" id="file" name="userfile" accept="application/pdf" required>
+                    <div class="form-group col-md-4 centrar">
+                        <label for="miarchivo">Documentos Accionista</label>
+                        <div class="">
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="miarchivo[]" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>
+                                <div class="input-group-btn">
+                                    <a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_archivo"><i class="glyphicon glyphicon-plus"></i></a>
+                                </div>
+                            </div>
+                            <div id=nuevo_archivo>
+
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
 
 
 
-                <div class="container" id="advanced-search-form">
+                <div class="container">
 
-                    <div class="form-group  " id="divaccion">
+                    <div class="form-group col-md-4  " id="divaccion">
                         <label>Accion</label>
                         <div class="radio">
                             <label class="radio-inline">
@@ -81,20 +118,20 @@
                                 <input type="radio" name="accion" value="0">Cesion</label>
                         </div>
                     </div>
-                    <div class="form-group oculto" id="AccionesNuevoT">
+                    <div class="form-group col-md-4 oculto" id="AccionesNuevoT">
                         <label>Acciones del nuevo Accionista</label>
                         <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off">
                     </div>
-                    <div class="form-group" id="NumeroNuevoT">
+                    <div class="form-group col-md-4" id="NumeroNuevoT">
                         <label>Numero de Titulo</label>
                         <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label ">Fecha Titulo</label>
                         <input type=" text" readonly style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
                     </div>
 
-                    <div class="form-group procedente oculto" id="Aprocedente">
+                    <div class="form-group col-md-4 procedente oculto" id="Aprocedente">
                         <label for="Titulop">Titulo Procedente</label>
 
                         <select class="form-control" name="TituloP" id="TituloP">
@@ -112,13 +149,13 @@
 
 
 
-                    <div class="form-group oculto" id="DivNumeroaTransferir">
+                    <div class="form-group col-md-4 oculto" id="DivNumeroaTransferir">
                         <label>Numero de acciones a tranferir</label>
                         <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off">
                     </div>
 
 
-                    <div class="form-group oculto" id="DivFechaCesion">
+                    <div class="form-group col-md-4 oculto" id="DivFechaCesion">
                         <label ">Fecha Cesion</label>
                         <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
                     </div>
@@ -163,8 +200,10 @@
 
 
 
-                    <div class="clearfix"></div>
-                    <button class="btn btn-info btn-lg btn-responsive" id="guardar"> <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+                    <div class="container col-md-12" style=" display: flex;justify-content: center;align-items: center;">
+                        <button style="margin-right:auto" class="btn btn-info btn-lg btn-responsive" id="guardar"> <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+                    </div>
+
 
                 </div>
 
@@ -173,18 +212,6 @@
             </form>
 
 
-
-
-            <div class="container" id="advanced-search-form">
-
-
-
-
-
-
-
-
-            </div>
         </div>
 
 
@@ -193,6 +220,29 @@
     </div>
 
     <script type="text/javascript">
+        $("#agregar_archivo").click(function() {
+            var html = '';
+
+            html += '<div class="input-group" id="inputFormRow">';
+            html += '<input type="file" class="form-control" id="miarchivo[]" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+            html += '<div class="input-group-btn">';
+            html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
+            html += '</div>';
+
+
+            $('#nuevo_archivo').append(html);
+        });
+
+        // Remover archivo
+        $(document).on('click', '#remover', function() {
+            $(this).closest('#inputFormRow').remove();
+        });
+
+
+
+
+
+
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',
@@ -318,6 +368,8 @@
             $("#TituloP").change(function() {
                 var tituloP = $(this).val();
 
+
+
                 if (tituloP != '') {
                     $.ajax({
                         type: "POST",
@@ -327,11 +379,28 @@
                         url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
                         success: function(r) {
 
+                            var embargo = r.embargo;
+                            var accionesEmbargo = r.acciones_embargadas;
+
 
 
                             var Id_accionistaAnt = r.id_accionista
-
                             var t = r.numero_acciones;
+
+
+                            if (embargo == 1) {
+
+                                t = t - accionesEmbargo;
+
+                                swal({
+                                    title: 'Titulo con ' + accionesEmbargo + ' acciones embargadas',
+                                    icon: "warning",
+                                    button: "OK",
+                                });
+
+                            }
+
+
 
                             $('#AccionesANT').attr("value", t);
 

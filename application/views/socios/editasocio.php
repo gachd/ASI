@@ -1,3 +1,12 @@
+<head>
+    
+
+    <title>Edita Socios</title>
+
+
+
+</head>
+
 <style>
   .error {
     display: block;
@@ -660,7 +669,7 @@
 
             <div class="col-md-6">
 
-              <input autocomplete="on" type="text" class="form-control" name="rut_socio" id="rut_socio" placeholder="Ej: 11111111-1" value="<?php echo set_value('rut_socio'); ?>">
+              <input autocomplete="off" type="text" class="form-control" name="rut_socio" id="rut_socio" placeholder="Ej: 11111111-1" value="<?php echo set_value('rut_socio'); ?>">
 
               <span id="rut_socio" style="display:none;color:red;">Rut incorrecto</span>
 
@@ -859,7 +868,7 @@
 
     foreach ($socios as $s) {
 
-      echo ' " ' . $s->prsn_rut . '",';
+      echo '"' . $s->prsn_rut . '",';
     }
 
     ?>
@@ -873,30 +882,50 @@
 
 
   $("#enviar").click(function() {
+    $("#edit_socios").empty()
+
+
     rut = $('#rut_socio').val();
-    //alert(rut);
 
-    //    $('#edit_socios').html('<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+    if (rut) {
 
+      $.ajax({
 
+        url: "<?php echo base_url() ?>socios/editasocio/mostrar_socio",
+        data: {
 
-    $.post("<?php echo base_url() ?>socios/editasocio/mostrar_socio", {
+          rut: rut,
 
-        rut: rut
+        },
 
-      },
+        type: 'POST',
 
-      function(data) {
+        success: function(data) {
 
-        $("#edit_socios").html(data)
+          $("#edit_socios").html(data);
 
-        //        $("#edit_socios").html(data);           
+        },
 
-        //  $("#valores").css("display","block")        
+        error: function() {
+
+          alert("No se encuetra el socio");
+        }
+
 
 
 
       });
+
+    }else{
+
+      alert("Ingrese el rut")
+
+
+
+    }
+
+
+
 
   });
 

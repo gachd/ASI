@@ -5,8 +5,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
+
   <meta charset="UTF-8">
 
   <title>Titulos</title>
@@ -18,12 +17,15 @@
 </head>
 
 
+<div class="salto_linea">
+  <br>
+
+</div>
+
 
 
 <body>
-  <br>
-  <br>
-  <br>
+
 
 
   <div class="main">
@@ -89,6 +91,14 @@
 
             ?>
           </select>
+          <?php if ($this->session->flashdata('Mensaje')) {  ?>
+
+
+            <script>
+              toastr.warning("<?php echo $this->session->flashdata('Mensaje'); ?>");
+            </script>
+
+          <?php } ?>
 
         </div>
 

@@ -61,7 +61,7 @@ class titulos extends CI_Controller
     {
 
 
-        $data['accionista'] = $this->model_accionistas->accionistas();
+        $data['accionista'] = $this->model_accionistas->accionistasALL();
 
 
         $this->load->view('plantilla/Head_v1');
@@ -119,7 +119,7 @@ class titulos extends CI_Controller
 
 
     public  function guadarNuevoTitulo()
-    
+
     {
 
         $NumeroTitulo = $this->input->post('NumeroTitulo');
@@ -159,7 +159,7 @@ class titulos extends CI_Controller
 
 
         $data['titulos'] = $this->model_titulo->titulosactivos();
-        $data['accionista'] = $this->model_accionistas->accionistas();
+        $data['accionista'] = $this->model_accionistas->accionistasALL_Activos();
 
 
 
@@ -274,7 +274,7 @@ class titulos extends CI_Controller
 
             $dataT_Anterior = array(
 
-                'id_titulos ' => $NumeroTitulo +1,
+                'id_titulos ' => $NumeroTitulo + 1,
 
                 'id_accionista' => $id_accionista_que_cede,
 
@@ -303,7 +303,7 @@ class titulos extends CI_Controller
 
                 'titulo_origen ' => $titulo_que_precede,
 
-                'tiulo_actual' =>  $NumeroTitulo +1,
+                'tiulo_actual' =>  $NumeroTitulo + 1,
 
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
 
@@ -374,7 +374,7 @@ class titulos extends CI_Controller
 
 
             $validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
-/* 
+            
 
             if (empty($validar)) {
                 $dataAccionista = array(
@@ -384,7 +384,7 @@ class titulos extends CI_Controller
                 $this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
             };
 
-             */
+            
         }
 
 
@@ -510,36 +510,37 @@ class titulos extends CI_Controller
 
         $historial = $this->model_titulo->historial_titulo($idT);
 
-        $historial_t = array();
-        $i = 0;
+        if (!empty($historial)) {
+
+            $historial_t = array();
+            $i = 0;
+
+
+            while (!empty($historial)) {
+
+
+                $i++;
+
+                array_push($historial_t, $historial);
+                $historial = $this->model_titulo->historial_titulo($historial[0]['titulo_origen']);
+            }
+
+
+            $data['historial_t'] = $historial_t;
+            $data['indice'] = $i;
 
 
 
+            $this->load->view('plantilla/Head_v1');
 
+            $this->load->view('titulos/historial_titulo', $data);
 
+            $this->load->view('plantilla/Footer');
+        } else {
 
+            $this->session->set_flashdata('Mensaje','Sin Historial');
 
-
-
-        while (!empty($historial)) {
-
-
-            $i++;
-
-            array_push($historial_t, $historial);
-            $historial = $this->model_titulo->historial_titulo($historial[0]['titulo_origen']);
+            redirect('accionistas/titulos');
         }
-
-
-        $data['historial_t'] = $historial_t;
-        $data['indice'] = $i;
-
-
-
-        $this->load->view('plantilla/Head_v1');
-
-        $this->load->view('titulos/historial_titulo', $data);
-
-        $this->load->view('plantilla/Footer');
     }
 }

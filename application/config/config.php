@@ -27,8 +27,8 @@ date_default_timezone_set('America/Santiago');
 |
 */
 //$config['base_url'] = 'https://www.stadioitalianodiconcepcion.cl/ASI/';
-$config['base_url'] = 'http://localhost/ASI'; //si  lo subo a internet tengo que poner dominio
-//$config['base_url'] = 'http://192.168.3.13/ASI'; 
+//$config['base_url'] = 'http://localhost/ASI'; //si  lo subo a internet tengo que poner dominio
+$config['base_url'] = 'http://192.168.20.4/ASI'; 
 
 /*
 |--------------------------------------------------------------------------

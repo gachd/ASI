@@ -53,11 +53,44 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 	<!-- sweetalert2 -->
 
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.3/sweetalert2.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.3/sweetalert2.min.css">
-
 	<style>
+		@media only screen and (min-width: 0px) and (max-width: 768px) {
+
+
+			nav#navbar_Home {
+				position: sticky;
+				display: block;
+				z-index: 10000;
+			}
+
+			div#ui-datepicker-div {
+
+				width: 60%;
+				height: auto;
+			}
+
+			.salto_linea {
+
+				display: none;
+			}
+
+
+
+
+
+
+		}
+
+		div#ui-datepicker-div {
+			z-index: 99999;
+
+
+
+		}
+
+
+
+
 		.div-wrapper {
 			display: block;
 			overflow-x: auto;
@@ -66,9 +99,11 @@
 
 		}
 
-		
 
-		div.fixed {
+
+
+
+		div.fixeded {
 
 			position: fixed;
 			border-radius: 5px;
@@ -76,7 +111,7 @@
 			padding-bottom: 3px;
 			align-content: center;
 			text-align: center;
-			box-shadow: 2px 2px 2px 2px grey;
+			box-shadow: 2px 2px 2px 2px #c0c0c0;
 			z-index: 0;
 
 
@@ -111,6 +146,25 @@
 			color: #01447e;
 			text-decoration: underline;
 		}
+
+		.oculto {
+			display: none;
+		}
+
+		.col-center {
+			float: none;
+			margin: 0 auto;
+		}
+
+		.input-group {
+			z-index: 0;
+		}
+
+		.input-group-btn {
+			z-index: -1;
+		}
+
+
 	</style>
 
 	<script>
@@ -142,9 +196,8 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top ">
+	<nav class="navbar navbar-default navbar-fixed-top" id="navbar_Home">
 		<div class="container">
-
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Toggle navigation</span>
@@ -227,6 +280,12 @@
 						// if (($principal == 3) or ($principal == 0)) {
 						// 	echo ' <li><a href="' . base_url() . 'trabajos/report_diarios">Requerimientos</a></li>';
 						// }
+
+					?>
+
+					<?php
+
+
 						if (($principal == 7) or ($principal == 0)) {
 							echo ' 
 							<li class="dropdown">
@@ -257,6 +316,9 @@
 							</li>';
 						}
 					}
+					?>
+
+					<?php
 
 					// 
 
@@ -350,6 +412,9 @@
 
 
 </body>
+
+
+</html>
 
 
 

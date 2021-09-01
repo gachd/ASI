@@ -11,7 +11,13 @@
 
 </head>
 
-<br> <br> <br>
+<div class="salto_linea">
+  <br>
+  <br>
+  <br>
+
+</div>
+
 <div class="container">
 
 
@@ -219,8 +225,23 @@
         });
     });
 
+   
+
+   
+
+
     $("#tituloAnterior").change(function() {
         var tituloP = $(this).val();
+
+        
+
+        $('#accionista_select').val('');
+        $('#NumNuevoCesion').val('');
+        $('#fechaTrans').val('');
+        $('#NumeroTitulo').val('');
+        $('#fechaNtitulo').val('');
+
+
 
         if (tituloP != '') {
             $.ajax({
@@ -231,19 +252,29 @@
                 url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
                 success: function(r) {
 
+                    console.log(r);
+                    
+                    var embargo= r.embargo;
+                    var accionesEmbargo = r.acciones_embargadas;
 
-
-                    var Id_accionistaAnt = r.id_accionista
+                    var Id_accionistaAnt = r.id_accionista;
 
                     var t = r.numero_acciones;
 
+                    //ocultos para el post
                     $('#AccionesANT').attr("value", t);
-
                     $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
 
+                    //cambio dinamico del maximo a transferir
+
+                    if (embargo==1){
+
+                        t=t-accionesEmbargo;
+                        toastr.warning('Titulo con '+ accionesEmbargo +' acciones embargadas');                     
+                    }
+                    
                     $('#NumNuevoCesion').attr("max", t);
                     $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
-
 
                 },
                 error: function() {
@@ -251,6 +282,8 @@
                 }
             });
         };
+
+       
 
 
 

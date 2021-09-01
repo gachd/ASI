@@ -47,21 +47,7 @@
 
 
 
-  .bs-callout {
-
-    /*padding: 20px;*/
-
-    padding: 0px 10px;
-
-    margin: 2px 5px;
-
-    border: 1px solid #eee;
-
-    border-left-width: 5px;
-
-    border-radius: 3px;
-
-  }
+  
 
   .bs-callout-green h4 {
 
@@ -69,14 +55,10 @@
 
   }
 
+
   .bs-callout-green {
 
-    border-left-color: #4b7006;
-
-    width: 30%;
-
-    float: left;
-
+    border-left: 5px solid #4b7006;
 
 
   }
@@ -536,7 +518,7 @@
 
  * left tab
 
- * ===============================================*/
+ * ===============================================
 
 
 
@@ -586,7 +568,7 @@
 
 
   }
-
+*/
 
 
 
@@ -904,7 +886,7 @@
 
                   <!-- datos personales -->
 
-                  <div class="bs-callout bs-callout-green">
+                  <div class="bs-callout bs-callout-green col-md-4">
 
                     <h4>Datos Personales</h4>
 
@@ -1044,7 +1026,7 @@
 
                   <!--DATOS DE CONTACTO -->
 
-                  <div class="bs-callout bs-callout-green">
+                  <div class="bs-callout bs-callout-green col-md-4">
 
                     <h4>Datos de Contacto</h4>
 
@@ -1138,9 +1120,9 @@
 
                   <!--DATOS DE trabajo -->
 
-                  <div class="bs-callout bs-callout-green">
+                  <div class="bs-callout bs-callout-green col-md-4">
 
-                    <h4>Antecendes Laborales</h4>
+                    <h4>Antecedentes Laborales</h4>
 
                     <table width="100%" class="table tbl-datos">
 
