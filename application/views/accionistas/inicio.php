@@ -295,12 +295,24 @@ $año = $dif_año->y;
                   </thead>
                   <tbody>
 
-                    <span></span>
+
+                    
                     <?php foreach ($accionistas as $s) {
 
 
                       echo '<tr class="">';
-                      echo '<td><span>' . $s->prsn_rut . '</td>';
+                      if($s->prsn_fallecido == "1"){
+
+                        echo '<td class="text-left">' . $s->prsn_rut . ' <span class="pull-right text-right">&#10015; <span style="display:none;">Muerte</span>  </span></td>';
+                        
+                      }else{
+
+                        echo '<td class="text-left">' . $s->prsn_rut . ' <span class="pull-right text-right"></span></td>';
+
+                      }
+
+                      
+                      
                       echo '<td><div>' . $s->prsn_nombres . '</td>';
                       echo '<td><div>' . $s->prsn_apellidopaterno . '</div></td>';
                       echo '<td><div>' . $s->prsn_apellidomaterno . '</div></td>';

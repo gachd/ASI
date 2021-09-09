@@ -15,6 +15,7 @@ class titulos extends CI_Controller
 
 
         parent::__construct();
+        //$this->output->enable_profiler(TRUE);
 
         $this->load->library('session');
 
@@ -186,8 +187,26 @@ class titulos extends CI_Controller
             echo '<option value="' . $t->id_titulos . '">' . $t->id_titulos . '  ' . $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . '</option>';
         }
 
-        var_dump($titulos);
+        
 
+
+        // print_r(json_encode($titulos));
+
+
+    }
+    public function obtenerTitulos_transmision()
+    {
+
+        // header('Content-Type: application/json');
+
+        $titulos = $this->model_titulo->titulosactivos_transmision();
+        echo '<option value="">Seleccionar</option>';
+
+        foreach ($titulos as $t) {
+            echo '<option value="' . $t->id_titulos . '">' . $t->id_titulos . '  ' . $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . '</option>';
+        }
+
+        
 
 
         // print_r(json_encode($titulos));
@@ -374,7 +393,7 @@ class titulos extends CI_Controller
 
 
             $validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
-            
+
 
             if (empty($validar)) {
                 $dataAccionista = array(
@@ -383,8 +402,6 @@ class titulos extends CI_Controller
                 );
                 $this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
             };
-
-            
         }
 
 
@@ -502,6 +519,91 @@ class titulos extends CI_Controller
         redirect('accionistas/inicio');
     }
 
+    public function embargo()
+
+    {
+        $idT=$this->input->post('idT');
+        $data["RutA"]=$this->input->post('RutA');
+
+        $data["IdTitulo"] = $idT;
+        $data["Titulo"] = $this->model_titulo->infoTituloID($idT);
+
+
+
+        $this->load->view('plantilla/Head_v1');
+
+        $this->load->view('titulos/embargo', $data);
+
+        $this->load->view('plantilla/Footer');
+    }
+
+
+
+    public function guardar_embargo()
+    {
+
+        var_dump($this->input->post());
+
+        $OpEmbargo = $this->input->post('Embargos');
+        $Numero_Acciones_titulo = $this->input->post('numero_acciones');
+        $embargadasOriginal = $this->input->post('acciones_embargadas');
+        $TextEmbargadaVista = $this->input->post('cant_embargada');
+        $idT= $this->input->post('idT');
+        $RutA= $this->input->post('RutA');
+
+        $NuevasEmbargadas = '';
+
+
+
+       $archivos=$_FILES["archivos_embargo"];
+
+       $this->Subir_Varios_Embargo($RutA, $archivos);
+
+
+        if ($OpEmbargo == "SI") {
+
+            $NuevasEmbargadas = $embargadasOriginal+ $TextEmbargadaVista;
+
+          
+        }
+        if ($OpEmbargo == "NO") {
+
+            $NuevasEmbargadas = $embargadasOriginal - $TextEmbargadaVista;
+
+            
+        }
+
+        if ($NuevasEmbargadas == 0) {
+            $dataT = array(         
+
+                'embargo' => 0,
+    
+                'acciones_embargadas' => $NuevasEmbargadas ,
+    
+            );
+        }else{
+            
+
+            $dataT = array(     
+                 
+
+                'embargo' => 1,
+                'acciones_embargadas' => $NuevasEmbargadas ,
+    
+            );
+
+
+        }
+
+
+        $this->model_titulo->updatetitulos($dataT,$idT);
+        $this->session->set_flashdata('embargo', 'Titulo Actualizado');
+
+        redirect('accionistas/titulos');
+
+
+    }
+
 
     public function historial_titulo()
     {
@@ -538,9 +640,73 @@ class titulos extends CI_Controller
             $this->load->view('plantilla/Footer');
         } else {
 
-            $this->session->set_flashdata('Mensaje','Sin Historial');
+            $this->session->set_flashdata('Mensaje', 'Sin Historial');
 
             redirect('accionistas/titulos');
         }
     }
+
+
+    //private
+
+    private function Subir_Varios_Embargo($user, $archivo)
+	{
+
+
+		$formatos = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
+
+		$fecha = date("Y.m.d_");
+
+
+
+		$Dir_archivos = 'archivos/accionistas/'; //carpeta donde se guadaran todos los archivos subidos del sistema accionisstas.
+
+
+		foreach ($archivo['tmp_name'] as $key => $tmp_name) {
+			//condicional si el fuchero existe
+			if ($archivo["name"][$key]) {
+				// Nombres de archivos de temporales
+
+
+				$archivonombre = $fecha . $archivo["name"][$key];
+
+				$fuente = $archivo["tmp_name"][$key];
+
+				$carpeta = $Dir_archivos . $user . '/Embargo'.'/'; //Declaramos el nombre de la carpeta que guardara los archivos embargados
+
+				if (!file_exists($carpeta)) {
+
+					mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+				}
+				var_dump($carpeta);
+
+				//Abrimos el directorio
+				$dir = opendir($carpeta);
+
+				$path_archivo = $carpeta . '/' . $archivonombre; //indicamos la ruta de destino de los archivos
+
+				$Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+
+
+				if (in_array($Tipo_archivo, $formatos)) {
+
+					if (move_uploaded_file($fuente, $path_archivo)) {
+
+						echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+					} else {
+
+						echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+					}
+				} else {
+
+					echo "Formato del archivo $archivonombre no valido.<br>";
+				}
+
+				closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+			}
+		}
+	}
 }

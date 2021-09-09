@@ -745,13 +745,13 @@
 
             <div class="col-md-3">
 
-              <img style="width: 70%" alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive">
+              <img style="width: 70%" alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
 
 
 
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-8">
 
               <form class="form-inline">
 
@@ -1540,7 +1540,7 @@
 
     $("select[name=cargas]").change(function() {
 
-
+      $('#contenido').append('<div class="center-block" style="text-align:center" ><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt=""></div>');
 
       var rut_carga = $('select[name=cargas]').val();
 
@@ -1548,7 +1548,12 @@
 
 
 
-      $.post("<?php echo base_url() ?>socios/editacarga/datosCarga", {
+
+
+      $.ajax({
+
+        url: "<?php echo base_url() ?>socios/editacarga/datosCarga",
+        data: {
 
           rutCarga: rut_carga,
 
@@ -1556,21 +1561,41 @@
 
         },
 
-        function(data) {
+        type: 'POST',
+
+        success: function(data) {
+          $("#contenido").empty()
 
           $("#contenido").html(data)
 
-          //        $("#edit_socios").html(data);           
+          $("#contenido").html(data)
 
-          //  $("#valores").css("display","block")        
+          $("#actCarg").prop( "disabled", false )
+
+       
+
+        },
+
+        error: function() {
+
+          $("#contenido").empty()
+
+
+          swal({
+            title: "No se encontraron registros",
+            icon: "info",
+            button: "OK",
+          });
+
+        }
 
 
 
-        });
+
+      });
 
 
 
-      // $('input[name=valor1]').val($(this).val());
 
     });
   });

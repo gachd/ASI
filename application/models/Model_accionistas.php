@@ -11,17 +11,23 @@
 			$this->db->insert('s_accionista', $data);
 		}
 
+		function insertar_comundad_hereditaria($data)
+		{
+
+			$this->db->insert('comunidad_hereditaria', $data);
+		}
+
 
 		function accionistas_es_socio($rut)
 		{
 
 			$this->db->select('prsn_rut');
 			$this->db->from('s_socios');
-			$this->db->where('prsn_rut', $rut);		
+			$this->db->where('prsn_rut', $rut);
 
-			$p = $this->db->get();		
+			$p = $this->db->get();
 
-			return $p->result();	
+			return $p->result();
 		}
 
 
@@ -29,7 +35,7 @@
 		function accionistas()
 		{
 
-			$p = $this->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_titulos t, s_personas p WHERE t.estado = "1" AND a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY t.id_accionista');
+			$p = $this->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista,p.prsn_fallecido FROM s_accionista a, s_titulos t, s_personas p WHERE t.estado = "1" AND a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY t.id_accionista');
 
 			return $p->result();
 		}
@@ -191,6 +197,20 @@
 		{
 
 			$p = $this->db->query('SELECT s.prsn_rut  FROM s_personas p , s_socios s WHERE p.prsn_rut = s.prsn_rut  AND p.prsn_rut ="' . $rut . '"');
+			return $p->result();
+		}
+
+		function existePersona($rut)
+		{
+
+			/*$p = $this->db->query('SELECT s.prsn_rut  FROM s_personas p , s_socios s WHERE p.prsn_rut = s.prsn_rut  AND p.prsn_rut ="' . $rut . '"'); */
+
+			$this->db->select('*');
+			$this->db->from('s_personas');
+			$this->db->where('prsn_rut', $rut);
+
+			$p = $this->db->get();
+
 			return $p->result();
 		}
 

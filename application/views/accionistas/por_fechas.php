@@ -20,13 +20,17 @@
         overflow-x: auto;
         white-space: nowrap;
     }
+
+    
 </style>
 
 <body>
-    <br>
-    <br>
-    <br>
+    <div class="salto_linea">
+        <br>
+        <br>
+        <br>
 
+    </div>
 
     <div class="main">
 
@@ -71,12 +75,12 @@
 
             <div class="form-group col-md-4 ">
                 <label>Seleccione Fecha Desde</label>
-                <input class="form-control .maxHoy" type="text" name="fecha1" id="Fecha1" autocomplete="off" required>
+                <input class="form-control" type="date" name="fecha1" id="Fecha1" max="<?php echo date('Y-m-d') ?>" autocomplete="off" required>
             </div>
 
             <div class="form-group col-md-4 ">
                 <label>Seleccione Fecha Hasta</label>
-                <input class="form-control .maxHoy" type="text" name="fecha2" id="Fecha2" autocomplete="off" required>
+                <input class="form-control" type="date" name="fecha2" id="Fecha2" max="<?php echo date('Y-m-d') ?>" autocomplete="off" required>
 
 
             </div>
@@ -94,13 +98,15 @@
 
             </div>
 
+            
+
             </form>
         </div>
 
     </div>
 
     <div class="container table-responsive">
-        <table class="table  table-bordered" id="Tabla">
+        <table class="table " id="Tabla">
         </table>
 
 
@@ -179,39 +185,22 @@
         $.datepicker.setDefaults($.datepicker.regional['es']);
 
 
+        /* 
+                $("#Fecha1,#Fecha2").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    maxDate: +0,
+                    yearRange: "-100:+0",
+                    beforeShow: rangoCustom,
+                    dateFormat: "yy-mm-dd",
 
-        $("#Fecha1,#Fecha2").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            maxDate: +0,
-            yearRange: "-100:+0",
-            beforeShow: rangoCustom,
-            dateFormat: "yy-mm-dd",
-
-        });
-
+                });
+         */
 
 
 
     });
 
-
-    function rangoCustom(input) {
-
-        if (input.id == 'Fecha2') {
-            var minDate = new Date($('#Fecha1').val());
-
-            minDate.setDate(minDate.getDate() + 1)
-
-            return {
-                minDate: minDate
-
-            };
-        };
-
-        return {}
-
-    }
 
 
 
@@ -232,7 +221,20 @@
 
 
 
+    $('#Fecha1').change(function() {
 
+
+        $('#Fecha2').attr('min', $(this).val())
+
+
+    });
+    $('#Fecha2').change(function() {
+
+
+        $('#Fecha1').attr('max', $(this).val())
+
+
+    });
 
 
     $("#Click").click(function() {
@@ -240,7 +242,25 @@
         if (!$("#Tipoinforme").val() == 0) {
 
             $("#Tabla").empty()
-            cargarDatos();
+
+
+
+            if ($("#Fecha1").val() == 0 || $("#Fecha1").val() == 0) {
+
+                swal({
+                    title: "Seleccione Fechas",
+                    icon: "info",
+                    button: "OK",
+                });
+
+
+
+            } else {
+
+                cargarDatos();
+
+            }
+
 
 
 
@@ -264,6 +284,11 @@
         var fecha1 = $("#Fecha1");
         var fecha2 = $("#Fecha2");
         var tipo = $("#Tipoinforme");
+        $("#Tabla").removeClass('table-bordered');
+        $("#Tabla").append('<div class="center-block" ><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt=""></div>');
+
+        
+
 
 
 
@@ -280,6 +305,9 @@
 
 
             success: function(response) {
+                $("#Tabla").empty();
+                $("#Tabla").addClass('table-bordered');
+
 
                 console.log(response);
                 console.log(response.length);

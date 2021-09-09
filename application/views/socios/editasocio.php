@@ -1,7 +1,7 @@
 <head>
-    
 
-    <title>Edita Socios</title>
+
+  <title>Edita Socios</title>
 
 
 
@@ -102,39 +102,8 @@
 
 
 
-  .bs-callout {
-
-    /*padding: 20px;*/
-
-    padding: 0px 10px;
-
-    margin: 2px 5px;
-
-    border: 1px solid #eee;
-
-    border-left-width: 5px;
-
-    border-radius: 3px;
-
-  }
-
-  .bs-callout-green h4 {
-
-    color: #4b7006;
-
-  }
-
-  .bs-callout-green {
-
-    border-left-color: #4b7006;
-
-    width: 30%;
-
-    float: left;
 
 
-
-  }
 
 
 
@@ -724,36 +693,8 @@
       <div id="edit_socios">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
+
 
     </div>
 
@@ -761,7 +702,7 @@
 
 </div>
 
-</div>
+
 
 
 
@@ -884,6 +825,8 @@
   $("#enviar").click(function() {
     $("#edit_socios").empty()
 
+    $("#edit_socios").append('<div class="center-block" style="text-align:center" ><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt=""></div>');
+
 
     rut = $('#rut_socio').val();
 
@@ -901,14 +844,22 @@
         type: 'POST',
 
         success: function(data) {
+          $("#edit_socios").empty()
 
           $("#edit_socios").html(data);
 
         },
 
         error: function() {
+          $("#edit_socios").empty()
 
-          alert("No se encuetra el socio");
+
+          swal({
+            title: "No se encontraron registros",
+            icon: "info",
+            button: "OK",
+          });
+
         }
 
 
@@ -916,9 +867,16 @@
 
       });
 
-    }else{
+    } else {
+      $("#edit_socios").empty()
 
-      alert("Ingrese el rut")
+
+      swal({
+        title: "Ingrese el rut",
+        icon: "warning",
+        button: "OK",
+      });
+
 
 
 
@@ -1062,7 +1020,7 @@
         }
 
 
-
+/* 
         $.post("<?php echo base_url() ?>socios/editasocio/actSocio", {
 
           rut: rut,
@@ -1122,10 +1080,104 @@
           setTimeout("window.location.href = '<?php echo base_url() ?>socios/editasocio'", 4000);
 
 
+        }); */
+
+
+
+        $.ajax({
+
+          url: "<?php echo base_url() ?>socios/editasocio/actSocio",
+          data: {
+
+            rut: rut,
+
+            nombres: nombres,
+
+            paterno: paterno,
+
+            materno: materno,
+
+            fecha_nac: fecha_nac,
+
+            tel_fijo: tel_fijo,
+
+            tel_cel: tel_cel,
+
+            email: email,
+
+            direc: direc,
+
+            prof: prof,
+
+            direc_emp: direc_emp,
+
+            tel_emp: tel_emp,
+
+            estadocivil: estadocivil,
+
+            nacionalidad: nacionalidad,
+
+            laboral: laboral,
+
+            sexo: sexo,
+
+            sector: sector,
+
+            comu: comu,
+
+            emp: emp,
+
+            desc: desc,
+
+            nac: nac,
+
+            arr: JSON.stringify(arr)
+
+          },
+
+          type: 'POST',
+
+          success: function(data) {
+
+            $('#msg').fadeIn();
+
+            setTimeout(function() {
+
+              $("#msg").fadeOut();
+
+            }, 5000);
+
+            setTimeout("window.location.href = '<?php echo base_url() ?>socios/editasocio'", 4000);
+
+
+
+          },
+
+          error: function() {
+
+
+
+
+            swal({
+              title: "Error al guardar",
+              icon: "warning",
+              button: "OK",
+            });
+
+          }
+
 
 
 
         });
+
+
+
+
+
+
+
+
       }
     });
 

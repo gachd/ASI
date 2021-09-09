@@ -13,7 +13,39 @@
 
 
 
+
 </head>
+
+<style>
+    @media only screen and (min-width: 768px) {
+
+        .margen {
+            padding-left: 25%;
+            padding-right: 25%;
+        }
+
+    }
+
+
+
+
+
+    form .form-control {
+
+        padding: 12px 20px;
+        height: auto;
+        border-radius: 2px;
+
+    }
+
+
+
+    .btn {
+        padding: 12px 20px;
+        border-radius: 2px;
+
+    }
+</style>
 
 <body>
 
@@ -31,32 +63,34 @@
                 <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
                 <li>Nuevo Accionista</li>
             </ul>
-    </div>
-    <div class="container">
-
-        <div class="col-md-6 col-center">
-            <h1>Ingrese  rut</h1>
-
-
-            <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/" method="post">
-                <div class="form-group">
-
-                    <input type="text" class="form-control" id="rut" autocomplete="off" placeholder="11111111-1" name="rut" oninput="checkRut(this)" required>
-                    <br>
-                    <span style="color:red;"> <?php if ($_POST['msj'] == 1) { ?>
-                            <strong>El Rut ya esta registrado</strong><br> Favor ingrese sus datos correctamente. <br><br>
-                        <?php } ?> </span>
-                        
-                    <button type="submit" class="btn btn-primary">Ingresar</button>
-
-
-                </div>
-
-
-
-            </form>
         </div>
-    </div>
+        <div class="container">
+
+
+            <div class="center-block margen" style="text-align:center;">
+
+                <h1>Ingrese rut</h1>
+
+
+                <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/" method="post">
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" id="rut" autocomplete="off" placeholder="11111111-1" name="rut" oninput="checkRut(this)" required>
+                        <br>
+                        <span style="color:red;"> <?php if ($_POST['msj'] == 1) { ?>
+                                <strong>El Rut ya esta registrado</strong><br> Favor ingrese sus datos correctamente. <br><br>
+                            <?php } ?> </span>
+
+                        <button type="submit" class="btn btn-primary ">Ingresar</button>
+
+
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
     </div>
 
 </body>

@@ -1,4 +1,14 @@
-<?php !isset($this->session->userdata['logueado']) ?   die('Página con acceso restringido. <a href="' . base_url() . 'Login">Click aquí para hacer login</a>')   :   ''; ?>
+<?php if (!isset($this->session->userdata['logueado'])) { ?>
+
+
+	<?php $this->view('errors\no_sesion'); ?>
+
+
+	<?php die ?>
+
+<?php } ?>
+
+
 
 
 <!DOCTYPE html>
@@ -57,13 +67,15 @@
 		@media only screen and (min-width: 0px) and (max-width: 768px) {
 
 
-			nav#navbar_Home {
+			nav#navbar_Home 
+			{
 				position: sticky;
 				display: block;
 				z-index: 10000;
 			}
 
-			div#ui-datepicker-div {
+			div#ui-datepicker-div 
+			{
 
 				width: 60%;
 				height: auto;
@@ -163,8 +175,6 @@
 		.input-group-btn {
 			z-index: -1;
 		}
-
-
 	</style>
 
 	<script>

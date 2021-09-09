@@ -12,7 +12,16 @@
 
   <?php echo validation_errors(); ?>
 
+  <?php
+
+  $fecha_hoy = date('Y/m/d');
+  $fecha_18 = date('Y-m-d', strtotime('-18 year', strtotime($fecha_hoy)));
+
+  ?>
+
 </head>
+
+
 
 <style>
   /*  TD se adapta pantalla de acuerdo a al ancho del dispositivo */
@@ -25,9 +34,21 @@
       width: 100%;
     }
 
-    
+
+
+
   }
-  
+
+  .img-responsive {
+
+    cursor: pointer;
+    object-fit: cover;
+    object-position: center center;
+    width: 120px;
+    height: 120px;
+
+  }
+
   .bs-callout-green h4 {
 
     color: #4b7006;
@@ -79,9 +100,7 @@
 
 
 
-  .img-responsive {
-    max-width: 100px;
-  }
+
 
   /* Color a los input radio  */
 
@@ -112,6 +131,10 @@
     visibility: visible;
     border: 2px solid white;
   }
+
+  .subida_oculto {
+    display: none;
+  }
 </style>
 
 <body>
@@ -124,6 +147,8 @@
 
 
   <div class="main">
+
+
 
 
 
@@ -142,14 +167,27 @@
 
           <div class="panel-heading" style="overflow: hidden;">
 
-            <div class="col-md-2" style="width: 11%;">
+            <div class="col-md-2">
+              <center>
 
-              <img alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
+                <label for="imagen_perfil">
+                  <img alt="Foto SOCIO" src="<?php echo base_url() ?>assets/images/camara-icon.png" id="img_perfil" class="img-circle img-responsive img-thumbnail">
+                </label>
+                <div class="subida_oculto">
+                  <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto()">
+                </div>
+
+
+
+
+
+              </center>
+
 
             </div>
 
 
-            <div class="col-md-8">
+            <div class="col-md-10">
 
               <table style="text-align: center;">
 
@@ -250,7 +288,7 @@
                     <div role="tabpanel" class="tab-pane active" id="home">
 
                       <!-- datos personales -->
-                  <br>
+                      <br>
                       <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
                         <h4>Datos Personales</h4>
@@ -281,7 +319,7 @@
 
                               <td>Fecha de nacimiento</td>
 
-                              <td><input class="form-control w_fecha" type="text" name="txt_fecha" id="txt_fecha" value="<?php echo set_value('txt_fecha'); ?>" autocomplete="off"></td>
+                              <td><input class="form-control" type="date" name="txt_fecha" id="txt_fecha" max='<?php echo $fecha_18 ?>' value="<?php echo set_value('txt_fecha'); ?>" autocomplete="off"></td>
 
                             </tr>
 
@@ -526,6 +564,31 @@
 
                       </div>
 
+
+
+                      <div class="bs-callout bs-callout-green col-md-6 panel panel-default col-md-offset-3" id="ArchivosAccionista">
+
+                        <label for="arch_socio">Documentos Socio</label>
+                        <div class="input-group" id="inputFormRow" style="padding-bottom:10px;">
+
+                          <input type="file" class="form-control" id="arch_socio" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>
+                          <div class="input-group-btn">
+                            <a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_archivo"> <i class="glyphicon glyphicon-plus"></i></a>
+
+                          </div>
+                        </div>
+                        <div id=nuevo_archivo>
+
+
+
+                        </div>
+                      </div>
+
+                      <div class="clearfix"></div>
+
+
+
+
                       <div class="row">
 
                         <div class="col-sm-6">
@@ -575,6 +638,8 @@
                         </div>
 
                       </div>
+
+
 
                     </div>
 
@@ -1244,6 +1309,27 @@
 </html>
 
 <script type="text/javascript">
+  //agregar archivo
+  $("#agregar_archivo").click(function() {
+    var html = '';
+
+
+    html += '<div class="input-group" id="inputFormRow" style="padding-bottom:10px;">';
+    html += '<input type="file" class="form-control" id="archivos_fallecido" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+    html += '<div class="input-group-btn">';
+    html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
+    html += '</div>';
+    html += '</div>';
+
+
+    $('#nuevo_archivo').append(html);
+  });
+
+  // Remover archivo
+  $(document).on('click', '#remover', function() {
+    $(this).closest('#inputFormRow').remove();
+  });
+
   //Arrays de guadado de datos
 
   /*   var DatosP = new Array();
@@ -1254,10 +1340,34 @@
 
   //Variables globales
 
+
+  var validar_subida = 0 //valida que se haya subido foto de perfil
+
   var DatosP = new Object();
   var DatosDeportes = new Object();
   var DatosCorp = new Object();
   var DatosCargas = new Object();
+
+  //Funcion para ver foto en miniatura
+
+  function ver_foto() {
+    var img = document.getElementById('img_perfil');
+    var inputFile = document.getElementById('imagen_perfil').files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+      img.src = reader.result;
+
+    }
+
+    if (inputFile) {
+      reader.readAsDataURL(inputFile);
+      validar_subida = 1;
+    } else {
+      img.src = "<?php echo base_url() ?>assets/images/camara-icon.png";
+      validar_subida = 0;
+    }
+  }
 
 
   // var validador = 0;
@@ -1274,63 +1384,36 @@
 
   });
 
+
+
   $('input[name="cargas"]').change(function() {
     if ($(this).is(':checked') && $(this).val() == 'cargas_si') {
       $('#myModal').modal('show');
+    }
+    if ($(this).is(':checked') && $(this).val() == 'cargas_no') {
+
+      $('#tablacargas').empty()
     }
   });
 
 
 
 
-  $.datepicker.regional['es'] = {
 
-    closeText: 'Cerrar',
 
-    prevText: '<Ant',
-
-    nextText: 'Sig>',
-
-    currentText: 'Hoy',
-
-    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-
-    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-
-    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-
-    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-
-    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-
-    weekHeader: 'Sm',
-
-    dateFormat: 'yy/mm/dd',
-
-    firstDay: 1,
-
-    isRTL: false,
-
-    showMonthAfterYear: false,
-
-    yearSuffix: ''
-
-  };
-
-  $.datepicker.setDefaults($.datepicker.regional['es']);
 
   $(function() {
 
 
 
-    $("#txt_fecha").datepicker({
-      dateFormat: "yy-mm-dd",
-      changeMonth: true,
-      changeYear: true,
-      maxDate: "-18y",
-      yearRange: "-100:+0"
+    /*     $("#txt_fecha").datepicker({
+          dateFormat: "yy-mm-dd",
+          changeMonth: true,
+          changeYear: true,
+          maxDate: "-18y",
+          yearRange: "-100:+0"
 
-    });
+        }); */
 
   });
 
@@ -1588,50 +1671,6 @@
     DatosCargas["Cargas"] = DATA;
     DatosCargas["RutSocio"] = rut_socio;
 
-    console.log(DATA);
-
-
-
-    //eventualmente se lo vamos a enviar por PHP por ajax de una forma bastante simple y además convertiremos el array en json para evitar cualquier incidente con compativilidades.
-
-    INFO = new FormData();
-
-
-
-    aInfo = JSON.stringify(DATA);
-
-    console.log(aInfo);
-
-
-
-    INFO.append('data', aInfo);
-
-
-
-    /*    $.ajax({
-
-         cache: false,
-
-         type: "POST",
-
-         dataType: "json",
-
-         data: {
-           "data": JSON.stringify(DATA),
-           "rut": rut_socio
-         },
-
-         url: "<?php echo base_url() ?>socios/nuevo_socio/agregaCarga",
-
-         success: function(data) {
-
-           $("#info-guardar").html(data);
-
-           //Una vez que se haya ejecutado de forma exitosa hacer el código para que muestre esto mismo.
-
-         }
-
-       }); */
 
 
 
@@ -1789,33 +1828,6 @@
 
 
 
-      /*       $.ajax({ //empieza funcion que envia valores a controlador
-
-              cache: false,
-
-              type: "POST",
-
-              dataType: "json",
-
-              data: {
-                "data": data1,
-                "data_p": data2,
-                "rut": rut_socio
-              },
-
-              url: "<?php echo base_url() ?>socios/nuevo_socio/reg_Socio",
-
-              success: function(data) {
-
-                $("#info-guardar").html(data);
-
-                //Una vez que se haya ejecutado de forma exitosa hacer el código para que muestre esto mismo.
-
-              }
-
-
-
-            }); */
 
 
       $('#guardar_rs').attr('href', '#extra');
@@ -2450,6 +2462,8 @@
 
       $("#guardar_dp").click(function() {
 
+        ArchivosInput = 0;
+        var validadorInput= 0;
 
 
         var rut = document.getElementById('rut_socio').value.length;
@@ -2483,9 +2497,30 @@
         var nac = document.getElementById('nac').value.length;
 
 
+        var ArchivosSoc = document.querySelectorAll('input[name="arch_socio[]');
+
+        for (var archivo of ArchivosSoc) {
+          if(archivo.files[0]){
+            ArchivosInput = ArchivosInput +1;            
+            
+          }
+          
+
+        }
+        if (ArchivosInput == ArchivosSoc.length ){
+
+          validadorInput= 1;
+        }else{
+          validadorInput=0;
+        }
+        
 
 
-        if (rut == 0 || nombres == 0 || ap_paterno == 0 || ap_materno == 0 || $('#sexo').val().trim() === '' || fecha_nac == 0 || tel_cel == 0 || email == 0 || direc == 0 || $('#estadocivil').val().trim() === '' || $('#nacionalidad').val().trim() === '' || $('#laboral').val().trim() === '' || $('#comu').val().trim() === '') {
+
+
+
+
+        if ( validadorInput == 0 || rut == 0 || nombres == 0 || ap_paterno == 0 || ap_materno == 0 || $('#sexo').val().trim() === '' || fecha_nac == 0 || tel_cel == 0 || email == 0 || direc == 0 || $('#estadocivil').val().trim() === '' || $('#nacionalidad').val().trim() === '' || $('#laboral').val().trim() === '' || $('#comu').val().trim() === '') {
 
           //alert('Complete todos los campos');
 
@@ -2607,94 +2642,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          /* 
-
-
-
-                        $.post("<?php echo base_url() ?>socios/nuevo_socio/agregarSocio", {
-
-                          rut: rut,
-
-                          nombres: nombres,
-
-                          paterno: paterno,
-
-                          materno: materno,
-
-                          fecha_nac: fecha_nac,
-
-                          tel_fijo: tel_fijo,
-
-                          tel_cel: tel_cel,
-
-                          email: email,
-
-                          direc: direc,
-
-                          prof: prof,
-
-                          direc_emp: direc_emp,
-
-                          tel_emp: tel_emp,
-
-                          estadocivil: estadocivil,
-
-                          nacionalidad: nacionalidad,
-
-                          laboral: laboral,
-
-                          sexo: sexo,
-
-                          sector: sector,
-
-                          comu: comu,
-
-                          emp: emp,
-
-                          desc: desc,
-
-                          nac: nac
-
-                        }, function(data) {
-
-
-
-                          $("li#home").removeClass("active");
-
-                          $("li#dep").addClass("active");
-
-
-
-                          $("#info-guardar").html(data);
-
-                          $('#info-guardar').data('datper', 2);
-
-                          $("#rut_socio").attr("disabled", "disabled");
-
-
-
-
-
-
-
-                        }); */
-
-
-
         }
 
 
@@ -2750,6 +2697,35 @@
          console.log(DatosCargas);
          console.log(DatosDeportes); */
 
+      var inputs = document.querySelectorAll('input[name="arch_socio[]');
+
+
+
+
+
+
+
+
+      var formData = new FormData();
+
+      var archivos = document.getElementById('imagen_perfil').files[0];
+
+
+
+      formData.append('foto', archivos);
+      formData.append('valido', validar_subida);
+      formData.append('DatosP', JSON.stringify(DatosP));
+      formData.append('DatosCorp', JSON.stringify(DatosCorp));
+      formData.append('DatosCargas', JSON.stringify(DatosCargas));
+      formData.append('DatosDeportes', JSON.stringify(DatosDeportes));
+
+      for (var item of inputs) {
+        console.log(item.files[0]);
+        formData.append('archivosSoc[]', item.files[0]);
+
+      }
+
+
 
 
       $.ajax({
@@ -2758,23 +2734,20 @@
 
         type: "POST",
 
-        data: {
+        data: formData,
 
+        contentType: false,
 
-          "DatosP": JSON.stringify(DatosP),
-          "DatosCorp": JSON.stringify(DatosCorp),
-          "DatosCargas": JSON.stringify(DatosCargas),
-          "DatosDeportes": JSON.stringify(DatosDeportes),
-
-        },
+        processData: false,
 
         url: "<?php echo base_url() ?>socios/nuevo_socio/nuevo_socio_agregar",
 
         success: function(data) {
 
-          data = JSON.parse((data))
+          // data = JSON.parse((data))
 
-          console.log(data);
+
+
 
 
           swal({
@@ -2783,6 +2756,8 @@
               "     El socio: " + data['nombre'],
             icon: "success",
           });
+
+          setTimeout("window.location.href = '<?php echo base_url() ?>socios/nuevo_socio'", 4000);
 
         },
 
@@ -2795,6 +2770,8 @@
 
 
       });
+
+
 
     });
 

@@ -11,6 +11,107 @@
 </head>
 
 <style>
+  @media only screen and (min-width: 0px) and (max-width: 550px) {
+
+
+    .td_reponsive {
+      display: inline-block;
+      padding: 3px;
+      width: 100%;
+    }
+
+
+  }
+
+  .bs-callout-green h4 {
+
+    color: #4b7006;
+
+  }
+
+
+  /* Linea de color verde en el borde de las columnas  */
+
+  .bs-callout-green {
+
+    border-left: 5px solid #4b7006;
+
+
+  }
+
+
+  .nav-tabs>li>a {
+    border: none;
+    color: #ffffff;
+    background: #4b7006;
+    height: 50px;
+    border-left-color: #4b7006;
+    font-size: 14px;
+  }
+
+
+  .nav-tabs>li>a:hover {
+    border: none;
+    color: #fff;
+    background: #73ab0a;
+
+  }
+
+  .nav-tabs>li.active>a {
+
+    border: none;
+    color: #4b7006;
+    background: #fff;
+
+
+  }
+
+  /* deshabilita el boton de las pestañas  */
+  .inactivo {
+    pointer-events: none;
+    cursor: default;
+  }
+
+
+
+  .img-responsive {
+    max-width: 100px;
+  }
+
+  /* Color a los input radio  */
+
+  input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+  }
+
+  input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #4b7006;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+  }
+
+
+
+
+
   .tbl-afiliacion {
     color: #353535;
 
@@ -47,21 +148,10 @@
 
 
 
-  
-
-  .bs-callout-green h4 {
-
-    color: #4b7006;
-
-  }
 
 
-  .bs-callout-green {
-
-    border-left: 5px solid #4b7006;
 
 
-  }
 
 
 
@@ -886,7 +976,7 @@
 
                   <!-- datos personales -->
 
-                  <div class="bs-callout bs-callout-green col-md-4">
+                  <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
                     <h4>Datos Personales</h4>
 
@@ -896,9 +986,9 @@
 
                         <tr>
 
-                          <td width="31%">Sexo</td>
+                          <td class="td_reponsive" width="31%">Sexo</td>
 
-                          <td width="69%"><select class="form-control" id="sexo" name="sexo">
+                          <td class="td_reponsive" width="69%"><select class="form-control" id="sexo" name="sexo">
 
                               <option value="<?php echo $sexo; ?>"><?php echo $sexo_txt; ?></option>
 
@@ -912,17 +1002,17 @@
 
                         <tr>
 
-                          <td>fecha de nacimiento</td>
+                          <td class="td_reponsive">Fecha de nacimiento</td>
 
-                          <td><input class="form-control w_fecha" type="text" name="txt_fecha" id="txt_fecha" value="<?php echo $fecha_nacimiento; ?>"></td>
+                          <td class="td_reponsive"><input class="form-control w_fecha" type="text" name="txt_fecha" id="txt_fecha" value="<?php echo $fecha_nacimiento; ?>"></td>
 
                         </tr>
 
                         <tr>
 
-                          <td>lugar nacimiento</td>
+                          <td class="td_reponsive">Lugar nacimiento</td>
 
-                          <td><input type="text" class="form-control" id="nac" name="nac" value="<?php echo $nacimiento; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+                          <td class="td_reponsive"><input type="text" class="form-control" id="nac" name="nac" value="<?php echo $nacimiento; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
 
                         </tr>
 
@@ -930,9 +1020,9 @@
 
                         <tr>
 
-                          <td>estado civil</td>
+                          <td class="td_reponsive">Estado civil</td>
 
-                          <td>
+                          <td class="td_reponsive">
 
                             <select class="form-control input-sm" name="estado_civil" id="estadocivil">
 
@@ -958,9 +1048,9 @@
 
                         <tr>
 
-                          <td>nacionalidad</td>
+                          <td class="td_reponsive">Nacionalidad</td>
 
-                          <td><select class="form-control input-sm" name="nacionalidad" id="nacionalidad">
+                          <td class="td_reponsive"><select class="form-control input-sm" name="nacionalidad" id="nacionalidad">
 
                               <option value="<?php echo $nacid; ?>"><?php echo $nacnombre; ?></option>
 
@@ -984,9 +1074,9 @@
 
                         <tr>
 
-                          <td>Descendiente:</td>
+                          <td class="td_reponsive">Descendiente:</td>
 
-                          <td>
+                          <td class="td_reponsive">
                             <div class="form-check">
 
                               <?php if ($descendiente == 1) { ?>
@@ -1026,7 +1116,7 @@
 
                   <!--DATOS DE CONTACTO -->
 
-                  <div class="bs-callout bs-callout-green col-md-4">
+                  <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
                     <h4>Datos de Contacto</h4>
 
@@ -1036,9 +1126,9 @@
 
                         <tr>
 
-                          <td width="31%">Telefono Fijo</td>
+                          <td class="td_reponsive" width="31%">Telefono Fijo</td>
 
-                          <td width="69%">
+                          <td class="td_reponsive" width="69%">
 
                             <input type="tel" name="telefono" id="tel_fijo" value="<?php echo $telefono ?>" class="form-control">
 
@@ -1049,9 +1139,9 @@
 
                         <tr>
 
-                          <td>Celular</td>
+                          <td class="td_reponsive">Celular</td>
 
-                          <td><input type="tel" name="celular" id="tel_cel" value="<?php echo $celular ?>" class="form-control">
+                          <td class="td_reponsive"><input type="tel" name="celular" id="tel_cel" value="<?php echo $celular ?>" class="form-control">
 
                             <span id="error3" style="display:none;color:red;">Celular incorrecto</span>
                           </td>
@@ -1060,9 +1150,9 @@
 
                         <tr>
 
-                          <td>Correo</td>
+                          <td class="td_reponsive">Correo</td>
 
-                          <td><input type="email" name="email" id="email" value="<?php echo $email; ?>" class="form-control" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                          <td class="td_reponsive"><input type="email" name="email" id="email" value="<?php echo $email; ?>" class="form-control" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
 
                             <span id="error" style="display:none;color:red;">Email incorrecto</span>
                           </td>
@@ -1071,25 +1161,25 @@
 
                         <tr>
 
-                          <td>Dirección</td>
+                          <td class="td_reponsive">Dirección</td>
 
-                          <td><input type="text" name="direccion" id="direccion" class="form-control" value="<?php echo $direccion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td>Sector</td>
-
-                          <td><input type="text" name="poblacion" id="sector" class="form-control" value="<?php echo $poblacion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+                          <td class="td_reponsive"><input type="text" name="direccion" id="direccion" class="form-control" value="<?php echo $direccion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
 
                         </tr>
 
                         <tr>
 
-                          <td>Comuna</td>
+                          <td class="td_reponsive">Sector</td>
 
-                          <td>
+                          <td class="td_reponsive"><input type="text" name="poblacion" id="sector" class="form-control" value="<?php echo $poblacion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+
+                        </tr>
+
+                        <tr>
+
+                          <td class="td_reponsive">Comuna</td>
+
+                          <td class="td_reponsive">
 
                             <select class="form-control input-sm" name="comuna" id="comu">
 
@@ -1120,7 +1210,7 @@
 
                   <!--DATOS DE trabajo -->
 
-                  <div class="bs-callout bs-callout-green col-md-4">
+                  <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
                     <h4>Antecedentes Laborales</h4>
 
@@ -1130,9 +1220,9 @@
 
                         <tr>
 
-                          <td width="31%">Situación Laboral</td>
+                          <td class="td_reponsive" width="31%">Situación Laboral</td>
 
-                          <td width="69%">
+                          <td class="td_reponsive" width="69%">
 
                             <select class="form-control input-sm" name="situacion_lab" id="laboral">
 
@@ -1157,33 +1247,33 @@
 
                         <tr>
 
-                          <td>Actividad o Profesión</td>
+                          <td class="td_reponsive">Actividad o Profesión</td>
 
-                          <td><input type="text" name="actividad" id="prof" class="form-control" value="<?php echo $profesion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td>Empresa</td>
-
-                          <td><input type="text" name="empresa" id="emp" class="form-control" value="<?php echo $empresa_job; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+                          <td class="td_reponsive"><input type="text" name="actividad" id="prof" class="form-control" value="<?php echo $profesion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
 
                         </tr>
 
                         <tr>
 
-                          <td>Dirección</td>
+                          <td class="td_reponsive">Empresa</td>
 
-                          <td><input type="text" name="direc_empresa" id="direc_emp" class="form-control" value="<?php echo $direccion_job; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+                          <td class="td_reponsive"><input type="text" name="empresa" id="emp" class="form-control" value="<?php echo $empresa_job; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
 
                         </tr>
 
                         <tr>
 
-                          <td>Telefono</td>
+                          <td class="td_reponsive">Dirección</td>
 
-                          <td><input type="text" name="fono_empresa" id="tel_emp" class="form-control" value="<?php echo $fono_job; ?>"></td>
+                          <td class="td_reponsive"><input type="text" name="direc_empresa" id="direc_emp" class="form-control" value="<?php echo $direccion_job; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+
+                        </tr>
+
+                        <tr>
+
+                          <td class="td_reponsive">Telefono</td>
+
+                          <td class="td_reponsive"><input type="text" name="fono_empresa" id="tel_emp" class="form-control" value="<?php echo $fono_job; ?>"></td>
 
                         </tr>
 
@@ -1205,7 +1295,7 @@
 
                       <div class="panel-heading">Datos cargas familiares</div>
 
-                      <div class="panel-body">
+                      <div class="panel-body table-responsive">
 
                         <table width="100%" id="cargas" class="table table-bordered table-hover">
 

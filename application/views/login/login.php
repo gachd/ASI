@@ -1,13 +1,11 @@
-<?php
+<?php if (isset($this->session->userdata['logueado'])) { ?>
+
+  <?php redirect('accionistas/inicio');  ?>
 
 
-
-if (isset($this->session->userdata['logueado'])) {
-  redirect('accionistas/inicio');
-}
+<?php } ?>
 
 
-?>
 
 
 <!DOCTYPE html>
@@ -58,7 +56,10 @@ if (isset($this->session->userdata['logueado'])) {
                 <input type="text" placeholder="Usuario" name="username" />
                 <input type="password" placeholder="Contraseña" name="password" />
                 <button>ingresar</button>
-                <p class="message"> <?php echo base_url() ?> No estas registrado? solicita tu cuenta a <a href="#">ffigueroa@enti-italiani.cl</a></p>
+                <p class="message"> No estas registrado?
+                  <a href="mailto:cuenta@demail.com">Clicka para enviar email a soporte</a>
+                
+                </p>
                 <?php echo form_close(); ?>
               </div>
             </div>
@@ -83,4 +84,3 @@ if (isset($this->session->userdata['logueado'])) {
 </html>
 
 <doctype html>
- 

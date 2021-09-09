@@ -16,6 +16,29 @@
 
 </head>
 
+<style>
+  td div {
+    margin: auto;
+  }
+
+
+  .name {
+    padding-left: 15px;
+    width: 60px;
+    display: inline-block;
+  }
+
+  .number {
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+  }
+
+  .centrado {
+    text-align: center;
+  }
+</style>
+
 
 <div class="salto_linea">
   <br>
@@ -99,6 +122,18 @@
             </script>
 
           <?php } ?>
+          <?php if ($this->session->flashdata('embargo')) {  ?>
+
+
+            <script>
+              swal({
+                title: "Titulo Actualizado con exito",
+                icon: "success",
+                button: "OK",
+              });
+            </script>
+
+          <?php } ?>
 
         </div>
 
@@ -117,6 +152,7 @@
 
 
 
+
       </form>
 
 
@@ -124,6 +160,8 @@
 
 
     <div class="container table-responsive div-wrapper well" style="border:1px solid ">
+
+
       <h4><strong>TITULOS ACTIVOS</strong></h4>
       <br>
       <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
@@ -137,6 +175,7 @@
             <th>Poseedor</th>
             <th>Rut</th>
             <th>Fecha de entrega</th>
+            <th>Acciones <br> embargadas</th>
 
 
 
@@ -156,12 +195,12 @@
 
             <tr>
 
-              <td><?php echo $t->id_titulos ?></td>
-              <td><?php echo $t->numero_acciones  ?></td>
-              <td><?php echo $t->fecha ?></td>
+              <td class="centrado"><?php echo $t->id_titulos ?></td>
+              <td class="centrado"><?php echo $t->numero_acciones  ?></td>
+              <td class="centrado"><?php echo $t->fecha ?></td>
               <td><?php echo $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . ' ' . $t->prsn_apellidomaterno  ?></td>
-              <td><?php echo $t->prsn_rut  ?></td>
-              <td>
+              <td class="centrado"><?php echo $t->prsn_rut  ?></td>
+              <td class="centrado">
                 <?php if ($t->fecha_entrega) { ?>
 
                   <?php echo $t->fecha_entrega  ?>
@@ -171,6 +210,39 @@
                   NO ENTREGADA
 
                 <?php } ?>
+              </td>
+
+              <td class="text-left">
+                <span >
+
+                  <?php if ($t->embargo) { ?>
+
+
+
+                    <?php echo $t->acciones_embargadas  ?>
+
+
+                  <?php } else { ?>
+
+                    No
+
+                  <?php } ?>
+                </span>
+
+
+                <span class="pull-right text-right">
+                  <form action="<?php echo base_url(); ?>accionistas/titulos/embargo" method="post">
+                    <input type="hidden" name="idT" value="<?php echo $t->id_titulos ?>">
+                    <input type="hidden" name="RutA" value="<?php echo $t->prsn_rut ?>">
+
+                    <button class="">Editar</button>
+
+                    <!--  <a href="<?php echo base_url()  ?>accionistas/titulos/embargo/<?php echo $t->id_titulos ?>"><span class="label label-info">Editar</span></a> -->
+                  </form>
+
+                </span>
+
+
               </td>
 
 

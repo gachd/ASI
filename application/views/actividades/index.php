@@ -105,7 +105,7 @@
      <div class="buscador padre">
           <div class="btn-group">
                <?php $usuario=$this->session->userdata('id');
-               $permiso= $this -> model_actividades -> permiso_insertar($usuario);
+               $permiso = $this -> model_actividades -> permiso_insertar($usuario);
                if(!empty($permiso)){
                 echo' <button type="button" class="btn-nuevo btn btn-default" id="nuevo" title="Nueva Actividad"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>';
               }

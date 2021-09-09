@@ -22,6 +22,13 @@
     .open-dropdown {
         font-weight: bold;
     }
+
+    .padding {
+
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+    }
 </style>
 
 
@@ -68,25 +75,26 @@ function listadoDirectorio($directorio)
 
 
         if (count($listado) < 1) {
+
             echo 'Directorio Vacio';
         } else {
+
+
+
             foreach ($listado as $elemento) {
 
                 if (!is_dir($directorio . '/' . $elemento)) {
 
-                    echo '<li style="list-style-type:none;"><a href="' . $urlBase . $directorio . '/' . $elemento . '" target="_blank">' . $elemento . '</a></li>';
-                    
+                    echo '<li style="list-style-type:none;" class="padding"><a href="' . $urlBase . $directorio . '/' . $elemento . '" target="_blank" class="form-control">' . $elemento . '</a></li>';
                 }
                 if (is_dir($directorio . '/' . $elemento)) {
-                    echo '<li style="list-style-type:none;" class="open-dropdown "><a href="javascript:void(0)" class="btn btn-primary btn-xs">' . $elemento . '<b class="caret"></b> </a> </li>';
+                    echo '<li style="list-style-type:none;" class="open-dropdown padding"><a href="javascript:void(0)"   class="btn btn-primary ">' . $elemento . '<b class="caret"></b> </a> </li>';
                     echo '<ul class="dropdown d-none">';
                     listadoDirectorio($directorio . '/' . $elemento);
                     echo '</ul>';
-                
                 }
             }
         }
-        
     } else {
 
         echo 'No existe directorio';
@@ -184,7 +192,7 @@ function listadoDirectorio($directorio)
                     <div class="col-md-8">
 
 
-                        <div class="table-responsive">
+                        <div class="">
                             <table class="table ">
                                 <tbody>
 
@@ -263,10 +271,17 @@ function listadoDirectorio($directorio)
                                                 Carpeta con Archivos
                                             </strong>
                                         </td>
-                                        <td >
-                                            <!--  <a href="/ASI/<?php echo $accionista[0]->path; ?>">Archivo</a> -->
+                                        <td>
+                                            <?php if (is_dir($accionista[0]->path)) {     ?>
+                                                <li style="list-style-type:none;" class="open-dropdown padding"><a href="javascript:void(0)" class="btn btn-primary ">Carpeta <b class="caret"></b> </a> </li>
+                                                <ul class="dropdown d-none">
 
-                                            <?php listadoDirectorio($accionista[0]->path) ?>
+                                                    <?php listadoDirectorio($accionista[0]->path) ?>
+                                                </ul>
+                                            <?php } else { ?>
+                                                No existe directorio
+                                            <?php } ?>
+
 
                                         </td>
                                     </tr>
@@ -355,7 +370,7 @@ function listadoDirectorio($directorio)
                                                             <td align="center"><?php echo $t->id_titulos  ?></td>
                                                             <td align="center"><?php echo $t->fecha  ?> </td>
                                                             <td align="center"><?php echo $t->numero_acciones  ?></td>
-                                                        
+
                                                         </tr>
                                                     <?php } ?>
 

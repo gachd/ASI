@@ -30,7 +30,6 @@
         height: auto;
         border-radius: 2px;
     }
-
 </style>
 
 
@@ -50,7 +49,11 @@
 
             <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionista" method="post" enctype="multipart/form-data">
                 <div class="container">
+
+
                     <h2>Datos Personales</h2>
+
+                    <input type="hidden" name="IdPersona" value="<?php echo $persona->prsn_id ?>">
 
 
 
@@ -68,9 +71,13 @@
                         <label>Tipo de Persona</label>
                         <br>
 
-                        <label class="radio-inline"><input type="radio" name="optradio" value="0" required>Natural</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" value="0" required <?php if ($persona->prsn_tipo == 0) {
+                                                                                                                echo "checked";
+                                                                                                            }  ?>>Natural</label>
 
-                        <label class="radio-inline"><input type="radio" name="optradio" value="1">Juridica</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" value="1" <?php if ($persona->prsn_tipo == 1) {
+                                                                                                        echo "checked";
+                                                                                                    }  ?>>Juridica</label>
 
 
 
@@ -81,36 +88,36 @@
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Nombre</label>
-                        <input type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input value="<?php echo $persona->prsn_nombres ?>" type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Nombre" name="nombres" id="Nombre" required style="text-transform:uppercase">
                     </div>
 
-                    <div class="form-group col-md-4 oculto" id="divapellidoP">
+                    <div class="form-group col-md-4 " id="divapellidoP">
                         <label for="first-name">Apellido Paterno</label>
-                        <input type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input value="<?php echo $persona->prsn_apellidopaterno ?>" type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" style="text-transform:uppercase">
                     </div>
-                    <div class="form-group col-md-4 oculto" id="apellidoM">
+                    <div class="form-group col-md-4 " id="apellidoM">
                         <label for="first-name">Apellido Materno</label>
-                        <input type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input value="<?php echo $persona->prsn_apellidomaterno ?>" type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" style="text-transform:uppercase">
                     </div>
 
-                    <div class="form-group col-md-4 oculto" id="divfechaN">
+                    <div class="form-group col-md-4 " id="divfechaN">
                         <label for="first-name">Fecha Nacimiento</label>
-                        <input readonly style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
+                        <input value="<?php echo $persona->prsn_fechanacimi ?>" readonly style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Email</label>
-                        <input type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo" title="Debe ser un Correo Valido" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input value="<?php echo $persona->prsn_email ?>" type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo" title="Debe ser un Correo Valido" required style="text-transform:uppercase">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Fono</label>
-                        <input type="text" name="Fono" class="form-control" placeholder="Telefono" id="Fono" minlength="8" maxlength="9" required>
+                        <input value="<?php echo $persona->prsn_fono_movil ?>" type="text" name="Fono" class="form-control" placeholder="Telefono" id="Fono" minlength="8" maxlength="9" required>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Dirección </label>
-                        <input type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required>
+                        <input value="<?php echo $persona->prsn_direccion ?>" type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required style="text-transform:uppercase">
                     </div>
 
 
@@ -154,7 +161,7 @@
 
 
 
-                    <div class="form-group col-md-4 oculto" id="divestdoC">
+                    <div class="form-group col-md-4 " id="divestdoC">
                         <label for="estado civil">Estado Civil</label>
                         <select class="form-control" name="estadocivil" id="estadocivil">
                             <option value=""> Seleccionar </option>
@@ -169,13 +176,17 @@
                     </div>
 
 
-                    <div class="form-group col-md-4 oculto " id="divgenero">
+                    <div class="form-group col-md-4  " id="divgenero">
                         <label>Género</label>
                         <div class="radio">
                             <label class="radio-inline">
-                                <input type="radio" name="sexo" id="gen1" value="1">Masculino</label>
+                                <input type="radio" name="sexo" id="gen1" value="1" <?php if ($persona->prsn_sexo == 1) {
+                                                                                        echo "checked";
+                                                                                    }  ?>>Masculino</label>
                             <label class="radio-inline">
-                                <input type="radio" name="sexo" value="0">Femenino</label>
+                                <input type="radio" name="sexo" value="0" <?php if ($persona->prsn_sexo == 0) {
+                                                                                echo "checked";
+                                                                            } ?>>Femenino</label>
                         </div>
                     </div>
 
@@ -215,11 +226,11 @@
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Foja</label>
-                        <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required style="text-transform:uppercase">
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label ">Fecha Ingreso</label>
+                        <label for="FechaIgreso">Fecha Ingreso</label>
                         <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" readonly required>
 
                     </div>
@@ -256,6 +267,8 @@
                                 <input type="radio" required name="accion" id="accionN" value="1">Nueva</label>
                             <label class="radio-inline">
                                 <input type="radio" name="accion" value="0">Cesion</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="accion" value="2">Transmision</label>
                         </div>
                     </div>
                     <div class="form-group col-md-4 oculto" id="AccionesNuevoT">
@@ -441,7 +454,7 @@
 
             switch (personaT) {
 
-                case "1":
+                case "0":
 
                     $("#divapellidoP").show();
                     $('#ApellidoP').prop('required', true);
@@ -457,7 +470,7 @@
 
                     break;
 
-                case "2":
+                case "1":
 
                     $("#divapellidoP").hide();
                     $('#ApellidoP').prop('required', false).val('');
@@ -494,19 +507,11 @@
 
 
 
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
-                success: function(response) {
-
-                    $('#TituloP').html(response).fadeIn();
 
 
-                },
-                error: function() {
-                    alert('Ocurrio un error en el servidor ..');
-                }
-            });
+
+
+
 
             $("#TituloP").change(function() {
                 var tituloP = $(this).val();
@@ -703,6 +708,23 @@
                     $('#fechaC').prop('required', true);
 
 
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+                        success: function(response) {
+
+                            $('#TituloP').html(response);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
+
+                    
+
+
 
 
 
@@ -727,6 +749,40 @@
 
                     break;
 
+
+                case "2": //Transmision
+
+                    $("#Aprocedente").show();
+                    $('#TituloP').prop('required', true);
+
+                    $("#DivNumeroaTransferir").show();
+                    $('#NumNuevoCesion').prop('required', true);
+
+                    $("#AccionesNuevoT").hide();
+                    $("#AccioniesNuevoT").prop('required', false).val('');
+
+
+                    $("#DivFechaCesion").show();
+                    $('#fechaC').prop('required', true);
+
+                    $('#TituloP').find('option').remove();
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos_transmision",
+                        success: function(response) {
+
+                            $('#TituloP').html(response);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
+                    
+                    
 
             }
 

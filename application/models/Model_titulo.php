@@ -9,6 +9,15 @@ class model_titulo extends CI_Model
         return $com->result();
     }
 
+    function infoTituloID($idT)
+    {
+        $this->db->select('*');
+        $this->db->where('id_titulos', $idT);
+        $sql = $this->db->get('s_titulos');
+        $result = $sql->result();
+        return $result[0];
+    }
+
 
     function nuevo_titulo($data)
     {
@@ -18,7 +27,23 @@ class model_titulo extends CI_Model
     function titulosactivos()
     {
 
-        $p = $this->db->query('SELECT t.id_titulos, p.prsn_nombres,p.prsn_apellidopaterno , p.prsn_apellidomaterno,p.prsn_rut, a.id_accionista,t.numero_acciones, t.fecha ,t.fecha_entrega  FROM s_titulos t, s_personas p, s_accionista a WHERE t.estado = 1 AND p.prsn_rut= a.prsn_rut and t.id_accionista= a.id_accionista GROUP by t.id_titulos ORDER BY t.id_titulos ASC');
+        $p = $this->db->query('SELECT t.id_titulos, p.prsn_nombres,p.prsn_apellidopaterno , p.prsn_apellidomaterno,p.prsn_rut, a.id_accionista,t.numero_acciones, t.fecha ,t.fecha_entrega,t.embargo,t.acciones_embargadas  FROM s_titulos t, s_personas p, s_accionista a WHERE t.estado = 1 AND p.prsn_rut= a.prsn_rut and t.id_accionista= a.id_accionista GROUP by t.id_titulos ORDER BY t.id_titulos ASC');
+        return $p->result();
+    }
+    function titulosactivos_transmision()
+    {
+
+
+        $this->db->select('id_titulos, p.prsn_nombres,p.prsn_apellidopaterno , p.prsn_apellidomaterno,p.prsn_rut, a.id_accionista,t.numero_acciones, t.fecha ,t.fecha_entrega,t.embargo,t.acciones_embargadas');
+        $this->db->from('s_titulos t, s_personas p, s_accionista a');
+        $this->db->where('t.estado', 1);
+        $this->db->where('transmision = 1');
+        $this->db->where('p.prsn_rut = a.prsn_rut');
+        $this->db->where('t.id_accionista = a.id_accionista');
+        $this->db->group_by('t.id_titulos');
+        $this->db->order_by('t.id_titulos', 'ASC');
+        $p = $this->db->get();
+        
         return $p->result();
     }
 

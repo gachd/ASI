@@ -66,8 +66,6 @@ class nuevo_socio extends CI_Controller
 
       $this->load->view('plantilla/Head_v1');
 
-      //$this->load->view('socios/index', $data);
-
       $this->load->view('socios/agregarSocio', $data);
 
       $this->load->view('plantilla/Footer');
@@ -219,26 +217,54 @@ class nuevo_socio extends CI_Controller
    {
 
 
+
       $DatosP = json_decode($_POST['DatosP']);
       $DatosDeportes = json_decode($_POST['DatosDeportes']);
       $DatosCorp = json_decode($_POST['DatosCorp']);
       $DatosCargas = json_decode($_POST['DatosCargas']);
 
+      $rut_socio = $DatosP->rut;
+
+
+
+      $archivosSoc = $_FILES["archivosSoc"];
+
+
+
+
+      //valido existencia foto de perfil
+
+      if ($_POST['valido'] == 1) {
+
+         $this->Subir_foto_Socio($rut_socio);
+
+
+      }
+     
+      $this->Subir_Archivos_Socio($rut_socio, $archivosSoc);
+
+      die;
+
+
+
+
+
+
+
       // llamo a las funciones donde agrego los datos
 
-      $this->agregarSocio($DatosP);
-      $this->agregarDep($DatosDeportes);
+      $this->agregarSocioPersona($DatosP);
+      $this->agregarDeportes($DatosDeportes);
       $this->reg_Socio($DatosCorp);
 
       //Se valida que se ingresen cargas antes de guardar
 
-      if(empty($DatosCargas->Cargas) ){
+      if (!empty($DatosCargas->Cargas)) {
 
-         $this->agregaCarga($DatosCargas);  
-
+         $this->agregaCarga($DatosCargas);
       }
 
- 
+
 
       $devuelta = [
          "rut" => $DatosP->rut,
@@ -260,12 +286,16 @@ class nuevo_socio extends CI_Controller
 
 
 
-   private function agregarSocio($DatosP)
+   private function agregarSocioPersona($DatosP)
    {
 
 
 
       $prsn_id = $this->model_socios->ultimoId();
+
+      $prsn_foto = 0;
+
+
 
 
 
@@ -305,7 +335,7 @@ class nuevo_socio extends CI_Controller
 
          'prsn_direccion_empresa' => $direc_emp = $DatosP->direc_emp,  // $this->input->post('direc_emp'),
 
-         'prsn_foto' => $prsn_foto = 0,
+         'prsn_foto' => $prsn_foto,
 
          'prsn_fallecido' => $prsn_fallecido = 0,
 
@@ -322,7 +352,7 @@ class nuevo_socio extends CI_Controller
          'prsn_nac' => $nac = $DatosP->nac,  //$this->input->post('nac')
       );
 
-      
+
       $this->model_socios->insertar($data); //INSERT PERSONAS
    }
 
@@ -417,8 +447,6 @@ class nuevo_socio extends CI_Controller
 
 
          $this->model_socios->insertarSocCorp($data);
-
-         
       }
 
       $id_soc = $this->model_socios->getIdSocio($rut_socio); //Consulta para obtener id socio
@@ -481,8 +509,7 @@ class nuevo_socio extends CI_Controller
 
 
          $this->model_socios->insertarSocPatro($data_p);
-         
-      } //fin for para agregar cargas  
+      } //fin for para agregar patrocinador 
 
 
 
@@ -502,7 +529,7 @@ class nuevo_socio extends CI_Controller
 
 
 
-   private function agregarDep($DatosDeportes)
+   private function agregarDeportes($DatosDeportes)
    {
 
 
@@ -521,7 +548,7 @@ class nuevo_socio extends CI_Controller
 
       );
 
-     
+
 
 
       //Insertar deportes
@@ -541,7 +568,7 @@ class nuevo_socio extends CI_Controller
       $rut_socio    = $DatosCargas->RutSocio;
 
 
-      
+
 
       // $DATA     = json_decode($_POST['data']);
 
@@ -652,7 +679,7 @@ class nuevo_socio extends CI_Controller
 
 
          $this->model_socios->insertar($data);
-         
+
 
 
 
@@ -685,15 +712,119 @@ class nuevo_socio extends CI_Controller
             'certificado' => $DATA[$i]->cert
          );
 
-        
+
 
          $this->model_socios->insertar_carg($data_carg);
 
 
 
          $prsn_id = $prsn_id + 1;
-
-        
       } //fin for para agregar cargas
+   }
+
+
+
+   //private
+
+
+   private function Subir_foto_Socio($rut_socio){
+      
+         // $fecha_actual = date("Y-m-d");
+
+         $micarpeta = 'archivos/socios/' . $rut_socio . '/perfil/';
+
+
+
+         if (!file_exists($micarpeta)) {
+
+            mkdir($micarpeta, 0777, true);
+         }
+
+         $config['upload_path'] = $micarpeta;
+
+         $config['file_name'] =  $rut_socio . '_perfil';
+
+         $config['allowed_types'] = 'gif|jpg|jpeg|png';
+
+         $config['max_size'] = 2048;
+
+
+
+         $this->load->library('upload', $config);
+
+         $this->upload->initialize($config);
+
+         if (!$this->upload->do_upload('foto')) { #Aquí me refiero a "foto", el nombre que pusimos en FormData
+
+            $error = array('error' => $this->upload->display_errors());
+
+            echo json_encode($error);
+         } else {
+
+            echo json_encode(true);
+         }
+
+
+   }
+
+   private function Subir_Archivos_Socio($user, $archivo)
+   {
+
+
+      $formatos = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
+
+      $fecha = date("Y.m.d_");
+
+
+
+      $Dir_archivos = 'archivos/socios/'; //carpeta donde se guadaran todos los archivos subidos del sistema.
+
+
+      foreach ($archivo['tmp_name'] as $key => $tmp_name) {
+         //condicional si el fuchero existe
+         if ($archivo["name"][$key]) {
+            // Nombres de archivos de temporales
+
+
+            $archivonombre = $fecha . $archivo["name"][$key];
+
+            $fuente = $archivo["tmp_name"][$key];
+
+            $carpeta = $Dir_archivos . $user . '/docs/'; //Declaramos el nombre de la carpeta que guardara los archivos
+
+            if (!file_exists($carpeta)) {
+
+               mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+            }
+            var_dump($carpeta);
+
+            //Abrimos el directorio
+            $dir = opendir($carpeta);
+
+            $path_archivo = $carpeta . '/' . $archivonombre; //indicamos la ruta de destino de los archivos
+
+            $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+
+
+            if (in_array($Tipo_archivo, $formatos)) {
+
+               if (move_uploaded_file($fuente, $path_archivo)) {
+
+                  echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+               } else {
+
+                  echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+               }
+            } else {
+
+               echo "Formato del archivo $archivonombre no valido.<br>";
+            }
+
+            closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+         }
+      }
    }
 }

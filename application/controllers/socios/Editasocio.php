@@ -180,7 +180,7 @@
       'prsn_nac' => $nac = $this->input->post('nac')
     );
 
-
+die;
 
     $this->model_socios->actualizarSocio($data, $rut_socio); //ACTUALIZAR PERSONAS
 

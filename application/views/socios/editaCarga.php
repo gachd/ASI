@@ -1,74 +1,83 @@
+<head>
+  <title>Edicion de Carga</title>
+</head>
+
 <style>
+  .error {
+    display: block;
+  }
 
-.error { display: block; }
+  .autocomplete-items {
 
-.autocomplete-items {
+    /*position: absolute;*/
 
-  /*position: absolute;*/
+    position: inherit;
 
-  position: inherit;
+    border: 1px solid #d4d4d4;
 
-  border: 1px solid #d4d4d4;
+    border-bottom: none;
 
-  border-bottom: none;
+    border-top: none;
 
-  border-top: none;
+    z-index: 99;
 
-  z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
 
-  /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
 
-  top: 100%;
+    left: 0;
 
-  left: 0;
+    right: 0;
 
-  right: 0;
+  }
 
-}
+  .autocomplete-items div {
 
-.autocomplete-items div {
+    padding: 10px;
 
-  padding: 10px;
+    cursor: pointer;
 
-  cursor: pointer;
+    background-color: #fff;
 
-  background-color: #fff; 
+    border-bottom: 1px solid #d4d4d4;
 
-  border-bottom: 1px solid #d4d4d4; 
+  }
 
-}
+  .autocomplete-items div:hover {
 
-.autocomplete-items div:hover {
+    /*when hovering an item:*/
 
-  /*when hovering an item:*/
+    background-color: #e9e9e9;
 
-  background-color: #e9e9e9; 
+  }
 
-}
+  .autocomplete-active {
 
-.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
 
-  /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
 
-  background-color: DodgerBlue !important; 
+    color: #ffffff;
 
-  color: #ffffff; 
+  }
 
-}
+  .tbl-afiliacion {
+    color: #353535;
 
-  .tbl-afiliacion{ color: #353535;
+    font-size: 10px;
 
-                   font-size: 10px;
+    text-transform: capitalize;
 
-                   text-transform: capitalize; 
+    border: 1px #b9b6b6 solid;
 
-                   border: 1px #b9b6b6  solid;
+  }
 
-                 }
+  .n_registro {
+    text-align: center;
+  }
 
-  .n_registro{text-align: center;}
-
-  .card-title{border-left: 3px solid #4b7006;
+  .card-title {
+    border-left: 3px solid #4b7006;
 
     color: #4b7006;
 
@@ -88,11 +97,11 @@
 
 
 
-.bs-callout {
+  .bs-callout {
 
     /*padding: 20px;*/
 
-    padding:0px 10px;
+    padding: 0px 10px;
 
     margin: 2px 5px;
 
@@ -102,13 +111,13 @@
 
     border-radius: 3px;
 
-}
+  }
 
-.bs-callout-green h4 {
+  .bs-callout-green h4 {
 
     color: #4b7006;
 
-    }
+  }
 
   .bs-callout-green {
 
@@ -116,25 +125,36 @@
 
     width: 30%;
 
-    float: left ;
+    float: left;
 
 
 
-}
+  }
 
 
 
-.tbl-datos{font-size: 11px; text-transform: uppercase;}
+  .tbl-datos {
+    font-size: 11px;
+    text-transform: uppercase;
+  }
 
-.pat{font-size: 10px;}
+  .pat {
+    font-size: 10px;
+  }
 
-.box-pat{    max-height: 127px;
+  .box-pat {
+    max-height: 127px;
 
-    overflow: auto;}
+    overflow: auto;
+  }
 
-.box-pat > ul{padding-left: 5px;}
+  .box-pat>ul {
+    padding-left: 5px;
+  }
 
-.box-pat > ul > li > a {color: #333;}
+  .box-pat>ul>li>a {
+    color: #333;
+  }
 
 
 
@@ -142,111 +162,184 @@
 
   /*tab panel*/
 
-  .nav-tabs { border-bottom: 2px solid #DDD; }
+  .nav-tabs {
+    border-bottom: 2px solid #DDD;
+  }
 
-    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+  .nav-tabs>li.active>a,
+  .nav-tabs>li.active>a:focus,
+  .nav-tabs>li.active>a:hover {
+    border-width: 0;
+  }
 
-    .nav-tabs > li > a { border: none; color: #ffffff;background: #4b7006 ; }
+  .nav-tabs>li>a {
+    border: none;
+    color: #ffffff;
+    background: #4b7006;
+  }
 
-        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none;  color: #4b7006  !important; background: #fff; }
+  .nav-tabs>li.active>a,
+  .nav-tabs>li>a:hover {
+    border: none;
+    color: #4b7006 !important;
+    background: #fff;
+  }
 
-        .nav-tabs > li > a::after { content: ""; background: #4b7006 ; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+  .nav-tabs>li>a::after {
+    content: "";
+    background: #4b7006;
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    bottom: -1px;
+    transition: all 250ms ease 0s;
+    transform: scale(0);
+  }
 
-    .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+  .nav-tabs>li.active>a::after,
+  .nav-tabs>li:hover>a::after {
+    transform: scale(1);
+  }
 
-.tab-nav > li > a::after { background: #4b7006  none repeat scroll 0% 0%; color: #fff; }
+  .tab-nav>li>a::after {
+    background: #4b7006 none repeat scroll 0% 0%;
+    color: #fff;
+  }
 
-.tab-pane { padding: 15px 0; }
+  .tab-pane {
+    padding: 15px 0;
+  }
 
-.tab-content{padding:20px;overflow: hidden;}
+  .tab-content {
+    padding: 20px;
+    overflow: hidden;
+  }
 
-.nav-tabs > li  {width:20%; text-align:center;}
+  .nav-tabs>li {
+    width: 20%;
+    text-align: center;
+  }
 
-.card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
-
-
-
-
-
-@media all and (max-width:724px){
-
-.nav-tabs > li > a > span {display:none;} 
-
-.nav-tabs > li > a {padding: 5px 5px;}
-
-}
-
-
-
-table.registro_socios{font-size: 12px;}
-
-table.registro_socios tbody{text-align: center;}
-
-.r_coorp{text-align: left;}
-
-
-
-.historial{max-height: 240px;
-
-           overflow: overlay;}
-
-table.historial_coorp{width: 100%; font-size: 12px;}
-
-table.historial_coorp th{
-
-                          vertical-align: bottom;
-
-                          border-bottom: 2px solid #dee2e6;
-
-                          color: #555555;
-
-                          padding: 1.05rem 0.75rem;
-
-                          text-transform: capitalize;
-
-                          letter-spacing: 1px;
-
-                        }
-
+  .card {
+    background: #FFF none repeat scroll 0% 0%;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+  }
 
 
-    table.historial_coorp tr{    padding-bottom: 20px;}
 
-    table.historial_coorp tr:last-child {
+
+
+  @media all and (max-width:724px) {
+
+    .nav-tabs>li>a>span {
+      display: none;
+    }
+
+    .nav-tabs>li>a {
+      padding: 5px 5px;
+    }
+
+  }
+
+
+
+  table.registro_socios {
+    font-size: 12px;
+  }
+
+  table.registro_socios tbody {
+    text-align: center;
+  }
+
+  .r_coorp {
+    text-align: left;
+  }
+
+
+
+  .historial {
+    max-height: 240px;
+
+    overflow: overlay;
+  }
+
+  table.historial_coorp {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  table.historial_coorp th {
+
+    vertical-align: bottom;
+
+    border-bottom: 2px solid #dee2e6;
+
+    color: #555555;
+
+    padding: 1.05rem 0.75rem;
+
+    text-transform: capitalize;
+
+    letter-spacing: 1px;
+
+  }
+
+
+
+  table.historial_coorp tr {
+    padding-bottom: 20px;
+  }
+
+  table.historial_coorp tr:last-child {
 
     border-bottom: none;
 
-}
+  }
 
-table.historial_coorp td{border-top: 1px solid #ccc;
+  table.historial_coorp td {
+    border-top: 1px solid #ccc;
 
-  padding: 1.05rem 0.75rem;}
-
-
-
-  table.datos_coorp{font-size: 12px; text-transform: capitalize;}
-
-  table.datos_coorp td{padding: 4px 3px; }
+    padding: 1.05rem 0.75rem;
+  }
 
 
 
-.n_accion{    font-size: 50px;
+  table.datos_coorp {
+    font-size: 12px;
+    text-transform: capitalize;
+  }
+
+  table.datos_coorp td {
+    padding: 4px 3px;
+  }
+
+
+
+  .n_accion {
+    font-size: 50px;
 
     text-align: center;
 
-}
+  }
 
 
 
-.desc_accion{border-right: none; border-left: none;}
+  .desc_accion {
+    border-right: none;
+    border-left: none;
+  }
 
 
 
-.desc_accion .list-group-item:first-child {border-radius:  none;}
+  .desc_accion .list-group-item:first-child {
+    border-radius: none;
+  }
 
 
 
-/*==================================================
+  /*==================================================
 
  * left tab
 
@@ -254,11 +347,11 @@ table.historial_coorp td{border-top: 1px solid #ccc;
 
 
 
- 
 
- 
 
- .tabs-left > .nav-tabs {
+
+
+  .tabs-left>.nav-tabs {
 
     float: left;
 
@@ -266,19 +359,22 @@ table.historial_coorp td{border-top: 1px solid #ccc;
 
     border: none;
 
-}
+  }
 
 
 
-.tabs-below > .nav-tabs, .tabs-right > .nav-tabs, .tabs-left > .nav-tabs {
+  .tabs-below>.nav-tabs,
+  .tabs-right>.nav-tabs,
+  .tabs-left>.nav-tabs {
 
     border-bottom: 0;
 
-}
+  }
 
 
 
-.tabs-left > .nav-tabs > li, .tabs-right > .nav-tabs > li {
+  .tabs-left>.nav-tabs>li,
+  .tabs-right>.nav-tabs>li {
 
     float: none;
 
@@ -286,11 +382,11 @@ table.historial_coorp td{border-top: 1px solid #ccc;
 
     width: 100%;
 
-}
+  }
 
 
 
-.tabs-left > .nav-tabs > li > a {
+  .tabs-left>.nav-tabs>li>a {
 
     margin-right: -1px;
 
@@ -300,9 +396,10 @@ table.historial_coorp td{border-top: 1px solid #ccc;
 
     border-radius: 4px 0 0 4px;
 
-}
+  }
 
-.tabs-left > .nav-tabs > li > a, .tabs-right > .nav-tabs > li > a {
+  .tabs-left>.nav-tabs>li>a,
+  .tabs-right>.nav-tabs>li>a {
 
     min-width: 74px;
 
@@ -312,153 +409,190 @@ table.historial_coorp td{border-top: 1px solid #ccc;
 
     background-color: #4b7006;
 
-    border-radius:0px;
+    border-radius: 0px;
 
     color: white;
 
     font-size: 11px;
 
-}
+  }
 
 
 
-.tabs-left > .nav-tabs .active > a, .tabs-left > .nav-tabs .active > a:hover, .tabs-left > .nav-tabs .active > a:focus {
+  .tabs-left>.nav-tabs .active>a,
+  .tabs-left>.nav-tabs .active>a:hover,
+  .tabs-left>.nav-tabs .active>a:focus {
 
     border-color: #ddd transparent #ddd #ddd;
 
-      background-color: #fff;
+    background-color: #fff;
 
-color: dimgrey;
+    color: dimgrey;
 
-border:none;
+    border: none;
 
-}
-
-
-
-.left-tab-process .tab-content{
-
-  background-color:#fff;
-
-      margin-left: 131px;
-
-      padding: 0px 15px;}
+  }
 
 
 
-.tab-content > .active, .pill-content > .active {
+  .left-tab-process .tab-content {
+
+    background-color: #fff;
+
+    margin-left: 131px;
+
+    padding: 0px 15px;
+  }
+
+
+
+  .tab-content>.active,
+  .pill-content>.active {
 
     display: block;
 
-}
+  }
 
 
 
-.book-process-ltab{
+  .book-process-ltab {
 
-  max-width:131px;}
+    max-width: 131px;
+  }
 
-  
 
-.left-tab-process .tab-pane{
+
+  .left-tab-process .tab-pane {
 
     padding: 0px 1px;
 
     min-height: 442px;
 
-}
+  }
 
 
 
-.left-tab-process h4{
+  .left-tab-process h4 {
 
-  color:#536779;}
+    color: #536779;
+  }
 
-  
 
-.term-fa{
 
-margin-right: 7px;
+  .term-fa {
+
+    margin-right: 7px;
 
     font-size: 11px;
 
     margin-left: -18px;
 
-    color: #2EA72F;}
-
-    
-
-.tac-content{
-
-    background-color:#ccc;}
-
-  
-
-  
-
-.det_accion{ border-right: none;
-
-border-left: none; }
+    color: #2EA72F;
+  }
 
 
 
-table#reg_accion thead>tr>td{background: #f5f5f5;
+  .tac-content {
 
-                            text-transform: uppercase;
-
-                            font-size: 11px;
-
-                            vertical-align: inherit;}
-
-table#cargas thead>tr>td{background: #f5f5f5;
-
-                            text-transform: uppercase;
-
-                            font-size: 11px;
-
-                            vertical-align: inherit;}
+    background-color: #ccc;
+  }
 
 
 
-table#cargas tbody>tr>td{font-size:10px;}  
+
+
+  .det_accion {
+    border-right: none;
+
+    border-left: none;
+  }
 
 
 
-table#pagos tbody>tr>td{
+  table#reg_accion thead>tr>td {
+    background: #f5f5f5;
 
-  text-align: center;
+    text-transform: uppercase;
 
-}   
+    font-size: 11px;
 
-table#pagos thead>tr>td{
+    vertical-align: inherit;
+  }
 
-  text-align: center;
+  table#cargas thead>tr>td {
+    background: #f5f5f5;
 
-}                             
+    text-transform: uppercase;
 
- 
+    font-size: 11px;
 
-.bloqueado{color:#9a9a99; background: yellow;}
+    vertical-align: inherit;
+  }
 
 
 
-.fixed {
+  table#cargas tbody>tr>td {
+    font-size: 10px;
+  }
 
-  position: fixed;
 
-  background: #fff;
 
-  z-index: 10;
+  table#pagos tbody>tr>td {
 
-  width: 100%;
+    text-align: center;
 
-}
+  }
 
-.padding {
+  table#pagos thead>tr>td {
 
-  padding-top: 70px; 
+    text-align: center;
 
-}
+  }
+
+
+
+  .bloqueado {
+    color: #9a9a99;
+    background: yellow;
+  }
+
+
+
+  .fixed {
+
+    position: relative;
+
+    background: #fff;
+
+    z-index: 10;
+
+    width: 100%;
+
+  }
+
+  .padding {
+
+    padding-top: 70px;
+
+  }
+
+
+
+  /*==================================================
+
+ * left tab
+
+ * ===============================================*/
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -468,226 +602,163 @@ table#pagos thead>tr>td{
 
  * ===============================================*/
 
- 
-
- 
-
- 
 
 
+  @media (max-width:768px) {
 
-    
+    .tabs-left>.nav-tabs>li>a,
+    .tabs-right>.nav-tabs>li>a {
 
-  
+      width: 95px;
+
+      margin-right: 0;
+
+      padding: 5px 8px;
+
+      font-size: 12px;
+
+      margin-bottom: 3px;
+
+      background-color: #536779;
+
+      border-radius: 0px;
+
+      color: white;
+
+    }
+
+
+
+    .left-tab-process .tab-pane {
+
+      padding: 13px 11px;
+
+      min-height: 335px;
+
+    }
+
+
+
+    .left-tab-process .tab-content {
+
+      background-color: #F1F1F1;
+
+      margin-left: 95px;
+
+    }
+
+    .padding {
+
+      padding-top: 210px;
+
+    }
+
+  }
+
+
+
+
+
+
+
+
 
   /*==================================================
 
  * left tab
 
  * ===============================================*/
-
- 
-
-  @media (max-width:768px){
-
-    .tabs-left > .nav-tabs > li > a, .tabs-right > .nav-tabs > li > a {
-
-    width: 95px;
-
-    margin-right: 0;
-
-    padding: 5px 8px;
-
-    font-size: 12px;
-
-    margin-bottom: 3px;
-
-    background-color: #536779;
-
-    border-radius: 0px;
-
-    color: white;
-
-}
-
-
-
-.left-tab-process .tab-pane {
-
-    padding: 13px 11px;
-
-    min-height: 335px;
-
-}
-
-
-
-.left-tab-process .tab-content {
-
-    background-color: #F1F1F1;
-
-    margin-left: 95px;
-
-}
-
-.padding {
-
-  padding-top: 210px; 
-
-}
-
-}
-
-
-
-
-
-
-
- 
-
-   /*==================================================
-
- * left tab
-
- * ===============================================*/
-
-
-
-
-
 </style>
 
 
 
-  <div class="main">
+<div class="main">
 
- <div class="container-fluid">    
+  <div class="container-fluid">
 
-        <div class="row fixed">
+    <div class="row fixed">
 
-          
 
-          <div class="col-sm-6">
 
-            <div class="panel panel-default">
+      <div class="col-sm-6">
 
-                <div class="panel-heading" style="overflow: hidden;">
+        <div class="panel panel-default">
 
-                  <div class="col-sm-1">
+          <div class="panel-heading" style="overflow: hidden;">
 
-                    <label for="">RUT</label>
+            <div class="col-sm-2">
 
-                  </div>
+              <label for="">RUT SOCIO</label>
 
-    <div class="col-md-6">
+            </div>
 
-    <input maxlength="10" autocomplete="on" type="text" class="form-control" name="rut_socio" id="rut_socio"  placeholder="Ej: 11111111-1" required value="<?php echo set_value('rut_socio');?>">
+            <div class="col-sm-6">
 
-    <span id="erut_socio"  style="display:none;color:red;">RUT INCORRECTO</span>
-    <script src="<?php echo base_url(); ?>/assets/js/validarRUT.js"></script>
+              <input maxlength="10" autocomplete="off" type="text" class="form-control" name="rut_socio" id="rut_socio" placeholder="Ej: 11111111-1" required value="<?php echo set_value('rut_socio'); ?>">
 
-                   </div>
+              <span id="erut_socio" style="display:none;color:red;">RUT INCORRECTO</span>
+              <script src="<?php echo base_url(); ?>/assets/js/validarRUT.js"></script>
 
-                   <div class="col-md-4">
+            </div>
 
-                     
+            <div class="col-sm-1">
 
-                        <button id="enviar" type="button" class="btn btn-info">
 
-                          <span class="glyphicon glyphicon-search"></span>
 
-                        </button>  
+              <button id="enviar" type="button" class="btn btn-info">
 
-                                  
+                <span class="glyphicon glyphicon-search"></span>
 
-                 </div> 
+              </button>
 
-                </div>
 
-                <div style="display:none;" id="msg" class="alert alert-success">¡Bien hecho! se guardo correctamente</div>
 
-              </div>
+            </div>
 
           </div>
 
-           <div class="col-sm-6">
-
-            <div class="panel panel-default">
-
-                <div class="panel-heading" style="overflow: hidden;">
-
-                   <button id="actCarg" type="button" class="btn btn-success">GUARDAR</button>  
-
-                   <a href="<?php echo base_url(); ?>socios/m_cargas" type="button" class="btn btn-info">Volver</a>
-
-                </div>
-
-              </div>
-
-          </div>
-
-       
-
-
-
-      </div>
-
-
-
-     <div class="row padding">
-
-        <div id="mostrar">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </div>
-
-           </div>
+          <div style="display:none;" id="msg" class="alert alert-success">¡Bien hecho! se guardo correctamente</div>
 
         </div>
 
-     </div>
+      </div>
 
-</div>
+      <div class="col-sm-6">
 
-       
+        <div class="panel panel-default">
 
- 
+          <div class="panel-heading" style="overflow: hidden;">
 
-              
+            <button id="actCarg" type="button" class="btn btn-success" disabled>GUARDAR</button>
 
-            
+            <a href="<?php echo base_url(); ?>socios/m_cargas" type="button" class="btn btn-info">Volver</a>
 
-         
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+
+
+
+    <div class="row">
+
+      <div id="mostrar">
+
+
+
+
+
+
+
+
+
 
 
 
@@ -699,303 +770,348 @@ table#pagos thead>tr>td{
 
       </div>
 
-      
+    </div>
+
+  </div>
+
+</div>
+
+</div>
 
 
 
 
 
-<script  src="<?php echo base_url(); ?>assets/js/autocomplete.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<script src="<?php echo base_url(); ?>assets/js/autocomplete.js"></script>
 
 <script type="text/javascript">
+  $.datepicker.regional['es'] = {
 
+    closeText: 'Cerrar',
 
+    prevText: '<Ant',
 
-$.datepicker.regional['es'] = {
+    nextText: 'Sig>',
 
- closeText: 'Cerrar',
+    currentText: 'Hoy',
 
- prevText: '<Ant',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 
- nextText: 'Sig>',
+    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
 
- currentText: 'Hoy',
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
 
- monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
 
- monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
 
- dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    weekHeader: 'Sm',
 
- dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dateFormat: 'yy/mm/dd',
 
- dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+    firstDay: 1,
 
- weekHeader: 'Sm',
+    isRTL: false,
 
- dateFormat: 'yy/mm/dd',
+    showMonthAfterYear: false,
 
- firstDay: 1,
+    yearSuffix: ''
 
- isRTL: false,
+  };
 
- showMonthAfterYear: false,
+  $.datepicker.setDefaults($.datepicker.regional['es']);
 
- yearSuffix: ''
+  $(function() {
 
- };
+    $("#txt_fechaS").datepicker();
 
- $.datepicker.setDefaults($.datepicker.regional['es']);
+  });
 
-$(function () {
+  $(function() {
 
-$("#txt_fechaS").datepicker();
+    $("#nacCarga").datepicker();
 
-});
+  });
 
-$(function () {
+  $(function() {
 
-$("#nacCarga").datepicker();
+    $("#fecha_pago").datepicker();
 
-});
+  });
 
-$(function () {
+  var socios = [
 
-$("#fecha_pago").datepicker();
+    <?php
 
-});
-
-var socios = [
-
-   <?php 
-
-    $socios = $this -> model_socios -> allSoociosVal(); 
+    $socios = $this->model_socios->allSoociosVal();
 
     foreach ($socios as $s) {
 
-      echo'"'.$s -> prsn_rut.'",';
-
+      echo '"' . $s->prsn_rut . '",';
     }
 
-   ?>
+    ?>
 
-];
+  ];
 
 
 
-autocomplete(document.getElementById("rut_socio"), socios);
+  autocomplete(document.getElementById("rut_socio"), socios);
 
 
 
-$( "#enviar" ).click(function() {
+  $("#enviar").click(function() {
+    $("#mostrar").empty()
 
-rut=$('#rut_socio').val();  
+    rut = $('#rut_socio').val();
 
+    //alert(rut);
 
+    $('#mostrar').append('<div class="center-block" style="text-align:center" ><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt=""></div>');
 
-  //alert(rut);
 
-//    $('#edit_socios').html('<div><img src="<?php  echo base_url()?>assets/images/loading.gif"/></div>');
 
-            
 
-        $.post("<?php  echo base_url()?>socios/editacarga/mostrar_datos", {
 
-          rut: rut          
+    $.ajax({
 
-         },
+      url: "<?php echo base_url() ?>socios/editacarga/mostrar_datos",
+      data: {
 
-            function(data){
+        rut: rut,
 
-              $("#mostrar").html(data)
+      },
 
-    //        $("#edit_socios").html(data);           
+      type: 'POST',
 
-      //  $("#valores").css("display","block")        
+      success: function(data) {
+        $("#mostrar").empty()
 
-         
+        $("#mostrar").html(data)
 
-             });     
+      },
 
-});
+      error: function() {
 
+        $("#mostrar").empty()
 
 
+        swal({
+          title: "No se encontraron registros",
+          icon: "info",
+          button: "OK",
+        });
 
-$(document).ready(function() {
+      }
 
-  
-  
-  var  btnGuardar = $("#actCarg");
 
-  
 
-  var DATA  = [];
 
+    });
 
 
- 
 
 
 
-  btnGuardar.click(function() {
 
-    var nombreCarga3 = document.getElementById('nombre_carga').value.length;
-    var paternoCarga3 = document.getElementById('pat_carga').value.length;
-    var maternoCarga3 = document.getElementById('mat_carga').value.length;
-    var fecha_nac_carg3 = document.getElementById('nacCarga').value.length;
-    
-   
-    if(nombreCarga3 == 0 || paternoCarga3 == 0 || maternoCarga3 == 0 || $('#sexo_carga').val().trim() === '' || $('#parentesco').val().trim() === '' || $('#est_carga').val().trim() === ''){
-      alert('Complete todos los campos'); 
+  });
 
 
 
-$('#actCarg').attr('href', 'javascript:void(0)');
-}else{
 
 
 
 
+  $(document).ready(function() {
 
 
-      
 
-    var fecha_nac = $('#nacCarga').val();
+    var btnGuardar = $("#actCarg");
 
-  var parentesco = $("#parentesco option:selected").val();
 
-  var rutCarga = $("#rut_carga").val();
 
-  var nombreCarga = $("#nombre_carga").val();
+    var DATA = [];
 
-  var paternoCarga = $("#pat_carga").val();
 
-  var maternoCarga = $("#mat_carga").val();
 
-  var celuCarga = $("#cel_carga").val();
 
-  var mailCarga = $("#mail_carga").val();
 
-  var est = $("#est_carga option:selected").val();
 
-  var sexo = $("#sexo_carga option:selected").val();
 
+    btnGuardar.click(function() {
 
 
+      var nombreCarga3 = document.getElementById('nombre_carga').value.length;
+      var paternoCarga3 = document.getElementById('pat_carga').value.length;
+      var maternoCarga3 = document.getElementById('mat_carga').value.length;
+      var fecha_nac_carg3 = document.getElementById('nacCarga').value.length;
 
-    var data   = JSON.stringify(DATA);
 
-   
-   var archivos = certCarga.files[0];
+      if (nombreCarga3 == 0 || paternoCarga3 == 0 || maternoCarga3 == 0 || $('#sexo_carga').val().trim() === '' || $('#parentesco').val().trim() === '' || $('#est_carga').val().trim() === '') {
+        alert('Complete todos los campos');
 
-    var formData = new FormData();    
-    
-  
 
 
-    if (est == 1) {
+        $('#actCarg').attr('href', 'javascript:void(0)');
+      } else {
 
-      var cert = 1;
 
-     // var doc = archivos[0]; //Sólo queremos la primera imagen, ya que el usuario pudo seleccionar más
-      
-      var lector = new FileReader();
-      
-    }else{
 
-      doc = 1;
 
-    }
 
-      //Ojo: En este caso 'foto' será el nombre con el que recibiremos el archivo en el servidor
-      
-      formData.append('doc', archivos);
 
-      formData.append('rutSocio', rutSocio);
 
-      formData.append('rutCarga', rutCarga);
 
-      formData.append('fechaNac', fecha_nac);
+        var fecha_nac = $('#nacCarga').val();
 
-      formData.append('parentesco', parentesco);
+        var parentesco = $("#parentesco option:selected").val();
 
-      formData.append('nombreCarga',nombreCarga);
+        var rutCarga = $("#rut_carga").val();
 
-      formData.append('paternoCarga',paternoCarga);
+        var nombreCarga = $("#nombre_carga").val();
 
-      formData.append('maternoCarga',maternoCarga);
+        var paternoCarga = $("#pat_carga").val();
 
-      formData.append('celuCarga',celuCarga);
+        var maternoCarga = $("#mat_carga").val();
 
-      formData.append('mailCarga',mailCarga);
+        var celuCarga = $("#cel_carga").val();
 
-      formData.append('estudiante',est);
+        var mailCarga = $("#mail_carga").val();
 
-      formData.append('sexo',sexo);
+        var est = $("#est_carga option:selected").val();
 
-      formData.append('cert',cert);
+        var sexo = $("#sexo_carga option:selected").val();
 
-      //console.log(formData);
 
-     // formData.append('rut', )
 
-      $.ajax({
 
-        url: "<?php echo base_url()?>socios/editacarga/editacarga",
+        var data = JSON.stringify(DATA);
 
-        data: formData,
 
-        type: 'POST',
-       
-        contentType: false,
+        var archivos = certCarga.files[0];
 
-        processData: false,        
+        var formData = new FormData();
 
-        success: function(resultados) {
 
 
 
-          console.log("Petición terminada. Resultados", resultados);
+        if (est == 1) {
 
-       $('#msg').fadeIn();     
+          var cert = 1;
 
-        setTimeout(function() {
+          // var doc = archivos[0]; //Sólo queremos la primera imagen, ya que el usuario pudo seleccionar más
 
-               $("#msg").fadeOut();           
+          var lector = new FileReader();
 
-             },5000);
+        } else {
 
-          //  setTimeout("window.location.href = '<?php echo base_url()?>socios/editacarga'",3500);
-
-          
+          doc = 1;
 
         }
 
+        //Ojo: En este caso 'foto' será el nombre con el que recibiremos el archivo en el servidor
+
+        formData.append('doc', archivos);
+
+        formData.append('rutSocio', rutSocio);
+
+        formData.append('rutCarga', rutCarga);
+
+        formData.append('fechaNac', fecha_nac);
+
+        formData.append('parentesco', parentesco);
+
+        formData.append('nombreCarga', nombreCarga);
+
+        formData.append('paternoCarga', paternoCarga);
+
+        formData.append('maternoCarga', maternoCarga);
+
+        formData.append('celuCarga', celuCarga);
+
+        formData.append('mailCarga', mailCarga);
+
+        formData.append('estudiante', est);
+
+        formData.append('sexo', sexo);
+
+        formData.append('cert', cert);
+
+        //console.log(formData);
+
+        // formData.append('rut', )
+
+        $.ajax({
+
+          url: "<?php echo base_url() ?>socios/editacarga/editacarga",
+
+          data: formData,
+
+          type: 'POST',
+
+          contentType: false,
+
+          processData: false,
+
+          success: function(resultados) {
+            $("#mostrar").empty()
+            $("#actCarg").prop("disabled", true)
 
 
-      });
 
-   
-    }
+
+
+            console.log("Petición terminada. Resultados", resultados);
+
+            $('#msg').fadeIn();
+
+            setTimeout(function() {
+
+              $("#msg").fadeOut();
+
+            }, 5000);
+
+            //  setTimeout("window.location.href = '<?php echo base_url() ?>socios/editacarga'",3500);
+
+
+
+          }
+
+
+
+        });
+
+
+      }
+    });
+
   });
 
-});
 
 
 
-           
 
   //});
-
-
-
 </script>
-
-
-
-
-
-
-
-
