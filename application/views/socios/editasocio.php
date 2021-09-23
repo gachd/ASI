@@ -666,21 +666,26 @@
 
       </div>
 
-      <div class="col-sm-6">
+      <div id="div_guardar" style='display:none'>
 
-        <div class="panel panel-default">
+        <div class="col-sm-6">
 
-          <div class="panel-heading" style="overflow: hidden;">
+          <div class="panel panel-default">
 
-            <button id="guardar" type="button" class="btn btn-success">GUARDAR</button>
+            <div class="panel-heading" style="overflow: hidden;">
 
-            <a href="<?php echo base_url(); ?>socios/m_socios" type="button" class="btn btn-info">Volver</a>
+              <button id="guardar" type="button" class="btn btn-success">GUARDAR</button>
+
+              <a href="<?php echo base_url(); ?>socios/m_socios" type="button" class="btn btn-info">Volver</a>
+
+            </div>
 
           </div>
 
         </div>
 
       </div>
+
 
 
 
@@ -733,6 +738,11 @@
 <script src="<?php echo base_url(); ?>assets/js/autocomplete.js"></script>
 
 <script type="text/javascript">
+  var ArchivosInput = 0;
+
+  var validadorInput = 0;
+
+
   $.datepicker.regional['es'] = {
 
     closeText: 'Cerrar',
@@ -823,7 +833,9 @@
 
 
   $("#enviar").click(function() {
+
     $("#edit_socios").empty()
+    $("#div_guardar").hide();
 
     $("#edit_socios").append('<div class="center-block" style="text-align:center" ><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt=""></div>');
 
@@ -831,6 +843,8 @@
     rut = $('#rut_socio').val();
 
     if (rut) {
+
+
 
       $.ajax({
 
@@ -844,14 +858,23 @@
         type: 'POST',
 
         success: function(data) {
+
+
+
           $("#edit_socios").empty()
 
           $("#edit_socios").html(data);
 
+          $("#div_guardar").show();
+
+
+
         },
 
         error: function() {
-          $("#edit_socios").empty()
+          $("#edit_socios").empty();
+
+          $("#div_guardar").hide();
 
 
           swal({
@@ -872,7 +895,7 @@
 
 
       swal({
-        title: "Ingrese el rut",
+        title: "Ingrese Rut",
         icon: "warning",
         button: "OK",
       });
@@ -892,6 +915,8 @@
 
 
   $(document).ready(function() {
+
+
 
     $("#guardar").click(function() {
 
@@ -926,13 +951,65 @@
 
       var nac = document.getElementById('nac').value.length;
 
+      // validar que existan archivos para subir
+
+
+
+      if (ArchivosSubir > 0) {
+
+        var ArchivosSoc = document.querySelectorAll('input[name="arch_socio[]');
+
+        ArchivosInput = 0;
+
+
+        for (var archivo of ArchivosSoc) {
+
+          if (archivo.files[0]) {
+            ArchivosInput++;
+
+          }
+        }
+
+        console.log("iNPUT "+ArchivosInput);
+        console.log("aRCHIVOS INPUT "+ArchivosSoc.length);
+
+
+        if (ArchivosInput == ArchivosSoc.length) {
+
+          validadorInput = 1;
+        } else {
+          validadorInput = 0;
+        }
+
+        } else {
+
+        validadorInput = 1;
+
+      }
 
 
 
 
-      if (nombres == 0 || paterno == 0 || materno == 0 || $('#sexo').val().trim() === '' || fecha_nac == 0 || tel_cel == 0 || email == 0 || direc == 0 || $('#estadocivil').val().trim() === '' || $('#nacionalidad').val().trim() === '' || $('#laboral').val().trim() === '' || $('#comu').val().trim() === '') {
 
-        alert('Complete todos los campos');
+
+
+
+
+
+
+      if (validadorInput == 0 || nombres == 0 || paterno == 0 || materno == 0 || $('#sexo').val().trim() === '' || fecha_nac == 0 || tel_cel == 0 || email == 0 || direc == 0 || $('#estadocivil').val().trim() === '' || $('#nacionalidad').val().trim() === '' || $('#laboral').val().trim() === '' || $('#comu').val().trim() === '') {
+
+        /* alert('Complete todos los campos'); */
+
+
+        swal({
+          title: "Ingrese los campos requeridos",
+          text: "",
+          icon: "error",
+          button: "Aceptar",
+        });
+
+
 
 
 
@@ -942,6 +1019,8 @@
 
       } else {
 
+
+        var foto = document.getElementById('imagen_perfil').files[0];
 
 
         var rut = $('#rut_socio').val();
@@ -1020,134 +1099,118 @@
         }
 
 
-/* 
-        $.post("<?php echo base_url() ?>socios/editasocio/actSocio", {
-
-          rut: rut,
-
-          nombres: nombres,
-
-          paterno: paterno,
-
-          materno: materno,
-
-          fecha_nac: fecha_nac,
-
-          tel_fijo: tel_fijo,
-
-          tel_cel: tel_cel,
-
-          email: email,
-
-          direc: direc,
-
-          prof: prof,
-
-          direc_emp: direc_emp,
-
-          tel_emp: tel_emp,
-
-          estadocivil: estadocivil,
-
-          nacionalidad: nacionalidad,
-
-          laboral: laboral,
-
-          sexo: sexo,
-
-          sector: sector,
-
-          comu: comu,
-
-          emp: emp,
-
-          desc: desc,
-
-          nac: nac,
-
-          arr: JSON.stringify(arr)
-
-        }, function(data) {
-
-          $('#msg').fadeIn();
-
-          setTimeout(function() {
-
-            $("#msg").fadeOut();
-
-          }, 5000);
-
-          setTimeout("window.location.href = '<?php echo base_url() ?>socios/editasocio'", 4000);
 
 
-        }); */
+
+
+
+
+
+        var Datos = new FormData();
+
+        Datos.append('foto', foto);
+        Datos.append('val_foto', validar_subida);
+
+
+        Datos.append('rut', rut);
+        Datos.append('nombres', nombres);
+        Datos.append('paterno', paterno);
+        Datos.append('materno', materno);
+        Datos.append('sexo', sexo);
+        Datos.append('fecha_nac', fecha_nac);
+        Datos.append('nac', nac);
+        Datos.append('estadocivil', estadocivil);
+        Datos.append('nacionalidad', nacionalidad);
+        Datos.append('desc', desc);
+
+        Datos.append('tel_fijo', tel_fijo);
+        Datos.append('tel_cel', tel_cel);
+        Datos.append('email', email);
+        Datos.append('direc', direc);
+        Datos.append('sector', sector);
+        Datos.append('comu', comu);
+
+        Datos.append('laboral', laboral);
+        Datos.append('prof', prof);
+        Datos.append('emp', emp);
+        Datos.append('direc_emp', direc_emp);
+        Datos.append('tel_emp', tel_emp);
+
+        Datos.append('arr', JSON.stringify(arr));
+
+
+        //VALIDO QUE EXISTAN ARCHIVOS PARA SUBIR
+        if (ArchivosSubir > 0) {
+
+          for (var item of ArchivosSoc) {
+            console.log(item.files[0]);
+            Datos.append('archivosSoc[]', item.files[0]);
+
+          }
+        }
+
+
+        console.log(foto);
+
+
+
+
+
+
+
+        /* console.log(input); */
+
+        /*  for (var item of inputs) {
+           console.log(item.files[0]);
+           Datos.append('archivosSoc[]', item.files[0]);
+
+         } */
+        /* 
+                for (var datos of Datos.entries()) {
+                  console.log(datos[0] + ', ' + datos[1]);
+                } */
+
+
+
+
+
+
 
 
 
         $.ajax({
 
           url: "<?php echo base_url() ?>socios/editasocio/actSocio",
-          data: {
 
-            rut: rut,
 
-            nombres: nombres,
+          data: Datos,
 
-            paterno: paterno,
 
-            materno: materno,
+          contentType: false,
 
-            fecha_nac: fecha_nac,
-
-            tel_fijo: tel_fijo,
-
-            tel_cel: tel_cel,
-
-            email: email,
-
-            direc: direc,
-
-            prof: prof,
-
-            direc_emp: direc_emp,
-
-            tel_emp: tel_emp,
-
-            estadocivil: estadocivil,
-
-            nacionalidad: nacionalidad,
-
-            laboral: laboral,
-
-            sexo: sexo,
-
-            sector: sector,
-
-            comu: comu,
-
-            emp: emp,
-
-            desc: desc,
-
-            nac: nac,
-
-            arr: JSON.stringify(arr)
-
-          },
+          processData: false,
 
           type: 'POST',
 
+
+
           success: function(data) {
+            swal({
+                title: "Cambios Realizados",
+                text: "",
+                icon: "success",
+              })
+              .then((ok) => {
+                if (ok) {
+                  window.location.href = '<?php echo base_url() ?>socios/editasocio'
 
-            $('#msg').fadeIn();
+                } else {
+                  window.location.href = '<?php echo base_url() ?>socios/editasocio'
+                }
 
-            setTimeout(function() {
+              });
 
-              $("#msg").fadeOut();
 
-            }, 5000);
-
-            setTimeout("window.location.href = '<?php echo base_url() ?>socios/editasocio'", 4000);
 
 
 

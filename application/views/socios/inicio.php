@@ -183,6 +183,21 @@
         </div>
 
 
+        <div class="col-md-4 col-sm-6 col-xxs-12">
+
+          <center>
+
+            <a class="btn" href="<?php echo base_url(); ?>socios/fitness"><img class="img-responsive" type="button" src="<?php echo base_url(); ?>assets/images/mancuernas.png"></a>
+
+          </center>
+
+          <center><button onclick="location.href='<?php echo base_url(); ?>socios/fitness'" type="button" class="btn-socio"><strong>FITNESS</strong></button></center>
+
+        </div>
+        <div class="clearfix visible-sm-block"></div>
+        <div></div>
+
+
 
 
 

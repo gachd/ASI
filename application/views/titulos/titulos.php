@@ -64,7 +64,7 @@
 
     </div>
 
-    <div class="container well" style="border:1px solid ">
+    <div class="container well" >
       <h3><strong>Titulos</strong></h3>
       <br>
 
@@ -92,7 +92,7 @@
 
 
 
-    <div class="container well" style="border:1px solid ">
+    <div class="container well" >
       <h3><strong>HISTORIAL TITULOS ACTIVOS</strong></h3>
       <br>
 
@@ -159,7 +159,7 @@
     </div>
 
 
-    <div class="container table-responsive div-wrapper well" style="border:1px solid ">
+    <div class="container table-responsive div-wrapper well" >
 
 
       <h4><strong>TITULOS ACTIVOS</strong></h4>

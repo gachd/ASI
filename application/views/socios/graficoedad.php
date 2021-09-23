@@ -211,6 +211,8 @@
 </html>
 
 <script type="text/javascript">
+  $(".loader").fadeOut(200);
+
 
 
   function detalleGrafico(cat) {
@@ -361,8 +363,10 @@
 
         $("#detalle").append($('<table>').attr({
           id: 'tableID',
-          class: 'table table-bordered table-striped'
+          class: 'table table-bordered table-striped '
         }));
+
+        
 
         for (var i = 0; i < data.length; i++) {
 
@@ -390,7 +394,13 @@
 
           $("#tableID").append(tr)
 
+      
+
+
+
         }
+        
+        
 
 
 
@@ -403,7 +413,7 @@
       }
 
     });
-    
+
 
   };
 

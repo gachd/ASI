@@ -32,8 +32,17 @@
       display: inline-block;
       padding: 3px;
       width: 100%;
+
+
     }
 
+    .nav-tabs>li>a>span {
+      display: none;
+    }
+
+    .nav-tabs>li>a {
+      padding: 5px 5px;
+    }
 
 
 
@@ -64,8 +73,62 @@
 
 
   }
+   .nav-tabs>li {
+    width: 14%;
+    text-align: center;
+  }
+
+  .nav-tabs {
+    border-bottom: 2px solid #DDD;
+  }
+
+  .nav-tabs>li.active>a,
+  .nav-tabs>li.active>a:focus,
+  .nav-tabs>li.active>a:hover {
+    border-width: 0;
+  }
+
+  .nav-tabs>li>a {
+    border: none;
+    color: #ffffff;
+    background: #4b7006;
+  }
+
+  .nav-tabs>li.active>a,
+  .nav-tabs>li>a:hover {
+    border: none;
+    color: #4b7006 !important;
+    background: #fff;
+  }
+
+  .nav-tabs>li>a::after {
+    content: "";
+    background: #4b7006;
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    bottom: -1px;
+    transition: all 250ms ease 0s;
+    transform: scale(0);
+  }
+
+  .nav-tabs>li.active>a::after,
+  .nav-tabs>li:hover>a::after {
+    transform: scale(1);
+  }
+
+  .tab-nav>li>a::after {
+    background: #4b7006 none repeat scroll 0% 0%;
+    color: #fff;
+  }
 
 
+
+
+
+
+/* 
   .nav-tabs>li>a {
     border: none;
     color: #ffffff;
@@ -90,7 +153,7 @@
     background: #fff;
 
 
-  }
+  } */
 
   /* deshabilita el boton de las pestañas  */
   .inactivo {
@@ -132,6 +195,10 @@
     border: 2px solid white;
   }
 
+
+
+
+
   .subida_oculto {
     display: none;
   }
@@ -171,14 +238,11 @@
               <center>
 
                 <label for="imagen_perfil">
-                  <img alt="Foto SOCIO" src="<?php echo base_url() ?>assets/images/camara-icon.png" id="img_perfil" class="img-circle img-responsive img-thumbnail">
+                  <img alt="Foto socio" src="<?php echo base_url() ?>assets/images/camara-icon.png" id="img_perfil" class="img-circle img-responsive img-thumbnail">
                 </label>
                 <div class="subida_oculto">
                   <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto()">
                 </div>
-
-
-
 
 
               </center>
@@ -1356,6 +1420,7 @@
     var reader = new FileReader();
 
     reader.onloadend = function() {
+      
       img.src = reader.result;
 
     }
@@ -2082,6 +2147,7 @@
         $('#errorMail').hide()
 
         vrfSocioMail = 0;
+
         validaInputSocio();
 
 
@@ -2463,7 +2529,7 @@
       $("#guardar_dp").click(function() {
 
         ArchivosInput = 0;
-        var validadorInput= 0;
+        var validadorInput = 0;
 
 
         var rut = document.getElementById('rut_socio').value.length;
@@ -2500,33 +2566,34 @@
         var ArchivosSoc = document.querySelectorAll('input[name="arch_socio[]');
 
         for (var archivo of ArchivosSoc) {
-          if(archivo.files[0]){
-            ArchivosInput = ArchivosInput +1;            
-            
+
+          if (archivo.files[0]) {
+            ArchivosInput = ArchivosInput + 1;
+
           }
-          
+
 
         }
-        if (ArchivosInput == ArchivosSoc.length ){
+        if (ArchivosInput == ArchivosSoc.length) {
 
-          validadorInput= 1;
-        }else{
-          validadorInput=0;
+          validadorInput = 1;
+        } else {
+          validadorInput = 0;
         }
-        
 
 
 
 
 
 
-        if ( validadorInput == 0 || rut == 0 || nombres == 0 || ap_paterno == 0 || ap_materno == 0 || $('#sexo').val().trim() === '' || fecha_nac == 0 || tel_cel == 0 || email == 0 || direc == 0 || $('#estadocivil').val().trim() === '' || $('#nacionalidad').val().trim() === '' || $('#laboral').val().trim() === '' || $('#comu').val().trim() === '') {
+
+        if (validadorInput == 0 || rut == 0 || nombres == 0 || ap_paterno == 0 || ap_materno == 0 || $('#sexo').val().trim() === '' || fecha_nac == 0 || tel_cel == 0 || email == 0 || direc == 0 || $('#estadocivil').val().trim() === '' || $('#nacionalidad').val().trim() === '' || $('#laboral').val().trim() === '' || $('#comu').val().trim() === '') {
 
           //alert('Complete todos los campos');
 
 
           swal({
-            title: "Complete todos los datos",
+            title: "Ingrese los campos requeridos",
             text: "",
             icon: "error",
             button: "Aceptar",

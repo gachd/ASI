@@ -30,7 +30,8 @@
 
     <h2>Página con acceso restringido. </h2>
 
-        <a  class="btn btn-success" href="<?php echo base_url() ?>login">Click aquí para hacer login</a>
+
+        <a  class="btn btn-success" href="<?php echo base_url() ?>login">Click aquí para iniciar sesion</a>
 
     </div>
 

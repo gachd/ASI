@@ -4,218 +4,214 @@
 
 <head>
 
-	<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-	<title>Document</title>
+  <title>Document</title>
 
 </head>
 
 <style>
+  table#cantidad {
 
-table#cantidad{
+    border: 1px solid green;
 
-  border: 1px solid green;
+    width: 80%;
 
-   width: 80%;
+    margin: auto;
 
-  margin: auto;
+    margin-top: 10px;
 
-  margin-top: 10px;
+    text-align: center;
 
-  text-align: center;
+  }
 
-}
+  #cantidad tr td {
 
-#cantidad tr td{
+    border: 1px solid green;
 
-  border: 1px solid green;
+  }
 
-}
+  #cantidad th {
 
-#cantidad th{
+    border: 1px solid green;
 
-   border: 1px solid green;
+    text-align: center;
 
-   text-align: center;
+  }
 
-}
+  table.menu_socios {
 
-table.menu_socios{
+    border: 1px solid black;
 
-  border:1px solid black;
+    width: 80%;
 
-  width: 80%;
+    margin: auto;
 
-  margin: auto;
+    margin-top: 10px;
 
-  margin-top: 10px;
+  }
 
-}
+  table.menu_cargas {
 
-table.menu_cargas{
+    border: 1px solid black;
 
-  border:1px solid black;
+    width: 80%;
 
-  width: 80%;
+    margin: auto;
 
-  margin: auto;
+    margin-top: 10px;
 
-  margin-top: 10px;
+  }
 
-}
+  table.menu_pagos {
 
-table.menu_pagos{
+    border: 1px solid black;
 
-   border:1px solid black;
+    width: 80%;
 
-  width: 80%;
+    margin: auto;
 
-  margin: auto;
+    margin-top: 10px;
 
-  margin-top: 10px;
+  }
 
-}
+  table.menu_listado {
 
-table.menu_listado{
+    border: 1px solid black;
 
-   border:1px solid black;
+    width: 80%;
 
-  width: 80%;
+    margin: auto;
 
-  margin: auto;
+    margin-top: 10px;
 
-  margin-top: 10px;
+  }
 
-}
+  .menu_socios th {
 
-.menu_socios th{
+    border: 1px solid black;
 
-  border:1px solid black;
+    font-size: 20px;
 
-  font-size: 20px;
+  }
 
-}
+  .menu_cargas th {
 
-.menu_cargas th{
+    border: 1px solid black;
 
-  border:1px solid black;
+    font-size: 20px;
 
-  font-size: 20px;
+  }
 
-}
+  .menu_pagos th {
 
-.menu_pagos th{
+    border: 1px solid black;
 
-  border:1px solid black;
+    font-size: 20px;
 
-  font-size: 20px;
+  }
 
-}
+  .menu_listado th {
 
-.menu_listado th{
+    border: 1px solid black;
 
-  border:1px solid black;
+    font-size: 20px;
 
-  font-size: 20px;
+  }
 
-}
+  table img {
 
-table img{
+    width: 100px;
 
-  width: 100px;
+  }
 
-}
+  .contenedor {
 
-.contenedor{
+    width: 500px;
 
-  width: 500px;
+  }
 
-}
+  h1 {
 
-h1{
+    text-align: center;
 
-  text-align: center;
+    font-size: 30px;
 
-  font-size: 30px;
+  }
 
-}
+  .estado {
 
-.estado{
+    width: 50%;
 
-  width: 50%;
+    margin: auto;
 
-  margin: auto;
+  }
 
-}
+  .estado img {
 
-.estado img{
+    width: 40px;
 
-  width: 40px;
+    height: 40px;
 
-  height: 40px;
+  }
 
-}
+  .badge {
 
-.badge{
+    background: white;
 
-  background: white;
+    color: black;
 
-  color: black;
+    font-size: 1.5em;
 
-  font-size: 1.5em;
+  }
 
-}
+  .label {
 
-.label{
+    padding: .5em .6em .4em;
 
-  padding: .5em .6em .4em;
+  }
 
-}
+  #mostrar {
 
-#mostrar{
+    width: 80%;
 
-  width: 80%;
+    margin: auto;
 
-  margin: auto;
+  }
 
-}
+  #contenido {
 
-#contenido{
+    width: 80%;
 
-  width: 80%;
+    margin: auto;
 
-  margin: auto;
+  }
 
-}
+  .panel a {
 
-.panel a{
+    color: white;
 
-  color: white;
 
 
+  }
 
-}
+  .panel {
 
-.panel{
+    width: 50%;
 
-  width: 50%;
+    margin: auto;
 
-  margin: auto;
+    border-color: #4b7006;
 
-  border-color: #4b7006;
+  }
 
-}
+  .panel>.panel-heading {
 
-.panel > .panel-heading{
+    background: #4b7006;
 
-  background: #4b7006;
+    border-color: #4b7006;
 
-  border-color: #4b7006;
-
-}
-
- 
-
+  }
 </style>
 
 <body>
@@ -224,132 +220,160 @@ h1{
 
   <div class="main">
 
-      <div class="container">
+    <div class="container">
 
 
 
-    <div class="row"> 
+      <div class="row">
 
-      <h1>MANTENEDOR PAGOS</h1>
+        <h1>MANTENEDOR PAGOS</h1>
+
+      </div>
+
+      <div class="row" id="mostrar"> </div>
+
+      <div class="well row socios" id="contenido">
+
+
+
+        <div class="col-md-4 col-sm-6 col-xxs-12 ">
+
+          <div class="panel panel-primary">
+
+            <div class="panel-heading">
+
+              <center><a href="<?php echo base_url(); ?>socios/pago_cuota"><strong>NUEVO PAGO</strong></a></center>
+
+            </div>
+
+            <div class="panel-body">
+
+              <center>
+
+                <a href="<?php echo base_url(); ?>socios/pago_cuota">
+
+                  <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/nuevoPago.png"></a>
+
+              </center>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xxs-12 ">
+
+          <div class="panel panel-primary">
+
+            <div class="panel-heading">
+
+              <center><a href="<?php echo base_url(); ?>socios/editaCarga"><strong>EDITAR PAGO</strong></a></center>
+
+            </div>
+
+            <div class="panel-body">
+
+              <center>
+
+                <a href="<?php echo base_url(); ?>socios/editPago">
+
+                  <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/editPago.png"></a>
+
+              </center>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="clearfix visible-sm-block"></div>
+
+        <div class="col-md-4 col-sm-6 col-xxs-12 ">
+
+          <div class="panel panel-primary">
+
+            <div class="panel-heading">
+
+              <center><a href="<?php echo base_url(); ?>socios/bajaCarga"><strong>ELIMINAR <br> PAGO</strong></a></center>
+
+            </div>
+
+            <div class="panel-body">
+
+              <center>
+
+                <a href="<?php echo base_url(); ?>socios/bajaCarga">
+
+                  <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/deletePago.png"></a>
+
+              </center>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xxs-12 ">
+
+          <div class="panel panel-primary">
+
+            <div class="panel-heading">
+
+              <center><a href="<?php echo base_url(); ?>socios/pago_cuota/actualizar"><strong>ACTUALIZAR <br> PAGOS</strong></a></center>
+
+            </div>
+
+            <div class="panel-body">
+
+              <center>
+
+                <a href="<?php echo base_url(); ?>socios/pago_cuota/actualizar">
+
+                  <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/pagoact.png"></a>
+
+              </center>
+
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-md-4 col-sm-6 col-xxs-12 ">
+
+          <div class="panel panel-primary">
+
+            <div class="panel-heading">
+
+              <center><a href="<?php echo base_url(); ?>socios/pago_cuota/excel"><strong>LEER <br> EXCEL PAGOS</strong></a></center>
+
+            </div>
+
+            <div class="panel-body">
+
+              <center>
+
+                <a href="<?php echo base_url(); ?>socios/pago_cuota/excel">
+
+                  <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/logo_excel.png"></a>
+
+              </center>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
 
     </div>
 
-    <div class="row" id="mostrar"> </div>
-
-   <div class="well row socios" id="contenido">
-
-
-
-    <div class="col-md-4 col-sm-6 col-xxs-12 "> 
-
-    <div class="panel panel-primary">
-
-      <div class="panel-heading">
-
-        <center><a href="<?php echo base_url(); ?>socios/pago_cuota"><strong>NUEVO PAGO</strong></a></center>
-
-      </div>
-
-      <div class="panel-body">
-
-       <center>  
-
-       <a href="<?php echo base_url(); ?>socios/pago_cuota">
-
-       <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/nuevoPago.png"></a>
-
-   </center>
-
-      </div>
-
-    </div>
-
-   </div>
-
-  <div class="col-md-4 col-sm-6 col-xxs-12 "> 
-
-    <div class="panel panel-primary">
-
-      <div class="panel-heading">
-
-        <center><a href="<?php echo base_url(); ?>socios/editaCarga"><strong>EDITAR PAGO</strong></a></center>
-
-      </div>
-
-      <div class="panel-body">
-
-       <center>  
-
-       <a href="<?php echo base_url(); ?>socios/editPago">
-
-       <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/editPago.png"></a>
-
-   </center>
-
-      </div>
-
-    </div>
-
-   </div>
-
-    <div class="clearfix visible-sm-block"></div> 
-
-    <div class="col-md-4 col-sm-6 col-xxs-12 "> 
-
-    <div class="panel panel-primary">
-
-      <div class="panel-heading">
-
-        <center><a href="<?php echo base_url(); ?>socios/bajaCarga"><strong>ELIMINAR <br> PAGO</strong></a></center>
-
-      </div>
-
-      <div class="panel-body">
-
-       <center>  
-
-       <a href="<?php echo base_url(); ?>socios/bajaCarga">
-
-       <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/deletePago.png"></a>
-
-   </center>
-
-      </div>
-
-    </div>
-
-   </div>   
-<div class="col-md-4 col-sm-6 col-xxs-12 "> 
-
-    <div class="panel panel-primary">
-
-      <div class="panel-heading">
-
-        <center><a href="<?php echo base_url(); ?>socios/pago_cuota/actualizar"><strong>ACTUALIZAR <br> PAGOS</strong></a></center>
-
-      </div>
-
-      <div class="panel-body">
-
-       <center>  
-
-       <a href="<?php echo base_url(); ?>socios/pago_cuota/actualizar">
-
-       <img class="img-responsive" src="<?php echo base_url(); ?>assets/images/pagoact.png"></a>
-
-   </center>
-
-      </div>
-
-    </div>
-
-   </div>   
-
-   </div>
-
-</div>
-
-</div>
+  </div>
 
 
 
@@ -360,107 +384,103 @@ h1{
 </html>
 
 <script type="text/javascript">
+  $("#btnactivo").click(function() {
 
- $( "#btnactivo" ).click(function() {
-
-   var estado = 0;
-
-    $('#contenido').hide();
-
-   // $('#mostrar').show();
-
-        $('#mostrar').html('<div><img style="width:100%" src="<?php  echo base_url()?>assets/images/loading.gif"/></div>');
-
-            
-
-        $.post("<?php  echo base_url()?>socios/inicio/mostrarcantidad", {
-
-         estado:estado
-
-         },
-
-            function(data){
-
-            $("#mostrar").html(data);           
-
-          //  $("#valores").css("display","block")        
-
-         
-
-             });     
-
-});
-
-
-
-$( "#btninactivo" ).click(function() {
-
-  var estado = 4;
+    var estado = 0;
 
     $('#contenido').hide();
 
-   // $('#mostrar').show();
+    // $('#mostrar').show();
 
-       $('#mostrar').html('<div><img style="width:100%" src="<?php  echo base_url()?>assets/images/loading.gif"/></div>');
-
-            
-
-        $.post("<?php  echo base_url()?>socios/inicio/mostrarcantidad", {
-
-         estado:estado
-
-         },
-
-            function(data){
-
-            $("#mostrar").html(data);           
-
-          //  $("#valores").css("display","block")        
-
-         
-
-             });     
-
-});
+    $('#mostrar').html('<div><img style="width:100%" src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
 
 
 
-$( "#btnbaja" ).click(function() {
+    $.post("<?php echo base_url() ?>socios/inicio/mostrarcantidad", {
 
-//rut=$('#rut_socio').val();  
+        estado: estado
 
-  //alert(rut);
+      },
+
+      function(data) {
+
+        $("#mostrar").html(data);
+
+        //  $("#valores").css("display","block")        
+
+
+
+      });
+
+  });
+
+
+
+  $("#btninactivo").click(function() {
+
+    var estado = 4;
+
+    $('#contenido').hide();
+
+    // $('#mostrar').show();
+
+    $('#mostrar').html('<div><img style="width:100%" src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+
+
+
+    $.post("<?php echo base_url() ?>socios/inicio/mostrarcantidad", {
+
+        estado: estado
+
+      },
+
+      function(data) {
+
+        $("#mostrar").html(data);
+
+        //  $("#valores").css("display","block")        
+
+
+
+      });
+
+  });
+
+
+
+  $("#btnbaja").click(function() {
+
+    //rut=$('#rut_socio').val();  
+
+    //alert(rut);
 
     var estado = 1;
 
-   
+
 
     $('#contenido').hide();
 
-   // $('#mostrar').show();
+    // $('#mostrar').show();
 
-    $('#mostrar').html('<div><img style="width:100%" src="<?php  echo base_url()?>assets/images/loading.gif"/></div>');
-
-            
-
-        $.post("<?php  echo base_url()?>socios/inicio/mostrarcantidad", {
-
-          estado:estado
-
-         },
-
-            function(data){
-
-            $("#mostrar").html(data);           
-
-          //  $("#valores").css("display","block")        
-
-         
-
-             });     
-
-});
+    $('#mostrar').html('<div><img style="width:100%" src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
 
 
 
+    $.post("<?php echo base_url() ?>socios/inicio/mostrarcantidad", {
+
+        estado: estado
+
+      },
+
+      function(data) {
+
+        $("#mostrar").html(data);
+
+        //  $("#valores").css("display","block")        
+
+
+
+      });
+
+  });
 </script>

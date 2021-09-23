@@ -14,7 +14,7 @@
 <style>
   .table_wrapper {
     display: block;
- 
+
     white-space: nowrap;
   }
 
@@ -57,7 +57,7 @@
 
 
 <!-- aviso cada 3 años-->
- <?php
+<?php
 
 
 $aviso = $todo_sa[0]->aviso_acciones;
@@ -270,11 +270,13 @@ $año = $dif_año->y;
       <div class="row panel table-responsive" id="mostrarSocios">
         <div class="col-md-12">
 
-
           <div class="content-box-large">
+
+
             <div class="panel-heading">
               <div class="panel-title">LISTADO DE ACCIONISTAS</div>
             </div>
+
             <div class="panel-body">
               <div class="table  table_wrapper">
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
@@ -296,23 +298,21 @@ $año = $dif_año->y;
                   <tbody>
 
 
-                    
+
                     <?php foreach ($accionistas as $s) {
 
 
                       echo '<tr class="">';
-                      if($s->prsn_fallecido == "1"){
+                      if ($s->prsn_fallecido == "1") {
 
                         echo '<td class="text-left">' . $s->prsn_rut . ' <span class="pull-right text-right">&#10015; <span style="display:none;">Muerte</span>  </span></td>';
-                        
-                      }else{
+                      } else {
 
                         echo '<td class="text-left">' . $s->prsn_rut . ' <span class="pull-right text-right"></span></td>';
-
                       }
 
-                      
-                      
+
+
                       echo '<td><div>' . $s->prsn_nombres . '</td>';
                       echo '<td><div>' . $s->prsn_apellidopaterno . '</div></td>';
                       echo '<td><div>' . $s->prsn_apellidomaterno . '</div></td>';
@@ -387,6 +387,7 @@ $año = $dif_año->y;
 
 <script type="text/javascript">
   $(document).ready(function() {
+    
     $('#grid').DataTable({
       "oLanguage": {
         "sProcessing": "Procesando...",
@@ -463,6 +464,7 @@ $año = $dif_año->y;
 
 
   $(document).ready(function() {
+
     $.ajax({
       url: "<?php echo base_url(); ?>accionistas/inicio/mostrarGrafico1",
       dataType: 'json',

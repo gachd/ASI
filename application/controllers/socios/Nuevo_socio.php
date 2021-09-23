@@ -121,7 +121,6 @@ class nuevo_socio extends CI_Controller
       }
 
 
-
       $data['uploadSuccess'] = $this->upload->data();
    }
 
@@ -172,43 +171,6 @@ class nuevo_socio extends CI_Controller
 
 
 
-   public function test()
-   {
-
-
-
-      $date  = "";
-
-
-
-
-      $data['personas']   = $this->model_socios->all_personas($date);
-
-      $data['nacionalidad']   = $this->model_socios->all_nacionalidades($date);
-
-      $data['comunas']   = $this->model_socios->all_comunas($date);
-
-      $data['laboral']   = $this->model_socios->all_condicionlab($date);
-
-      $data['estado_civil']   = $this->model_socios->all_estadocivil($date);
-
-      $data['corporacion'] = $this->model_socios->all_corporaciones();
-
-      $data['socio_pat'] = $this->model_socios->all_sociospat();
-
-      $data['parentesco'] = $this->model_socios->all_parentesco();
-
-
-
-
-
-
-      $this->load->view('plantilla/Head_v1');
-
-      $this->load->view('socios/agregarSocio', $data);
-
-      $this->load->view('plantilla/Footer');
-   }
 
 
 
@@ -227,7 +189,12 @@ class nuevo_socio extends CI_Controller
 
 
 
+
       $archivosSoc = $_FILES["archivosSoc"];
+
+
+
+
 
 
 
@@ -236,14 +203,11 @@ class nuevo_socio extends CI_Controller
 
       if ($_POST['valido'] == 1) {
 
-         $this->Subir_foto_Socio($rut_socio);
-
-
+         $this->Subir_foto_Socio($rut_socio,$_FILES["foto"]);
       }
-     
+
       $this->Subir_Archivos_Socio($rut_socio, $archivosSoc);
 
-      die;
 
 
 
@@ -415,6 +379,8 @@ class nuevo_socio extends CI_Controller
             $italiano = 1;
          }
 
+         $path = 'archivos/socios/' . $rut_socio;
+
          $data = array(
 
 
@@ -441,7 +407,9 @@ class nuevo_socio extends CI_Controller
 
             'italiano' => $italiano,
 
-            'estado' => $estado
+            'estado' => $estado,
+
+            'path' => $path
          );
 
 
@@ -726,45 +694,91 @@ class nuevo_socio extends CI_Controller
 
    //private
 
+   private function Subir_foto_Socio($rut_socio, $archivo)
+   {
+ 
+     $fecha = date("Y.m.d_");
+ 
+     $formatos = array('jpg', 'png', 'jpeg', 'gif');
+ 
+     $Dir_archivos = 'archivos/socios/' . $rut_socio . '/perfil/';
+ 
+     $archivonombre =  $fecha . $archivo["name"];
+ 
+     $fuente = $archivo["tmp_name"];
+ 
+     if (!file_exists($Dir_archivos)) {
+ 
+       mkdir($Dir_archivos, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+     }
+ 
+ 
+     $dir = opendir($Dir_archivos);
+ 
+     $path_archivo = $Dir_archivos . $archivonombre; //indicamos la ruta de destino de los archivos
+ 
+     $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+ 
+ 
+     if (in_array($Tipo_archivo, $formatos)) {
+ 
+       if (move_uploaded_file($fuente, $path_archivo)) {
+ 
+         echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+       } else {
+ 
+         echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+       }
+     } else {
+ 
+       echo "Formato del archivo $archivonombre no valido.<br>";
+     }
+ 
+     closedir($dir); //Cerramos la conexion con la carpeta destino
+ 
+ 
+ 
+   }
 
-   private function Subir_foto_Socio($rut_socio){
-      
-         // $fecha_actual = date("Y-m-d");
+   private function Subir_foto_Socio_CODEIGNITER($rut_socio)
+   {
 
-         $micarpeta = 'archivos/socios/' . $rut_socio . '/perfil/';
+      // $fecha_actual = date("Y-m-d");
 
+      $micarpeta = 'archivos/socios/' . $rut_socio . '/perfil/';
 
-
-         if (!file_exists($micarpeta)) {
-
-            mkdir($micarpeta, 0777, true);
-         }
-
-         $config['upload_path'] = $micarpeta;
-
-         $config['file_name'] =  $rut_socio . '_perfil';
-
-         $config['allowed_types'] = 'gif|jpg|jpeg|png';
-
-         $config['max_size'] = 2048;
+      $fecha = date("Y.m.d_");
 
 
 
-         $this->load->library('upload', $config);
+      if (!file_exists($micarpeta)) {
 
-         $this->upload->initialize($config);
+         mkdir($micarpeta, 0777, true);
+      }
 
-         if (!$this->upload->do_upload('foto')) { #Aquí me refiero a "foto", el nombre que pusimos en FormData
+      $config['upload_path'] = $micarpeta;
 
-            $error = array('error' => $this->upload->display_errors());
+      $config['file_name'] =  $fecha . 'perfil';
 
-            echo json_encode($error);
-         } else {
+      $config['allowed_types'] = 'gif|jpg|jpeg|png';
 
-            echo json_encode(true);
-         }
+      $config['max_size'] = 2048;
 
 
+
+      $this->load->library('upload', $config);
+
+      $this->upload->initialize($config);
+
+      if (!$this->upload->do_upload('foto')) { #Aquí me refiero a "foto", el nombre que pusimos en FormData
+
+         $error = array('error' => $this->upload->display_errors());
+
+         echo json_encode($error);
+      } else {
+
+         echo json_encode(true);
+      }
    }
 
    private function Subir_Archivos_Socio($user, $archivo)
@@ -781,7 +795,7 @@ class nuevo_socio extends CI_Controller
 
 
       foreach ($archivo['tmp_name'] as $key => $tmp_name) {
-         //condicional si el fuchero existe
+         //condicional si el fichero existe
          if ($archivo["name"][$key]) {
             // Nombres de archivos de temporales
 

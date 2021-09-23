@@ -38,6 +38,8 @@
   public function mostrar_socio()
   {
 
+
+
     // $rut_socio= $this->uri->segment('4');
 
     $rut = $this->input->post('rut');
@@ -53,6 +55,8 @@
       $data['corporaciones'] = $this->model_socios->all_corporaciones();
 
       $data['datos'] = $this->model_socios->persona($rut);
+
+      $data['socioData'] = $this->model_socios->InfoSocio($rut);
 
       $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
 
@@ -80,33 +84,61 @@
 
       $data['subCond'] = $this->model_socios->all_subcond();
 
-      $this->load->view('socios/editar_socio', $data);
 
+
+      $this->load->view('socios/editar_socio', $data);
     } else {
 
 
       header('HTTP/1.1 500 Internal Server Booboo');
       header('Content-Type: application/json; charset=UTF-8');
       die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
-
     }
   } //fin funcion mostrar_socio
 
 
-  
+
 
   public function actSocio()
   {
 
-
-
     $rut_socio  = $this->input->post('rut');
+
+
+    //valido que existan archivos para subir
+    if (isset($_FILES["archivosSoc"])) {
+
+
+      $archivosSoc = $_FILES["archivosSoc"];
+
+      $this->Subir_Archivos_Socio($rut_socio, $archivosSoc);
+    }
+
+    if ($_POST['val_foto'] == 1) {
+
+      var_dump($_FILES["foto"]);
+
+      $this->Subir_foto_Socio($rut_socio, $_FILES["foto"]);
+    }
+
+
+
+    $path = 'archivos/socios/' . $rut_socio;
+
+
+
+
+
 
     $prsn_id = $this->model_socios->IdPersona($rut_socio);
 
 
 
+
+
     $arr = json_decode($_POST['arr']);
+
+
 
     // $deportes = json_decode($arr,true);
 
@@ -177,13 +209,138 @@
 
       's_comunas_comuna_id' => $comu = $this->input->post('comu'),
 
-      'prsn_nac' => $nac = $this->input->post('nac')
+      'prsn_nac' => $nac = $this->input->post('nac'),
+
+
     );
 
-die;
 
-    $this->model_socios->actualizarSocio($data, $rut_socio); //ACTUALIZAR PERSONAS
+    $dataS = array(
+
+      'path' => $path,
+
+    );
+
+
+
+    $this->model_socios->actualizarSocio($data, $rut_socio); //ACTUALIZAR s_PERSONAS
+
+    $this->model_socios->updateSocio($dataS, $rut_socio); //ACTUALIZAR s_socios
 
     $this->model_socios->ins_depor($rut_socio, $datadp);
+  }
+
+
+  //private
+
+
+
+  private function Subir_Archivos_Socio($user, $archivo)
+  {
+
+
+    $formatos = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
+
+    $fecha = date("Y.m.d_");
+
+
+
+    $Dir_archivos = 'archivos/socios/'; //carpeta donde se guadaran todos los archivos subidos del sistema.
+
+
+    foreach ($archivo['tmp_name'] as $key => $tmp_name) {
+      //condicional si el fichero existe
+
+      if ($archivo["name"][$key]) {
+        // Nombres de archivos de temporales
+
+
+        $archivonombre = $fecha . $archivo["name"][$key];
+
+        $fuente = $archivo["tmp_name"][$key];
+
+        $carpeta = $Dir_archivos . $user . '/docs/'; //Declaramos el nombre de la carpeta que guardara los archivos
+
+        if (!file_exists($carpeta)) {
+
+          mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+        }
+
+
+        //Abrimos el directorio
+        $dir = opendir($carpeta);
+
+        $path_archivo = $carpeta . '/' . $archivonombre; //indicamos la ruta de destino de los archivos
+
+        $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+
+
+        if (in_array($Tipo_archivo, $formatos)) {
+
+          if (move_uploaded_file($fuente, $path_archivo)) {
+
+            echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+          } else {
+
+            echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+          }
+        } else {
+
+          echo "Formato del archivo $archivonombre no valido.<br>";
+        }
+
+        closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+      }
+    }
+  }
+
+
+  private function Subir_foto_Socio($rut_socio, $archivo)
+  {
+
+    $fecha = date("Y.m.d_");
+
+    $formatos = array('jpg', 'png', 'jpeg', 'gif');
+
+    $Dir_archivos = 'archivos/socios/' . $rut_socio . '/perfil/';
+
+    $archivonombre =  $fecha . $archivo["name"];
+
+    $fuente = $archivo["tmp_name"];
+
+    if (!file_exists($Dir_archivos)) {
+
+      mkdir($Dir_archivos, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+    }
+
+
+    $dir = opendir($Dir_archivos);
+
+    $path_archivo = $Dir_archivos . $archivonombre; //indicamos la ruta de destino de los archivos
+
+    $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+
+    if (in_array($Tipo_archivo, $formatos)) {
+
+      if (move_uploaded_file($fuente, $path_archivo)) {
+
+        echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+      } else {
+
+        echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+      }
+    } else {
+
+      echo "Formato del archivo $archivonombre no valido.<br>";
+    }
+
+    closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+
   }
 }//fin CI_controller

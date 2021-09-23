@@ -37,73 +37,75 @@
 
 		<div class="container-fluid">
 
-			<div class="row" style="margin-top: 15px;">
+			<div class="row panel table-responsive" id="mostrarSocios" >
+				<div class="col-md-12">
 
-				<div class="panel panel-default">
+					<div class="panel panel-default">
 
-					<div class="panel-heading">Buscador de Personas</div>
 
-					<div class="panel-body">
+						<div class="panel-heading">
+							<div class="panel-title">LISTADO DE SOCIOS</div>
+						</div>
 
-						<?php //var_dump($personas); 
-						?>
+						<div class="panel-body">
+							<div class="table  table_wrapper">
 
-						<table class="table table-bordered" id="t_personas">
+							<table class="table table-bordered table-responsive" id="t_personas">
 
-							<thead>
+								<thead>
 
-								<tr>
+									<tr>
 
-									<td>RUT</td>
+										<td>RUT</td>
 
-									<td>NOMBRE</td>
+										<td>NOMBRE</td>
 
-									<td>AP. PATERNO</td>
+										<td>AP. PATERNO</td>
 
-									<td>AP. MATERNO</td>
+										<td>AP. MATERNO</td>
 
-									<td>FICHA</td>
+										<td>FICHA</td>
 
-									<td>ESTADO </td>
+										<td>ESTADO </td>
 
-								</tr>
+									</tr>
 
-							</thead>
+								</thead>
 
-							<tbody>
+								<tbody>
 
-								<?php
+									<?php
 
-								function getPuntosRut($rut)
-								{
+									function getPuntosRut($rut)
+									{
 
-									$rutTmp = explode("-", $rut);
+										$rutTmp = explode("-", $rut);
 
-									return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
-								}
-
-								foreach ($personas as $p) {
-
-									$paterno = $p->prsn_apellidopaterno;
-
-									$materno = $p->prsn_apellidomaterno;
-
-									$nombre = $p->prsn_nombres;
-
-									$rut = $p->prsn_rut;
-
-									$estado = $p->estado;
-
-									if ($estado == 1) {
-										$glyphy = 'glyphicon glyphicon-remove';
-										$badge = 'ico badge badge-danger';
-									} else {
-
-										$glyphy = 'glyphicon glyphicon-ok';
-										$badge = 'ico badge badge-success';
+										return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
 									}
 
-									echo '
+									foreach ($personas as $p) {
+
+										$paterno = $p->prsn_apellidopaterno;
+
+										$materno = $p->prsn_apellidomaterno;
+
+										$nombre = $p->prsn_nombres;
+
+										$rut = $p->prsn_rut;
+
+										$estado = $p->estado;
+
+										if ($estado == 1) {
+											$glyphy = 'glyphicon glyphicon-remove';
+											$badge = 'ico badge badge-danger';
+										} else {
+
+											$glyphy = 'glyphicon glyphicon-ok';
+											$badge = 'ico badge badge-success';
+										}
+
+										echo '
 
                 			            <tr>
 
@@ -115,7 +117,7 @@
 
                 			            	<td>' . $materno . '</td>
 
-                			            	<td><a href="' . base_url() . '/socios/ficha/detalle/' . $rut . '">
+                			            	<td><a href="' . base_url() . 'socios/ficha/detalle/' . $rut . '" target="_blank">
 
                 			            	        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
 
@@ -130,18 +132,20 @@
                 			            	
 
                 			            </tr>';
-								}
+									}
 
-								?>
+									?>
 
-							</tbody>
+								</tbody>
 
-						</table>
+							</table>
 
+
+
+							</div>
+						</div>
 					</div>
-
 				</div>
-
 			</div>
 
 		</div>
@@ -153,56 +157,33 @@
 <script language="javascript">
 	$(document).ready(function() {
 
-		var table = $('#t_personas').DataTable({
 
-			"language": {
 
+		$('#t_personas').DataTable({
+			"oLanguage": {
 				"sProcessing": "Procesando...",
-
 				"sLengthMenu": "Mostrar _MENU_ registros",
-
 				"sZeroRecords": "No se encontraron resultados",
-
 				"sEmptyTable": "Ningún dato disponible en esta tabla",
-
 				"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-
 				"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-
 				"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-
 				"sInfoPostFix": "",
-
 				"sSearch": "Buscar:",
-
 				"sUrl": "",
-
 				"sInfoThousands": ",",
-
 				"sLoadingRecords": "Cargando...",
-
 				"oPaginate": {
-
 					"sFirst": "Primero",
-
 					"sLast": "Último",
-
 					"sNext": "Siguiente",
-
 					"sPrevious": "Anterior"
-
 				},
-
 				"oAria": {
-
 					"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-
 					"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-
 				}
-
 			}
-
 		});
 
 
@@ -215,17 +196,11 @@
 
 
 
-		table
 
-
-
-			.column('2:visible')
-
-			.order('asc')
-
-			.draw();
 
 	});
+
+
 </script>
 
 </html>

@@ -74,9 +74,7 @@
 
 
 
-  .img-responsive {
-    max-width: 100px;
-  }
+
 
   /* Color a los input radio  */
 
@@ -585,6 +583,19 @@
   }
 
 
+  .subida_oculto {
+    display: none;
+  }
+
+  .img-responsive {
+
+    cursor: pointer;
+    object-fit: cover;
+    object-position: center center;
+    width: 120px;
+    height: 120px;
+
+  }
 
   /*==================================================
 
@@ -675,6 +686,55 @@
 
 
   <?php
+
+
+  function FotoPerfil($dir)
+  {
+    //valido que se encuentre directorio en base de datos
+    if (!empty($dir)) {
+
+
+
+      $dir = $dir . "/perfil";
+      $ignorados = array('.', '..', '.svn', '.htaccess');
+      $archivos = array();
+      $urlBase = base_url();
+
+      foreach (scandir($dir) as $listado) {
+
+        //validor los elementos oermitidos
+        if (!in_array($listado, $ignorados)) {
+
+          //valido que el elemto no sea un directorio
+          if (!is_dir($dir . '/' . $listado)) {
+
+
+            $archivos[$listado] = filemtime($dir . '/' . $listado);
+          }
+        }
+      }
+      //ordeno del mas reciente al mas antiguo gracias al filetime
+      arsort($archivos);
+
+      $archivos = array_keys($archivos);
+
+      //valido que el directorio no este vacio
+      if (empty($archivos)) {
+
+        echo base_url() . "assets/images/camara-icon.png";
+      } else {
+
+        //muestro la foto mas reciente
+
+        echo ($urlBase . $dir . '/' . $archivos[0]);
+      }
+    } else {
+      echo base_url() . "assets/images/camara-icon.png";
+    }
+  }
+
+
+
 
   setlocale(LC_ALL, 'es_ES') . ': ';
 
@@ -824,13 +884,19 @@
 
     <div class="panel-heading" style="overflow: hidden;">
 
-      <div class="col-md-1" style="width: 11%;">
-
-        <img alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
-
+      <div class="col-md-2">
         <center>
-          <p> <b><?php echo $rut ?></b></p>
+
+          <label for="imagen_perfil">
+            <img alt="Foto SOCIO" src="<?php FotoPerfil($socioData->path) ?>" id="img_perfil" class="img-circle img-responsive img-thumbnail">
+          </label>
+          <div class="subida_oculto">
+            <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto()">
+          </div>
+
+
         </center>
+
 
       </div>
 
@@ -1283,7 +1349,25 @@
 
                   </div>
 
+                  <div class="bs-callout bs-callout-green col-md-6 panel panel-default col-md-offset-3" id="ArchivosAccionista">
+
+                    <label for="arch_socio">Documentos Socio</label>
+                    <div class="input-group" id="inputFormRow" style="padding-bottom:10px;">
+
+                      <a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_archivo">Agregar <i class="glyphicon glyphicon-plus"></i></a>
+
+                    </div>
+                    <div id=nuevo_archivo>
+
+
+
+                    </div>
+                  </div>
+
                 </div>
+
+
+                <div class="clearfix"></div>
 
 
 
@@ -1642,6 +1726,11 @@
 
           </div>
 
+
+
+
+
+
         </div>
 
 
@@ -1675,6 +1764,56 @@
 </html>
 
 <script type="text/javascript">
+  //agregar archivo
+  var ArchivosSubir = 0;
+  $("#agregar_archivo").click(function() {
+    var html = '';
+
+
+    html += '<div class="input-group" id="inputFormRow" style="padding-bottom:10px;">';
+    html += '<input type="file" class="form-control" id="arch_socio" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+    html += '<div class="input-group-btn">';
+    html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
+    html += '</div>';
+    html += '</div>';
+
+
+    $('#nuevo_archivo').append(html);
+    ArchivosSubir++;
+  });
+
+  // Remover archivo
+  $(document).on('click', '#remover', function() {
+    $(this).closest('#inputFormRow').remove();
+    ArchivosSubir--;
+  });
+
+
+
+  var validar_subida = 0;
+
+  function ver_foto() {
+    var img = document.getElementById('img_perfil');
+    var inputFile = document.getElementById('imagen_perfil').files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+      img.src = reader.result;
+
+    }
+
+    if (inputFile) {
+      reader.readAsDataURL(inputFile);
+      validar_subida = 1;
+    } else {
+      img.src = "<?php FotoPerfil($socioData->path) ?>";
+      validar_subida = 0;
+    }
+  }
+
+
+
+
   $(document).ready(function() {
 
 

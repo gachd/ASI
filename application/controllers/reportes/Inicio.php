@@ -280,4 +280,3 @@ class  inicio extends CI_Controller {
 
 
 }
-?>

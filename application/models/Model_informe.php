@@ -3,6 +3,19 @@
 	class model_informe extends CI_Model
 	{
 
+		function corp_all(){
+
+			$this->db->select('*');
+			$this->db->from('corporaciones');
+
+			
+			$consulta = $this->db->get();
+			$consulta = $consulta->result();
+			return $consulta;
+
+		}
+
+
 
 
 
@@ -540,6 +553,26 @@
 				}
 			}
 		}
+
+		function estados_sociosHistorico($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha,$estado)
+		{
+
+			$this->db->select('p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro,s.estado');
+			$this->db->from('s_personas p, s_socios s');
+			$this->db->where('s.corporacion',$rutCorp);
+			$this->db->where('s.estado',$estado);
+			$this->db->where('s.fecha_registro <= ', $desdeFecha);
+			
+			$consulta = $this->db->get();
+			$consulta = $consulta->result();
+			return $consulta;
+
+		}
+
+
+
+
+
 	}
 
 

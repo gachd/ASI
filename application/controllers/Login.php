@@ -14,49 +14,59 @@ class Login extends CI_Controller
 	}
 
 	public function index()
-
 	{
-		$_POST['msj'] = '0';
 
-		if (isset($_POST['password'])) {
-			$usuario = $this->model_login->login($_POST['username'], $_POST['password']);
-
-
-			if ($usuario) {
-				$usuario_data = array(
-					'id' => $usuario->funcionario,
-					'username' => $usuario->username,
-					'permisos' => $usuario->permisos,
-					'logueado' => TRUE
-				);
-				$this->session->set_userdata($usuario_data);
+		// ruta donde se redirecciona al encontrar sesion iniciada
+		$redireccion = base_url() . 'socios/inicio';
 
 
-				redirect(base_url() . 'accionistas/inicio');
-			} else {
+		if (isset($this->session->userdata['logueado'])) {
 
-				$_POST['msj'] = '1';
-				
-				//	echo "<br />";
+			redirect($redireccion);
+		} else {
+
+			$_POST['msj'] = '0';
+
+			if (isset($_POST['password'])) {
+				$usuario = $this->model_login->login($_POST['username'], $_POST['password']);
+
+			
 
 
+				if ($usuario) {
+					$usuario_data = array(
+						'id' => $usuario->funcionario,
+						'username' => $usuario->username,
+						'permisos' => $usuario->permisos,
+						'logueado' => TRUE
+					);
+					$this->session->set_userdata($usuario_data);
+
+
+					redirect($redireccion);
+				} else {
+
+					$_POST['msj'] = '1';
+
+					//	echo "<br />";
+
+
+				}
 			}
+
+
+			$this->load->view('login/login');
 		}
-
-
-
-
-		$this->load->view('login/login');
 	}
 
 	function logout()
 
 	{
 
-			$vars = array('id','username', 'logueado');
-			$this->session->unset_userdata($vars);
-			$this->session->sess_destroy();
-			redirect('login');
+		$vars = array('id', 'username', 'logueado');
+		$this->session->unset_userdata($vars);
+		$this->session->sess_destroy();
+		redirect('login');
 
 
 

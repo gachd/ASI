@@ -102,6 +102,8 @@ if ($this->session->flashdata('socio') == 'exito') {
   <title>Infomes Socios</title>
 
 
+
+
 </head>
 
 <div class="main" style="padding-top: 50px;">
@@ -351,6 +353,18 @@ if ($this->session->flashdata('socio') == 'exito') {
     <h3 class="well"><strong>Informes por Estados</strong></h3>
     <strong></strong>
 
+    <?php
+
+
+  //  $sql =  $activos = $this->model_informe->estados_sociosHistorico("65106820-7", "1", "2001-09-20", "2021-09-20", "0");
+
+    //var_dump($sql);
+
+
+
+
+
+    ?>
 
     <div class="col-md-3 well">
 
@@ -396,6 +410,19 @@ if ($this->session->flashdata('socio') == 'exito') {
 
     </div>
 
+
+    <div class="col-md-2 well">
+
+      <label for="Estado_socio">Estado Actual</label>
+      <select name="Incorporaciones" id="estado_socio" class="form-control" required>
+        <option value="">Seleccionar...</option>
+        <option value="0">Activo</option>
+        <option value="1">Inactivo</option>
+        <option value="2">Todos</option>
+      </select>
+
+    </div>
+
     <div class="col-md-12 text-center">
 
       <div class="form-group">
@@ -403,10 +430,10 @@ if ($this->session->flashdata('socio') == 'exito') {
 
       </div>
 
-      <div class="form-group" ">
-  <!-- <a href=" #!" id="vista" class="btn btn-danger ">Ver</a> -->
+      <div class="form-group">
+        <!-- <a href=" #!" id="vista" class="btn btn-danger ">Ver</a> -->
         <div class="" style="max-width: 100px;margin: auto;">
-          <a href="#!" id="FechasPDF" class="btn btn-danger" style="width: 100%; margin: auto; max-width: 100x;">PDF</a>
+          <a href="javascript:void(0)" id="FechasPDF" class="btn btn-danger" style="width: 100%; margin: auto; max-width: 100x;">PDF</a>
 
         </div>
 
@@ -414,14 +441,16 @@ if ($this->session->flashdata('socio') == 'exito') {
 
       </div>
 
-
+      
+      
     </div>
-
-
-
-
-
+    
+    
+    
+    
   </div>
+  
+
 
 
 
@@ -564,7 +593,6 @@ if ($this->session->flashdata('socio') == 'exito') {
 
 
 <script type="text/javascript">
-
   $.datepicker.regional['es'] = {
     closeText: 'Cerrar',
     prevText: '< Ant',
@@ -593,8 +621,8 @@ if ($this->session->flashdata('socio') == 'exito') {
     $('#desdeFecha, #hastaFecha').datepicker({
       changeMonth: true,
       changeYear: true,
-      maxDate: +0,   
-      yearRange: "-100:+0",     
+      maxDate: +0,
+      yearRange: "-100:+0",
       beforeShow: rangoCustom,
       dateFormat: "yy-mm-dd",
     });
@@ -605,7 +633,7 @@ if ($this->session->flashdata('socio') == 'exito') {
 
     if (input.id == 'hastaFecha') {
       var minDate = new Date($('#desdeFecha').val());
-      
+
       minDate.setDate(minDate.getDate() + 1)
 
       return {
@@ -1030,16 +1058,19 @@ if ($this->session->flashdata('socio') == 'exito') {
 
             if (corp == '1') {
               url = "<?php echo base_url(); ?>socios/InformesSocio/sociocarga_pdf/" + corp;
+
               console.log(url);
               window.open(url);
-              
-              
+
+        
+
 
             }
             if (corp == '2') {
               url = "<?php echo base_url(); ?>socios/InformesSocio/sociocarga_pdf/" + corp;
               console.log(url);
               window.open(url, '_blank');
+
 
             }
             if (corp == '2') {
@@ -1446,6 +1477,8 @@ if ($this->session->flashdata('socio') == 'exito') {
 
     var corpFecha = $("#corpFechas option:selected").val();
     var tipoFecha = $("#IncorporacionesFecha option:selected").val();
+
+    var estado = $("#estado_socio option:selected").val();
     var desdeFecha = $("#desdeFecha").val();
     var hastaFecha = $("#hastaFecha").val();
 
@@ -1463,10 +1496,20 @@ if ($this->session->flashdata('socio') == 'exito') {
 
           if (hastaFecha) {
 
+            if (estado) {
 
-            url = "<?php echo base_url(); ?>socios/InformesSocio/FechaEstado_pdf/" + corpFecha + "/" + tipoFecha + "/" + desdeFecha + "/" + hastaFecha;
-            console.log(url);
-            window.open(url, '_blank');
+              url = "<?php echo base_url(); ?>socios/InformesSocio/FechaEstado_pdf/" + corpFecha + "/" + tipoFecha + "/" + desdeFecha + "/" + hastaFecha + "/" + estado;
+              console.log(url);
+              window.open(url, '_blank');
+                    
+            
+
+             
+
+            } else {
+              toastr.warning('Seleccione el estado')
+            }
+
 
 
 

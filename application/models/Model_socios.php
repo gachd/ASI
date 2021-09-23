@@ -3,6 +3,24 @@
 	class model_socios extends CI_Model
 	{
 
+		function cargas_del_socio($rut){
+
+			
+			
+			$this->db->select('*');
+			$this->db->from('s_cargas_socios c,s_personas p');
+			$this->db->where('c.s_personas_prsn_rut= p.prsn_rut');			
+			$this->db->where('c.estado_carga',0);			
+			$this->db->where('c.s_socios_prsn_rut',$rut);			
+			/* $this->db->group_by('c.s_socios_prsn_rut'); */
+			$consulta = $this->db->get(); 
+
+			$consulta = $consulta->result();
+
+			return $consulta;
+
+		}
+
 
 
 
@@ -13,6 +31,38 @@
 			$p = $this->db->query('SELECT DISTINCT p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,p.prsn_rut,s.estado from s_personas p, s_socios s where p.prsn_rut = s.prsn_rut');
 
 			return $p->result();
+		}
+
+
+		function InfoSocio ($rut){
+
+			$this->db->select('*');
+			$this->db->from('s_socios');
+			$this->db->where('prsn_rut', $rut);
+			$this->db->group_by('prsn_rut');
+
+
+			$consulta = $this->db->get(); 
+
+			$consulta = $consulta->result();
+
+			return $consulta[0];
+		}
+
+		function Info_All_Socios_Actios(){
+
+			$this->db->select('*');
+			$this->db->from('s_socios s, s_personas p');
+			$this->db->where('s.prsn_rut = p.prsn_rut');
+			$this->db->where('s.estado',0);	
+			$this->db->group_by('s.prsn_rut');
+
+
+			$consulta = $this->db->get(); 
+
+			$consulta = $consulta->result();
+
+			return $consulta;
 		}
 
 
@@ -866,6 +916,14 @@
 			$this->db->where('prsn_rut', $rut);
 
 			$this->db->update('s_personas', $data);
+		}
+
+		function updateSocio($data, $rut)
+		{
+
+			$this->db->where('prsn_rut', $rut);
+
+			$this->db->update('s_socios', $data);
 		}
 
 

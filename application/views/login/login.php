@@ -1,10 +1,5 @@
-<?php if (isset($this->session->userdata['logueado'])) { ?>
 
-  <?php redirect('accionistas/inicio');  ?>
-
-
-<?php } ?>
-
+   
 
 
 

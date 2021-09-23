@@ -249,6 +249,9 @@ class nuevo_accionista extends CI_Controller
 			$this->model_persona->update($dataP,$id_persona);		
 
 
+		}else{
+
+			$this->model_persona->insertar($dataP);
 		}
 
 
@@ -262,7 +265,7 @@ class nuevo_accionista extends CI_Controller
 		// Termino subida de archivos
 
 
-		$this->model_persona->insertar($dataP);
+		
 
 		$this->model_accionistas->insertar($dataA);
 

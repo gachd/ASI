@@ -62,6 +62,10 @@
 
     $data['cuotas'] = $this->model_socios->cuotas($rut);
 
+    $data['InfoSocio'] = $this->model_socios->InfoSocio($rut);
+
+    
+
 
 
     $this->load->view('plantilla/Head_v1');

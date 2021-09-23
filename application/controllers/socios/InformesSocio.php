@@ -50,6 +50,7 @@ class InformesSocio extends CI_Controller
 
         $data['socios'] = $this->model_informe->activos();
         $data['cargas'] = $this->model_informe->cargas_activosALL();
+        $data['corp']= $this->model_informe->corp_all();
 
         $this->load->view('plantilla/Head_v1');
 
@@ -856,7 +857,7 @@ class InformesSocio extends CI_Controller
     }
 
 
-    public function FechaEstado_pdf($corpFecha, $tipoFecha, $desdeFecha, $hastaFecha)
+    public function FechaEstado_pdf($corpFecha, $tipoFecha, $desdeFecha, $hastaFecha,$estado)
 
     {
 

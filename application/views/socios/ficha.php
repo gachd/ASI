@@ -6,7 +6,7 @@
 
   <meta charset="UTF-8">
 
-  <title>Ficha Socio</title>
+  <title>Ficha Socio <?php echo getPuntosRut($rut); ?> </title>
 
 </head>
 
@@ -343,7 +343,7 @@
   .tabs-left>.nav-tabs>li>a,
   .tabs-right>.nav-tabs>li>a {
 
-    min-width: 74px;
+    min-width: 50px;
 
     margin-right: 0;
 
@@ -498,6 +498,18 @@
     background: yellow;
   }
 
+  .img-responsive {
+
+
+    object-fit: cover;
+    object-position: center center;
+    width: 120px;
+    height: 120px;
+
+  }
+
+  .archivos_socios {}
+
 
 
   /*==================================================
@@ -559,6 +571,10 @@
 <body>
 
   <?php
+
+
+
+
 
 
   function getPuntosRut($rut)
@@ -645,8 +661,110 @@
   }
 
 
+  function FotoPerfil($dir)
+  {
+    //valido que se encuentre directorio en base de datos
+    if (!empty($dir)) {
+
+      $dir = $dir . "/perfil";
+      $ignorados = array('.', '..', '.svn', '.htaccess');
+      $archivos = array();
+      $urlBase = base_url();
+
+      if (is_dir($dir)) {
+
+        foreach (scandir($dir) as $listado) {
+
+          //validor los elementos oermitidos
+          if (!in_array($listado, $ignorados)) {
+
+            //valido que el elemto no sea un directorio
+            if (!is_dir($dir . '/' . $listado)) {
+
+
+              $archivos[$listado] = filemtime($dir . '/' . $listado);
+            }
+          }
+        }
+        //ordeno del mas reciente al mas antiguo gracias al filetime
+        arsort($archivos);
+
+        $archivos = array_keys($archivos);
+
+        //valido que el directorio no este vacio
+        if (empty($archivos)) {
+
+          echo 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png';
+        } else {
+
+          //muestro la foto mas reciente
+
+          echo ($urlBase . $dir . '/' . $archivos[0]);
+        }
+      } else {
+
+        echo 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png';
+      }
+    } else {
+      echo 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png';
+    }
+  }
+
+
+
+
+  function  Ver_ArchivosSocios($directorio)
+  {
+
+    $directorio = $directorio . '/docs';
+
+
+    if (is_dir($directorio)) {
+
+      $listado = scandir($directorio);
+
+      $urlBase = base_url();
+
+      unset($listado[array_search('.', $listado, true)]);
+
+      unset($listado[array_search('..', $listado, true)]);
+
+      /*    var_dump($listado);
+        var_dump($directorio); */
+
+
+      if (count($listado) < 1) {
+
+        echo 'Directorio Vacio';
+      } else {
+
+
+
+        foreach ($listado as $elemento) {
+
+          if (!is_dir($directorio . '/' . $elemento)) {
+
+            echo '<li style="list-style-type:none;" class="padding"><a href="' . $urlBase . $directorio . '/' . $elemento . '" target="_blank" class="archivos_socios form-control" >' . $elemento . '</a></li>';
+          }
+          if (is_dir($directorio . '/' . $elemento)) {
+            echo '<li style="list-style-type:none;" class="open-dropdown padding"><a href="javascript:void(0)"   class="btn btn-primary ">' . $elemento . '<b class="caret"></b> </a> </li>';
+            echo '<ul class="dropdown d-none">';
+            Ver_ArchivosSocios($directorio . '/' . $elemento);
+            echo '</ul>';
+          }
+        }
+      }
+    } else {
+
+      echo 'No existe directorio';
+    }
+  }
+
+
 
   ?>
+
+
 
   <div class="main">
 
@@ -658,11 +776,14 @@
 
           <div class="panel-heading" style="overflow: hidden;">
 
-            <div class="col-md-1" style="width: 11%;">
-
-              <img alt="User Pic" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" id="profile-image1" class="img-circle img-responsive img-thumbnail">
-
+            <div class="col-md-2">
+              <center>
+                <img alt="User Pic" src="<?php FotoPerfil($InfoSocio->path) ?>" id="profile-image1" class="img-circle img-responsive img-thumbnail">
+              </center>
             </div>
+
+
+
 
             <div class="col-md-6">
               <h2>
@@ -764,11 +885,13 @@
 
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i>  <span>Antecedentes <br> Personales</span></a></li>
 
-                    <li role="presentation" id="dep"><a href="#depor" id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span>Intereses <br> Deportivos</span></a></li>
+                    <li role="presentation" id="dep"><a href="#depor" id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span> <br>Deportes</span></a></li>
 
                     <li role="presentation"><a href="#extra" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-plus-square-o"></i>  <span>Cargas <br> Familiares</span></a></li>
 
                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-user"></i>  <span> <br>Socio</span></a></li>
+
+                    <li role="presentation"><a href="#archivos" aria-controls="archivos" role="tab" data-toggle="tab"><i class="fa fa-folder"></i>  <span> <br>Documentos</span></a></li>
 
 
 
@@ -776,8 +899,8 @@
 
                     <li role="presentation"><a href="#messages" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-briefcase"></i>  <span><br>Acciones</span></a></li>
 
-                    <li role="presentation"><a href="#noti" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-envelope"></i>  <span><br> Notificaciones</span></a></li>
-
+                    <!--                     <li role="presentation"><a href="#noti" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-envelope"></i>  <span><br> Notificaciones</span></a></li>
+ -->
 
 
                   </ul>
@@ -1113,7 +1236,7 @@
 
                                 foreach ($patrocinadores as $p) {
 
-                                  echo '<li class="pat"><a href="' . base_url() . '/socios/ficha/detalle/' . $p->prsn_rut . '">' . $p->prsn_apellidopaterno . ' ' . $p->prsn_apellidomaterno . ' ' . $p->prsn_nombres . '</a></li>';
+                                  echo '<li class="pat"><a href="' . base_url() . 'socios/ficha/detalle/' . $p->prsn_rut . '" target="_blank">' . $p->prsn_apellidopaterno . ' ' . $p->prsn_apellidomaterno . ' ' . $p->prsn_nombres . '</a></li>';
                                 }
                               } else {
                                 echo "<li>No registra.</li>";
@@ -1144,7 +1267,7 @@
 
                                 foreach ($patrocinados as $pp) {
 
-                                  echo '<li class="pat"><a  href="' . base_url() . '/socios/ficha/detalle/' . $pp->prsn_rut . '">' . $pp->prsn_apellidopaterno . ' ' . $pp->prsn_apellidomaterno . ' ' . $pp->prsn_nombres . '</a></li>';
+                                  echo '<li class="pat"><a  href="' . base_url() . '/socios/ficha/detalle/' . $pp->prsn_rut . '" target="_blank">' . $pp->prsn_apellidopaterno . ' ' . $pp->prsn_apellidomaterno . ' ' . $pp->prsn_nombres . '</a></li>';
                                 }
                               } else {
                                 echo "<li>No registra.</li>";
@@ -1161,238 +1284,6 @@
                         </div>
 
                       </div>
-
-                      <!--     <div class="col-md-12" style="padding-top: 15px;">
-
-                <div class="panel panel-default">
-
-                  <div class="panel-heading">Historial</div>
-
-                   <div class="panel-body historial">
-
-                                                    <table class="historial_coorp">
-
-                                                      <thead>
-
-                                                     <tr>
-
-                                                      <th>Fecha</th>
-
-                                                       <th>Descripcion</th>
-
-                                                     </tr> 
-
-                                                      </thead>
-
-                                                      <tbody>
-
-                                                     <tr>
-
-                                                      <td>01/12/2018</td>
-
-                                                       <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-
-                                                       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-
-                                                       quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-
-                                                       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-
-                                                       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-
-                                                       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-
-                                                       
-
-                                                      </tr>
-
-                                                      <tr>
-
-                                                       <td>02/12/2018</td>
-
-                                                       <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-
-                                                       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-
-                                                       quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-
-                                                       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-
-                                                       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-
-                                                       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>                                                
-
-                                                      </tr>
-
-                                                      <tr>
-
-                                                       <td>02/12/2018</td>
-
-                                                       <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-
-                                                       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-
-                                                       quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-
-                                                       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-
-                                                       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-
-                                                       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>                                                
-
-                                                      </tr>
-
-                                                      </tbody>
-
-                                                    </table>  
-
-                    </div>
-
-                   
-
-                  </div>
-
-            </div>-->
-
-
-
-
-
-                      <!--<div class="col-md-8">
-
-              <div class=" tabs-left left-tab-process" style="margin-bottom:25px;">
-
-                    <ul class="nav nav-tabs book-process-ltab text-center">
-
-                      <li class="active"><a href="#a" data-toggle="tab">Centro Italiano di Concepción</a></li>
-
-                      <li class=""><a href="#b" data-toggle="tab">Sociedad Socorros Mutuos Concordia</a></li>
-
-                      <li class=""><a href="#c" data-toggle="tab">Stadio Atlético Italiano</a></li>
-
-                      <li class=""><a href="#d" data-toggle="tab">Stadio Italiano di Concepción</a></li>
-
-                      <li class=""><a href="#e" data-toggle="tab">Scuola Italiana di Concepción</a></li>
-
-                      <li class=""><a href="#f" data-toggle="tab">Tohjfgo:</a></li>
-
-                    </ul>
-
-                    <div class="tab-content">
-
-                                             <div class="tab-pane active" id="a">
-
-                                               <h3>Centro Italiano di Concepción</h3>
-
-                                               <div class="col-md-12 row">
-
-                                                  <table width="250" class="datos_coorp">
-
-                                                    <tbody>
-
-                                                      <tr>
-
-                                                        <td width="39%">estado</td>
-
-                                                        <td width="61%"><span class="label label-success">Activo</span> </td>
-
-                                                      </tr>
-
-                                                      <tr>
-
-                                                        <td>nº registro</td>
-
-                                                        <td>: 185</td>
-
-                                                      </tr>
-
-                                                      <tr>
-
-                                                        <td>nº libro</td>
-
-                                                        <td>: 1</td>
-
-                                                      </tr>
-
-                                                      <tr>
-
-                                                        <td>fecha registro</td>
-
-                                                        <td>: 12/08/2018</td>
-
-                                                      </tr>
-
-                                                      <tr>
-
-                                                        <td>fecha retiro</td>
-
-                                                        <td>: -</td>
-
-                                                      </tr>
-
-                                                    </tbody>
-
-                                                  </table>
-
-                                               </div>
-
-                                              
-
-                                             </div>
-
-                                             <div class="tab-pane" id="b">
-
-                                               <div class="">
-
-                                                            <h4>fdgfg:</h4>
-
-                                                            sfdgfsdgfdgsfg
-
-                                                            <p>
-
-                                                               fdgfg.</p>
-
-                                                        </div>
-
-                                             </div>
-
-                                             <div class="tab-pane" id="c">
-
-                                               <p> On bofdgmplfderviewd</p>
-
-                                             
-
-                                             <div class="tab-pane" id="d">
-
-                                               dfgfgfgfg
-
-                                             </div>
-
-                                             
-
-                                             <div class="tab-pane" id="e">
-
-                                               dfgfdgfg
-
-                                             </div>
-
-                                             
-
-                                             <div class="tab-pane" id="f">
-
-                                               dfgdfgfdgfdg
-
-                                             </div>
-
-                                            </div>
-
-                    </div>
-
-              </div>
-
-            </div> -->
-
-
 
 
 
@@ -1704,6 +1595,34 @@
 
 
                     </div>
+
+
+
+
+                    <div role="tabpanel" class="tab-pane" id="archivos">
+
+                      <div class="col-md-12">
+
+                        <div class="panel panel-default">
+
+                          <div class="panel-heading">Documentos del Socio</div>
+
+                          <div class="panel-body">
+
+                            <?php Ver_ArchivosSocios($InfoSocio->path) ?>
+
+
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+
 
                     <div role="tabpanel" class="tab-pane" id="cuotas">
 
@@ -2145,9 +2064,23 @@
 </html>
 
 <script type="text/javascript">
+  $(document).ready(function() {
+    var numTabs = $('.nav-tabs').find('li').length;
+    var tabWidth = 100 / numTabs;
+    var tabPercent = tabWidth + "%";
+    $('.nav-tabs li').width(tabPercent);
+
+  });
+
+
+
+
+
+
   selPersona = function(id, ano, sem, rut) {
 
     // $('#ano').val(ano);
+
 
 
 
