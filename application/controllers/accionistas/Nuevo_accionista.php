@@ -181,7 +181,7 @@ class nuevo_accionista extends CI_Controller
 		$NumeroTitulo = $this->input->post('NumeroTitulo');
 
 
-		$path = 'archivos/accionistas/' . $rut;
+		$path = 'archivos/accionista/' . $rut;
 
 
 		$dataP = array(
@@ -509,7 +509,7 @@ class nuevo_accionista extends CI_Controller
 
 		$this->Subir_Varios($rut, $archivo);
 
-		$path = 'archivos/accionistas/' . $rut;
+		$path = 'archivos/accionista/' . $rut;
 
 
 
@@ -960,7 +960,7 @@ class nuevo_accionista extends CI_Controller
 
 
 
-		$Dir_archivos = 'archivos/accionistas/'; //carpeta donde se guadaran todos los archivos subidos del sistema.
+		$Dir_archivos = 'archivos/accionista/'; //carpeta donde se guadaran todos los archivos subidos del sistema.
 
 
 		foreach ($archivo['tmp_name'] as $key => $tmp_name) {
@@ -1022,7 +1022,7 @@ class nuevo_accionista extends CI_Controller
 
 
 
-		$Dir_archivos = 'archivos/accionistas/'; //carpeta donde se guadaran todos los archivos subidos del sistema.
+		$Dir_archivos = 'archivos/accionista/'; //carpeta donde se guadaran todos los archivos subidos del sistema.
 
 
 		foreach ($archivo['tmp_name'] as $key => $tmp_name) {

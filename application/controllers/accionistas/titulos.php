@@ -659,7 +659,7 @@ class titulos extends CI_Controller
 
 
 
-		$Dir_archivos = 'archivos/accionistas/'; //carpeta donde se guadaran todos los archivos subidos del sistema accionisstas.
+		$Dir_archivos = 'archivos/accionista/'; //carpeta donde se guadaran todos los archivos subidos del sistema accionisstas.
 
 
 		foreach ($archivo['tmp_name'] as $key => $tmp_name) {

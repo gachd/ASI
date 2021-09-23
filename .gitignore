@@ -54,9 +54,11 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 *.sublime-project
 
+
+
 ##Carpeta de archivos
 
 
-/archivos/
+
 
 
