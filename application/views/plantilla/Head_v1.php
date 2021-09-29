@@ -218,7 +218,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-
+<?php  ?>
 	<script>
 		var minutos = 0;
 		
