@@ -1379,7 +1379,7 @@
 
 
     html += '<div class="input-group" id="inputFormRow" style="padding-bottom:10px;">';
-    html += '<input type="file" class="form-control" id="archivos_fallecido" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+    html += '<input type="file" class="form-control" id="arch_socio" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
     html += '<div class="input-group-btn">';
     html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
     html += '</div>';

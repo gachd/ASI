@@ -14,8 +14,8 @@
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
     <!-- Bootstrap -->
-	<link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
 
 
 
@@ -28,12 +28,43 @@
     <div class="container">
 
 
-    <h2>Página con acceso restringido. </h2>
+        <h2>Página con acceso restringido. </h2>
+        <h5 id="mensaje"> </h5>
 
 
-        <a  class="btn btn-success" href="<?php echo base_url() ?>login">Click aquí para iniciar sesion</a>
+
+        <a class="btn btn-success" href="<?php echo base_url() ?>login">Iniciar sesion</a>
 
     </div>
+
+
+
+    <script>
+        function redireccion() {
+            document.getElementById('mensaje').innerHTML = 'Espere, será redirigido después de <span id="contador"></span> segundos ...';
+            var count =10;
+            document.getElementById('contador').innerHTML = count;
+            setInterval(function() {
+                count--;
+                document.getElementById('contador').innerHTML = count;
+                if (count == 0) {
+                    window.location = '<?php echo base_url() ?>';
+                }
+
+
+            }, 1000); // cada un segundo se ejecuta
+
+
+        }
+
+     
+      
+
+
+    
+
+        redireccion();
+    </script>
 
 </body>
 

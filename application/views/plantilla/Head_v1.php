@@ -20,6 +20,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,7 +36,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- Bootstrap Core JavaScript -->
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 	<!-- Morris Charts JavaScript -->
@@ -90,17 +92,28 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 				display: none;
 			}
 
+			.salto_celu {
+
+				display: block !important;
+			}
 
 
+		}
 
+		.salto_celu {
 
-
+			display: none;
 		}
 
 		div#ui-datepicker-div {
 			z-index: 99999;
 
 
+		}
+
+		html,
+		body {
+			background: white;
 
 		}
 
@@ -205,7 +218,72 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	</style>
 
 
+
+
 	<script>
+		var minutos = 0;
+		
+		function listo() {
+			
+			$(".loader").fadeOut(200);
+			
+			/* 	toggleFullScreen(document.body); */
+			timerSesion();
+
+
+
+
+		}
+
+
+
+		function timerSesion() {
+
+
+
+			setInterval(function() {
+				minutos++;
+				/* 	console.log(minutos); */
+
+				if (minutos == 8) {
+
+
+
+					swal({
+						title: "Se ha detectado inactivdad",
+						text: "Se cerrara la sesion en 2 min",
+						icon: "warning",
+						button: "Continuar Sesion",
+					});
+
+
+
+				}
+
+
+
+				if (minutos == 10) {
+					window.location = '<?php echo base_url(); ?>login/logout';
+				}
+
+
+			}, 60000); //  cuenta cada minutos
+
+		}
+
+		function resetTiempo() {
+
+			/* console.log("tiempo reseteado"); */
+			minutos = 0;
+
+
+		}
+
+
+
+
+
+
 		$.datepicker.regional['es'] = {
 			closeText: 'Cerrar',
 			prevText: '< Ant',
@@ -260,7 +338,10 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 				}
 			});
 
-			$(".loader").fadeOut(200);
+
+
+
+
 		});
 	</script>
 
@@ -268,7 +349,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 </head>
 
-<body>
+<body onload="listo()" onkeypress="resetTiempo()" onclick="resetTiempo()" onMouseMove="resetTiempo()" ontouchstart="resetTiempo()">
 
 	<nav class="navbar navbar-default navbar-fixed-top" id="navbar_Home">
 		<div class="container">
@@ -350,6 +431,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 				<ul class=" nav navbar-nav navbar-right">
+
+
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<?php echo ($this->session->userdata('username')); ?> <b class="caret"></b></a>
@@ -372,6 +455,31 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 </body>
 
+<script>
+	function toggleFullScreen(elem) {
+		if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+			if (elem.requestFullScreen) {
+				elem.requestFullScreen();
+			} else if (elem.mozRequestFullScreen) {
+				elem.mozRequestFullScreen();
+			} else if (elem.webkitRequestFullScreen) {
+				elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+			} else if (elem.msRequestFullscreen) {
+				elem.msRequestFullscreen();
+			}
+		} else {
+			if (document.cancelFullScreen) {
+				document.cancelFullScreen();
+			} else if (document.mozCancelFullScreen) {
+				document.mozCancelFullScreen();
+			} else if (document.webkitCancelFullScreen) {
+				document.webkitCancelFullScreen();
+			} else if (document.msExitFullscreen) {
+				document.msExitFullscreen();
+			}
+		}
+	}
+</script>
 
 </html>
 

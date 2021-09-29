@@ -96,7 +96,7 @@ class Fitness extends CI_Controller
 
             $data['InfoSocio'] = $this->model_socios->InfoSocio($rut);
 
-            $this->load->view('socios/ficha', $data);
+            $this->load->view('socios/fitness/ver_ficha', $data);
         }
         if ($accion == "Editar") {
 

@@ -508,7 +508,10 @@
 
   }
 
-  .archivos_socios {}
+ /*  .archivos_socios {
+
+
+  } */
 
 
 

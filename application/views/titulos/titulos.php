@@ -57,7 +57,7 @@
       <!-- <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button> -->
 
       <ul class="breadcrumb">
-        <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
+        <li><a href="<?php echo base_url()  ?>accionistas/inicio">Inicio</a></li>
 
         <li>Titulos</li>
       </ul>

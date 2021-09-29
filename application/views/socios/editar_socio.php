@@ -690,43 +690,48 @@
 
   function FotoPerfil($dir)
   {
+
     //valido que se encuentre directorio en base de datos
     if (!empty($dir)) {
 
+      if (is_dir($dir)) {
+
+        $dir = $dir . "/perfil";
+        $ignorados = array('.', '..', '.svn', '.htaccess');
+        $archivos = array();
+        $urlBase = base_url();
+
+        foreach (scandir($dir) as $listado) {
+
+          //validor los elementos oermitidos
+          if (!in_array($listado, $ignorados)) {
+
+            //valido que el elemto no sea un directorio
+            if (!is_dir($dir . '/' . $listado)) {
 
 
-      $dir = $dir . "/perfil";
-      $ignorados = array('.', '..', '.svn', '.htaccess');
-      $archivos = array();
-      $urlBase = base_url();
-
-      foreach (scandir($dir) as $listado) {
-
-        //validor los elementos oermitidos
-        if (!in_array($listado, $ignorados)) {
-
-          //valido que el elemto no sea un directorio
-          if (!is_dir($dir . '/' . $listado)) {
-
-
-            $archivos[$listado] = filemtime($dir . '/' . $listado);
+              $archivos[$listado] = filemtime($dir . '/' . $listado);
+            }
           }
         }
-      }
-      //ordeno del mas reciente al mas antiguo gracias al filetime
-      arsort($archivos);
+        //ordeno del mas reciente al mas antiguo gracias al filetime
+        arsort($archivos);
 
-      $archivos = array_keys($archivos);
+        $archivos = array_keys($archivos);
 
-      //valido que el directorio no este vacio
-      if (empty($archivos)) {
+        //valido que el directorio no este vacio
+        if (empty($archivos)) {
 
-        echo base_url() . "assets/images/camara-icon.png";
+          echo base_url() . "assets/images/camara-icon.png";
+        } else {
+
+          //muestro la foto mas reciente
+
+          echo ($urlBase . $dir . '/' . $archivos[0]);
+        }
       } else {
 
-        //muestro la foto mas reciente
-
-        echo ($urlBase . $dir . '/' . $archivos[0]);
+        echo base_url() . "assets/images/camara-icon.png";
       }
     } else {
       echo base_url() . "assets/images/camara-icon.png";
@@ -888,7 +893,7 @@
         <center>
 
           <label for="imagen_perfil">
-            <img alt="Foto SOCIO" src="<?php FotoPerfil($socioData->path) ?>" id="img_perfil" class="img-circle img-responsive img-thumbnail">
+            <img alt="Foto SOCIO" src="<?php FotoPerfil($socioData->path); ?>" id="img_perfil" class="img-circle img-responsive img-thumbnail">
           </label>
           <div class="subida_oculto">
             <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto()">

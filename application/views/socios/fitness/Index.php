@@ -53,12 +53,12 @@
                                 <td><?php echo $s->prsn_apellidopaterno . " " . $s->prsn_apellidomaterno   ?></td>
                                 <td><?php echo $s->prsn_fechanacimi ?></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal_Beneficiario" data-rut="<?php echo $s->prsn_rut ?>" data-accion="Ver" data-backdrop="static" data-keyboard="false">
-                                        Ver
-                                    </button>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal_Beneficiario" data-rut="<?php echo $s->prsn_rut ?>" data-accion="Editar" data-backdrop="static" data-keyboard="false">
                                         Editar
-
+                                        
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal_Beneficiario" data-rut="<?php echo $s->prsn_rut ?>" data-accion="Ver" data-backdrop="static" data-keyboard="false">
+                                        Ver
                                     </button>
                                 </td>
 
@@ -81,6 +81,16 @@
 
 
         <div class="modal fade container-fluid " id="Modal_Beneficiario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+
+            <div class="salto_celu">
+
+                <br>
+                <br>
+                <br>
+            </div>
+
+
             <div class=" container-fluid " role="document">
 
 
@@ -93,7 +103,7 @@
 
                     </div>
                     <div class="modal-body" id="body_modal">
-                      <!--   <form>
+                        <!--   <form>
                             <div class="form-group">
                                 <label for="recipient-name" class="control-label">Recipient:</label>
                                 <input type="text" class="form-control" id="recipient-name">
@@ -105,8 +115,8 @@
                         </form> -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                     
                     </div>
 
 
@@ -156,7 +166,7 @@
         var accion = boton.data('accion');
 
 
-        
+
 
         $.ajax({
             type: "POST",
@@ -164,16 +174,16 @@
             data: {
 
                 rut: rut,
-                accion:accion,
+                accion: accion,
 
             },
-           
+
             success: function(datos) {
 
-              
+
 
                 $("#body_modal").append(datos);
-                
+
 
 
 

@@ -22,8 +22,8 @@
     <div class="container">
 
         <ul class="breadcrumb">
-            <li><a href="/ASI/accionistas/inicio">Inicio</a></li>
-            <li><a href="/ASI/accionistas/titulos">Titulos</a></li>
+            <li><a href="<?php echo base_url()  ?>/accionistas/inicio">Inicio</a></li>
+            <li><a href="<?php echo base_url()  ?>/accionistas/titulos">Titulos</a></li>
 
             <li>Nuevo Titulo</li>
         </ul>

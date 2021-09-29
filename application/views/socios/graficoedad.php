@@ -211,7 +211,7 @@
 </html>
 
 <script type="text/javascript">
-  $(".loader").fadeOut(200);
+
 
 
 
