@@ -612,6 +612,7 @@
   setlocale(LC_ALL, 'es_ES') . ': ';
 
 
+  
 
   if (!empty($datos)) {
 

@@ -74,6 +74,26 @@
 					"label": "Formato Consulta BD CI"
 				}
 			]
+		},
+		{
+			"path": ".vscode/bookmarks.json",
+			"bookmarks": [
+				{
+					"line": 71,
+					"column": 9,
+					"label": "aa"
+				}
+			]
+		},
+		{
+			"path": "application/models/Model_socios.php",
+			"bookmarks": [
+				{
+					"line": 374,
+					"column": 17,
+					"label": "Arreglar consulta"
+				}
+			]
 		}
 	]
 }

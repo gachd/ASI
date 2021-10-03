@@ -430,16 +430,16 @@
 
 <div class="main">
   <div class="container-fluid">
-    <div class="row fixed">
+    <div class="row ">
 
       <div class="col-sm-6">
         <div class="panel panel-default">
           <div class="panel-heading" style="overflow: hidden;">
             <div class="col-sm-1">
-              <label for="">RUT</label>
+              <label for="">RUT SOCIO</label>
             </div>
             <div class="col-md-6">
-              <input autocomplete="on" type="text" class="form-control" name="rut_socio" id="rut_socio" placeholder="Ej: 11111111-1" value="<?php echo set_value('rut_socio'); ?>">
+              <input autocomplete="off" type="text" class="form-control" name="rut_socio" id="rut_socio" placeholder="Ej: 11111111-1" value="<?php echo set_value('rut_socio'); ?>">
               <span id="rut_socio" style="display:none;color:red;">RUT INCORRECTO</span>
             </div>
             <div class="col-md-4">
@@ -467,7 +467,7 @@
 
     </div>
 
-    <div class="row padding">
+    <div class="row">
       <div id="mostrar">
 
 
@@ -543,20 +543,57 @@
   autocomplete(document.getElementById("rut_socio"), socios);
 
   $("#enviar").click(function() {
-    rut = $('#rut_socio').val();
+
+    $("#mostrar").empty()
+    $("#mostrar").append('<div class="center-block" style="text-align:center" ><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt=""></div>');
+
+
+    var rut = $('#rut_socio').val();
+
+    console.log(rut);
     var enviar = 1;
     //alert(rut);
     //    $('#edit_socios').html('<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
 
-    $.post("<?php echo base_url() ?>socios/nuevacarga/mostrar_datos", {
+
+    $.ajax({
+      type: "POST",
+      url: "<?php echo base_url() ?>socios/nuevacarga/mostrar_datos",
+      data: {
         rut: rut,
         enviar: enviar
-      },
-      function(data) {
-        $("#mostrar").html(data)
-        //        $("#edit_socios").html(data);           
-        //  $("#valores").css("display","block")        
 
-      });
+
+      },
+
+      success: function(data) {
+        $("#mostrar").html(data);
+
+      },
+      error: function() {
+        $("#mostrar").empty();
+
+
+
+        swal({
+          title: "No se encontraron registros",
+          icon: "info",
+          button: "OK",
+        });
+
+      }
+    });
+
+
+    /*   $.post("<?php echo base_url() ?>socios/nuevacarga/mostrar_datos", {
+          rut: rut,
+          enviar: enviar
+        },
+        function(data) {
+          $("#mostrar").html(data)
+          //        $("#edit_socios").html(data);           
+          //  $("#valores").css("display","block")        
+
+        }); */
   });
 </script>

@@ -842,6 +842,8 @@
 
     rut = $('#rut_socio').val();
 
+ 
+
     if (rut) {
 
 

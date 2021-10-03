@@ -23,6 +23,8 @@ class Fitness extends CI_Controller
         $this->load->model('model_socios');
 
         $this->load->model('model_accionistas');
+
+        $this->load->model('fitness_model');
     }
 
 
@@ -75,26 +77,19 @@ class Fitness extends CI_Controller
         $rut = $this->input->post('rut');
         $accion = $this->input->post('accion');
 
-   
+
 
         if ($accion == "Ver") {
 
 
-            $data['corporaciones'] = $this->model_socios->all_corporaciones();
+      
 
             $data['rut'] = $rut;
 
-            $data['datos_personales'] = $this->model_socios->persona($rut);
+            $data['datos_personales'] = $this->model_socios->persona($rut);     
+            $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);     
 
-            $data['patrocinadores'] = $this->model_socios->patrocinadores($rut);
-
-            $data['patrocinados'] = $this->model_socios->patrocinados($rut);
-
-            $data['cargas'] = $this->model_socios->cargas($rut);
-
-            $data['cuotas'] = $this->model_socios->cuotas($rut);
-
-            $data['InfoSocio'] = $this->model_socios->InfoSocio($rut);
+  
 
             $this->load->view('socios/fitness/ver_ficha', $data);
         }
@@ -102,41 +97,117 @@ class Fitness extends CI_Controller
 
 
 
-            $data['corporaciones'] = $this->model_socios->all_corporaciones();
-
+            $data['rut'] = $rut;
             $data['datos'] = $this->model_socios->persona($rut);
-
-            $data['socioData'] = $this->model_socios->InfoSocio($rut);
-
-            $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
-
-            $data['patrocinadores'] = $this->model_socios->patrocinadores($rut);
-
-            $data['patrocinados'] = $this->model_socios->patrocinados($rut);
-
-            $data['cargas'] = $this->model_socios->cargas($rut);
-
-            $data['cuotas'] = $this->model_socios->cuotas($rut);
-
-            $data['estado_civil2'] = $this->model_socios->all_estadocivil();
-
-            $data['nac'] = $this->model_socios->all_nacionalidades();
-
-            $data['comuna'] = $this->model_socios->all_comunas();
-
-            $data['condicion_lab'] = $this->model_socios->all_condicionlab();
-
-            $data['condicion'] = $this->model_socios->all_condicion();
-
-            $data['condicion2'] = $this->model_socios->all_condicion2();
-
-            $data['tipo'] = $this->model_socios->all_tipo();
-
-            $data['subCond'] = $this->model_socios->all_subcond();
+            $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);     
 
 
 
-            $this->load->view('socios/editar_socio', $data);
+
+
+            $this->load->view('socios/fitness/editar_beneficiario', $data);
         }
     }
+
+    public function agregarDatos()
+    {
+
+
+
+        $rut = $this->input->post("");
+        $estatura = $this->input->post("");
+        $peso = $this->input->post("");
+        $imc = $this->input->post("");
+        $fono_emergencia = $this->input->post("");
+        $patologias_base = $this->input->post("");
+        $pc_bicipital = $this->input->post("");
+        $pc_tricipital = $this->input->post("");
+        $pc_subescapular = $this->input->post("");
+        $pc_suprailiaco = $this->input->post("");
+        $pc_muslo = $this->input->post("");
+        $pc_abdominal = $this->input->post("");
+        $pc_pecho = $this->input->post("");
+        $pc_axilar = $this->input->post("");
+        $pc_pierna = $this->input->post("");
+        $objetivos = $this->input->post("");
+
+
+
+        $data = array(
+            'fitness_prsn_rut' => $rut,
+            'estatura'  => $estatura,
+            'peso'  => $peso,
+            'imc'  => $imc,
+            'fono_emergencia'  => $fono_emergencia,
+            'patologias_base'  => $patologias_base,
+            'pc_bicipital'  => $pc_bicipital,
+            'pc_tricipital'  => $pc_tricipital,
+            'pc_subescapular'  => $pc_subescapular,
+            'pc_suprailiaco'  => $pc_suprailiaco,
+            'pc_muslo'  => $pc_muslo,
+            'pc_abdominal'  => $pc_abdominal,
+            'pc_pecho'  => $pc_pecho,
+            'pc_axilar'  => $pc_axilar,
+            'pc_pierna'  => $pc_pierna,
+            'objetivos'  => $objetivos
+        );
+
+
+        $validar = $this->fitness_model->agregarBeneficiario($data);
+    }
+
+
+    public function actualizarDatos()
+    {
+
+
+
+        $rut = $this->input->post("");
+        $estatura = $this->input->post("");
+        $peso = $this->input->post("");
+        $imc = $this->input->post("");
+        $fono_emergencia = $this->input->post("");
+        $patologias_base = $this->input->post("");
+        $pc_bicipital = $this->input->post("");
+        $pc_tricipital = $this->input->post("");
+        $pc_subescapular = $this->input->post("");
+        $pc_suprailiaco = $this->input->post("");
+        $pc_muslo = $this->input->post("");
+        $pc_abdominal = $this->input->post("");
+        $pc_pecho = $this->input->post("");
+        $pc_axilar = $this->input->post("");
+        $pc_pierna = $this->input->post("");
+        $objetivos = $this->input->post("");
+
+
+
+        $data = array(
+
+            'fitness_prsn_rut' => $rut,
+            'estatura'  => $estatura,
+            'peso'  => $peso,
+            'imc'  => $imc,
+            'fono_emergencia'  => $fono_emergencia,
+            'patologias_base'  => $patologias_base,
+            'pc_bicipital'  => $pc_bicipital,
+            'pc_tricipital'  => $pc_tricipital,
+            'pc_subescapular'  => $pc_subescapular,
+            'pc_suprailiaco'  => $pc_suprailiaco,
+            'pc_muslo'  => $pc_muslo,
+            'pc_abdominal'  => $pc_abdominal,
+            'pc_pecho'  => $pc_pecho,
+            'pc_axilar'  => $pc_axilar,
+            'pc_pierna'  => $pc_pierna,
+            'objetivos'  => $objetivos
+        );
+
+
+        $validar = $this->fitness_model->actualizarBeneficiario($rut,$data);
+
+    }
+
+
+
+
+    
 }

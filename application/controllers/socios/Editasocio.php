@@ -44,7 +44,7 @@
 
     $rut = $this->input->post('rut');
 
-    $Activo = $this->model_socios->es_Activo($rut);
+    $Activo = $this->model_socios->es_Socio($rut);
 
 
     if ($Activo) {

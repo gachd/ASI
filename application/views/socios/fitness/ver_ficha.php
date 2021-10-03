@@ -508,14 +508,10 @@
 
   }
 
- /*  .archivos_socios {
+  /*  .archivos_socios {
 
 
   } */
-
-
-
- 
 </style>
 
 <body>
@@ -534,6 +530,22 @@
 
     return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
   }
+
+
+  function formatFecha($fecha)
+  {
+    if ($fecha) {
+      return date("d/m/Y", strtotime($fecha));
+
+    }else{
+      return "";
+    }
+
+
+
+  }
+
+
 
   setlocale(LC_ALL, 'es_ES') . ': ';
 
@@ -744,7 +756,7 @@
 
             </div>
 
-          
+
 
           </div>
 
@@ -765,7 +777,7 @@
 
                     <li role="presentation" class="" id="dep"><a href="#depor" id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span> <br>Salud</span></a></li>
 
-                  
+
 
 
 
@@ -803,7 +815,7 @@
 
                               <td>fecha de nacimiento</td>
 
-                              <td><?php echo iconv('ISO-8859-1', 'UTF-8', strftime('%d %b de %Y',  strtotime($fecha_nacimiento))); ?></td>
+                              <td><?php echo  formatFecha($fecha_nacimiento); ?></td>
 
                             </tr>
 
@@ -877,17 +889,71 @@
 
                       </div>
 
-                     
+                      <!--DATOS DE FITNESS -->
 
-                    
+                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
+
+                        <h4>Datos fitness</h4>
+
+                        <?php var_dump($fitness) ?>
+
+
+                        <table width="100%" class="table tbl-datos">
+
+                          <tbody>
+
+                            <tr>
+
+                              <td width="31%">Estatura</td>
+
+                              <td width="69%"><?php echo $sexo_txt; ?></td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td>Peso</td>
+
+                              <td></td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td>estado civil</td>
+
+                              <td><?php echo $estado_civil; ?></td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td>nacionalidad</td>
+
+                              <td><?php echo $nacionalidad; ?></td>
+
+                            </tr>
+
+                          </tbody>
+
+                        </table>
+
+
+
+
+                      </div>
+
+
+
+
 
                     </div>
 
                     <!-- PESTAÑA SOSCIO -->
 
-               
-                
-                    
+
+
+
 
                     <div role="tabpanel" class="tab-pane" id="depor">
 
@@ -965,7 +1031,6 @@
 
 
 
-     
 
 
 
@@ -973,7 +1038,6 @@
 
 
 
-                   
 
 
 
@@ -981,29 +1045,37 @@
 
 
 
-                    
+
+
+
+
+
+
+                    </div>
 
 
 
                   </div>
 
-
-
                 </div>
 
               </div>
+
+
 
             </div>
 
 
 
+
+
+
+
+
+
+
+
           </div>
-
-
-
-
-
-
 
 
 
@@ -1021,15 +1093,9 @@
 
 
 
+
+
     </div>
-
-
-
-
-
-
-
-  </div>
 
 
 
@@ -1049,8 +1115,4 @@
     $('.nav-tabs li').width(tabPercent);
 
   });
-
-
-
-
 </script>

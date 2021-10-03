@@ -80,50 +80,74 @@ class nuevaCarga extends CI_Controller
 
     $paso = $this->input->post('enviar');
 
-
-
-    $data['corporaciones'] = $this->model_socios->all_corporaciones();
-
-    $data['datos'] = $this->model_socios->persona($rut);
-
-    $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
-
-    $data['patrocinadores'] = $this->model_socios->patrocinadores($rut);
-
-    $data['patrocinados'] = $this->model_socios->patrocinados($rut);
-
-    $data['cargas'] = $this->model_socios->cargas($rut);
-
-    $data['cuotas'] = $this->model_socios->cuotas($rut);
-
-    $data['estado_civil2'] = $this->model_socios->all_estadocivil();
-
-    $data['nac'] = $this->model_socios->all_nacionalidades();
-
-    $data['comuna'] = $this->model_socios->all_comunas();
-
-    $data['condicion_lab'] = $this->model_socios->all_condicionlab();
-
-    $data['condicion'] = $this->model_socios->all_condicion();
-
-    $data['condicion2'] = $this->model_socios->all_condicion2();
-
-    $data['tipo'] = $this->model_socios->all_tipo();
-
-    $data['subCond'] = $this->model_socios->all_subcond();
-
-    $data['parentesco'] = $this->model_socios->all_parentesco();
+    $Activo = $this->model_socios->es_Socio($rut);
 
 
 
-    if ($paso == 1) {
 
-      $this->load->view('socios/agregaCarga', $data);
-    }
 
-    if ($paso == 2) {
+    if ($Activo) {
 
-      $this->load->view('socios/edita_Carga', $data);
+
+
+      $data['corporaciones'] = $this->model_socios->all_corporaciones();
+
+      $data['datos'] = $this->model_socios->persona($rut);
+
+
+      if (empty($data['datos'])) {
+        header('HTTP/1.1 500 Internal Server Booboo');
+        header('Content-Type: application/json; charset=UTF-8');
+        die(json_encode(array('message' => 'Persona no se encuetra', 'code' => 'ERROR')));
+      }
+
+
+
+      $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
+
+      $data['patrocinadores'] = $this->model_socios->patrocinadores($rut);
+
+      $data['patrocinados'] = $this->model_socios->patrocinados($rut);
+
+      $data['cargas'] = $this->model_socios->cargas($rut);
+
+      $data['cuotas'] = $this->model_socios->cuotas($rut);
+
+      $data['estado_civil2'] = $this->model_socios->all_estadocivil();
+
+      $data['nac'] = $this->model_socios->all_nacionalidades();
+
+      $data['comuna'] = $this->model_socios->all_comunas();
+
+      $data['condicion_lab'] = $this->model_socios->all_condicionlab();
+
+      $data['condicion'] = $this->model_socios->all_condicion();
+
+      $data['condicion2'] = $this->model_socios->all_condicion2();
+
+      $data['tipo'] = $this->model_socios->all_tipo();
+
+      $data['subCond'] = $this->model_socios->all_subcond();
+
+      $data['parentesco'] = $this->model_socios->all_parentesco();
+
+
+
+      if ($paso == 1) {
+
+        $this->load->view('socios/agregaCarga', $data);
+      }
+
+      if ($paso == 2) {
+
+        $this->load->view('socios/edita_Carga', $data);
+      }
+    } else {
+
+
+      header('HTTP/1.1 500 Internal Server Booboo');
+      header('Content-Type: application/json; charset=UTF-8');
+      die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
     }
   }
 

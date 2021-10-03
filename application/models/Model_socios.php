@@ -721,6 +721,27 @@
 			return $rut->result();
 
 		}
+		function es_Socio($rut)
+		{
+			$this->db->distinct();
+
+			$this->db->select('prsn_rut');
+
+			$this->db->from('s_socios');
+
+
+			$this->db->where(' prsn_rut', $rut);
+
+			$rut = $this->db->get();
+
+
+			//$rut = $this->db->query('SELECT DISTINCT prsn_rut FROM `s_socios` WHERE estado = 0');
+
+			return $rut->result();
+
+		}
+
+
 
 
 

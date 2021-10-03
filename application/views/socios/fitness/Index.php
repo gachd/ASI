@@ -17,6 +17,33 @@
     }
 </style>
 
+
+<?php
+
+
+
+
+
+
+function getEdad($fecha)
+{
+
+    $nacimiento = new DateTime($fecha);
+    $hoy = new Datetime(date('Y/m/d'));
+    $diff = $hoy->diff($nacimiento);
+    $anosEdad = $diff->y;
+    if ($anosEdad > 0) {
+        return $anosEdad;
+    } else {
+        return "No existe registro de fecha";
+    }
+}
+
+
+
+
+?>
+
 <body>
 
 
@@ -51,11 +78,11 @@
                                 <td><?php echo $s->prsn_rut ?></td>
                                 <td><?php echo $s->prsn_nombres ?></td>
                                 <td><?php echo $s->prsn_apellidopaterno . " " . $s->prsn_apellidomaterno   ?></td>
-                                <td><?php echo $s->prsn_fechanacimi ?></td>
+                                <td><?php echo getEdad($s->prsn_fechanacimi) ?></td>
                                 <td>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal_Beneficiario" data-rut="<?php echo $s->prsn_rut ?>" data-accion="Editar" data-backdrop="static" data-keyboard="false">
                                         Editar
-                                        
+
                                     </button>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal_Beneficiario" data-rut="<?php echo $s->prsn_rut ?>" data-accion="Ver" data-backdrop="static" data-keyboard="false">
                                         Ver
@@ -116,7 +143,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                     
+
                     </div>
 
 

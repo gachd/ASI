@@ -35,7 +35,10 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+
+
+
 	<!-- Bootstrap Core JavaScript -->
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 	<!-- Morris Charts JavaScript -->
@@ -211,21 +214,21 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			height: 100%;
 			z-index: 9999;
 
-			background: url('<?php echo base_url(); ?>assets/img/loader.gif') 50% 50% no-repeat rgb(249, 249, 249);
-			opacity: .95;
+			background: url('<?php echo base_url(); ?>assets/images/carga_pagina.gif') 50% 50% no-repeat rgb(249, 249, 249);
+			opacity: .98;
 		}
 	</style>
 
 
 
-<?php  ?>
+	<?php  ?>
 	<script>
 		var minutos = 0;
-		
+
 		function listo() {
-			
+
 			$(".loader").fadeOut(200);
-			
+
 			/* 	toggleFullScreen(document.body); */
 			timerSesion();
 
@@ -342,6 +345,21 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 		});
+
+
+
+		function getIEVersion() {
+			var match = navigator.userAgent.match(/(?:MSIE |Trident\/.*; rv:)(\d+)/);
+			return match ? parseInt(match[1]) : undefined;
+		}
+
+
+
+		if (getIEVersion() <= 11) {
+
+			alert("Navegador no compatible")
+			document.location = "<?php echo base_url(); ?>login/logout"; //Es IE <= 9, REDIRECCIONA A PAGINA QUE SUGIERE USAR UNA MAYOR VERSIÓN!
+		}
 	</script>
 
 
@@ -350,6 +368,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 <body onload="listo()" onkeypress="resetTiempo()" onclick="resetTiempo()" onMouseMove="resetTiempo()" ontouchstart="resetTiempo()">
 
+	<div id="pickerFecha"></div>
 	<nav class="navbar navbar-default navbar-fixed-top" id="navbar_Home">
 		<div class="container">
 			<div class="navbar-header">
