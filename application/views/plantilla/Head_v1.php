@@ -46,6 +46,17 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris-data.js"></script>
 
+<!-- pickerDate -->
+	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.js"></script>
+	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.date.js"></script>
+	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/legacy.js"></script>
+
+	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.css" rel="stylesheet">
+	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.date.css" rel="stylesheet">
+
+<!-- JqueryDataTable -->
+
+
 	<script src="<?php echo base_url(); ?>assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/plugins/dataTables.bootstrap.min.js"></script>
 

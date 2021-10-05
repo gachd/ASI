@@ -896,7 +896,7 @@
             <img alt="Foto SOCIO" src="<?php FotoPerfil($socioData->path); ?>" id="img_perfil" class="img-circle img-responsive img-thumbnail">
           </label>
           <div class="subida_oculto">
-            <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto()">
+            <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto(this)">
           </div>
 
 
@@ -1776,7 +1776,7 @@
 
 
     html += '<div class="input-group" id="inputFormRow" style="padding-bottom:10px;">';
-    html += '<input type="file" class="form-control" id="arch_socio" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+    html += '<input type="file" class="form-control" id="arch_socio" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required onchange="valida_archivo(this)" >';
     html += '<div class="input-group-btn">';
     html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
     html += '</div>';
@@ -1797,23 +1797,81 @@
 
   var validar_subida = 0;
 
-  function ver_foto() {
-    var img = document.getElementById('img_perfil');
-    var inputFile = document.getElementById('imagen_perfil').files[0];
-    var reader = new FileReader();
+  function ver_foto(archivo) {
 
-    reader.onloadend = function() {
-      img.src = reader.result;
+    var img = document.getElementById('img_perfil'); // src donde se vera la foto
+    var inputFile = archivo.files[0]; // obtengo el arhivo de input file
+    /*  Variables para validar el tipo de archivo */
 
+    var nombre_archivo = archivo.value; //obtengo el nombre del archvo
+    var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
+    var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
+
+
+    var lector = new FileReader(); // variable de lectura del archivo para mostrar la foto
+
+
+    lector.onloadend = function() {
+      img.src = lector.result;
     }
 
-    if (inputFile) {
-      reader.readAsDataURL(inputFile);
-      validar_subida = 1;
+    var archivos_permitidos = ["jpg", "jpeg", "png", ""];
+
+    if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
+
+      if (inputFile) {
+        lector.readAsDataURL(inputFile);
+        validar_subida = 1;
+      } else {
+        img.src = "<?php FotoPerfil($socioData->path) ?>";
+        validar_subida = 0;
+      }
+
+
     } else {
+
+      swal({
+        title: "Foto invalida",
+        text: "Solo Archivos: jpg/jpeg y png",
+        icon: "error",
+        button: "Aceptar",
+      });
+
       img.src = "<?php FotoPerfil($socioData->path) ?>";
       validar_subida = 0;
+
+      archivo.value = "";
+
     }
+
+
+  }
+
+
+  function valida_archivo(archivo) {
+    
+    var nombre_archivo = archivo.value; //obtengo el nombre del archvo
+    var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
+    var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
+  
+    var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""];// extensiones en minusculas
+
+    if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
+     
+    } else {
+
+
+      swal({
+            title: "Archivo invalido",
+            text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
+            icon: "error",
+            button: "Aceptar",
+          });
+    
+      archivo.value = "";
+   
+    }
+
   }
 
 

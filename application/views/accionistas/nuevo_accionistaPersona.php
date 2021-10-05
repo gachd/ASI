@@ -128,7 +128,8 @@
                         <select class="form-control" name="region" id="region" required>
                             <option value=""> Seleccionar </option>
                             <?php
-                            foreach ($region as $i) {
+                            foreach ($region as $i) 
+                            {
 
                                 echo ' <option value="' . $i->region_id   . '" ' . set_select("region", $i->region_id) . '>' . $i->region_nombre . '</option>';
                             }
@@ -239,7 +240,7 @@
                         <label for="miarchivo[]">Documentos Accionista</label>
                         <div class="form-inline">
                             <div class="input-group">
-                                <input type="file" class="form-control" id="miarchivo[]" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>
+                                <input type="file" class="form-control" id="miarchivo[]" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required onchange="valida_archivo(this)">
                                 <div class="input-group-btn">
                                     <a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_archivo"><i class="glyphicon glyphicon-plus"></i></a>
                                 </div>
@@ -376,12 +377,40 @@
     </div>
 
     <script type="text/javascript">
+        function valida_archivo(archivo) {
+
+            var nombre_archivo = archivo.value; //obtengo el nombre del archvo
+            var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
+            var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
+
+            var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""]; // extensiones en minusculas
+
+            if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
+
+            } else {
+
+
+                swal({
+                    title: "Archivo invalido",
+                    text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
+                    icon: "error",
+                    button: "Aceptar",
+                });
+
+                archivo.value = "";
+
+            }
+        }
+
+
+
+
         //agregar archivo
         $("#agregar_archivo").click(function() {
             var html = '';
 
             html += '<div class="input-group" id="inputFormRow">';
-            html += '<input type="file" class="form-control" id="miarchivo[]" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+            html += '<input type="file" class="form-control" id="miarchivo[]" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required onchange="valida_archivo(this)">';
             html += '<div class="input-group-btn">';
             html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
             html += '</div>';
@@ -722,7 +751,7 @@
                         }
                     });
 
-                    
+
 
 
 
@@ -781,8 +810,8 @@
                             alert('Ocurrio un error en el servidor ..');
                         }
                     });
-                    
-                    
+
+
 
             }
 

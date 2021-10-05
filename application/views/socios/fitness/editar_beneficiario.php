@@ -8,14 +8,9 @@
 
   <title>Document</title>
 
-  
-	<!-- 	PickerFecha -->
-	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.js"></script>
-	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.date.js"></script>
-	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/legacy.js"></script>
 
-	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.css" rel="stylesheet">
-	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.date.css" rel="stylesheet">
+  <!-- 	PickerFecha -->
+
 
 </head>
 
@@ -697,6 +692,14 @@
   <?php
 
 
+  function getPuntosRut($rut)
+  {
+
+    $rutTmp = explode("-", $rut);
+
+    return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
+  }
+
   function FotoPerfil($dir)
   {
 
@@ -822,6 +825,9 @@
 
 
 
+
+
+
       $deportes = explode(",", $depor);
 
       $validar = array(0, 0, 0, 0, 0, 0, 0);
@@ -892,6 +898,15 @@
 
       </div>
 
+      <div class="col-md-6">
+        <h2>
+
+          <?php echo $nombre . ' ' . $ap_paterno . ' ' . $ap_materno; ?></h2>
+
+        <p> <b> Rut : <?php echo getPuntosRut($rut); ?></b></p>
+
+      </div>
+
 
     </div>
 
@@ -913,18 +928,7 @@
             <ul class="nav nav-tabs" role="tablist">
 
 
-              <li role="presentation" id="dep"><a href="#depor" id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span>Datos </span></a></li>
-
-
-
-
-
-
-
-
-
-
-
+              <li role="presentation" id="dep"><a href="#depor" id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span>Ficha </span></a></li>
 
 
 
@@ -1186,6 +1190,14 @@
 </html>
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+    var numTabs = $('.nav-tabs').find('li').length;
+    var tabWidth = 100 / numTabs;
+    var tabPercent = tabWidth + "%";
+    $('.nav-tabs li').width(tabPercent);
+
+  });
   //agregar archivo
   var ArchivosSubir = 0;
   $("#agregar_archivo").click(function() {
@@ -1315,20 +1327,20 @@
 
   $(function() {
 
-   /*  $("#txt_fecha").datepicker({
-      changeMonth: true,
-      changeYear: true,
-      yearRange: '-100:+0',
-    }); */
+    /*  $("#txt_fecha").datepicker({
+       changeMonth: true,
+       changeYear: true,
+       yearRange: '-100:+0',
+     }); */
 
   });
-/* 
-  $('#txt_fecha').pickadate({
-        firstDay: 1,
-        selectMonths: true,
-        selectYears: true,
-        container: '#pickerFecha'
-    }) */
+  /* 
+    $('#txt_fecha').pickadate({
+          firstDay: 1,
+          selectMonths: true,
+          selectYears: true,
+          container: '#pickerFecha'
+      }) */
 
 
 

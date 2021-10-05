@@ -179,6 +179,10 @@ function getEdad($fecha)
 
 
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#tabla_socios').DataTable();
+    });
+
     $('#Modal_Beneficiario').on('show.bs.modal', function(event) {
 
 
@@ -213,7 +217,6 @@ function getEdad($fecha)
 
 
 
-
             }
         });
 
@@ -236,14 +239,6 @@ function getEdad($fecha)
 
     $('#Modal_Beneficiario').on('hidden.bs.modal', function(e) {
         $("#body_modal").empty();
-    });
-
-
-
-
-
-    $(document).ready(function() {
-        $('#tabla_socios').DataTable();
     });
 </script>
 

@@ -39,10 +39,10 @@
 
 
 <?php
- if (is_null( $Titulo->acciones_embargadas)) {
+if (is_null($Titulo->acciones_embargadas)) {
 
     $Titulo->acciones_embargadas = 0;
- }
+}
 
 $MAX_embargo = $Titulo->numero_acciones -  $Titulo->acciones_embargadas;
 $MAX_quitar_embargo = $Titulo->acciones_embargadas;
@@ -103,10 +103,10 @@ $MAX_quitar_embargo = $Titulo->acciones_embargadas;
 
                         </select>
                     </div>
-                     <input type="hidden" name="numero_acciones" value="<?php echo $Titulo->numero_acciones?>"> 
-                     <input type="hidden" name="acciones_embargadas" value="<?php echo $Titulo->acciones_embargadas ?>">
-                     <input type="hidden" name="idT" value="<?php echo  $IdTitulo?>">
-                     <input type="hidden" name="RutA" value="<?php echo  $RutA?>">
+                    <input type="hidden" name="numero_acciones" value="<?php echo $Titulo->numero_acciones ?>">
+                    <input type="hidden" name="acciones_embargadas" value="<?php echo $Titulo->acciones_embargadas ?>">
+                    <input type="hidden" name="idT" value="<?php echo  $IdTitulo ?>">
+                    <input type="hidden" name="RutA" value="<?php echo  $RutA ?>">
 
 
 
@@ -116,11 +116,11 @@ $MAX_quitar_embargo = $Titulo->acciones_embargadas;
                         <input class="form-control" type="number" name="cant_embargada" id="cant_embargada" autocomplete="off" required>
                     </div>
 
-                    <div class="form-group col-md-4" >
+                    <div class="form-group col-md-4">
                         <label for="archivos_embargo">Documentos Asociados</label>
                         <div class="">
                             <div class="input-group">
-                                <input type="file" class="form-control" id="archivos_embargo" name="archivos_embargo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>
+                                <input type="file" class="form-control" id="archivos_embargo" name="archivos_embargo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required onchange="valida_archivo(this)">
                                 <div class="input-group-btn">
                                     <a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_archivo"><i class="glyphicon glyphicon-plus"></i></a>
                                 </div>
@@ -150,9 +150,35 @@ $MAX_quitar_embargo = $Titulo->acciones_embargadas;
 
 
 <script type="text/javascript">
+    function valida_archivo(archivo) {
 
-var MaxEmbargar =  <?php echo $MAX_embargo ?>;
-var MAX_quitar_embargo =  <?php echo $MAX_quitar_embargo ?>;
+        var nombre_archivo = archivo.value; //obtengo el nombre del archvo
+        var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
+        var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
+
+        var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""]; // extensiones en minusculas
+
+        if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
+
+        } else {
+
+
+            swal({
+                title: "Archivo invalido",
+                text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
+                icon: "error",
+                button: "Aceptar",
+            });
+
+            archivo.value = "";
+
+        }
+    }
+
+
+
+    var MaxEmbargar = <?php echo $MAX_embargo ?>;
+    var MAX_quitar_embargo = <?php echo $MAX_quitar_embargo ?>;
 
     $('#Embargos').on('change', function() {
 
@@ -166,19 +192,19 @@ var MAX_quitar_embargo =  <?php echo $MAX_quitar_embargo ?>;
             $('#cant_embargada').attr({
                 "max": MaxEmbargar,
                 "min": 1,
-                "placeholder":"MAX "+MaxEmbargar
+                "placeholder": "MAX " + MaxEmbargar
             });
-           
+
 
         }
         if (opcionEmbargo == "NO") {
             $('#txt_acciones').text("Cantidad de Accion quitar embargo");
             $('#cant_embargada').attr({
-                "max": MAX_quitar_embargo, 
+                "max": MAX_quitar_embargo,
                 "min": 1,
-                "placeholder":"MAX "+MAX_quitar_embargo
+                "placeholder": "MAX " + MAX_quitar_embargo
             });
-           
+
 
         }
 
@@ -195,7 +221,7 @@ var MAX_quitar_embargo =  <?php echo $MAX_quitar_embargo ?>;
         var html = '';
 
         html += '<div class="input-group" id="inputFormRow">';
-        html += '<input type="file" class="form-control" id="archivos_embargo" name="archivos_embargo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+        html += '<input type="file" class="form-control" id="archivos_embargo" name="archivos_embargo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required onchange="valida_archivo(this)">';
         html += '<div class="input-group-btn">';
         html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
         html += '</div>';

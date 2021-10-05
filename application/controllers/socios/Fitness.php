@@ -82,16 +82,16 @@ class Fitness extends CI_Controller
         if ($accion == "Ver") {
 
 
-      
+
 
             $data['rut'] = $rut;
 
-            $data['datos_personales'] = $this->model_socios->persona($rut);     
-            $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);     
+            $data['datos_personales'] = $this->model_socios->persona($rut);
+            $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);
 
-  
 
-            $this->load->view('socios/fitness/ver_ficha', $data);
+
+            $html = $this->load->view('socios/fitness/ver_ficha', $data, true);
         }
         if ($accion == "Editar") {
 
@@ -99,14 +99,16 @@ class Fitness extends CI_Controller
 
             $data['rut'] = $rut;
             $data['datos'] = $this->model_socios->persona($rut);
-            $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);     
+            $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);
+
+            $html = $this->load->view('socios/fitness/editar_beneficiario', $data, true);
 
 
-
-
-
-            $this->load->view('socios/fitness/editar_beneficiario', $data);
+            
         }
+
+
+        echo $html;
     }
 
     public function agregarDatos()
@@ -202,12 +204,6 @@ class Fitness extends CI_Controller
         );
 
 
-        $validar = $this->fitness_model->actualizarBeneficiario($rut,$data);
-
+        $validar = $this->fitness_model->actualizarBeneficiario($rut, $data);
     }
-
-
-
-
-    
 }

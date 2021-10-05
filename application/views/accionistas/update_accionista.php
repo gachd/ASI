@@ -25,10 +25,8 @@
         padding: 12px 20px;
         height: auto;
         border-radius: 2px;
-        
+
     }
-    
-    
 </style>
 
 <body>
@@ -56,7 +54,7 @@
 
 
         <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/updateaccionista" method="post" enctype="multipart/form-data" autocomplete="off">
-            
+
             <div class="container">
                 <h2 style="text-align:center;">Edicion de Rut : <?php echo $accionista[0]->prsn_rut  ?></h2>
                 <br>
@@ -207,7 +205,7 @@
 
 
                 <div class="clearfix"></div>
-                
+
 
 
 
@@ -261,11 +259,48 @@
 </body>
 
 <script type="text/javascript">
+    function valida_archivo(archivo) {
+
+
+
+
+        var nombre_archivo = archivo.value; //obtengo el nombre del archvo
+        var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
+        var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
+
+
+
+        var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""]; // extensiones en minusculas
+
+        if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
+
+
+        } else {
+
+
+            swal({
+                title: "Archivo invalido",
+                text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
+                icon: "error",
+                button: "Aceptar",
+            });
+
+            archivo.value = "";
+
+        }
+
+
+    }
+
+
+
+
+
     $("#agregar_archivo").click(function() {
         var html = '';
 
         html += '<div class="input-group" id="inputFormRow"  style="padding-bottom:10px;">';
-        html += '<input type="file" class="form-control" id="miarchivo" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+        html += '<input type="file" class="form-control" id="miarchivo" name="miarchivo[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" onchange="valida_archivo(this)" required>';
         html += '<div class="input-group-btn">';
         html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
         html += '</div>';
@@ -288,7 +323,7 @@
         var html = '';
 
         html += '<div class="input-group" id="inputFormRow" style="padding-bottom:10px;">';
-        html += '<input type="file" class="form-control" id="archivos_fallecido" name="archivos_fallecido[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+        html += '<input type="file" class="form-control" id="archivos_fallecido" name="archivos_fallecido[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required onchange="valida_archivo(this)">';
         html += '<div class="input-group-btn">';
         html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
         html += '</div>';
@@ -332,7 +367,7 @@
             html += '<label for="archivos_fallecido">Documentos Asociados</label>';
             html += '<div class="">';
             html += '<div class="input-group" style="padding-bottom:10px;">';
-            html += '<input type="file" class="form-control" id="archivos_fallecido" name="archivos_fallecido[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+            html += '<input type="file" class="form-control" id="archivos_fallecido" name="archivos_fallecido[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required onchange="valida_archivo(this)">';
             html += '<div class="input-group-btn">';
             html += '<a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_fallecido" onclick=agregar_archivo_fallecido()><i class="glyphicon glyphicon-plus"></i></a>';
             html += '</div>';
