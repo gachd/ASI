@@ -780,6 +780,7 @@ class nuevo_socio extends CI_Controller
          echo json_encode(true);
       }
    }
+   
 
    private function Subir_Archivos_Socio($user, $archivo)
    {

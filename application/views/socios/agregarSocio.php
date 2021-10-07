@@ -1417,7 +1417,6 @@
 
   function ver_foto(archivo) {
 
-
     var img = document.getElementById('img_perfil'); // src donde se vera la foto
 
     var inputFile = archivo.files[0]; // obtengo el arhivo de input file
@@ -1428,10 +1427,7 @@
     var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
     var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
 
-
-
     var lector = new FileReader(); // variable de lectura del archivo para mostrar la foto
-
 
 
     lector.onloadend = function() {
@@ -1457,12 +1453,12 @@
     } else {
 
       swal({
-            title: "Foto invalida",
-            text: "Solo Archivos: jpg/jpeg y png",
-            icon: "error",
-            button: "Aceptar",
-          });
-     
+        title: "Foto invalida",
+        text: "Solo Archivos: jpg/jpeg y png",
+        icon: "error",
+        button: "Aceptar",
+      });
+
       img.src = "<?php echo base_url() ?>assets/images/camara-icon.png";
       validar_subida = 0;
 
@@ -1479,33 +1475,33 @@
 
 
   function valida_archivo(archivo) {
-    
 
-    
+
+
 
     var nombre_archivo = archivo.value; //obtengo el nombre del archvo
     var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
     var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
 
-  
 
-    var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""];// extensiones en minusculas
+
+    var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""]; // extensiones en minusculas
 
     if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
 
-     
+
     } else {
 
 
       swal({
-            title: "Archivo invalido",
-            text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
-            icon: "error",
-            button: "Aceptar",
-          });
-    
+        title: "Archivo invalido",
+        text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
+        icon: "error",
+        button: "Aceptar",
+      });
+
       archivo.value = "";
-   
+
     }
 
 

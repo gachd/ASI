@@ -4,32 +4,32 @@
 			"path": "application/views/socios/agregarSocio.php",
 			"bookmarks": [
 				{
-					"line": 1760,
+					"line": 1756,
 					"column": 15,
 					"label": "Guardar Cargas"
 				},
 				{
-					"line": 1857,
+					"line": 1853,
 					"column": 1,
 					"label": "Data Corp"
 				},
 				{
-					"line": 2631,
+					"line": 2627,
 					"column": 3,
 					"label": "Datos Persona"
 				},
 				{
-					"line": 2854,
+					"line": 2850,
 					"column": 33,
 					"label": "Guadar todo"
 				},
 				{
-					"line": 2946,
+					"line": 2942,
 					"column": 4,
 					"label": "Boton mostar consola Persona"
 				},
 				{
-					"line": 2955,
+					"line": 2951,
 					"column": 4,
 					"label": "Data Deportes"
 				}
@@ -49,7 +49,7 @@
 			"path": "application/controllers/socios/Editasocio.php",
 			"bookmarks": [
 				{
-					"line": 93,
+					"line": 94,
 					"column": 10,
 					"label": "error ajax"
 				}
@@ -82,16 +82,6 @@
 					"line": 71,
 					"column": 9,
 					"label": "aa"
-				}
-			]
-		},
-		{
-			"path": "application/models/Model_socios.php",
-			"bookmarks": [
-				{
-					"line": 374,
-					"column": 17,
-					"label": "Arreglar consulta"
 				}
 			]
 		}

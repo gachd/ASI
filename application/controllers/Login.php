@@ -75,4 +75,12 @@ class Login extends CI_Controller
 		// $this->session->sess_destroy();
 		// header("Location:" . base_url() . "");
 	}
+	function error_404()
+
+	{
+
+		$this->load->view('errors/404');
+
+		
+	}
 }

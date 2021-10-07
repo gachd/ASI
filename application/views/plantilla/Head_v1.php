@@ -10,9 +10,6 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 <?php } ?>
 
-<?php  ?>
-
-
 
 
 
@@ -41,12 +38,11 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-	<!-- Morris Charts JavaScript -->
-	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/raphael.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris-data.js"></script>
 
-<!-- pickerDate -->
+
+	
+
+	<!-- pickerDate -->
 	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.js"></script>
 	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.date.js"></script>
 	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/legacy.js"></script>
@@ -54,7 +50,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.date.css" rel="stylesheet">
 
-<!-- JqueryDataTable -->
+	<!-- JqueryDataTable -->
 
 
 	<script src="<?php echo base_url(); ?>assets/js/plugins/jquery.dataTables.min.js"></script>
@@ -83,6 +79,10 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 	<!-- sweetalert2 -->
+
+
+
+
 
 	<style>
 		@media only screen and (min-width: 0px) and (max-width: 768px) {
@@ -232,7 +232,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-	<?php  ?>
+
 	<script>
 		var minutos = 0;
 
@@ -263,11 +263,25 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 					swal({
-						title: "Se ha detectado inactivdad",
-						text: "Se cerrara la sesion en 2 min",
-						icon: "warning",
-						button: "Continuar Sesion",
-					});
+							title: "Se ha detectado inactivdad",
+							text: "Se cerrara la sesion",
+							icon: "warning",
+							buttons: {
+								cancel: "Cancelar",							
+								Cerrrar: true,
+							},
+						})
+						.then((ok) => {
+
+							if (ok) {
+								window.location = '<?php echo base_url(); ?>login/logout';
+
+							} else {
+								resetTiempo()
+
+							}
+
+						});
 
 
 
@@ -275,8 +289,9 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-				if (minutos == 10) {
+				if (minutos == 15) {
 					window.location = '<?php echo base_url(); ?>login/logout';
+
 				}
 
 
@@ -291,6 +306,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 		}
+
+
 
 
 

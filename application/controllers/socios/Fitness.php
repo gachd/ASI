@@ -78,64 +78,104 @@ class Fitness extends CI_Controller
         $accion = $this->input->post('accion');
 
 
+        $data['rut'] = $rut;
+        $data['comuna'] = $this->model_socios->all_comunas();
+        $data['datos_personales'] = $this->model_socios->persona_fitness($rut);
+        $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);
+
 
         if ($accion == "Ver") {
-
-
-
-
-            $data['rut'] = $rut;
-
-            $data['datos_personales'] = $this->model_socios->persona($rut);
-            $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);
-
-
 
             $html = $this->load->view('socios/fitness/ver_ficha', $data, true);
         }
         if ($accion == "Editar") {
 
-
-
-            $data['rut'] = $rut;
-            $data['datos'] = $this->model_socios->persona($rut);
-            $data['fitness'] = $this->fitness_model->datosBeneficiario($rut);
-
             $html = $this->load->view('socios/fitness/editar_beneficiario', $data, true);
-
-
-            
         }
 
 
         echo $html;
     }
 
+
+
     public function agregarDatos()
     {
+  
+        //Datos Personales
+        $rut = $this->input->post("rut_beneficiario");
+        $nacimiento = $this->input->post("txt_fecha");
+        $celular = $this->input->post("celular");
+        $email = $this->input->post("email");
+        $direccion = $this->input->post("direccion");
+        $sector = $this->input->post("sector");
+        $comuna = $this->input->post("comuna");
 
 
 
-        $rut = $this->input->post("");
-        $estatura = $this->input->post("");
-        $peso = $this->input->post("");
-        $imc = $this->input->post("");
-        $fono_emergencia = $this->input->post("");
-        $patologias_base = $this->input->post("");
-        $pc_bicipital = $this->input->post("");
-        $pc_tricipital = $this->input->post("");
-        $pc_subescapular = $this->input->post("");
-        $pc_suprailiaco = $this->input->post("");
-        $pc_muslo = $this->input->post("");
-        $pc_abdominal = $this->input->post("");
-        $pc_pecho = $this->input->post("");
-        $pc_axilar = $this->input->post("");
-        $pc_pierna = $this->input->post("");
-        $objetivos = $this->input->post("");
+
+        //Datos Fitness
+
+        $estatura = $this->input->post("estatura");
+        $peso = $this->input->post("peso");
+        $imc = $this->input->post("IMC");
+
+        $fono_emergencia = $this->input->post("emergencia");
+        $patologias_base = $this->input->post("patologias");
+
+        $pc_bicipital = $this->input->post("pc_bicipital");
+        $pc_tricipital = $this->input->post("pc_tricipital");
+        $pc_subescapular = $this->input->post("pc_subescapular");
+        $pc_suprailiaco = $this->input->post("pc_suprailiaco");
+        $pc_muslo = $this->input->post("pc_muslo");
+        $pc_abdominal = $this->input->post("pc_abdominal");
+        $pc_pecho = $this->input->post("pc_pecho");
+        $pc_axilar = $this->input->post("pc_axilar");
+        $pc_pierna = $this->input->post("pc_pierna");
+        $objetivos = $this->input->post("objetivos");
+
+        $path = 'archivos/fitness/'. $rut;
+
+
+        //subir foto de perfil
+
+        if (isset($_FILES['img_perfil'])) {
+
+            echo 'existe imagen';
+
+            if (!empty($_FILES['img_perfil']['name'])) {
+
+                $this->Subir_foto_fitness($rut, $_FILES['img_perfil']);
+            }
+        }
+
+        //subir archivos
+        if (isset($_FILES['arch_socio'])) {
+
+            $this->Subir_Archivos_Fitness($rut, $_FILES['arch_socio']);
+        }
 
 
 
-        $data = array(
+
+
+
+
+
+        $dataPersonal = array(
+
+            'prsn_fechanacimi' => $nacimiento,
+            'prsn_fono_movil' => $celular,
+            'prsn_email' => $email,
+            'prsn_direccion' => $direccion,
+            'prsn_sectorvive' => $sector,
+            's_comunas_comuna_id' => $comuna
+
+        );
+
+
+        $dataFitness = array(
+
             'fitness_prsn_rut' => $rut,
             'estatura'  => $estatura,
             'peso'  => $peso,
@@ -151,59 +191,150 @@ class Fitness extends CI_Controller
             'pc_pecho'  => $pc_pecho,
             'pc_axilar'  => $pc_axilar,
             'pc_pierna'  => $pc_pierna,
-            'objetivos'  => $objetivos
+            'objetivos'  => $objetivos,
+            'path'  => $path
         );
 
 
-        $validar = $this->fitness_model->agregarBeneficiario($data);
+
+
+
+
+
+
+        $existe = $this->fitness_model->existeEnFitness($rut);
+
+        if ($existe) {
+
+
+            unset($dataFitness['fitness_prsn_rut']);
+
+            $validarF = $this->fitness_model->actualizarBeneficiario($rut, $dataFitness);
+        } else {
+
+
+            $validarF = $this->fitness_model->agregarBeneficiario($dataFitness);
+        }
+
+        $validarP = $this->fitness_model->editaPersona($rut, $dataPersonal);
+
+        var_dump($validarP);
+        var_dump($$validarF);
     }
 
 
-    public function actualizarDatos()
+
+
+
+    //private
+
+    private function Subir_foto_fitness($rut, $archivo)
+    {
+
+        $fecha = date("Y.m.d_");
+
+        $formatos = array('jpg', 'png', 'jpeg', 'gif');
+
+        $Dir_archivos = 'archivos/fitness/' . $rut . '/perfil/';
+
+        $archivonombre =  $fecha . $archivo["name"];
+
+        $fuente = $archivo["tmp_name"];
+
+        if (!file_exists($Dir_archivos)) {
+
+            mkdir($Dir_archivos, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+        }
+
+
+        $dir = opendir($Dir_archivos);
+
+        $path_archivo = $Dir_archivos . $archivonombre; //indicamos la ruta de destino de los archivos
+
+        $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+
+        if (in_array($Tipo_archivo, $formatos)) {
+
+            if (move_uploaded_file($fuente, $path_archivo)) {
+
+                echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+            } else {
+
+                echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+            }
+        } else {
+
+            echo "Formato del archivo $archivonombre no valido.<br>";
+        }
+
+        closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+
+    }
+
+
+
+
+    private function Subir_Archivos_Fitness($rut, $archivo)
     {
 
 
+        $formatos = array('jpg', 'png', 'jpeg', 'pdf');
 
-        $rut = $this->input->post("");
-        $estatura = $this->input->post("");
-        $peso = $this->input->post("");
-        $imc = $this->input->post("");
-        $fono_emergencia = $this->input->post("");
-        $patologias_base = $this->input->post("");
-        $pc_bicipital = $this->input->post("");
-        $pc_tricipital = $this->input->post("");
-        $pc_subescapular = $this->input->post("");
-        $pc_suprailiaco = $this->input->post("");
-        $pc_muslo = $this->input->post("");
-        $pc_abdominal = $this->input->post("");
-        $pc_pecho = $this->input->post("");
-        $pc_axilar = $this->input->post("");
-        $pc_pierna = $this->input->post("");
-        $objetivos = $this->input->post("");
+        $fecha = date("Y.m.d_");
 
 
 
-        $data = array(
-
-            'fitness_prsn_rut' => $rut,
-            'estatura'  => $estatura,
-            'peso'  => $peso,
-            'imc'  => $imc,
-            'fono_emergencia'  => $fono_emergencia,
-            'patologias_base'  => $patologias_base,
-            'pc_bicipital'  => $pc_bicipital,
-            'pc_tricipital'  => $pc_tricipital,
-            'pc_subescapular'  => $pc_subescapular,
-            'pc_suprailiaco'  => $pc_suprailiaco,
-            'pc_muslo'  => $pc_muslo,
-            'pc_abdominal'  => $pc_abdominal,
-            'pc_pecho'  => $pc_pecho,
-            'pc_axilar'  => $pc_axilar,
-            'pc_pierna'  => $pc_pierna,
-            'objetivos'  => $objetivos
-        );
+        $Dir_archivos = 'archivos/fitness/'; //carpeta donde se guadaran todos los archivos subidos del sistema.
 
 
-        $validar = $this->fitness_model->actualizarBeneficiario($rut, $data);
+        foreach ($archivo['tmp_name'] as $key => $tmp_name) {
+            //condicional si el fichero existe
+            if ($archivo["name"][$key]) {
+                // Nombres de archivos de temporales
+
+
+                $archivonombre = $fecha . $archivo["name"][$key];
+
+                $fuente = $archivo["tmp_name"][$key];
+
+                $carpeta = $Dir_archivos . $rut . '/docs/'; //Declaramos el nombre de la carpeta que guardara los archivos
+
+                if (!file_exists($carpeta)) {
+
+                    mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+                }
+                var_dump($carpeta);
+
+                //Abrimos el directorio
+                $dir = opendir($carpeta);
+
+                $path_archivo = $carpeta . '/' . $archivonombre; //indicamos la ruta de destino de los archivos
+
+                $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+
+
+                if (in_array($Tipo_archivo, $formatos)) {
+
+                    if (move_uploaded_file($fuente, $path_archivo)) {
+
+                        echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+                    } else {
+
+                        echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+                    }
+                } else {
+
+                    echo "Formato del archivo $archivonombre no valido.<br>";
+                }
+
+                closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+            }
+        }
     }
 }

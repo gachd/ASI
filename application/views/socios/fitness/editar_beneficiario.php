@@ -22,7 +22,18 @@
       display: inline-block;
       padding: 3px;
       width: 100%;
+
+
     }
+
+    .nav-tabs>li>a>span {
+      display: none;
+    }
+
+    .nav-tabs>li>a {
+      padding: 5px 5px;
+    }
+
 
 
   }
@@ -41,6 +52,11 @@
     border-left: 5px solid #4b7006;
 
 
+  }
+
+  .textarea_fijo {
+
+    resize: none;
   }
 
 
@@ -759,67 +775,65 @@
 
 
 
-  if (!empty($datos)) {
-
-    foreach ($datos as $dp) {
-
-      $rut = $dp->prsn_rut;
-
-      $nombre = $dp->prsn_nombres;
-
-      $ap_paterno = $dp->prsn_apellidopaterno;
-
-      $ap_materno = $dp->prsn_apellidomaterno;
-
-      $fecha_nacimiento = $dp->prsn_fechanacimi;
-
-      $email = $dp->prsn_email;
-
-      $telefono = $dp->prsn_fono_casa;
-
-      $celular = $dp->prsn_fono_movil;
-
-      $fono_job = $dp->prsn_fono_trabajo;
-
-      $profesion = $dp->prsn_profesion;
-
-      $direccion_job = $dp->prsn_direccion_empresa;
-
-      $empresa_job = $dp->prsn_empresa;
-
-      $sexo = $dp->prsn_sexo;
-
-      $descendiente = $dp->prsn_descendiente;
-
-      $direccion = $dp->prsn_direccion;
-
-      $poblacion = $dp->prsn_sectorvive;
-
-      $com_nombre = $dp->comuna_nombre;
-
-      $com_id = $dp->comuna_id;
-
-      $provincia = $dp->provincia_nombre;
-
-      $region = $dp->region_nombre;
-
-      $ecivil_nomb = $dp->estacivil_nombre;
-
-      $ecivil_id = $dp->estacivil_id;
-
-      $nacnombre = $dp->nac_nombre;
-
-      $nacid = $dp->nac_id;
-
-      $condlab_id = $dp->condlab_id;
-
-      $condlab_nomb = $dp->condlab_nombre;
-
-      $nacimiento = $dp->prsn_nac;
-
-      $depor = $dp->int_deport;
+  if (!empty($datos_personales)) {
 
 
+
+    $rut = $datos_personales->prsn_rut;
+
+    $nombre = $datos_personales->prsn_nombres;
+
+    $ap_paterno = $datos_personales->prsn_apellidopaterno;
+
+    $ap_materno = $datos_personales->prsn_apellidomaterno;
+
+    $fecha_nacimiento = $datos_personales->prsn_fechanacimi;
+
+    $email = $datos_personales->prsn_email;
+
+    $telefono = $datos_personales->prsn_fono_casa;
+
+    $celular = $datos_personales->prsn_fono_movil;
+
+    $fono_job = $datos_personales->prsn_fono_trabajo;
+
+    $profesion = $datos_personales->prsn_profesion;
+
+    $direccion_job = $datos_personales->prsn_direccion_empresa;
+
+    $empresa_job = $datos_personales->prsn_empresa;
+
+    $sexo = $datos_personales->prsn_sexo;
+
+    $descendiente = $datos_personales->prsn_descendiente;
+
+    $direccion = $datos_personales->prsn_direccion;
+
+    $poblacion = $datos_personales->prsn_sectorvive;
+
+    $com_nombre = $datos_personales->comuna_nombre;
+
+    $com_id = $datos_personales->s_comunas_comuna_id;
+
+    $provincia = $datos_personales->provincia_nombre;
+
+    $region = $datos_personales->region_nombre;
+
+    $ecivil_nomb = $datos_personales->estacivil_nombre;
+
+    $ecivil_id = $datos_personales->estacivil_id;
+
+    $nacnombre = $datos_personales->nac_nombre;
+
+    $nacid = $datos_personales->nac_id;
+
+    $condlab_id = $datos_personales->condlab_id;
+
+    $condlab_nomb = $datos_personales->condlab_nombre;
+
+    $nacimiento = $datos_personales->prsn_nac;
+
+    $depor = $datos_personales->int_deport;
 
 
 
@@ -828,16 +842,17 @@
 
 
 
-      $deportes = explode(",", $depor);
 
-      $validar = array(0, 0, 0, 0, 0, 0, 0);
 
-      for ($i = 0; $i < count($deportes); $i++) {
+    $deportes = explode(",", $depor);
 
-        $indice = intval($deportes[$i]) - 1;
+    $validar = array(0, 0, 0, 0, 0, 0, 0);
 
-        $validar[$indice] = 1;
-      }
+    for ($i = 0; $i < count($deportes); $i++) {
+
+      $indice = intval($deportes[$i]) - 1;
+
+      $validar[$indice] = 1;
     }
 
 
@@ -859,15 +874,6 @@
 
       $sexo_2 = "Masculino";
     }
-
-    //   if(!empty($direccion)){$direccion_txt= $direccion.', ';}
-
-    //   if(!empty($poblacion)){$poblacion_txt= $poblacion.', ';}
-
-
-
-
-
   }
 
 
@@ -876,293 +882,406 @@
 
 
 
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
+
+  </div>
 
   <div class="panel panel-default">
 
-    <div class="panel-heading" style="overflow: hidden;">
+    <form id="fomulario_envio">
 
-      <div class="col-md-2">
-        <center>
+      <div class="panel-heading" style="overflow: hidden;">
 
-          <label for="imagen_perfil">
-            <img alt="Foto SOCIO" src="<?php FotoPerfil($socioData->path); ?>" id="img_perfil" class="img-circle img-responsive img-thumbnail">
-          </label>
-          <div class="subida_oculto">
-            <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto()">
-          </div>
+        <div class="col-md-2">
+          <center>
 
-
-        </center>
-
-
-      </div>
-
-      <div class="col-md-6">
-        <h2>
-
-          <?php echo $nombre . ' ' . $ap_paterno . ' ' . $ap_materno; ?></h2>
-
-        <p> <b> Rut : <?php echo getPuntosRut($rut); ?></b></p>
-
-      </div>
-
-
-    </div>
-
-    <div class="col-md-4">
-
-
-    </div>
-
-    <div class="panel-body">
-
-      <div class="row">
-
-        <div class="col-md-12">
-
-          <!-- Nav tabs -->
-
-          <div class="card">
-
-            <ul class="nav nav-tabs" role="tablist">
-
-
-              <li role="presentation" id="dep"><a href="#depor" id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span>Ficha </span></a></li>
-
-
-
-
-
-            </ul>
-
-
-
-            <!-- Tab panes -->
-
-            <div class="tab-content" style="background: #f8f8f8;">
-
-
-
-              <div role="tabpanel" class="tab-pane active" id="home">
-
-                <!-- datos personales -->
-                <div class="bs-callout bs-callout-green col-md-12 panel panel-default">
-
-
-
-                  <div class=" col-md-4 panel well ">
-
-                    <h4>Datos Personales</h4>
-
-                    <table width="100%" class="table tbl-datos">
-
-                      <tbody>
-
-
-
-                        <tr>
-
-                          <td class="td_reponsive">Fecha de nacimiento</td>
-
-                          <td class="td_reponsive"><input class="form-control w_fecha" type="date" name="txt_fecha" id="txt_fecha" value="<?php echo $fecha_nacimiento; ?>"></td>
-
-                        </tr>
-                        <tr>
-
-                          <td class="td_reponsive" width="31%">Telefono Fijo</td>
-
-                          <td class="td_reponsive" width="69%">
-
-                            <input type="tel" name="telefono" id="tel_fijo" value="<?php echo $telefono ?>" class="form-control">
-
-                            <span id="error2" style="display:none;color:red;">Teléfono incorrecto</span>
-                          </td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Celular</td>
-
-                          <td class="td_reponsive"><input type="tel" name="celular" id="tel_cel" value="<?php echo $celular ?>" class="form-control">
-
-                            <span id="error3" style="display:none;color:red;">Celular incorrecto</span>
-                          </td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Correo</td>
-
-                          <td class="td_reponsive"><input type="email" name="email" id="email" value="<?php echo $email; ?>" class="form-control" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
-
-                            <span id="error" style="display:none;color:red;">Email incorrecto</span>
-                          </td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Dirección</td>
-
-                          <td class="td_reponsive"><input type="text" name="direccion" id="direccion" class="form-control" value="<?php echo $direccion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Sector</td>
-
-                          <td class="td_reponsive"><input type="text" name="poblacion" id="sector" class="form-control" value="<?php echo $poblacion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Comuna</td>
-
-                          <td class="td_reponsive">
-
-                            <select class="form-control input-sm" name="comuna" id="comu">
-
-                              <option value="<?php echo $com_id; ?>"><?php echo $com_nombre; ?></option>
-
-                              <?php
-
-                              foreach ($comuna as $c) {
-
-                                if ($c->comuna_id !=  $com_id) {
-
-                                  echo ' <option value="' . $c->comuna_id . '" ' . set_select("comuna", $c->comuna_id) . '>' . $c->comuna_nombre . '</option>';
-                                }
-                              }
-
-                              ?>
-
-                            </select>
-                          </td>
-
-                        </tr>
-
-
-
-
-
-
-                      </tbody>
-
-                    </table>
-
-                  </div>
-
-
-
-                  <!--DATOS DE trabajo -->
-
-                  <div class=" col-md-4 panel  well ">
-
-                    <h4>Fitness</h4>
-
-                    <table width="100%" class="table tbl-datos">
-
-                      <tbody>
-
-                        <tr>
-
-                          <td class="td_reponsive" width="31%">Situación Laboral</td>
-
-
-                          <td class="td_reponsive"><input type="text" name="peso" id="peso" class="form-control" value="<?php echo $profesion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
-
-
-                          </td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Actividad o Profesión</td>
-
-                          <td class="td_reponsive"><input type="text" name="actividad" id="prof" class="form-control" value="<?php echo $profesion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Empresa</td>
-
-                          <td class="td_reponsive"><input type="text" name="empresa" id="emp" class="form-control" value="<?php echo $empresa_job; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Dirección</td>
-
-                          <td class="td_reponsive"><input type="text" name="direc_empresa" id="direc_emp" class="form-control" value="<?php echo $direccion_job; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
-
-                        </tr>
-
-                        <tr>
-
-                          <td class="td_reponsive">Telefono</td>
-
-                          <td class="td_reponsive"><input type="text" name="fono_empresa" id="tel_emp" class="form-control" value="<?php echo $fono_job; ?>"></td>
-
-                        </tr>
-
-                      </tbody>
-
-                    </table>
-
-                  </div>
-
-                  <div class=" col-md-4 panel well " id="ArchivosAccionista">
-
-                    <label for="arch_socio">Documentos Socio</label>
-                    <div class="input-group" id="inputFormRow" style="padding-bottom:10px;">
-
-                      <a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_archivo">Agregar <i class="glyphicon glyphicon-plus"></i></a>
-
-                    </div>
-                    <div id=nuevo_archivo>
-
-
-
-                    </div>
-                  </div>
-
-                </div>
-
-
-                <div class="clearfix"></div>
-
-
-
-
-
-
-              </div>
-
-
-
+            <label for="imagen_perfil">
+              <img alt="Foto SOCIO" src="<?php FotoPerfil($fitness->path); ?>" id="img_perfil" class="img-circle img-responsive img-thumbnail">
+            </label>
+            <div class="subida_oculto">
+              <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto(this)">
             </div>
 
-          </div>
 
 
-
-
+          </center>
 
 
         </div>
 
+        <div class="col-md-6">
+          <h2>
+
+            <?php echo $nombre . ' ' . $ap_paterno . ' ' . $ap_materno; ?></h2>
+
+          <p> <b> Rut : <?php echo getPuntosRut($rut); ?></b></p>
+
+        </div>
 
 
       </div>
 
+      <div class="col-md-4">
+
+
+      </div>
+
+      <div class="panel-body">
+
+        <div class="row">
+
+          <div class="col-md-12">
+
+            <!-- Nav tabs -->
+
+            <div class="card">
+
+              <ul class="nav nav-tabs" role="tablist">
+
+
+
+                <li role="presentation" id="dep"><a href="#depor" id="dep" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-futbol-o"></i>  <span>Ficha </span></a></li>
+
+
+
+
+
+              </ul>
+
+
+
+              <!-- Tab panes -->
+
+              <div class="tab-content" style="background: #f8f8f8;">
+
+
+
+                <div role="tabpanel" class="tab-pane active" id="home">
+
+                  <!-- datos personales -->
+                  <div class="bs-callout bs-callout-green col-md-12 panel panel-default">
+
+
+
+                    <div class=" col-md-4 panel well ">
+
+                      <h4>Datos Personales</h4>
+
+                      <table width="100%" class="table tbl-datos">
+
+                        <tbody>
+                          <input type="hidden" name="rut_beneficiario" value="<?php echo $rut; ?>">
+
+
+
+                          <tr>
+
+                            <td class="td_reponsive">Fecha de nacimiento</td>
+
+                            <td class="td_reponsive"><input class="form-control w_fecha" type="date" name="txt_fecha" id="txt_fecha" value="<?php echo $fecha_nacimiento; ?>"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">Celular</td>
+
+                            <td class="td_reponsive"><input type="text" name="celular" id="tel_cel" value="<?php echo $celular ?>" class="form-control">
+
+                              <span id="error_cel" style="display:none;color:red;">Celular incorrecto</span>
+                            </td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td class="td_reponsive">Correo</td>
+
+                            <td class="td_reponsive"><input type="email" name="email" id="email" value="<?php echo $email; ?>" class="form-control" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+
+                              <span id="error" style="display:none;color:red;">Email incorrecto</span>
+                            </td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td class="td_reponsive">Dirección</td>
+
+                            <td class="td_reponsive"><input type="text" name="direccion" id="direccion" class="form-control" value="<?php echo $direccion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td class="td_reponsive">Sector</td>
+
+                            <td class="td_reponsive"><input type="text" name="sector" id="sec" class="form-control" value="<?php echo $poblacion; ?>" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td class="td_reponsive">Comuna</td>
+
+                            <td class="td_reponsive">
+
+                              <select class="form-control input-sm" name="comuna" id="comu">
+
+
+
+                                <?php
+
+                                foreach ($comuna as $c) {
+
+                                  if ($c->comuna_id == $com_id) {
+                                    echo ' <option value="' . $c->comuna_id . '" ' . set_select("comuna", $c->comuna_id) . ' selected="selected">' . $c->comuna_nombre . '</option>';
+                                  }
+
+                                  echo ' <option value="' . $c->comuna_id . '" ' . set_select("comuna", $c->comuna_id) . '>' . $c->comuna_nombre . '</option>';
+                                }
+
+                                ?>
+
+                              </select>
+                            </td>
+
+                          </tr>
+
+
+
+
+
+
+                        </tbody>
+
+                      </table>
+
+                    </div>
+
+
+
+                    <!--DATOS DE trabajo -->
+
+                    <div class=" col-md-4 panel  well ">
+
+                      <h4>Fitness</h4>
+
+                      <table width="100%" class="table tbl-datos">
+
+                        <tbody>
+
+                          <tr>
+
+                            <td class="td_reponsive" width="31%">Estatura (M)</td>
+
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->estatura ?>" name="estatura" id="input_estatura" class="form-control" type="number" min="0" max="3" step="0.01" placeholder="Ejemplo: 1,75"></td>
+                            <span id="error_estatura" style="display:none;color:red;">Estura incorrecta</span>
+
+
+                            </td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td class="td_reponsive">Peso (KG)</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->peso ?>" name="peso" id="input_peso" class="form-control" type="number" min=0 max=300 step=0.01 placeholder="Ejemplo: 62,54"></td>
+                            <span id="error_peso" style="display:none;color:red;">Peso incorrecto</span>
+
+                          </tr>
+                          <tr>
+
+                            <td class="td_reponsive">IMC</td>
+                            <td class="td_reponsive">
+                              <input name="IMC_mostrar" value="<?php echo $fitness->imc ?>" id="input_imc_mostrar" class="form-control" type="number" min=0 max=300 step=0.01 disabled>
+                              <input name="IMC" value="<?php echo $fitness->imc ?>" id="input_imc" class="form-control" type="hidden">
+                            </td>
+
+                          </tr>
+
+
+
+                          <tr>
+
+                            <td class="td_reponsive">Patologias</td>
+
+                            <td class="td_reponsive">
+
+                              <textarea name="patologias" class="form-control textarea_fijo" onload="ajuste_area(this)" onkeyup="ajuste_area(this)"><?php echo $fitness->patologias_base ?></textarea>
+
+                            </td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td class="td_reponsive" width="31%">Fono Emergencia</td>
+
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->fono_emergencia ?>" name="emergencia" id="input_emergencia" class="form-control" type="number"></td>
+                            <span id="error_emergencia" style="display:none;color:red;">Numero incorrecto</span>
+
+
+                            </td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC bicipital</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_bicipital ?>" name="pc_bicipital" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC tricipital</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_tricipital ?>" name="pc_tricipital" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC subescapular</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_subescapular ?>" name="pc_subescapular" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC suprailiaco</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_suprailiaco ?>" name="pc_suprailiaco" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC muslo</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_muslo ?>" name="pc_muslo" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC abdominal</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_abdominal ?>" name="pc_abdominal" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC pecho</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_pecho ?>" name="pc_pecho" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC axilar</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_axilar ?>" name="pc_axilar" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+                          <tr>
+
+                            <td class="td_reponsive">PC pierna</td>
+
+                            <td class="td_reponsive"><input value="<?php echo $fitness->pc_pierna ?>" name="pc_pierna" class="form-control" type="number" max="150" step="0.01"></td>
+
+                          </tr>
+
+
+
+                          <tr>
+
+                            <td class="td_reponsive">Objetivos</td>
+
+                            <td class="td_reponsive">
+                              <textarea name="objetivos" class="form-control textarea_fijo" onload="ajuste_area(this)" onkeyup="ajuste_area(this)"><?php echo $fitness->objetivos ?></textarea>
+                            </td>
+
+                          </tr>
+
+
+
+
+
+
+
+                        </tbody>
+
+                      </table>
+
+                    </div>
+
+                    <div class=" col-md-4 panel well " id="ArchivosAccionista">
+
+                      <label for="arch_socio">Documentos Socio</label>
+                      <div class="input-group" id="inputFormRow" style="padding-bottom:10px;">
+
+                        <a href="javascript:void(0);" class="btn btn-primary form-control" id="agregar_archivo">Agregar <i class="glyphicon glyphicon-plus"></i></a>
+
+                      </div>
+                      <div id=nuevo_archivo>
+
+
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="clearfix"></div>
+
+
+
+
+
+
+                </div>
+                <input type="submit" value="Guardar" id="guardar_beneficiario" class="btn btn-primary ">
+    </form>
+
+
+
+  </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+
+
+  </div>
 
 
 
@@ -1173,7 +1292,8 @@
 
 
 
-    </div>
+
+  </div>
 
 
 
@@ -1190,12 +1310,80 @@
 </html>
 
 <script type="text/javascript">
+  fomulario_envio.onsubmit = async (e) => {
 
-$(document).ready(function() {
+    e.preventDefault();
+
+
+
+    $.ajax({
+      type: "POST",
+      cache: false,
+      url: "<?php echo base_url() ?>socios/fitness/agregardatos",
+      data: new FormData(fomulario_envio),
+      contentType: false,
+
+      processData: false,
+      success: function(respuesta) {
+
+        swal({
+            title: "Ingresado con Exito",
+            text: "Beneficiario  <?php echo getPuntosRut($rut); ?>  actualizado",
+            icon: "success",
+            buttons: {
+
+              Cerrrar: true,
+            },
+          })
+          .then((ok) => {
+
+            if (ok) {
+
+              $("#Modal_Beneficiario .close").click()
+
+
+
+            } else {
+
+              $("#Modal_Beneficiario .close").click()
+
+
+
+            }
+
+          });
+
+
+
+
+      },
+      error: function() {
+        alert('Ocurrio un error en el servidor ..');
+
+      }
+    });
+
+
+  };
+
+
+
+
+
+  function ajuste_area(textarea) {
+    textarea.style.height = "1px";
+    textarea.style.height = (17 + textarea.scrollHeight) + "px";
+  }
+
+
+  $(document).ready(function() {
     var numTabs = $('.nav-tabs').find('li').length;
     var tabWidth = 100 / numTabs;
     var tabPercent = tabWidth + "%";
     $('.nav-tabs li').width(tabPercent);
+
+
+
 
   });
   //agregar archivo
@@ -1205,7 +1393,7 @@ $(document).ready(function() {
 
 
     html += '<div class="input-group" id="inputFormRow" style="padding-bottom:10px;">';
-    html += '<input type="file" class="form-control" id="arch_socio" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" required>';
+    html += '<input type="file" class="form-control" id="arch_socio" name="arch_socio[]" accept="application/pdf,image/gif,image/png,image/jpg,image/jpeg" onchange="valida_archivo(this)" required>';
     html += '<div class="input-group-btn">';
     html += '<a href="javascript:void(0);" class="btn btn-danger form-control" id="remover"><i class="glyphicon glyphicon-minus"></i></a>';
     html += '</div>';
@@ -1226,66 +1414,94 @@ $(document).ready(function() {
 
   var validar_subida = 0;
 
-  function ver_foto() {
-    var img = document.getElementById('img_perfil');
-    var inputFile = document.getElementById('imagen_perfil').files[0];
-    var reader = new FileReader();
+  function ver_foto(archivo) {
 
-    reader.onloadend = function() {
-      img.src = reader.result;
+    var img = document.getElementById('img_perfil'); // src donde se vera la foto
 
+    var inputFile = archivo.files[0]; // obtengo el arhivo de input file
+
+    /*  Variables para validar el tipo de archivo */
+
+    var nombre_archivo = archivo.value; //obtengo el nombre del archvo
+    var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
+    var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
+
+    var lector = new FileReader(); // variable de lectura del archivo para mostrar la foto
+
+
+    lector.onloadend = function() {
+      img.src = lector.result;
     }
 
-    if (inputFile) {
-      reader.readAsDataURL(inputFile);
-      validar_subida = 1;
+
+    var archivos_permitidos = ["jpg", "jpeg", "png", ""];
+
+
+
+    if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
+
+      if (inputFile) {
+        lector.readAsDataURL(inputFile);
+        validar_subida = 1;
+      } else {
+        img.src = "<?php FotoPerfil($fitness->path) ?>"
+        validar_subida = 0;
+      }
+
+
     } else {
-      img.src = "<?php FotoPerfil($socioData->path) ?>";
+
+      swal({
+        title: "Foto invalida",
+        text: "Solo Archivos: jpg/jpeg y png",
+        icon: "error",
+        button: "Aceptar",
+      });
+
+      img.src = "<?php FotoPerfil($fitness->path) ?>"
       validar_subida = 0;
+
+      archivo.value = "";
+
+
     }
+
+
+
+
   }
 
 
+  function valida_archivo(archivo) {
 
 
-  $(document).ready(function() {
-
-
-    $(".deporte").click(function(evento) {
-
-
-
-      var valor = $(this).val();
+    var nombre_archivo = archivo.value; //obtengo el nombre del archvo
+    var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
+    var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
 
 
 
-      if (valor == 'deporte_no') {
+    var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""]; // extensiones en minusculas
+
+    if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
 
 
-
-        $("#div2").css("display", "none");
-
-      } else {
+    } else {
 
 
+      swal({
+        title: "Archivo invalido",
+        text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
+        icon: "error",
+        button: "Aceptar",
+      });
 
-        $("#div2").css("display", "block");
-
-      }
-
-    });
-
-
-
-    if ($('.deporte').prop('checked')) {
-
-
-
-      $("#div2").css("display", "block");
+      archivo.value = "";
 
     }
 
-  });
+
+  }
 
 
 
@@ -1347,6 +1563,8 @@ $(document).ready(function() {
 
   jQuery(document).ready(function() {
 
+
+
     var vrfSocioMail = 0;
     var vrfSocioPat = 0;
     var vrfSocioMat = 0;
@@ -1366,50 +1584,9 @@ $(document).ready(function() {
 
 
 
-    jQuery('#tel_fijo').keyup(function(tecla) {
-
-      var cel = $('#tel_fijo').val();
-
-      var filtro = /^([0-9]{9}$)/;
-
-      //if(tecla.charCode < 48 || tecla.charCode > 57) 
-
-      if (!filtro.test(cel)) {
-
-        if (!(cel < 48 || cel > 57)) {
-
-          //alert('Please provide a valid email address');
-
-          cel = $('#tel_fijo').val('');
-
-          $('#error2').show();
-
-          cel.focus;
-
-          return cel;
-
-          //return false;
-
-        } else {
-
-          $('#error2').hide()
-
-        }
-
-      } else {
-
-        $('#error2').hide()
-
-      }
-
-
-
-
-
-    });
-
     jQuery('#tel_cel').keyup(function(tecla) {
 
+      console.log($('#tel_cel').val());
       var cel = $('#tel_cel').val();
 
       var filtro = /^([0-9]{9}$)/;
@@ -1422,9 +1599,9 @@ $(document).ready(function() {
 
           //alert('Please provide a valid email address');
 
-          cel = $('#tel_cel').val('');
+          cel = $('#error_cel').val('');
 
-          $('#error3').show();
+          $('#error_cel').show();
 
 
           cel.focus;
@@ -1435,14 +1612,14 @@ $(document).ready(function() {
 
         } else {
 
-          $('#error3').hide()
+          $('#error_cel').hide()
 
 
         }
 
       } else {
 
-        $('#error3').hide()
+        $('#error_cel').hide()
 
       }
 
@@ -1484,120 +1661,80 @@ $(document).ready(function() {
 
     });
 
+    jQuery('#input_peso').change(function() {
 
 
-    jQuery('#paterno').keyup(function() {
+      var estatura = $('#input_estatura').val()
+
+      var peso = $(this).val();
 
 
-
-      var paterno = $('#paterno').val();
-
+      IMC(estatura, peso);
 
 
-      var filtro = /^[a-zA-Z ÁÉÍÓÚÑ-]*$/;
-
-      if (!filtro.test(paterno)) {
-
-        //alert('Please provide a valid email address');
-
-        $('#errorPat').show();
-
-        paterno.focus;
-
-        vrfSocioPat = 1;
-        validaInputSocio();
-
-        //return false;
-
-      } else {
-
-
-
-        $('#errorPat').hide();
-        vrfSocioPat = 0;
-        validaInputSocio();
-
-      }
 
 
 
     });
 
-    jQuery('#materno').keyup(function() {
+    jQuery('#input_estatura').change(function() {
+
+      var estatura = $(this).val();
+      var peso = $('#input_peso').val()
 
 
+      IMC(estatura, peso);
 
-      var materno = $('#materno').val();
-
-
-
-      var filtro = /^[a-zA-Z ÁÉÍÓÚÑ-]*$/;
-
-      if (!filtro.test(materno)) {
-
-        //alert('Please provide a valid email address');
-
-        $('#errorMat').show();
-
-        materno.focus;
-
-        vrfSocioMat = 1;
-        validaInputSocio();
-
-        //return false;
-
-      } else {
-
-        $('#errorMat').hide();
-
-        vrfSocioMat = 0;
-        validaInputSocio();
-
-      }
 
 
 
     });
 
-    jQuery('#nombres').keyup(function() {
 
 
 
-      var materno = $('#nombres').val();
 
 
 
-      var filtro = /^[a-zA-Z ÁÉÍÓÚÑ-]*$/;
-
-      if (!filtro.test(materno)) {
-
-        //alert('Please provide a valid email address');
-
-        $('#errorNom').show();
-
-        materno.focus;
-
-        vrfSocioNom = 1;
-        validaInputSocio();
 
 
+    function IMC(altura, peso) {
 
-        //return false;
+      inputIMC = $('#input_imc');
+      inputIMC_mostrar = $('#input_imc_mostrar');
+
+      if (altura == 0 || peso == 0 || altura == "" || peso == "") {
+
+
+        inputIMC.val('');
+        inputIMC_mostrar.val('');
 
       } else {
 
+        var imc = peso / (altura * altura);
+        imc = imc.toFixed(2);
 
-
-        $('#errorNom').hide();
-
-        vrfSocioNom = 0;
-        validaInputSocio();
+        inputIMC.val(imc);
+        inputIMC_mostrar.val(imc);
 
       }
 
 
 
-    });
 
-  });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }); //fin document.ready
 </script>

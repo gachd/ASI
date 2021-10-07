@@ -87,6 +87,7 @@
 
 
       $this->load->view('socios/editar_socio', $data);
+      
     } else {
 
 

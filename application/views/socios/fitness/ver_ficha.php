@@ -18,7 +18,20 @@
       display: inline-block;
       padding: 3px;
       width: 100%;
+
+
     }
+
+    .nav-tabs>li>a>span {
+      display: none;
+    }
+
+    .nav-tabs>li>a {
+      padding: 5px 5px;
+    }
+
+
+
   }
 
   .tbl-afiliacion {
@@ -536,64 +549,60 @@
   {
     if ($fecha) {
       return date("d/m/Y", strtotime($fecha));
-
-    }else{
+    } else {
       return "";
     }
-
-
-
   }
 
 
 
   setlocale(LC_ALL, 'es_ES') . ': ';
 
-  foreach ($datos_personales as $dp) {
+  if (!empty($datos_personales)) {
 
 
 
-    $nombre = $dp->prsn_nombres;
+    $nombre = $datos_personales->prsn_nombres;
 
-    $ap_paterno = $dp->prsn_apellidopaterno;
+    $ap_paterno = $datos_personales->prsn_apellidopaterno;
 
-    $ap_materno = $dp->prsn_apellidomaterno;
+    $ap_materno = $datos_personales->prsn_apellidomaterno;
 
-    $fecha_nacimiento = $dp->prsn_fechanacimi;
+    $fecha_nacimiento = $datos_personales->prsn_fechanacimi;
 
-    $email = $dp->prsn_email;
+    $email = $datos_personales->prsn_email;
 
-    $telefono = $dp->prsn_fono_casa;
+    $telefono = $datos_personales->prsn_fono_casa;
 
-    $celular = $dp->prsn_fono_movil;
+    $celular = $datos_personales->prsn_fono_movil;
 
-    $fono_job = $dp->prsn_fono_trabajo;
+    $fono_job = $datos_personales->prsn_fono_trabajo;
 
-    $profesion = $dp->prsn_profesion;
+    $profesion = $datos_personales->prsn_profesion;
 
-    $direccion_job = $dp->prsn_direccion_empresa;
+    $direccion_job = $datos_personales->prsn_direccion_empresa;
 
-    $empresa_job = $dp->prsn_empresa;
+    $empresa_job = $datos_personales->prsn_empresa;
 
-    $sexo = $dp->prsn_sexo;
+    $sexo = $datos_personales->prsn_sexo;
 
-    $descendiente = $dp->prsn_descendiente;
+    $descendiente = $datos_personales->prsn_descendiente;
 
-    $direccion = $dp->prsn_direccion;
+    $direccion = $datos_personales->prsn_direccion;
 
-    $poblacion = $dp->prsn_sectorvive;
+    $poblacion = $datos_personales->prsn_sectorvive;
 
-    $comuna = $dp->comuna_nombre;
+    $comuna = $datos_personales->comuna_nombre;
 
-    $provincia = $dp->provincia_nombre;
+    $provincia = $datos_personales->provincia_nombre;
 
-    $region = $dp->region_nombre;
+    $region = $datos_personales->region_nombre;
 
-    $estado_civil = $dp->estacivil_nombre;
+    $estado_civil = $datos_personales->estacivil_nombre;
 
-    $nacionalidad = $dp->nac_nombre;
+    $nacionalidad = $datos_personales->nac_nombre;
 
-    $dep = $dp->int_deport;
+    $dep = $datos_personales->int_deport;
 
     $deportes = explode(",", $dep);
 
@@ -618,7 +627,7 @@
     }
 
     if (!empty($poblacion)) {
-      $poblacion_txt = $poblacion . ', ';
+      $poblacion_txt = $poblacion . '';
     }
   }
 
@@ -675,7 +684,7 @@
 
 
 
-  function  Ver_ArchivosSocios($directorio)
+  function  Ver_ArchivosFitness($directorio)
   {
 
     $directorio = $directorio . '/docs';
@@ -723,9 +732,15 @@
   }
 
 
+  $direccion_personal = $direccion_txt  . $poblacion_txt  . $comuna  . $provincia . $region;
+
 
   ?>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
+
+  </div>
 
 
   <div class="main">
@@ -740,7 +755,7 @@
 
             <div class="col-md-2">
               <center>
-                <img alt="User Pic" src="<?php FotoPerfil($InfoSocio->path) ?>" id="profile-image1" class="img-circle img-responsive img-thumbnail">
+                <img alt="User Pic" src="<?php FotoPerfil($fitness->path) ?>" id="profile-image1" class="img-circle img-responsive img-thumbnail">
               </center>
             </div>
 
@@ -805,9 +820,9 @@
 
                             <tr>
 
-                              <td width="31%">Sexo</td>
+                              <td>Sexo</td>
 
-                              <td width="69%"><?php echo $sexo_txt; ?></td>
+                              <td><?php echo $sexo_txt; ?></td>
 
                             </tr>
 
@@ -819,21 +834,34 @@
 
                             </tr>
 
+
                             <tr>
 
-                              <td>estado civil</td>
+                              <td>Telefono</td>
 
-                              <td><?php echo $estado_civil; ?></td>
+                              <td><?php echo $celular ?></td>
 
                             </tr>
 
                             <tr>
 
-                              <td>nacionalidad</td>
+                              <td width="31%">Correo</td>
 
-                              <td><?php echo $nacionalidad; ?></td>
+                              <td width="69%"><?php echo $email; ?></td>
 
                             </tr>
+
+                            <tr>
+
+                              <td width="31%">Dirección</td>
+
+                              <td width="69%"><?php echo $direccion_personal ?></td>
+
+                            </tr>
+
+
+
+
 
                           </tbody>
 
@@ -843,51 +871,7 @@
 
                       <!--DATOS DE CONTACTO -->
 
-                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
-                        <h4>Datos de Contacto</h4>
-
-                        <table width="100%" class="table tbl-datos">
-
-                          <tbody>
-
-                            <tr>
-
-                              <td width="31%">Telefono Fijo</td>
-
-                              <td width="69%"><?php echo $telefono ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Celular</td>
-
-                              <td><?php echo $celular ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Correo</td>
-
-                              <td><?php echo $email; ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Dirección</td>
-
-                              <td><?php echo $direccion_txt . '' . $poblacion_txt . '' . $comuna . ', ' . $provincia . ', ' . $region; ?></td>
-
-                            </tr>
-
-                          </tbody>
-
-                        </table>
-
-                      </div>
 
                       <!--DATOS DE FITNESS -->
 
@@ -895,7 +879,7 @@
 
                         <h4>Datos fitness</h4>
 
-                        <?php var_dump($fitness) ?>
+
 
 
                         <table width="100%" class="table tbl-datos">
@@ -906,33 +890,141 @@
 
                               <td width="31%">Estatura</td>
 
-                              <td width="69%"><?php echo $sexo_txt; ?></td>
+                              <td width="69%"><?php echo $fitness->estatura . " M."; ?></td>
 
                             </tr>
 
                             <tr>
 
-                              <td>Peso</td>
+                              <td width="31%">Peso</td>
 
-                              <td></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>estado civil</td>
-
-                              <td><?php echo $estado_civil; ?></td>
+                              <td width="69%"><?php echo $fitness->peso . " KG."; ?></td>
 
                             </tr>
 
                             <tr>
 
-                              <td>nacionalidad</td>
+                              <td width="31%">IMC</td>
 
-                              <td><?php echo $nacionalidad; ?></td>
+                              <td width="69%"><?php echo $fitness->imc . " mm."; ?> </td>
 
                             </tr>
+                            <tr>
+
+                              <td width="31%">Patologias de base</td>
+
+                              <td width="69%"><?php echo $fitness->patologias_base; ?> </td>
+
+                            </tr>
+                            <tr>
+
+                              <td width="31%">PC Bicipital</td>
+
+                              <td width="69%"><?php echo $fitness->pc_bicipital . " mm."; ?> </td>
+
+                            </tr>
+                            <tr>
+
+                              <td width="31%">PC Tricipital</td>
+
+                              <td width="69%"><?php echo $fitness->pc_tricipital . " mm."; ?> </td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td width="31%">PC Subescapular</td>
+
+                              <td width="69%"><?php echo $fitness->pc_subescapular . " mm."; ?> </td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td width="31%">PC Suprailiaco</td>
+
+                              <td width="69%"><?php echo $fitness->pc_suprailiaco . " mm."; ?> </td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td width="31%">PC Muslo</td>
+
+                              <td width="69%"><?php echo $fitness->pc_muslo . " mm."; ?> </td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td width="31%">PC Abdominal</td>
+
+                              <td width="69%"><?php echo $fitness->pc_abdominal . " mm."; ?> </td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td width="31%">PC pecho</td>
+
+                              <td width="69%"><?php echo $fitness->pc_pecho . " mm."; ?> </td>
+
+                            </tr>
+
+                            <tr>
+
+                              <td width="31%">PC axilar</td>
+
+                              <td width="69%"><?php echo $fitness->pc_axilar . " mm."; ?> </td>
+
+                            </tr>
+                            <tr>
+
+                              <td width="31%">PC pierna</td>
+
+                              <td width="69%"><?php echo $fitness->pc_pierna . " mm."; ?> </td>
+
+                            </tr>
+                            <tr>
+
+                              <td width="31%">objetivos</td>
+
+                              <td width="69%"><?php echo $fitness->objetivos; ?> </td>
+
+                            </tr>
+
+
+
+
+
+                          </tbody>
+
+                        </table>
+
+
+
+
+                      </div>
+
+                      <!--DATOS documentos -->
+                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
+
+                        <h4>Archivos</h4>
+
+
+                        <table width="100%" class="table tbl-datos">
+
+                          <tbody>
+
+                            <tr>
+
+
+
+                              <td width="100%"> <?php Ver_ArchivosFitness($fitness->path); ?></td>
+
+                            </tr>
+
+
 
                           </tbody>
 
@@ -949,109 +1041,10 @@
 
                     </div>
 
-                    <!-- PESTAÑA SOSCIO -->
 
 
 
 
-
-                    <div role="tabpanel" class="tab-pane" id="depor">
-
-                      <div id="div2" class="col-md-7">
-
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Deportes:</div>
-
-                          <div class="panel-body ">
-
-                            <ul>
-
-                              <?php
-
-                              for ($i = 0; $i < count($deportes); $i++) {
-
-                                $comp = trim($deportes[$i]);
-
-
-
-                                if (strcmp($comp, '1') == 0) {
-
-                                  echo ' <li>Fútbol</li>';
-                                }
-
-                                if (strcmp($comp, '2') == 0) {
-
-                                  echo ' <li>Basketball</li>';
-                                }
-
-                                if (strcmp($comp, '3') == 0) {
-
-                                  echo ' <li>Tenis</li>';
-                                }
-
-                                if (strcmp($comp, '4') == 0) {
-
-                                  echo ' <li>Tiro al Plato</li>';
-                                }
-
-                                if (strcmp($comp, '5') == 0) {
-
-                                  echo ' <li>Natación</li>';
-                                }
-
-                                if (strcmp($comp, '6') == 0) {
-
-                                  echo ' <li>Voleiball</li>';
-                                }
-
-                                if (strcmp($comp, '7') == 0) {
-
-                                  echo ' <li>Pool</li>';
-                                }
-                              }
-
-
-
-
-
-
-
-                              ?>
-
-
-
-                            </ul>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
 
 
 

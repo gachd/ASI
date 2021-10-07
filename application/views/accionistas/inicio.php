@@ -88,7 +88,7 @@ $año = $dif_año->y;
 
 
 
-<body class="container-fluid">
+<body class="">
   <?php if (!empty($bajas)) {  ?>
     <div class="bg-danger col-md-offset-8 col-md-2 fixeded">
       <h5>Hay accionistas sin titulo</h5>
