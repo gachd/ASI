@@ -226,7 +226,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			z-index: 9999;
 
 			background: url('<?php echo base_url(); ?>assets/images/carga_pagina.gif') 50% 50% no-repeat rgb(249, 249, 249);
-			opacity: .98;
+			opacity: .97;
 		}
 	</style>
 

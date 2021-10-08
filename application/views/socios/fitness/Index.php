@@ -167,7 +167,6 @@ function getEdad($fecha)
 
 
 
-
 </body>
 
 
@@ -179,11 +178,11 @@ function getEdad($fecha)
         $('#tabla_socios').DataTable();
     });
 
-    $('#Modal_Beneficiario').on('show.bs.modal', function(event) {
-        
+    $('#Modal_Beneficiario').on('show.bs.modal', function(evento) {
         $("#contenido_modal").empty();
+        $("#contenido_modal").append('<div class="center-block" style="text-align:center"><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt="cargando..."></div>');
 
-        var boton = $(event.relatedTarget);
+        var boton = $(evento.relatedTarget);
    
 
         var rut = boton.data('rut');
@@ -201,6 +200,7 @@ function getEdad($fecha)
                 accion: accion,
 
             },
+            
 
             success: function(datos) {
 

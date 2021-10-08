@@ -715,7 +715,7 @@
 
           if (!is_dir($directorio . '/' . $elemento)) {
 
-            echo '<li style="list-style-type:none;" class="padding"><a href="' . $urlBase . $directorio . '/' . $elemento . '" target="_blank" class="archivos_socios form-control" >' . $elemento . '</a></li>';
+            echo '<li style="list-style-type:none;" class="padding"><a href="' . $urlBase . $directorio . '/' . $elemento . '" target="_blank" class="archivos_socios" >' . $elemento . '</a></li>';
           }
           if (is_dir($directorio . '/' . $elemento)) {
             echo '<li style="list-style-type:none;" class="open-dropdown padding"><a href="javascript:void(0)"   class="btn btn-primary ">' . $elemento . '<b class="caret"></b> </a> </li>';
@@ -1091,7 +1091,10 @@
     </div>
 
 
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 
+    </div>
 
 
 

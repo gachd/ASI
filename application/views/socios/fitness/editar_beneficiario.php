@@ -1324,6 +1324,20 @@
       contentType: false,
 
       processData: false,
+
+      beforeSend: function() {
+
+
+
+        swal({
+          
+        
+          icon: "<?php echo base_url(); ?>assets/images/loader_swal.gif",
+          button: false,
+        
+        });
+
+      },
       success: function(respuesta) {
 
         swal({
@@ -1332,7 +1346,7 @@
             icon: "success",
             buttons: {
 
-              Cerrrar: true,
+              OK: true,
             },
           })
           .then((ok) => {
