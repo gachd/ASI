@@ -52,7 +52,7 @@ public  function mostrarActivos() {
 		
 	//	$arrayCli = substr($arrayCli, 0,strlen($arrayCli) - 1);
 	//	echo '{"data":['.$arrayCli.']}';
-		return response()->json($data);
+		return json_encode($data);
     
 }
 
@@ -61,4 +61,3 @@ public  function mostrarActivos() {
   
 
 }
-?>

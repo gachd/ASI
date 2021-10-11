@@ -26,8 +26,8 @@ date_default_timezone_set('America/Santiago');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://www.stadioitalianodiconcepcion.cl/DEV/ASI/';
-//$config['base_url'] = "http://".$_SERVER['SERVER_ADDR']."/ASI"; #
+//$config['base_url'] = 'https://www.stadioitalianodiconcepcion.cl/DEV/ASI/';
+$config['base_url'] = "http://".$_SERVER['SERVER_ADDR']."/DEV/ASI/"; #
 //$config['base_url'] = 'http://localhost/ASI'; //si  lo subo a internet tengo que poner dominio
 
 /*

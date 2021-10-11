@@ -243,7 +243,7 @@ class calendario extends CI_Controller
 
 
 
-		$fecha_termino .= $this->uri->segment(6);
+		$fecha_termino = $this->uri->segment(6);
 		$fecha_termino .= '/';
 		$fecha_termino .= $this->uri->segment(7);
 		$fecha_termino .= '/';
@@ -262,9 +262,9 @@ class calendario extends CI_Controller
 
 		$html = $this->load->view('reportes/pdf_activity_report', $data, true);
 
-		
 
-		
+
+
 
 
 
