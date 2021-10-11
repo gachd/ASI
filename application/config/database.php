@@ -76,12 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	
-	//'database' => 'stadioitaliano',
-	'database' => 'asi_produccion',
-	
+	'username' => 'stadioit_soporte',
+	'password' => '2601196826011968',
+	'database' => 'stadioit_stadioitaliano',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
