@@ -207,6 +207,7 @@ function getEdad($fecha)
 
 
                 $("#contenido_modal").empty();
+                $("#contenido_modal").append(datos);
 
 
 
@@ -218,7 +219,7 @@ function getEdad($fecha)
                 $("#contenido_modal").empty();
                 $("#contenido_modal").append(html);
                 $("#Modal_Beneficiario .close").click();
-               alert("Error de servidor, compruebe conexion");
+                alert("Error de servidor, compruebe conexion");
 
 
 
