@@ -122,7 +122,7 @@ function getEdad($fecha)
 
 
                 <div class="modal-content" id="contenido_modal">
-                    
+
 
 
                     <div class="modal-body" id="body_modal">
@@ -183,7 +183,7 @@ function getEdad($fecha)
         $("#contenido_modal").append('<div class="center-block" style="text-align:center"><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt="cargando..."></div>');
 
         var boton = $(evento.relatedTarget);
-   
+
 
         var rut = boton.data('rut');
         var accion = boton.data('accion');
@@ -200,14 +200,26 @@ function getEdad($fecha)
                 accion: accion,
 
             },
-            
+
 
             success: function(datos) {
 
 
 
                 $("#contenido_modal").empty();
-                $("#contenido_modal").append(datos);
+
+
+
+            },
+            error: function(datos) {
+
+                var html = ' <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  </div>';
+
+                $("#contenido_modal").empty();
+                $("#contenido_modal").append(html);
+                $("#Modal_Beneficiario .close").click();
+               alert("Error de servidor, compruebe conexion");
+
 
 
 
