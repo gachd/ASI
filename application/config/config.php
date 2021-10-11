@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 //Zona horaria Chile
 date_default_timezone_set('America/Santiago');
@@ -26,10 +26,9 @@ date_default_timezone_set('America/Santiago');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'https://www.stadioitalianodiconcepcion.cl/ASI/';
-$config['base_url'] = 'http://localhost/ASI'; //si  lo subo a internet tengo que poner dominio
-//$config['base_url'] = 'http://192.168.20.4/ASI'; 
- //$config['base_url'] = "http://".$_SERVER['SERVER_ADDR']."/ASI"; #
+$config['base_url'] = 'https://www.stadioitalianodiconcepcion.cl/DEV/ASI/';
+//$config['base_url'] = "http://".$_SERVER['SERVER_ADDR']."/ASI"; #
+//$config['base_url'] = 'http://localhost/ASI'; //si  lo subo a internet tengo que poner dominio
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +57,7 @@ $config['index_page'] = '';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']    = 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +81,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'spanish';
+$config['language']    = 'spanish';
 
 /*
 |--------------------------------------------------------------------------
@@ -397,11 +396,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+$config['cookie_prefix']    = '';
+$config['cookie_domain']    = '';
+$config['cookie_path']        = '/';
+$config['cookie_secure']    = FALSE;
+$config['cookie_httponly']     = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -520,5 +519,3 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-
-
