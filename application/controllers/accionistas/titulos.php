@@ -4,7 +4,7 @@
 
 
 
-class titulos extends CI_Controller
+class Titulos extends CI_Controller
 {
 
 
