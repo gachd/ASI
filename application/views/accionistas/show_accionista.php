@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <meta charset="UTF-8">
 
@@ -110,6 +110,9 @@ function listadoDirectorio($directorio)
     <br>
     <br>
 </div>
+
+
+<?php var_dump($accionista) ?>
 
 <body>
 
