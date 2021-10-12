@@ -38,6 +38,7 @@
 </head>
 
 <body>
+  <?php echo $_SERVER['SERVER_ADDR']?>
   <div id="page-wrapper">
     <div class="container-fluid">
       <div class="login-page">
