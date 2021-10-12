@@ -1,8 +1,3 @@
-
-   
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -38,7 +33,11 @@
 </head>
 
 <body>
-<!-- <h1> <?php echo $_SERVER['SERVER_ADDR']?></h1> -->
+
+ <!--  <span> <?php echo '<pre>';
+          var_dump($_SERVER);
+          echo '</pre>' ?></span>
+ -->
   <div id="page-wrapper">
     <div class="container-fluid">
       <div class="login-page">
@@ -54,7 +53,7 @@
                 <button>ingresar</button>
                 <p class="message"> No estas registrado?
                   <a href="mailto:cuenta@demail.com">Clicka para enviar email a soporte</a>
-                
+
                 </p>
                 <?php echo form_close(); ?>
               </div>
