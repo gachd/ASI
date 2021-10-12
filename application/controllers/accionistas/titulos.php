@@ -17,24 +17,21 @@ class Titulos extends CI_Controller
         parent::__construct();
         //$this->output->enable_profiler(TRUE);
 
-        $this->load->library('session');
-
+        
         $this->load->model('model_socios');
         $this->load->model('model_libro');
         $this->load->model('model_titulo');
         $this->load->model('model_persona');
         $this->load->model('model_accionistas');
-
-
+        
+        
         $this->load->helper('url');
-
         $this->load->helper('form');
-
         $this->load->library('form_validation');
-
+        $this->load->library('session');
         $this->load->library('calendar');
 
-        $this->load->library('session');
+      
     }
 
 
