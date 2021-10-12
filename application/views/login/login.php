@@ -38,7 +38,7 @@
 </head>
 
 <body>
-  <?php echo $_SERVER['SERVER_ADDR']?>
+<!-- <h1> <?php echo $_SERVER['SERVER_ADDR']?></h1> -->
   <div id="page-wrapper">
     <div class="container-fluid">
       <div class="login-page">

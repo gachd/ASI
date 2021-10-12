@@ -27,19 +27,16 @@ date_default_timezone_set('America/Santiago');
 |
 */
 //;
-if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {
+if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // Debe se de la ip del hosting
 
     $config['base_url'] = 'https://www.stadioitalianodiconcepcion.cl/DEV/ASI';
-
 } else {
 
     $config['base_url'] = 'http://localhost/ASI';
-
 }
 
 
 
-//$config['base_url'] = 'http://localhost/ASI'; //si  lo subo a internet tengo que poner dominio
 
 /*
 |--------------------------------------------------------------------------
