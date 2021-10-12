@@ -112,7 +112,7 @@ function listadoDirectorio($directorio)
 </div>
 
 
-<?php var_dump($accionista) ?>
+
 
 <body>
 

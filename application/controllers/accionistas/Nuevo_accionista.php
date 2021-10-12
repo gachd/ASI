@@ -809,7 +809,7 @@ class nuevo_accionista extends CI_Controller
 				$dataA =  array(
 
 
-					'path' => 'archivos/accionista/' . $rut,
+					'path' => $path = 'archivos/accionista/' . $rut,
 
 				);
 				$this->model_accionistas->update($dataA, $idP);
