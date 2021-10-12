@@ -94,3 +94,9 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+$db['default']['options'] =  array(
+    PDO::MYSQL_ATTR_SSL_KEY  => $_SERVER['DOCUMENT_ROOT'].'/application/third_party/client-key.p$',
+    PDO::MYSQL_ATTR_SSL_CERT => $_SERVER['DOCUMENT_ROOT'].'/application/third_party/client-cert.$',
+    PDO::MYSQL_ATTR_SSL_CA   => $_SERVER['DOCUMENT_ROOT'].'/application/third_party/ca-cert.pem'
+  );

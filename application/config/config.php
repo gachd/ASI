@@ -26,8 +26,9 @@ date_default_timezone_set('America/Santiago');
 | a PHP script and you can easily do that on your own.
 |
 */
-//;
-if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // Debe se de la ip del hosting
+
+
+if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // DEBE SER LA IP DEL HOSTING
 
     $config['base_url'] = 'https://www.stadioitalianodiconcepcion.cl/DEV/ASI';
 } else {
