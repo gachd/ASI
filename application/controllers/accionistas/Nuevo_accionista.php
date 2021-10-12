@@ -54,7 +54,7 @@ class nuevo_accionista extends CI_Controller
 
 			$socio = $this->model_accionistas->existeSocio($_POST['rut']);
 
-	
+
 
 
 
@@ -63,7 +63,7 @@ class nuevo_accionista extends CI_Controller
 
 				$_POST['msj'] = '1';
 				$this->load->view('plantilla/Head_v1');
-				
+
 				$this->load->view('accionistas/accionista_rut');
 				$this->load->view('plantilla/Footer');
 			} else {
@@ -85,32 +85,23 @@ class nuevo_accionista extends CI_Controller
 					$this->load->view('plantilla/Head_v1');
 					$this->load->view('accionistas/nuevo_accionistaSocio', $data);
 					$this->load->view('plantilla/Footer');
-
-
 				} else {
 
 
 					// al no ser socio validamos que este registrado en tabla personas
-					
+
 					if ($persona) {
 
 						$persona = $persona[0];
-						
-					
 
-						$data['persona']= $persona;
 
-						
+
+						$data['persona'] = $persona;
+
+
 						$this->load->view('plantilla/Head_v1');
 						$this->load->view('accionistas/nuevo_accionistaPersona', $data);
 						$this->load->view('plantilla/Footer');
-
-
-
-						
-				
-
-
 					} else {
 
 						//sino, carga la vista donde aparte ingrese datos personal
@@ -238,7 +229,7 @@ class nuevo_accionista extends CI_Controller
 
 
 		//si existe persona
-		if(isset($_POST['IdPersona']) ){
+		if (isset($_POST['IdPersona'])) {
 
 			$id_persona = $this->input->post('IdPersona');
 
@@ -246,10 +237,8 @@ class nuevo_accionista extends CI_Controller
 			unset($dataP['prsn_id']);
 
 			// se actualiza los datos de la persona existente 
-			$this->model_persona->update($dataP,$id_persona);		
-
-
-		}else{
+			$this->model_persona->update($dataP, $id_persona);
+		} else {
 
 			$this->model_persona->insertar($dataP);
 		}
@@ -260,12 +249,12 @@ class nuevo_accionista extends CI_Controller
 
 		$this->Subir_Varios($rut, $archivo);
 
-	
+
 
 		// Termino subida de archivos
 
 
-		
+
 
 		$this->model_accionistas->insertar($dataA);
 
@@ -469,11 +458,7 @@ class nuevo_accionista extends CI_Controller
 					);
 					$this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
 				};
-
-
 			};
-
-			
 		};
 
 
@@ -820,6 +805,14 @@ class nuevo_accionista extends CI_Controller
 			if (!empty($archivo)) {
 
 				$this->Subir_Varios($rut, $archivo);
+
+				$dataA =  array(
+
+
+					'path' => 'archivos/accionista/' . $rut,
+
+				);
+				$this->model_accionistas->update($dataA, $idP);
 			}
 		}
 
@@ -865,7 +858,10 @@ class nuevo_accionista extends CI_Controller
 
 
 
+
 		$this->model_persona->update($dataP, $idP);
+
+
 
 
 
@@ -921,25 +917,21 @@ class nuevo_accionista extends CI_Controller
 	}
 
 
-	
+
 	public function valida_socio()
 
 	{
 
-		
+
 
 		$id = 8;
 		$provincia = $this->model_persona->ListarRegionDeProvincia($id);
 
 
-		echo(json_encode($provincia));
+		echo (json_encode($provincia));
 		var_dump($provincia);
-
-
-
-
 	}
-	
+
 
 
 
