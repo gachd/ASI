@@ -34,7 +34,10 @@
 
 <body>
 
- <!--  <span> <?php echo '<pre>';
+ <!--  <span> <?php
+ phpinfo();
+ 
+ echo '<pre>';
           var_dump($_SERVER);
           echo '</pre>' ?></span>
  -->
