@@ -293,8 +293,8 @@ class Fitness extends CI_Controller
         foreach ($archivo['tmp_name'] as $key => $tmp_name) {
             //condicional si el fichero existe
             if ($archivo["name"][$key]) {
-                // Nombres de archivos de temporales
-
+                // Nombres de archivos de temporaless
+                
 
                 $archivonombre = $fecha . $archivo["name"][$key];
 
