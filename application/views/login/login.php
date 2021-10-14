@@ -158,7 +158,7 @@
       body {
         /* The file size of this background image is 93% smaller
    * to improve page load speed on mobile internet connections */
-        background-image: url(<?php echo base_url() ?>/assets/images/fondo_login_telefono.jpg);
+        background-image: url(<?php echo base_url() ?>/assets/images/fondo_login.jpg);
       }
     }
 
