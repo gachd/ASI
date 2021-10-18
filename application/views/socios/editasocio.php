@@ -1206,10 +1206,12 @@
                 if (ok) {
                  $("#edit_socios").empty();
                  $("#div_guardar").hide();
+                 $("#rut_socio").val('');
 
                 } else {
                  $("#edit_socios").empty();
                  $("#div_guardar").hide();
+                 $("#rut_socio").val('');
                 }
 
               });
