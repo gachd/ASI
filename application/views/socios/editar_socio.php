@@ -785,7 +785,7 @@
 
       $com_nombre = $dp->comuna_nombre;
 
-      $com_id = $dp->comuna_id;
+      $com_id = $dp->s_comunas_comuna_id;
 
       $provincia = $dp->provincia_nombre;
 
@@ -793,13 +793,13 @@
 
       $ecivil_nomb = $dp->estacivil_nombre;
 
-      $ecivil_id = $dp->estacivil_id;
+      $ecivil_id = $dp->s_estado_civil_estacivil_id;
 
       $nacnombre = $dp->nac_nombre;
 
-      $nacid = $dp->nac_id;
+      $nacid = $dp->s_nacionalidades_nac_id;
 
-      $condlab_id = $dp->condlab_id;
+      $condlab_id = $dp->s_condicion_laboral_condlab_id;
 
       $condlab_nomb = $dp->condlab_nombre;
 
@@ -1097,15 +1097,19 @@
 
                             <select class="form-control input-sm" name="estado_civil" id="estadocivil">
 
-                              <option value="<?php echo $ecivil_id; ?>"><?php echo $ecivil_nomb; ?></option>
-
                               <?php
 
                               foreach ($estado_civil2 as $es) {
 
-                                if ($es->estacivil_id !=  $ecivil_id) {
+                               
+
+                                if ($es->estacivil_id ==  $ecivil_id) {
+
+                                  echo ' <option value="' . $es->estacivil_id . '" ' . set_select("estado_civil", $es->estacivil_id) . ' selected >' . $es->estacivil_nombre . '</option>';
+                                }else{
 
                                   echo ' <option value="' . $es->estacivil_id . '" ' . set_select("estado_civil", $es->estacivil_id) . '>' . $es->estacivil_nombre . '</option>';
+
                                 }
                               }
 
@@ -1123,15 +1127,19 @@
 
                           <td class="td_reponsive"><select class="form-control input-sm" name="nacionalidad" id="nacionalidad">
 
-                              <option value="<?php echo $nacid; ?>"><?php echo $nacnombre; ?></option>
+                      
 
                               <?php
 
                               foreach ($nac as $n) {
 
-                                if ($n->nac_id !=  $nacid) {
+                                if ($n->nac_id ==  $nacid) {
+                                  echo ' <option value="' . $n->nac_id . '" ' . set_select("nacionalidad", $n->nac_id) . ' selected>' . $n->nac_nombre . '</option>';
 
+                                }else{
+                                  
                                   echo ' <option value="' . $n->nac_id . '" ' . set_select("nacionalidad", $n->nac_id) . '>' . $n->nac_nombre . '</option>';
+
                                 }
                               }
 
@@ -1254,7 +1262,6 @@
 
                             <select class="form-control input-sm" name="comuna" id="comu">
 
-                              <option value="<?php echo $com_id; ?>"><?php echo $com_nombre; ?></option>
 
                               <?php
 
@@ -1263,6 +1270,10 @@
                                 if ($c->comuna_id !=  $com_id) {
 
                                   echo ' <option value="' . $c->comuna_id . '" ' . set_select("comuna", $c->comuna_id) . '>' . $c->comuna_nombre . '</option>';
+                                }else{
+                                  
+                                  echo ' <option value="' . $c->comuna_id . '" ' . set_select("comuna", $c->comuna_id) . 'selected>' . $c->comuna_nombre . '</option>';
+
                                 }
                               }
 
@@ -1297,7 +1308,7 @@
 
                             <select class="form-control input-sm" name="situacion_lab" id="laboral">
 
-                              <option value="<?php echo $condlab_id; ?>"><?php echo $condlab_nomb; ?></option>
+                             
 
                               <?php
 
@@ -1306,6 +1317,9 @@
                                 if ($cl->condlab_id !=  $condlab_id) {
 
                                   echo ' <option value="' . $cl->condlab_id . '" ' . set_select("situacion_lab", $cl->condlab_id) . '>' . $cl->condlab_nombre . '</option>';
+                                }else{
+                                  
+                                  echo ' <option value="' . $cl->condlab_id . '" ' . set_select("situacion_lab", $cl->condlab_id) . ' selected>' . $cl->condlab_nombre . '</option>';
                                 }
                               }
 
@@ -1849,27 +1863,27 @@
 
 
   function valida_archivo(archivo) {
-    
+
     var nombre_archivo = archivo.value; //obtengo el nombre del archvo
     var idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
     var extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
-  
-    var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""];// extensiones en minusculas
+
+    var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""]; // extensiones en minusculas
 
     if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
-     
+
     } else {
 
 
       swal({
-            title: "Archivo invalido",
-            text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
-            icon: "error",
-            button: "Aceptar",
-          });
-    
+        title: "Archivo invalido",
+        text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
+        icon: "error",
+        button: "Aceptar",
+      });
+
       archivo.value = "";
-   
+
     }
 
   }
