@@ -863,7 +863,7 @@
 
 
 
-          $("#edit_socios").empty()
+          $("#edit_socios").empty();
 
           $("#edit_socios").html(data);
 
@@ -1204,10 +1204,12 @@
               })
               .then((ok) => {
                 if (ok) {
-                  window.location.href = '<?php echo base_url() ?>socios/editasocio'
+                 $("#edit_socios").empty();
+                 $("#div_guardar").hide();
 
                 } else {
-                  window.location.href = '<?php echo base_url() ?>socios/editasocio'
+                 $("#edit_socios").empty();
+                 $("#div_guardar").hide();
                 }
 
               });
