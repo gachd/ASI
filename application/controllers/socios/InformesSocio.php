@@ -341,14 +341,14 @@ class InformesSocio extends CI_Controller
             case 1:
                 $activos = $this->model_informe->activos();
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio+carga', $data, true);
                 break;
             case 2:
                 $rutCorp = "65106820-7";
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio+carga', $data, true);
 
                 break;
             case 3:
@@ -356,7 +356,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio+carga', $data, true);
 
                 break;
             case 4:
@@ -364,7 +364,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio+carga', $data, true);
 
                 break;
             case 5:
@@ -372,7 +372,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio+carga', $data, true);
 
                 break;
             case 6:
@@ -380,7 +380,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->activos_corp($rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio+carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio+carga', $data, true);
 
                 break;
         }
@@ -416,14 +416,14 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->consolidado_rangoS($min, $max, $sexo);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
                 break;
             case 2:
                 $rutCorp = "65106820-7";
                 $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 3:
@@ -431,7 +431,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 4:
@@ -439,7 +439,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 5:
@@ -447,7 +447,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 6:
@@ -455,7 +455,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_rangoS($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
         }
@@ -491,14 +491,14 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->consolidado_mayorS($mayor, $sexo);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
                 break;
             case 2:
                 $rutCorp = "65106820-7";
                 $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 3:
@@ -506,7 +506,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 4:
@@ -514,7 +514,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 5:
@@ -522,7 +522,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 6:
@@ -530,7 +530,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_mayorS($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
         }
@@ -565,14 +565,14 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->consolidado_menorS($menor, $sexo);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
                 break;
             case 2:
                 $rutCorp = "65106820-7";
                 $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 3:
@@ -580,7 +580,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 4:
@@ -588,7 +588,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 5:
@@ -596,7 +596,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
             case 6:
@@ -604,7 +604,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorS($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_socio', $data, true);
 
                 break;
         }
@@ -647,14 +647,14 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->consolidado_rangoC($min, $max, $sexo);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
                 break;
             case 2:
                 $rutCorp = "65106820-7";
                 $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 3:
@@ -662,7 +662,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 4:
@@ -670,7 +670,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 5:
@@ -678,7 +678,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 6:
@@ -686,7 +686,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_rangoC($min, $max, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
 
                 break;
@@ -725,14 +725,14 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->consolidado_mayorC($mayor, $sexo);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
                 break;
             case 2:
                 $rutCorp = "65106820-7";
                 $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 3:
@@ -740,7 +740,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 4:
@@ -748,7 +748,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 5:
@@ -756,7 +756,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 6:
@@ -764,7 +764,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_mayorC($mayor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
         }
@@ -800,7 +800,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->consolidado_menorC($menor, $sexo);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 2:
@@ -808,7 +808,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 3:
@@ -816,7 +816,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 4:
@@ -824,7 +824,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 5:
@@ -832,7 +832,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
             case 6:
@@ -840,7 +840,7 @@ class InformesSocio extends CI_Controller
                 $activos = $this->model_informe->corp_menorC($menor, $sexo, $rutCorp);
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_carga', $data, true);
+                $html = $this->load->view('socios/informes/informe_carga', $data, true);
 
                 break;
         }
@@ -887,7 +887,7 @@ class InformesSocio extends CI_Controller
                 $data['totales'] = $cont;
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_estados_socio', $data, true);
                 break;
             case 2:
                 $rutCorp = "65106820-7";
@@ -900,7 +900,7 @@ class InformesSocio extends CI_Controller
                 $data['totales'] = $cont;
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_estados_socio', $data, true);
 
                 break;
             case 3:
@@ -915,7 +915,7 @@ class InformesSocio extends CI_Controller
                 $data['totales'] = $cont;
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_estados_socio', $data, true);
 
                 break;
             case 4:
@@ -930,7 +930,7 @@ class InformesSocio extends CI_Controller
                 $data['totales'] = $cont;
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_estados_socio', $data, true);
 
                 break;
             case 5:
@@ -945,7 +945,7 @@ class InformesSocio extends CI_Controller
                 $data['totales'] = $cont;
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_estados_socio', $data, true);
 
                 break;
             case 6:
@@ -960,7 +960,7 @@ class InformesSocio extends CI_Controller
                 $data['totales'] = $cont;
 
                 $data['activos'] = $activos;
-                $html = $this->load->view('socios\informes\informe_estados_socio', $data, true);
+                $html = $this->load->view('socios/informes/informe_estados_socio', $data, true);
 
                 break;
         }

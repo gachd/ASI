@@ -1322,7 +1322,6 @@
       url: "<?php echo base_url() ?>socios/fitness/agregardatos",
       data: new FormData(fomulario_envio),
       contentType: false,
-
       processData: false,
 
       beforeSend: function() {
