@@ -366,6 +366,7 @@
 
 		function persona($rut)
 		{
+			$this->db->reconnect(); 
 
 			$this->db->select('*');
 			$this->db->from(' s_personas p, s_condicion_laboral labo,s_estado_civil civil,s_nacionalidades pais,s_comunas comu,s_provincia provi,s_regiones regi ');
@@ -382,6 +383,7 @@
 			$consulta = $consulta->result();
 
 			return $consulta;
+			
 		}
 
 		function persona_fitness($rut)
