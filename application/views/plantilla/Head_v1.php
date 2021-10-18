@@ -190,7 +190,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		}
 
 		ul.breadcrumb li a {
-			color: #0275d8;
+			color: #00ae00;
 			text-decoration: none;
 		}
 

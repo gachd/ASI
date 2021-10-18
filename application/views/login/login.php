@@ -193,8 +193,8 @@
             <div class="row">
               <div class="col-md-4 logo"><img width="150" src="https://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png"></div>
               <div class="col-md-8">
-                <input type="text" placeholder="Usuario" name="username" />
-                <input type="password" placeholder="Contraseña" name="password" />
+                <input type="text" placeholder="Usuario" name="username" required/>
+                <input type="password" placeholder="Contraseña" name="password" required />
                 <button>ingresar</button>
                 <p class="message"> No estas registrado?
                   <a href="mailto:cuenta@mail.com">Enviar email a soporte</a>
@@ -222,5 +222,3 @@
 </body>
 
 </html>
-
-<doctype html>

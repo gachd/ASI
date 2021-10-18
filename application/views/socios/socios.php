@@ -348,7 +348,7 @@
 
             <div class="panel-heading">
 
-              <div class="panel-title">LISTADO DE SOCIOS</div>
+              <div class="panel-title">LISTADO DE SOCIOS CORPORACIONES</div>
 
             </div>
 
