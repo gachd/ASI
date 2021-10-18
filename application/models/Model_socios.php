@@ -368,16 +368,10 @@
 		{
 			
 
-			$this->db->select('p.prsn_rut');
-			$this->db->from(' s_personas p, s_condicion_laboral labo,s_estado_civil civil,s_nacionalidades pais,s_comunas comu,s_provincia provi,s_regiones regi ');
-			$this->db->where('p.prsn_rut', $rut);
-			$this->db->where('s_condicion_laboral_condlab_id = condlab_id');
-			$this->db->where('s_estado_civil_estacivil_id = estacivil_id');
-			$this->db->where('s_nacionalidades_nac_id = nac_id');
-			$this->db->where('p.s_comunas_comuna_id = comu.comuna_id');
-			$this->db->where('comu.s_provincia_provincia_id = provi.provincia_id');
-			$this->db->where('provi.s_regiones_region_id=regi.region_id');
-
+			$this->db->select('*');
+			$this->db->from('s_personas');
+			$this->db->where('prsn_rut', $rut);
+	
 			$consulta = $this->db->get();
 
 			$consulta = $consulta->result();
