@@ -49,7 +49,7 @@
 			"path": "application/controllers/socios/Editasocio.php",
 			"bookmarks": [
 				{
-					"line": 94,
+					"line": 96,
 					"column": 10,
 					"label": "error ajax"
 				}
@@ -82,6 +82,16 @@
 					"line": 71,
 					"column": 9,
 					"label": "aa"
+				}
+			]
+		},
+		{
+			"path": "application/views/socios/editar_socio.php",
+			"bookmarks": [
+				{
+					"line": 749,
+					"column": 0,
+					"label": "Editar socio - datos de persona "
 				}
 			]
 		}

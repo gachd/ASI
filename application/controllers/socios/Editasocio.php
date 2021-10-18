@@ -56,6 +56,8 @@
 
       $data['datos'] = $this->model_socios->persona($rut);
 
+      var_dump( $data['datos']);
+
       $data['socioData'] = $this->model_socios->InfoSocio($rut);
 
       $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
