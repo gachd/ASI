@@ -40,7 +40,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 
 
-	
+
 
 	<!-- pickerDate -->
 	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.js"></script>
@@ -234,6 +234,62 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 	<script>
+		/* async function detectAdBlock() {
+			let adBlockEnabled = false
+			const googleAdUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+			try {
+				await fetch(new Request(googleAdUrl)).catch(_ => adBlockEnabled = true)
+			} catch (e) {
+				adBlockEnabled = true
+
+			} finally {
+
+				if (adBlockEnabled) {
+
+					alert("Desactiva adblock ");
+
+				} else {
+					alert("Muy bien adblock desbiltado ");
+
+				}
+
+
+			}
+		}
+		detectAdBlock() */
+
+		var vis = (function() {
+			var stateKey, eventKey, keys = {
+				hidden: "visibilitychange",
+				webkitHidden: "webkitvisibilitychange",
+				mozHidden: "mozvisibilitychange",
+				msHidden: "msvisibilitychange"
+			};
+			for (stateKey in keys) {
+				if (stateKey in document) {
+					eventKey = keys[stateKey];
+					break;
+				}
+			}
+			return function(c) {
+				if (c) document.addEventListener(eventKey, c);
+				return !document[stateKey];
+			}
+		})();
+
+
+
+
+
+
+		vis(function() {
+
+			vis() ? console.log("Visible") : console.log("No visible");
+		});
+
+
+
+
 		var minutos = 0;
 
 		function listo() {
@@ -241,7 +297,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			$(".loader").fadeOut(200);
 
 			/* 	toggleFullScreen(document.body); */
-			timerSesion();
+			TimerSesion();
 
 
 
@@ -250,7 +306,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-		function timerSesion() {
+		function TimerSesion() {
 
 
 
@@ -267,7 +323,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 							text: "Se cerrara la sesion",
 							icon: "warning",
 							buttons: {
-								cancel: "Cancelar",							
+								cancel: "Cancelar",
 								Cerrrar: true,
 							},
 						})
@@ -499,33 +555,9 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<div class="loader"></div>
 
 
+
 </body>
 
-<script>
-	function toggleFullScreen(elem) {
-		if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
-			if (elem.requestFullScreen) {
-				elem.requestFullScreen();
-			} else if (elem.mozRequestFullScreen) {
-				elem.mozRequestFullScreen();
-			} else if (elem.webkitRequestFullScreen) {
-				elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-			} else if (elem.msRequestFullscreen) {
-				elem.msRequestFullscreen();
-			}
-		} else {
-			if (document.cancelFullScreen) {
-				document.cancelFullScreen();
-			} else if (document.mozCancelFullScreen) {
-				document.mozCancelFullScreen();
-			} else if (document.webkitCancelFullScreen) {
-				document.webkitCancelFullScreen();
-			} else if (document.msExitFullscreen) {
-				document.msExitFullscreen();
-			}
-		}
-	}
-</script>
 
 </html>
 

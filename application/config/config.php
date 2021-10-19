@@ -33,7 +33,7 @@ if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // DEBE SER LA IP DEL HOSTIN
     $config['base_url'] = 'https://devasi.stadioitalianodiconcepcion.cl/';
 } else {
 
-    $config['base_url'] = 'http://localhost/ASI';
+    $config['base_url'] = 'http://192.168.20.4/ASI';
 }
 
 

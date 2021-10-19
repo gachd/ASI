@@ -17,7 +17,7 @@ class Login extends CI_Controller
 	{
 
 		// ruta donde se redirecciona al encontrar sesion iniciada
-		$redireccion = base_url() . 'socios/inicio';
+		$redireccion = base_url() . 'calendario';
 
 
 		if (isset($this->session->userdata['logueado'])) {

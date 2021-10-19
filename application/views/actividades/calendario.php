@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calendario</title>
 
 <head>
 
 	<style>
 		body {
-			margin: 40px 10px;
+			/* margin: 40px 10px; */
 			padding: 0;
-			font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-			font-size: 14px;
+			/* font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+			font-size: 14px; */
 		}
 
 		#calendar {
