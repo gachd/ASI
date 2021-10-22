@@ -1,4 +1,16 @@
-<?php !isset($this->session->userdata['logueado']) ?   die('Página con acceso restringido. <a href="' . base_url() . 'Login">Click aquí para hacer login</a>')   :   ''; ?>
+<?php
+
+if (!isset($this->session->userdata['logueado'])) { ?>
+
+
+	<?php $this->view('errors\no_sesion'); ?>
+
+
+	<?php die ?>
+
+<?php } ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,6 +102,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 	<!-- sweetalert2 -->
 
+
+
+
+	<!-- new navbar -->
 
 
 
@@ -600,6 +616,14 @@
 
 
 </head>
+<?php
+
+$this->load->library('session');
+$usuario = $this->session->userdata('id');
+$ci = &get_instance();
+$ci->load->model("model_login");;
+
+?>
 
 <body onload="listo()" onkeypress="resetTiempo()" onclick="resetTiempo()" onMouseMove="resetTiempo()" ontouchstart="resetTiempo()">
 	<div id="wrapper">
@@ -617,19 +641,19 @@
 					<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
 
 						<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="" class="dropdown-toggle" data-toggle="dropdown"><?php echo ($this->session->userdata('username')); ?><b class="caret"></b><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon glyphicon-user"></span></a>
+								<ul class="dropdown-menu">
+
+									<li><a href="<?php echo base_url(); ?>login/logout">Cerrar Sesion</a></li>
+								</ul>
+							</li>
 							<li style="text-align: center;"><img width="120" src="https://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png"></li>
 
 
+
 							<?php
-
-
-							$this->load->library('session');
-							$usuario = $this->session->userdata('id');
-							$ci = &get_instance();
-							$ci->load->model("model_login");
 							$menu = $ci->model_login->menu_principal($usuario);
-
-
 
 							foreach ($menu as $m) {
 								$principal = $m->perm_principal;
@@ -657,7 +681,7 @@
 								if (($principal == 2) or ($principal == 0)) {
 									echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Trabajos <b class="caret"></b><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench	Try it"></span></a>
 		    		<ul class="dropdown-menu">
-		    		       <li class="dropdown-submenu"><a class="test"  href="">Planificaion<span class="caret"></span></a>
+		    		       <li class="dropdown-submenu"><a class="test"  href="">Planificacion<span class="caret"></span></a>
 		    		           <ul class="dropdown-menu tercer-menu">
 		    		                <li><a href="' . base_url() . 'trabajos/disp_trabajo">1. Disp. Trabajos</a></li>
 		    		                <li><a href="' . base_url() . 'trabajos/planificacion_temporada">2. Temporada</a></li>
