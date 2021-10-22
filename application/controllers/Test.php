@@ -46,7 +46,7 @@ class Test extends CI_Controller {
 
 
 
-        $this->load->view('plantilla/Head_v1');
+        $this->load->view('plantilla/Head');
 
         $this->load->view('titulos/titulos', $data);
 
@@ -60,7 +60,7 @@ class Test extends CI_Controller {
         $data['accionista'] = $this->model_accionistas->accionistasALL();
 
 
-        $this->load->view('plantilla/Head_v1');
+        $this->load->view('plantilla/Head');
 
         $this->load->view('titulos/nuevo_titulo', $data);
 
@@ -76,7 +76,7 @@ class Test extends CI_Controller {
         $data['sin_entregar'] = $this->model_titulo->titulos_no_entregados();
 
 
-        $this->load->view('plantilla/Head_v1');
+        $this->load->view('plantilla/Head');
 
         $this->load->view('titulos/titulos_no_entregado', $data);
 
@@ -162,7 +162,7 @@ class Test extends CI_Controller {
 
 
 
-        $this->load->view('plantilla/Head_v1');
+        $this->load->view('plantilla/Head');
 
         $this->load->view('titulos/cesion_titulo', $data);
 
@@ -525,7 +525,7 @@ class Test extends CI_Controller {
 
 
 
-        $this->load->view('plantilla/Head_v1');
+        $this->load->view('plantilla/Head');
 
         $this->load->view('titulos/embargo', $data);
 
@@ -620,7 +620,7 @@ class Test extends CI_Controller {
 
 
 
-            $this->load->view('plantilla/Head_v1');
+            $this->load->view('plantilla/Head');
 
             $this->load->view('titulos/historial_titulo', $data);
 

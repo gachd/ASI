@@ -21,7 +21,7 @@ class disp_trabajo extends CI_Controller {
 		$data['categorias'] = $this -> model_trabajos->getCategorias();	
 		$data['funcionarios_stadio'] = $this -> model_trabajos->funcionarios_stadio();	
 		
-		$this->load->view('plantilla/Head_v1');
+		$this->load->view('plantilla/Head');
 		$this->load->view('trabajos/disp_trabajo',$data);
 		$this->load->view('plantilla/Footer');		
 	}	

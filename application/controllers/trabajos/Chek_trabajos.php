@@ -21,7 +21,7 @@
             $fecha= $this->uri->segment(3);
             $data['fecha'] = $fecha;
 		
-		$this->load->view('plantilla/Head_v1');
+		$this->load->view('plantilla/Head');
 		$this->load->view('trabajos/chek_trabajos',$data);
 		$this->load->view('plantilla/Footer');		
 	}
@@ -40,7 +40,7 @@
 
             $data['fecha'] = $fecha;
             
-            $this->load->view('plantilla/Head_v1');
+            $this->load->view('plantilla/Head');
             $this->load->view('trabajos/chek_trabajos',$data);
             $this->load->view('plantilla/Footer');          
       }

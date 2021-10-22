@@ -52,7 +52,7 @@ class InformesSocio extends CI_Controller
         $data['cargas'] = $this->model_informe->cargas_activosALL();
         $data['corp']= $this->model_informe->corp_all();
 
-        $this->load->view('plantilla/Head_v1');
+        $this->load->view('plantilla/Head');
 
         $this->load->view('socios/informes_index', $data);
 

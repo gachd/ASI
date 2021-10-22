@@ -31,7 +31,7 @@ class informes extends CI_Controller
 
     $data['socios'] = $this->model_socios->sociosVigentes();
 
-    $this->load->view('plantilla/Head_v1');
+    $this->load->view('plantilla/Head');
 
     $this->load->view('socios/informes', $data);
 

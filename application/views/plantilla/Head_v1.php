@@ -85,6 +85,55 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 	<style>
+
+		.dropdown-submenu {
+			position: relative;
+		}
+
+		.dropdown-submenu>.dropdown-menu {
+			top: 0;
+			left: 100%;
+			margin-top: -6px;
+			margin-left: -1px;
+			-webkit-border-radius: 0 6px 6px 6px;
+			-moz-border-radius: 0 6px 6px 6px;
+			border-radius: 0 6px 6px 6px;
+		}
+
+		.dropdown-submenu:hover>.dropdown-menu {
+			display: block;
+		}
+
+		.dropdown-submenu>a:after {
+			display: block;
+			content: " ";
+			float: right;
+			width: 0;
+			height: 0;
+			border-color: transparent;
+			border-style: solid;
+			border-width: 5px 0 5px 5px;
+			border-left-color: #cccccc;
+			margin-top: 5px;
+			margin-right: -10px;
+		}
+
+		.dropdown-submenu:hover>a:after {
+			border-left-color: #ffffff;
+		}
+
+		.dropdown-submenu.pull-left {
+			float: none;
+		}
+
+		.dropdown-submenu.pull-left>.dropdown-menu {
+			left: -100%;
+			margin-left: 10px;
+			-webkit-border-radius: 6px 0 6px 6px;
+			-moz-border-radius: 6px 0 6px 6px;
+			border-radius: 6px 0 6px 6px;
+		}
+
 		@media only screen and (min-width: 0px) and (max-width: 768px) {
 
 
@@ -453,6 +502,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 <body onload="listo()" onkeypress="resetTiempo()" onclick="resetTiempo()" onMouseMove="resetTiempo()" ontouchstart="resetTiempo()">
 
 	<div id="pickerFecha"></div>
+	
 	<nav class="navbar navbar-default navbar-fixed-top" id="navbar_Home">
 		<div class="container">
 			<div class="navbar-header">
@@ -490,6 +540,95 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 					<?php foreach ($menu as $m) {
 
 						$principal = $m->perm_principal; ?>
+
+
+
+
+
+						<?php if (($principal == 1) or ($principal == 0)) { ?>
+
+							<?php if ($principal <> 0) {
+								$sub_menu = $ci->model_login->sub_menu($usuario, $principal);
+							} else {
+								$sub_menu = $ci->model_login->sub_menu(0, 1);
+							}
+							?>
+
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Actividades <b class="caret"></b><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-calendar"></span></a>
+								<ul class="dropdown-menu">
+
+									<?php
+
+
+									foreach ($sub_menu as $sm) {
+										$perm_nombre = $sm->perm_nombre;
+										$perm_ruta = $sm->perm_ruta;
+										echo ' <li><a href="' . base_url() . '' . $perm_ruta . '">' . $perm_nombre . '</a></li>';
+										echo ' <li class="divider"></li>';
+									}
+
+									?>
+
+
+								</ul>
+							</li>
+
+
+
+						<?php } ?>
+
+						<?php
+						//TRABAJOS
+
+						if (($principal == 2) or ($principal == 0)) {
+							echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Trabajos <b class="caret"></b><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench	Try it"></span></a>
+<ul class="dropdown-menu">
+<li class=class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"  href="">Planificaion<span class="caret"></span></a>
+<ul class="dropdown-submenu">
+	<li><a href="' . base_url() . 'trabajos/disp_trabajo">1. Disp. Trabajos</a></li>
+	<li><a href="' . base_url() . 'trabajos/planificacion_temporada">2. Temporada</a></li>
+	<li><a href="' . base_url() . 'trabajos/planificacion_diaria">3. Plan Mensual</a></li>
+</ul>
+</li>
+<li><a href="' . base_url() . 'trabajos/chek_trabajos">Chek-in</a></li>
+<li><a href="' . base_url() . 'trabajos/planificacion">Acumulado</a></li>
+
+<li><a href="' . base_url() . 'trabajos/nuevo">Nuevo Trabajo</a></li>
+</ul>
+</li>';
+						}
+
+
+						if (($principal == 3) or ($principal == 0)) {
+							echo ' <li><a href="' . base_url() . 'trabajos/report_diarios">Requerimientos<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-pushpin"></span></a></li>';
+						}
+						if (($principal == 4) or ($principal == 0)) {
+							echo ' <li><a href="' . base_url() . 'dependencias/inicio">Dependencias<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>';
+						}
+						if (($principal == 5) or ($principal == 0)) {
+							echo ' <li><a href="' . base_url() . 'turnos/planificacion">Turnos<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>';
+						}
+
+
+
+
+
+
+
+
+
+
+						?>
+
+
+
+
+
+
+
+
 
 
 						<?php if (($principal == 7) or ($principal == 0)) { ?>

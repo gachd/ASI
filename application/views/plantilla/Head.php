@@ -5,8 +5,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<title>ASI - Stadio Italiano di Concepción</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo base_url(); ?>assets/icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url(); ?>assets/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>assets/icon/favicon-16x16.png">
+	<link rel="manifest" href="<?php echo base_url(); ?>assets/icon/site.webmanifest">
+	<link rel="mask-icon" href="<?php echo base_url(); ?>assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#2b5797">
+	<meta name="theme-color" content="#ffffff">
+
 
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -43,6 +50,49 @@
 	<!-- datepicker-->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+	<!-- pickerDate -->
+	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.js"></script>
+	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.date.js"></script>
+	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/legacy.js"></script>
+
+	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.css" rel="stylesheet">
+	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.date.css" rel="stylesheet">
+
+
+
+	<script src="<?php echo base_url(); ?>assets/js/plugins/jquery.dataTables.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/plugins/dataTables.bootstrap.min.js"></script>
+
+	<!-- Bootstrap -->
+	<link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+
+
+	<!-- Custom CSS -->
+	<link href="<?php echo base_url(); ?>assets/css/sb-admin.css" rel="stylesheet">
+	<link href="<?php echo base_url(); ?>assets/css/header/header.css" rel="stylesheet">
+
+	<!-- Morris Charts CSS -->
+
+	<!-- Custom Fonts -->
+	<link href="<?php echo base_url(); ?>/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<!-- datepicker-->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<!-- Alertas -->
+	<script src="<?php echo base_url(); ?>/assets/js/sweetalert.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+	<!-- sweetalert2 -->
+
+
+
+
 
 	<style>
 		.dropdown-submenu {
@@ -129,6 +179,9 @@
 		.main {
 			padding: 0px 10px 0 10px;
 		}
+
+
+
 
 		@media (min-width: 765px) {
 
@@ -253,10 +306,302 @@
 		section {
 			padding-left: 15px;
 		}
+
+
+
+		.salto_celu {
+
+			display: none;
+		}
+
+		input[type=file]::-webkit-file-upload-button {
+			display: none;
+
+		}
+
+		input[type=file] {
+			cursor: pointer;
+
+		}
+
+		ul.breadcrumb {
+
+
+			padding: 10px 16px;
+			list-style: none;
+			background-color: #eee;
+		}
+
+		ul.breadcrumb li {
+			display: inline;
+			font-size: 15px;
+		}
+
+		ul.breadcrumb li+li:before {
+			padding: 2px;
+			color: black;
+			content: "/\00a0";
+		}
+
+		ul.breadcrumb li a {
+			color: #00ae00;
+			text-decoration: none;
+		}
+
+		ul.breadcrumb li a:hover {
+			color: #01447e;
+			text-decoration: underline;
+		}
+
+		.oculto {
+			display: none;
+		}
+
+		.col-center {
+			float: none;
+			margin: 0 auto;
+		}
+
+		.input-group {
+			z-index: 0;
+		}
+
+		.input-group-btn {
+			z-index: -1;
+		}
+
+
+		.loader {
+			position: fixed;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			z-index: 9999;
+
+			background: url('<?php echo base_url(); ?>assets/images/carga_pagina.gif') 50% 50% no-repeat rgb(249, 249, 249);
+			opacity: .97;
+		}
 	</style>
+
+	<script>
+		/* async function detectAdBlock() {
+			let adBlockEnabled = false
+			const googleAdUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+			try {
+				await fetch(new Request(googleAdUrl)).catch(_ => adBlockEnabled = true)
+			} catch (e) {
+				adBlockEnabled = true
+
+			} finally {
+
+				if (adBlockEnabled) {
+
+					alert("Desactiva adblock ");
+
+				} else {
+					alert("Muy bien adblock desbiltado ");
+
+				}
+
+
+			}
+		}
+		detectAdBlock() */
+
+		var vis = (function() {
+			var stateKey, eventKey, keys = {
+				hidden: "visibilitychange",
+				webkitHidden: "webkitvisibilitychange",
+				mozHidden: "mozvisibilitychange",
+				msHidden: "msvisibilitychange"
+			};
+			for (stateKey in keys) {
+				if (stateKey in document) {
+					eventKey = keys[stateKey];
+					break;
+				}
+			}
+			return function(c) {
+				if (c) document.addEventListener(eventKey, c);
+				return !document[stateKey];
+			}
+		})();
+
+
+
+
+
+
+		vis(function() {
+
+			vis() ? console.log("Visible") : console.log("No visible");
+		});
+
+
+
+
+		var minutos = 0;
+
+		function listo() {
+
+			$(".loader").fadeOut(200);
+
+			/* 	toggleFullScreen(document.body); */
+			TimerSesion();
+
+
+
+
+		}
+
+
+
+		function TimerSesion() {
+
+
+
+			setInterval(function() {
+				minutos++;
+				/* 	console.log(minutos); */
+
+				if (minutos == 8) {
+
+
+
+					swal({
+							title: "Se ha detectado inactivdad",
+							text: "Se cerrara la sesion",
+							icon: "warning",
+							buttons: {
+								cancel: "Cancelar",
+								Cerrrar: true,
+							},
+						})
+						.then((ok) => {
+
+							if (ok) {
+								window.location = '<?php echo base_url(); ?>login/logout';
+
+							} else {
+								resetTiempo()
+
+							}
+
+						});
+
+
+
+				}
+
+
+
+				if (minutos == 15) {
+					window.location = '<?php echo base_url(); ?>login/logout';
+
+				}
+
+
+			}, 60000); //  cuenta cada minutos
+
+		}
+
+		function resetTiempo() {
+
+			/* console.log("tiempo reseteado"); */
+			minutos = 0;
+
+
+		}
+
+
+
+
+
+
+
+
+		$.datepicker.regional['es'] = {
+			closeText: 'Cerrar',
+			prevText: '< Ant',
+			nextText: 'Sig >',
+			currentText: 'Hoy',
+			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+			dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércole xs', 'Jueves', 'Viernes', 'Sábado'],
+			dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+			dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+			weekHeader: 'Sm',
+			dateFormat: 'dd/mm/yy',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: ''
+		};
+
+		$(function() {
+			$.datepicker.setDefaults($.datepicker.regional['es']);
+		});
+
+
+
+		$(document).ready(function() {
+
+
+			$('.tabla_dinamica').DataTable({
+				"oLanguage": {
+					"sProcessing": "Procesando...",
+					"sLengthMenu": "Mostrar _MENU_ registros",
+					"sZeroRecords": "No se encontraron resultados",
+					"sEmptyTable": "Ningún dato disponible en esta tabla",
+					"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+					"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+					"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+					"sInfoPostFix": "",
+					"sSearch": "Buscar:",
+					"sUrl": "",
+					"sInfoThousands": ",",
+					"sLoadingRecords": "Cargando...",
+					"oPaginate": {
+						"sFirst": "Primero",
+						"sLast": "Último",
+						"sNext": "Siguiente",
+						"sPrevious": "Anterior"
+					},
+					"oAria": {
+						"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+						"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+					}
+				}
+			});
+
+
+
+
+
+		});
+
+
+
+		function getIEVersion() {
+			var match = navigator.userAgent.match(/(?:MSIE |Trident\/.*; rv:)(\d+)/);
+			return match ? parseInt(match[1]) : undefined;
+		}
+
+
+
+		if (getIEVersion() <= 11) {
+
+			alert("Navegador no compatible")
+			document.location = "<?php echo base_url(); ?>login/logout"; //Es IE <= 9, REDIRECCIONA A PAGINA QUE SUGIERE USAR UNA MAYOR VERSIÓN!
+		}
+	</script>
+
+
+
 </head>
 
-<body>
+<body onload="listo()" onkeypress="resetTiempo()" onclick="resetTiempo()" onMouseMove="resetTiempo()" ontouchstart="resetTiempo()">
 	<div id="wrapper">
 		<div class="cont-sidebar">
 			<nav class="navbar navbar-default sidebar" role="navigation">
@@ -276,9 +621,7 @@
 
 
 							<?php
-							//print_r( $_SESSION );  
 
-							//echo' <li><a href="'.base_url().'actividades/nueva>Actividades</a></li>';
 
 							$this->load->library('session');
 							$usuario = $this->session->userdata('id');
@@ -358,6 +701,7 @@
 				</div>
 			</nav>
 		</div>
+		<div class="loader"></div>
 
 
 
@@ -437,7 +781,7 @@
 					}
 				}
 
-				ocultar();
+				/* ocultar(); */
 
 			});
 		</script>

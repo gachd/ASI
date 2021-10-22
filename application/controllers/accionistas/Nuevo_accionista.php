@@ -62,7 +62,7 @@ class nuevo_accionista extends CI_Controller
 			if ($accionista) {
 
 				$_POST['msj'] = '1';
-				$this->load->view('plantilla/Head_v1');
+				$this->load->view('plantilla/Head');
 
 				$this->load->view('accionistas/accionista_rut');
 				$this->load->view('plantilla/Footer');
@@ -82,7 +82,7 @@ class nuevo_accionista extends CI_Controller
 
 
 					//si se valida que hay un socios, solo carga vista para agregar datos de accionista 
-					$this->load->view('plantilla/Head_v1');
+					$this->load->view('plantilla/Head');
 					$this->load->view('accionistas/nuevo_accionistaSocio', $data);
 					$this->load->view('plantilla/Footer');
 				} else {
@@ -99,21 +99,21 @@ class nuevo_accionista extends CI_Controller
 						$data['persona'] = $persona;
 
 
-						$this->load->view('plantilla/Head_v1');
+						$this->load->view('plantilla/Head');
 						$this->load->view('accionistas/nuevo_accionistaPersona', $data);
 						$this->load->view('plantilla/Footer');
 					} else {
 
 						//sino, carga la vista donde aparte ingrese datos personal
 
-						$this->load->view('plantilla/Head_v1');
+						$this->load->view('plantilla/Head');
 						$this->load->view('accionistas/nuevo_accionista', $data);
 						$this->load->view('plantilla/Footer');
 					}
 				}
 			}
 		} else {
-			$this->load->view('plantilla/Head_v1');
+			$this->load->view('plantilla/Head');
 
 			$this->load->view('accionistas/accionista_rut');
 

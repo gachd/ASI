@@ -47,7 +47,7 @@ class mod_cumple extends CI_Controller {
         $data['prox_cumple'] = $this -> model_socios->prox_cumpleaños(); 
         $data['ant_cumple'] = $this -> model_socios->ant_cumpleaños();  
 
-		$this->load->view('plantilla/Head_v1');
+		$this->load->view('plantilla/Head');
 
 		$this->load->view('socios/mod_cumple',$data);
 

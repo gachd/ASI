@@ -1,5 +1,10 @@
 <!-- jQuery -->
+</section>
+</main>
 
+<!--========== MAIN JS ==========-->
+<script src="/ASI/assets_sidebar/js/main.js"></script>
+</body>
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
 <script>
@@ -15,6 +20,8 @@
 <script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris-data.js"></script>
 
-</body>
+<!-- jQuery -->
+</div>
 
+</body>
 </html>

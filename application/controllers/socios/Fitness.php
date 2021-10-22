@@ -64,7 +64,7 @@ class Fitness extends CI_Controller
 
 
 
-        $this->load->view('plantilla/Head_v1');
+        $this->load->view('plantilla/Head');
 
         $this->load->view('socios/fitness/Index', $data);
 

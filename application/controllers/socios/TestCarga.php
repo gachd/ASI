@@ -17,7 +17,7 @@ class TestCarga extends CI_Controller
 
         public function index()
         {
-                $this->load->view('plantilla/Head_v1');
+                $this->load->view('plantilla/Head');
 
                 $this->load->view('socios/testcarga', array(
                         'error' => '',

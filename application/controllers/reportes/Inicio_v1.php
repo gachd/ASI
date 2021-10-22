@@ -18,7 +18,7 @@
 		$data['categorias'] = $this -> model_actividades->getCategorias();		
          
 		
-		$this->load->view('plantilla/Head_v1');
+		$this->load->view('plantilla/Head');
 		$this->load->view('reportes/inicio',$data);
 		$this->load->view('plantilla/Footer');		
 	}

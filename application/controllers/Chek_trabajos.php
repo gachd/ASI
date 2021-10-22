@@ -20,7 +20,7 @@
 		$data['funcionario'] = $this -> model_trabajos->funcionarios_stadio();	
             $data['fecha'] = $this->uri->segment(3);
 		
-		$this->load->view('plantilla/Head_v1');
+		$this->load->view('plantilla/Head');
 		$this->load->view('trabajos/chek_trabajos',$data);
 		$this->load->view('plantilla/Footer');		
 	}

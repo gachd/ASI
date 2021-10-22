@@ -67,7 +67,7 @@ class pago_cuota extends CI_Controller
     $data['ano'] = $this->model_socios->all_cuotas();
     $data['met_pago'] = $this->model_socios->all_metpagos();
 
-    $this->load->view('plantilla/Head_v1');
+    $this->load->view('plantilla/Head');
     $this->load->view('socios/pago_cuota', $data);
     $this->load->view('plantilla/Footer');
   }
@@ -95,7 +95,7 @@ class pago_cuota extends CI_Controller
   {
 
 
-    $this->load->view('plantilla/Head_v1');
+    $this->load->view('plantilla/Head');
     $this->load->view('socios/leerExcel');
     $this->load->view('plantilla/Footer');
   }

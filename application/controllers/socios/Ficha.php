@@ -32,7 +32,7 @@
 
     $data['personas'] = $this->model_socios->all_personas();
 
-    $this->load->view('plantilla/Head_v1');
+    $this->load->view('plantilla/Head');
 
     $this->load->view('socios/lista_personas', $data);
 
@@ -68,7 +68,7 @@
 
 
 
-    $this->load->view('plantilla/Head_v1');
+    $this->load->view('plantilla/Head');
 
     $this->load->view('socios/ficha', $data);
 

@@ -20,7 +20,7 @@ class planificacion_temporada extends CI_Controller {
 		$data['sectores'] = $this -> model_trabajos->getSector();
 		$data['categorias'] = $this -> model_trabajos->getCategorias();	
 		
-		$this->load->view('plantilla/Head_v1');
+		$this->load->view('plantilla/Head');
 		$this->load->view('trabajos/planificacion_temporada',$data);
 		$this->load->view('plantilla/Footer');		
 	}	

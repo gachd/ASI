@@ -98,7 +98,7 @@ class socios extends CI_Controller {
     
     $data['socios'] = $this -> model_socios->sociosVigentes();  
 
-		$this->load->view('plantilla/Head_v1');
+		$this->load->view('plantilla/Head');
 
 		$this->load->view('socios/socios',$data);
 
@@ -118,7 +118,7 @@ class socios extends CI_Controller {
     $data['cuotas'] = $this -> model_socios -> cuotas($rut); 
     $data['fechaReg'] =  $this -> model_socios->fechaReg($rut); 
 
-     $this->load->view('plantilla/Head_v1');
+     $this->load->view('plantilla/Head');
     $this->load->view('socios/detallePagos',$data);
     $this->load->view('plantilla/Footer');    
  
