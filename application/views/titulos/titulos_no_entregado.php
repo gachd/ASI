@@ -23,12 +23,7 @@
 </style>
 
 <body>
-<div class="salto_linea">
-  <br>
-  <br>
-  <br>
 
-</div>
 
 
   <div class="main">

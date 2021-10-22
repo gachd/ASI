@@ -18,7 +18,7 @@
 
 </div>
 
-<div class="container">
+<div >
 
 
 
@@ -28,7 +28,7 @@
 
 
 
-        <div class="container-fluid">
+        <div >
 
             <div class="container">
 
