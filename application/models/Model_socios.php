@@ -91,6 +91,20 @@
 			}
 		}
 
+		function EsPersona($rut)
+		{
+			// Validar que exista como persona
+			$this->db->select('*');
+			$this->db->from('s_personas');
+			$this->db->where('prsn_rut', $rut);
+
+			$consulta = $this->db->get();
+
+			$consulta = $consulta->result();
+
+			return $consulta;
+		}
+
 		function all_parentesco()
 		{
 
@@ -366,7 +380,7 @@
 
 		function persona($rut)
 		{
-			
+
 
 			/* $this->db->select('*');
 			$this->db->from('s_personas');
@@ -380,14 +394,13 @@
 			 */
 
 
-			$persona = $this ->db->query('SELECT * FROM s_personas, s_condicion_laboral,s_estado_civil,s_nacionalidades,s_comunas,s_provincia,s_regiones WHERE prsn_rut="'.$rut.'" AND s_condicion_laboral_condlab_id = condlab_id AND s_estado_civil_estacivil_id = estacivil_id AND s_nacionalidades_nac_id = nac_id AND s_comunas_comuna_id = comuna_id AND s_provincia_provincia_id = provincia_id AND s_regiones_region_id=region_id');
+			$persona = $this->db->query('SELECT * FROM s_personas, s_condicion_laboral,s_estado_civil,s_nacionalidades,s_comunas,s_provincia,s_regiones WHERE prsn_rut="' . $rut . '" AND s_condicion_laboral_condlab_id = condlab_id AND s_estado_civil_estacivil_id = estacivil_id AND s_nacionalidades_nac_id = nac_id AND s_comunas_comuna_id = comuna_id AND s_provincia_provincia_id = provincia_id AND s_regiones_region_id=region_id');
 
-		
 
-	
 
-		    return $persona->result();
 
+
+			return $persona->result();
 		}
 
 		function persona_fitness($rut)

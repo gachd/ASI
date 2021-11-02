@@ -135,11 +135,14 @@
                 <div  class="col-md-12 ">
                   <div class="panel panel-default" >
                     <div class="panel-heading">
-                      <h3 class="panel-title"><i class="fa fa-home fa-fw"></i> Dependencia</h3>
+                      <h3 class="panel-title"><i class="fa fa-home fa-fw"></i> Dependencias</h3>
                     </div>
                     <div class="panel-body">
-                      <?
+                      <?php
+                      
                       foreach($sectores as $rows_sec){
+
+                        
                         $id_sector = $rows_sec -> id;
                         echo'<table width="200" border="1" class="sector">
                         <tbody>

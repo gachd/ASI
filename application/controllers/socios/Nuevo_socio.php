@@ -160,8 +160,44 @@ class nuevo_socio extends CI_Controller
    public function ValidaSocio()
    {
       $rut = $_POST['rut'];
-      $valida = $this->model_socios->ValidarSocio($rut);
-      echo $valida;
+
+      $validaSocio = $this->model_socios->ValidarSocio($rut);
+
+
+
+
+
+
+      if ($validaSocio == 0) {
+
+         //VALIDA QUE ES ESTE EN TABLAS DE SOCIOS
+
+         //0 = NO ES SOCIO
+         //1 = SI ES SOCIO
+         //2 = Es persona pero no es socio
+
+         $ValidaPersona = $this->model_socios->EsPersona($rut);
+
+         if (empty($ValidaPersona)) {
+            //SI NO ESTA EN PERSONA
+
+            $p["validaP"] = "0";
+            echo json_encode($p);
+         } else {
+            $ValidaPersona = $ValidaPersona[0];
+            //SI ENCUENTRA EN PERSONA
+            $p["datos"] = $ValidaPersona;
+            $p["validaP"] = "2";
+
+            echo json_encode($p);
+         }
+      } else {
+
+
+
+         $p["validaP"] = "1";
+         echo json_encode($p);
+      }
    }
 
 
@@ -185,6 +221,9 @@ class nuevo_socio extends CI_Controller
       $DatosCorp = json_decode($_POST['DatosCorp']);
       $DatosCargas = json_decode($_POST['DatosCargas']);
 
+
+
+
       $rut_socio = $DatosP->rut;
 
 
@@ -203,9 +242,9 @@ class nuevo_socio extends CI_Controller
 
       if ($_POST['valido'] == 1) {
 
-         $this->Subir_foto_Socio($rut_socio,$_FILES["foto"]);
+         $this->Subir_foto_Socio($rut_socio, $_FILES["foto"]);
       }
-
+      // sube los archivos del socio
       $this->Subir_Archivos_Socio($rut_socio, $archivosSoc);
 
 
@@ -316,8 +355,20 @@ class nuevo_socio extends CI_Controller
          'prsn_nac' => $nac = $DatosP->nac,  //$this->input->post('nac')
       );
 
+   
 
-      $this->model_socios->insertar($data); //INSERT PERSONAS
+      if ($DatosP->persona == 2) {
+
+         unset($data['prsn_id']);
+         unset($data['prsn_rut']);
+
+         $this->model_socios->actualizarSocio($data, $DatosP->rut);
+      }
+      if ($DatosP->persona == 0) {
+
+
+         $this->model_socios->insertar($data); //INSERT PERSONAS
+      }
    }
 
 
@@ -696,48 +747,48 @@ class nuevo_socio extends CI_Controller
 
    private function Subir_foto_Socio($rut_socio, $archivo)
    {
- 
-     $fecha = date("Y.m.d_");
- 
-     $formatos = array('jpg', 'png', 'jpeg', 'gif');
- 
-     $Dir_archivos = 'archivos/socios/' . $rut_socio . '/perfil/';
- 
-     $archivonombre =  $fecha . $archivo["name"];
- 
-     $fuente = $archivo["tmp_name"];
- 
-     if (!file_exists($Dir_archivos)) {
- 
-       mkdir($Dir_archivos, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
-     }
- 
- 
-     $dir = opendir($Dir_archivos);
- 
-     $path_archivo = $Dir_archivos . $archivonombre; //indicamos la ruta de destino de los archivos
- 
-     $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
- 
- 
-     if (in_array($Tipo_archivo, $formatos)) {
- 
-       if (move_uploaded_file($fuente, $path_archivo)) {
- 
-         echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
-       } else {
- 
-         echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
-       }
-     } else {
- 
-       echo "Formato del archivo $archivonombre no valido.<br>";
-     }
- 
-     closedir($dir); //Cerramos la conexion con la carpeta destino
- 
- 
- 
+
+      $fecha = date("Y.m.d_");
+
+      $formatos = array('jpg', 'png', 'jpeg', 'gif');
+
+      $Dir_archivos = 'archivos/socios/' . $rut_socio . '/perfil/';
+
+      $archivonombre =  $fecha . $archivo["name"];
+
+      $fuente = $archivo["tmp_name"];
+
+      if (!file_exists($Dir_archivos)) {
+
+         mkdir($Dir_archivos, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+      }
+
+
+      $dir = opendir($Dir_archivos);
+
+      $path_archivo = $Dir_archivos . $archivonombre; //indicamos la ruta de destino de los archivos
+
+      $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+
+      if (in_array($Tipo_archivo, $formatos)) {
+
+         if (move_uploaded_file($fuente, $path_archivo)) {
+
+            echo "El archivo $archivonombre se han cargado de forma correcta.<br>";
+         } else {
+
+            echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+         }
+      } else {
+
+         echo "Formato del archivo $archivonombre no valido.<br>";
+      }
+
+      closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+
    }
 
    private function Subir_foto_Socio_CODEIGNITER($rut_socio)
@@ -780,7 +831,7 @@ class nuevo_socio extends CI_Controller
          echo json_encode(true);
       }
    }
-   
+
 
    private function Subir_Archivos_Socio($user, $archivo)
    {

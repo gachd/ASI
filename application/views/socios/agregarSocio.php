@@ -229,6 +229,7 @@
 
 
         <div class="panel panel-default">
+
           <br>
           <br>
 
@@ -2817,19 +2818,85 @@
         $.post("<?php echo base_url() ?>socios/nuevo_socio/ValidaSocio", {
           rut: rut_socio
         }, function(data) {
-          var result = data;
-          if (result == 1) {
-            $('#eduplicado').show();
 
-            vrfSocioDup = 1;
-            validaInputSocio();
-          } else {
+          data = JSON.parse(data);
+
+
+
+          var result = data["validaP"];
+
+          console.log(result);
+
+          if (result == 0) {
+            
+            //no es persona ni socio
+            
+            DatosP["persona"] = 0;
+
             $('#eduplicado').hide();
             vrfSocioDup = 0;
             validaInputSocio();
 
 
           }
+          if (result == 1) {
+
+            // es socio
+            DatosP["persona"] = 1;
+
+            $('#eduplicado').show();
+
+            vrfSocioDup = 1;
+            validaInputSocio();
+          }
+          if (result == 2) {
+
+
+            // solo es persona
+
+            DatosP["persona"] = 2;
+
+            let DatosPersona = data["datos"];
+
+          
+
+            let rut = rut_socio;
+            let paterno = DatosPersona["prsn_apellidopaterno"];
+            let materno = DatosPersona["prsn_apellidomaterno"];
+            let nombres = DatosPersona["prsn_nombres"];
+            let sexo = DatosPersona["prsn_sexo"];
+            let fecha_nac = DatosPersona["prsn_fechanacimi"];
+            let estadocivil = DatosPersona["s_estado_civil_estacivil_id"];
+            let nacionalidad = DatosPersona["s_nacionalidades_nac_id"];
+
+            let telefonoFijo = DatosPersona["prsn_fono_casa"];
+            let telefonoCelular = DatosPersona["prsn_fono_movil"];
+            let email = DatosPersona["prsn_email"];
+            let direccion = DatosPersona["prsn_direccion"];
+            let sector = DatosPersona["prsn_sectorvive"];
+            let comuna = DatosPersona["s_comunas_comuna_id"];
+
+
+            $('#nombres').val(nombres);
+            $('#ap_paterno').val(paterno);
+            $('#ap_materno').val(materno);
+            $("#sexo").val(sexo).change();
+            $('#txt_fecha').val(fecha_nac);
+            $("#estadocivil").val(estadocivil).change();
+
+            $('#tel_fijo').val(telefonoFijo);
+            $('#tel_cel').val(telefonoCelular);
+            $('#email').val(email);
+            $('#direc').val(direccion);
+            $('#sector').val(sector);
+            $("#comu").val(comuna).change();
+
+
+
+          }
+
+
+
 
         });
 
@@ -2902,18 +2969,30 @@
           // data = JSON.parse((data))
 
 
-
-
-
           swal({
             title: "Guardado!",
             text: "Con el rut: " + data['rut'] +
               "     El socio: " + data['nombre'],
             icon: "success",
+            buttons: {
+
+              OK: true,
+            },
+          })
+          .then((ok) => {
+
+            if (ok) {
+
+              window.location.href = '<?php echo base_url() ?>socios/nuevo_socio'
+
+            } else {
+              window.location.href = '<?php echo base_url() ?>socios/nuevo_socio'
+
+            }
+
           });
 
-          setTimeout("window.location.href = '<?php echo base_url() ?>socios/nuevo_socio'", 4000);
-
+          
         },
 
         error: function() {

@@ -1,10 +1,4 @@
-<?php  
 
-$ci = &get_instance();
-
-var_dump($ci);
-
-$ci->load->helper('form'); ?>
 <style>#example{ text-transform:uppercase;}</style>
 <div id="page-wrapper">
 <!-- Modal -->

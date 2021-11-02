@@ -4,32 +4,32 @@
 			"path": "application/views/socios/agregarSocio.php",
 			"bookmarks": [
 				{
-					"line": 1756,
+					"line": 1757,
 					"column": 15,
 					"label": "Guardar Cargas"
 				},
 				{
-					"line": 1853,
+					"line": 1854,
 					"column": 1,
 					"label": "Data Corp"
 				},
 				{
-					"line": 2627,
+					"line": 2628,
 					"column": 3,
 					"label": "Datos Persona"
 				},
 				{
-					"line": 2850,
+					"line": 2917,
 					"column": 33,
 					"label": "Guadar todo"
 				},
 				{
-					"line": 2942,
+					"line": 3021,
 					"column": 4,
 					"label": "Boton mostar consola Persona"
 				},
 				{
-					"line": 2951,
+					"line": 3030,
 					"column": 4,
 					"label": "Data Deportes"
 				}
@@ -89,7 +89,7 @@
 			"path": "application/views/socios/editar_socio.php",
 			"bookmarks": [
 				{
-					"line": 749,
+					"line": 750,
 					"column": 0,
 					"label": "Editar socio - datos de persona "
 				}

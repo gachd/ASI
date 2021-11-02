@@ -694,12 +694,13 @@
     //valido que se encuentre directorio en base de datos
     if (!empty($dir)) {
 
-      if (is_dir($dir)) {
+      $dir = $dir . "/perfil";
 
-        $dir = $dir . "/perfil";
+      if (is_dir($dir)) {
         $ignorados = array('.', '..', '.svn', '.htaccess');
         $archivos = array();
         $urlBase = base_url();
+
 
         foreach (scandir($dir) as $listado) {
 
@@ -1101,15 +1102,14 @@
 
                               foreach ($estado_civil2 as $es) {
 
-                               
+
 
                                 if ($es->estacivil_id ==  $ecivil_id) {
 
                                   echo ' <option value="' . $es->estacivil_id . '" ' . set_select("estado_civil", $es->estacivil_id) . ' selected >' . $es->estacivil_nombre . '</option>';
-                                }else{
+                                } else {
 
                                   echo ' <option value="' . $es->estacivil_id . '" ' . set_select("estado_civil", $es->estacivil_id) . '>' . $es->estacivil_nombre . '</option>';
-
                                 }
                               }
 
@@ -1127,7 +1127,7 @@
 
                           <td class="td_reponsive"><select class="form-control input-sm" name="nacionalidad" id="nacionalidad">
 
-                      
+
 
                               <?php
 
@@ -1135,11 +1135,9 @@
 
                                 if ($n->nac_id ==  $nacid) {
                                   echo ' <option value="' . $n->nac_id . '" ' . set_select("nacionalidad", $n->nac_id) . ' selected>' . $n->nac_nombre . '</option>';
+                                } else {
 
-                                }else{
-                                  
                                   echo ' <option value="' . $n->nac_id . '" ' . set_select("nacionalidad", $n->nac_id) . '>' . $n->nac_nombre . '</option>';
-
                                 }
                               }
 
@@ -1270,10 +1268,9 @@
                                 if ($c->comuna_id !=  $com_id) {
 
                                   echo ' <option value="' . $c->comuna_id . '" ' . set_select("comuna", $c->comuna_id) . '>' . $c->comuna_nombre . '</option>';
-                                }else{
-                                  
-                                  echo ' <option value="' . $c->comuna_id . '" ' . set_select("comuna", $c->comuna_id) . 'selected>' . $c->comuna_nombre . '</option>';
+                                } else {
 
+                                  echo ' <option value="' . $c->comuna_id . '" ' . set_select("comuna", $c->comuna_id) . 'selected>' . $c->comuna_nombre . '</option>';
                                 }
                               }
 
@@ -1308,7 +1305,7 @@
 
                             <select class="form-control input-sm" name="situacion_lab" id="laboral">
 
-                             
+
 
                               <?php
 
@@ -1317,8 +1314,8 @@
                                 if ($cl->condlab_id !=  $condlab_id) {
 
                                   echo ' <option value="' . $cl->condlab_id . '" ' . set_select("situacion_lab", $cl->condlab_id) . '>' . $cl->condlab_nombre . '</option>';
-                                }else{
-                                  
+                                } else {
+
                                   echo ' <option value="' . $cl->condlab_id . '" ' . set_select("situacion_lab", $cl->condlab_id) . ' selected>' . $cl->condlab_nombre . '</option>';
                                 }
                               }
