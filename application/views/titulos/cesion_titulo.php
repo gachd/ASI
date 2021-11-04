@@ -1,7 +1,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
     <meta charset="UTF-8">
 
@@ -41,7 +41,7 @@
             </div>
             <form action="<?php echo base_url(); ?>accionistas/titulos/guadarCesionTitulo" method="post">
                 <div class="container well">
-                    <h1>Cesion Titulos</h1>
+                    <h2>Cesion Titulos</h2>
                     <br>
                     <br>
                     <br>

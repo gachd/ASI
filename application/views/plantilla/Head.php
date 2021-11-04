@@ -160,6 +160,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			background-color: #fff;
 			padding-bottom: 5px;
 		}
+		
 
 		body,
 		html {
@@ -774,7 +775,7 @@ $ci->load->model("model_login");;
 				});
 
 
-				function ocultar() {
+				/* function ocultar() {
 					if (screen.width > 1024) {
 						var main = $('.main');
 						var nav = $('nav');
@@ -803,7 +804,7 @@ $ci->load->model("model_login");;
 
 						}
 					}
-				}
+				} */
 
 				/* ocultar(); */
 

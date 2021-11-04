@@ -1,8 +1,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ 
+
+
     <meta charset="UTF-8">
 
     <title>Nuevo Accionista</title>
@@ -18,7 +19,7 @@
 
 </div>
 
-<div class="container">
+<div class="main">
     <div class="container">
 
         <ul class="breadcrumb">
@@ -38,7 +39,7 @@
         <div class="container-fluid">
             <form action="<?php echo base_url(); ?>accionistas/titulos/guadarNuevoTitulo" method="post">
                 <div class="container">
-                    <h1>Nuevo Titulo</h1>
+                    <h2>Nuevo Titulo</h1>
                     <br>
                     <br>
                     <br>

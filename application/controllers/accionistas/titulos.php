@@ -67,6 +67,8 @@ class Titulos extends CI_Controller {
 
         $this->load->view('plantilla/Footer');
     }
+
+    
     public  function entregados()
     {
 
