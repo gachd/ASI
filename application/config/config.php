@@ -37,6 +37,11 @@ if ($_SERVER['SERVER_ADDR'] == "192.168.1.244") {  // DEBE SER LA IP DEL HOSTING
     $config['base_url'] = 'http://localhost/ASI';
 }
 
+if($_SERVER['SERVER_ADDR'] == "186.64.118.200"){
+
+    $config['base_url'] = 'https://stadioitalianodiconcepcion.cl/ASI';
+}
+
 
 
 /*
