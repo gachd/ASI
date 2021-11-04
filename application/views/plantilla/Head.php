@@ -465,7 +465,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			$(".loader").fadeOut(200);
 
 			/* 	toggleFullScreen(document.body); */
-			TimerSesion();
+			/* TimerSesion(); */
 
 
 
@@ -682,7 +682,7 @@ $ci->load->model("model_login");;
 								if (($principal == 2) or ($principal == 0)) {
 									echo '<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Trabajos <b class="caret"></b><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench	Try it"></span></a>
 		    		<ul class="dropdown-menu">
-		    		       <li class="dropdown-submenu"><a class="test"  href="">Planificacpion<span class="caret"></span></a>
+		    		       <li class="dropdown-submenu"><a class="test"  href="">Planificacion<span class="caret"></span></a>
 		    		           <ul class="dropdown-menu tercer-menu">
 		    		                <li><a href="' . base_url() . 'trabajos/disp_trabajo">1. Disp. Trabajos</a></li>
 		    		                <li><a href="' . base_url() . 'trabajos/planificacion_temporada">2. Temporada</a></li>

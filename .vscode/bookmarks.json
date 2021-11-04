@@ -94,6 +94,16 @@
 					"label": "Editar socio - datos de persona "
 				}
 			]
+		},
+		{
+			"path": "application/views/plantilla/Head.php",
+			"bookmarks": [
+				{
+					"line": 467,
+					"column": 20,
+					"label": "Control tiempo sesion"
+				}
+			]
 		}
 	]
 }
