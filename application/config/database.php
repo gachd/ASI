@@ -112,7 +112,7 @@ if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // DEBE SER LA IP DEL HOSTIN
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,
-		'db_debug' => (ENVIRONMENT !== 'production'),
+		'db_debug' => (ENVIRONMENT == 'production'),
 		'cache_on' => FALSE,
 		'cachedir' => '',
 		'char_set' => 'utf8',
@@ -124,7 +124,8 @@ if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // DEBE SER LA IP DEL HOSTIN
 		'failover' => array(),
 		'save_queries' => TRUE
 	);
-} else {
+}
+if ($_SERVER['SERVER_ADDR'] == '::1') { // IP LOCALHOST
 
 
 

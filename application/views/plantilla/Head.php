@@ -111,6 +111,27 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 	<style>
+		.navbar-default .navbar-nav>li>a:hover,
+		.navbar-default .navbar-nav>li>a:focus {
+			color: #fff;
+			background-color: #8dc89e;
+		}
+
+
+
+
+
+
+
+		.ui-datepicker-header {
+			background: #2c3e50;
+			color: #fff;
+			font-weight: bold;
+			border-bottom: 1px solid #e0e0e0;
+			border-radius: 3px 3px 0 0;
+			padding: 10px 15px;
+		}
+
 		.dropdown-submenu {
 			position: relative;
 			background: #fff;
@@ -160,7 +181,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			background-color: #fff;
 			padding-bottom: 5px;
 		}
-		
+
 
 		body,
 		html {
@@ -201,6 +222,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 		@media (min-width: 765px) {
+		
 
 			.main {
 				position: absolute;
@@ -280,6 +302,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			.forAnimate {
 				opacity: 0;
 			}
+
+
 		}
 
 		@media (min-width: 1330px) {
@@ -398,6 +422,12 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 			background: url('<?php echo base_url(); ?>assets/images/carga_pagina.gif') 50% 50% no-repeat rgb(249, 249, 249);
 			opacity: .97;
+		}
+
+
+		@media only screen and (max-width: 480px) {
+			
+			
 		}
 	</style>
 
@@ -610,7 +640,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		if (getIEVersion() <= 11) {
 
 			alert("Navegador no compatible")
-			document.location = "<?php echo base_url(); ?>login/logout"; //Es IE <= 9, REDIRECCIONA A PAGINA QUE SUGIERE USAR UNA MAYOR VERSIÓN!
+			document.location = "<?php echo base_url(); ?>login/logout"; //Es IE <= 11, REDIRECCIONA A PAGINA QUE SUGIERE USAR UNA MAYOR VERSIÓN!
 		}
 	</script>
 
@@ -708,13 +738,15 @@ $ci->load->model("model_login");;
 								}
 
 
-								echo '<li><a href="' . base_url() . 'reportes/inicio">Informes<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon  glyphicon-save-file"></span></a></li>';
+
 
 								if (($principal == 7) or ($principal == 0)) {
 									echo ' <li ><a href="' . base_url() . 'socios/socios" >Socios<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench  Try it"></span></a> </li>
           <li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase  Try it"></span></a> </li>';
 								}
 							}
+
+							echo '<li><a href="' . base_url() . 'reportes/inicio">Informes<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon  glyphicon-save-file"></span></a></li>';
 
 
 							?>
