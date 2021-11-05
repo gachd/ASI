@@ -24,5 +24,4 @@ class Externos_model extends CI_Model
 }
 
 
-/* End of file Externos_model.php and path /application/models/Externos_model.php */
 
