@@ -1,9 +1,11 @@
 <?php
-
-use Mpdf\Utils\Arrays;
-
 defined('BASEPATH') OR exit('No direct script access allowed');
         
+
+//CONTROLLER SOLO PARA TRANSFERIR EXTERNO DE ANTIGUA AGENDA A LA NUEVA AGENDA
+
+
+
 class TranferExternos extends CI_Controller {
 
     public function __construct()
@@ -14,7 +16,9 @@ class TranferExternos extends CI_Controller {
     public function index()
     {
 
-        function quitarPuntos($cadena){
+        echo "Descomentar en codigo";
+
+      /*   function quitarPuntos($cadena){
             $cadena = str_replace(".", "", $cadena);
             return $cadena;
         }
@@ -57,7 +61,7 @@ class TranferExternos extends CI_Controller {
            
             
         }
-
+ */
      
                 
     }
