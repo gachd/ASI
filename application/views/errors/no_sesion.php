@@ -28,7 +28,7 @@
     <div class="container">
 
 
-        <h2>Página con acceso restringido. </h2>
+        <h2>Acceso restringido. </h2>
         <h5 id="mensaje"> </h5>
 
 
@@ -41,7 +41,7 @@
 
     <script>
         function redireccion() {
-            document.getElementById('mensaje').innerHTML = 'Espere, será redirigido después de <span id="contador"></span> segundos ...';
+            document.getElementById('mensaje').innerHTML = 'Será redirigido después de <span id="contador"></span> segundos ...';
             var count =10;
             document.getElementById('contador').innerHTML = count;
             setInterval(function() {
