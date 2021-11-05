@@ -104,6 +104,16 @@
 					"label": "Control tiempo sesion"
 				}
 			]
+		},
+		{
+			"path": "application/views/reportes/activity_report.php",
+			"bookmarks": [
+				{
+					"line": 182,
+					"column": 28,
+					"label": "Dia de la semana"
+				}
+			]
 		}
 	]
 }

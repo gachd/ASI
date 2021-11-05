@@ -179,8 +179,10 @@ td {padding: 5px 10px;
        //echo $paso;
      // echo $cont_act;
        // echo $cont_act;
-        echo '  <tr '.$class.'><td rowspan='.$paso.'>'.iconv('ISO-8859-1', 'UTF-8', strftime('%A',  strtotime("".$c -> fecha.""))).'</td>';
+        //echo '  <tr '.$class.'><td rowspan='.$paso.'>'.iconv('ISO-8859-1', 'UTF-8', strftime('%A',  strtotime("".$c -> fecha.""))).'</td>';
+        echo '  <tr '.$class.'><td rowspan='.$paso.'>'.	$dias[date('w', strtotime($c -> fecha))].'</td>';
 
+        
          $actividades = $this -> model_actividades -> det_actividades_calendario($fecha_ini);
          
         foreach($actividades as $a){
