@@ -735,9 +735,12 @@ $ci->load->model("model_login");;
 
 
 
+								if (($principal == 6) or ($principal == 0)) {
+									echo ' <li ><a href="' . base_url() . 'socios/socios" >Socios<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench  Try it"></span></a> </li>'
+         
+								}
 								if (($principal == 7) or ($principal == 0)) {
-									echo ' <li ><a href="' . base_url() . 'socios/socios" >Socios<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench  Try it"></span></a> </li>
-          <li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase  Try it"></span></a> </li>';
+									echo ' <li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase  Try it"></span></a> </li>';
 								}
 							}
 
