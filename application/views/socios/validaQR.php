@@ -7,19 +7,22 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="main">
+
+    <div class="container">
 
 
 
-    <h3>Testqr</h3>
-    <hr>
-    <select class="form-control"></select>
-    <br>
-    <canvas class="container"></canvas>
-    <hr>
-    <input type="hidden" name="qr_texto" id="qr_texto">
-    <hr>
-    <ul></ul>
+      <h3>Testqr</h3>
+      <hr>
+      <select class="form-control"></select>
+      <br>
+      <canvas class="container"></canvas>
+      <hr>
+      <input type="hidden" name="qr_texto" id="qr_texto">
+      <hr>
+      <ul></ul>
+    </div>
 
   </div>
   <script type="text/javascript" src="<?php echo base_url() ?>assets/js/qrcodelib.js"></script>
