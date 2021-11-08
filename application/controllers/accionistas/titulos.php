@@ -1,10 +1,11 @@
-<?php 
-        
-defined('BASEPATH') OR exit('No direct script access allowed');
-        
-class Titulos extends CI_Controller {
+<?php
 
-  
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Titulos extends CI_Controller
+{
+
+
     function __construct()
     {
 
@@ -68,7 +69,7 @@ class Titulos extends CI_Controller {
         $this->load->view('plantilla/Footer');
     }
 
-    
+
     public  function entregados()
     {
 
@@ -210,6 +211,18 @@ class Titulos extends CI_Controller {
         // print_r(json_encode($titulos));
 
 
+    }
+
+
+    public function ObtenerIDAccionista_deTitulo()
+    {
+
+        $id_titulo = $this->input->post('id');
+
+        $accionista = $this->model_titulo->IdAccionistaDelTitulo($id_titulo);
+
+        echo $accionista[0]->id_accionista;
+        
     }
 
 
@@ -700,7 +713,3 @@ class Titulos extends CI_Controller {
         }
     }
 }
-
-
-
-

@@ -1,7 +1,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
- 
+
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
     <meta charset="UTF-8">
 
@@ -12,13 +12,13 @@
 </head>
 
 <div class="salto_linea">
-  <br>
-  <br>
-  <br>
+    <br>
+    <br>
+    <br>
 
 </div>
 
-<div >
+<div>
 
 
 
@@ -28,7 +28,7 @@
 
 
 
-        <div >
+        <div>
 
             <div class="container">
 
@@ -100,11 +100,11 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label>Numero de Titulo</label>
+                        <label>Numero de Nuevo Titulo</label>
                         <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off" required>
                     </div>
 
-                    
+
                     <div class="form-group col-md-3">
                         <label for="fecha">Fecha Nuevo Titulo</label>
                         <input type="text" autocomplete="off" class="form-control" id="fechaNtitulo" name="fechaNtitulo" required>
@@ -225,15 +225,16 @@
         });
     });
 
-   
 
-   
+
+
 
 
     $("#tituloAnterior").change(function() {
         var tituloP = $(this).val();
 
-        
+
+
 
         $('#accionista_select').val('');
         $('#NumNuevoCesion').val('');
@@ -248,13 +249,14 @@
                 type: "POST",
                 data: {
                     id: tituloP
+
                 },
                 url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
                 success: function(r) {
 
                     console.log(r);
-                    
-                    var embargo= r.embargo;
+
+                    var embargo = r.embargo;
                     var accionesEmbargo = r.acciones_embargadas;
 
                     var Id_accionistaAnt = r.id_accionista;
@@ -267,12 +269,12 @@
 
                     //cambio dinamico del maximo a transferir
 
-                    if (embargo==1){
+                    if (embargo == 1) {
 
-                        t=t-accionesEmbargo;
-                        toastr.warning('Titulo con '+ accionesEmbargo +' acciones embargadas');                     
+                        t = t - accionesEmbargo;
+                        toastr.warning('Titulo con ' + accionesEmbargo + ' acciones embargadas');
                     }
-                    
+
                     $('#NumNuevoCesion').attr("max", t);
                     $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
 
@@ -281,9 +283,45 @@
                     alert('Ocurrio un error en el servidor ..');
                 }
             });
+
+
+
+            //elimiar accionista dueño del titulo
+
+         /*    $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>accionistas/titulos/ObtenerIDAccionista_deTitulo",
+                data: {
+                    id: tituloP
+
+                },
+
+                success: function(idAccionista) {
+                 
+
+               
+                    var select_accionista = document.getElementById("accionista_select");
+                    for (var i = 0; i < select_accionista.length; i++) {
+                        console.log(select_accionista.options[i].value);
+                        if (select_accionista.options[i].value == idAccionista.trim()) {                        
+                            select_accionista.remove(i)
+
+                        }
+                    }
+
+
+
+                }
+            }); */
+
+
+
+
+
+
         };
 
-       
+
 
 
 

@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Calendario</title>
 
-<head>
+	<head>
 
-	<style>
-		body {
-			/* margin: 40px 10px; */
-			padding: 0;
-			/* font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+		<style>
+			body {
+				/* margin: 40px 10px; */
+				padding: 0;
+				/* font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
 			font-size: 14px; */
-		}
+			}
 
-		#calendar {
-			max-width: 100%;
-			margin-top: 5px;
-			/*margin: 0 auto;*/
-		}
+			#calendar {
+				max-width: 100%;
+				margin-top: 5px;
+				/*margin: 0 auto;*/
+			}
 
-		.categoria {
-			width: 20px;
-			float: left;
-		}
+			.categoria {
+				width: 20px;
+				float: left;
+			}
 
-		.text-categoria {
-			margin-left: 10px;
-		}
+			.text-categoria {
+				margin-left: 10px;
+			}
 
-		.fc-center h2 {
-			text-transform: uppercase;
-		}
-	</style>
-</head>
+			.fc-center h2 {
+				text-transform: uppercase;
+			}
+		</style>
+	</head>
 
 <body>
 

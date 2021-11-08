@@ -469,7 +469,7 @@
 
             switch (personaT) {
 
-                case "1":
+                case "0":
 
                     $("#divapellidoP").show();
                     $('#ApellidoP').prop('required', true);
@@ -485,7 +485,7 @@
 
                     break;
 
-                case "2":
+                case "1":
 
                     $("#divapellidoP").hide();
                     $('#ApellidoP').prop('required', false).val('');

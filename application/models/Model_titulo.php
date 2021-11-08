@@ -112,4 +112,18 @@ class model_titulo extends CI_Model
         $p = $this->db->query('SELECT COUNT(t.id_titulos) no_entregados FROM s_titulos t, s_accionista a, s_personas p WHERE t.estado = 1 AND t.entrega = 0 AND p.prsn_rut= a.prsn_rut AND t.id_accionista = a.id_accionista ');
         return $p->result();
     }
+
+    function IdAccionistaDelTitulo($idTitulo){
+
+
+        $this->db->select('a.id_accionista');
+        $this->db->from('s_titulos t, s_accionista a');
+        $this->db->where('t.id_titulos', $idTitulo);    
+        $this->db->where('t.id_accionista = a.id_accionista');    
+      
+        $p = $this->db->get();
+        
+        return $p->result();
+        
+    }
 }
