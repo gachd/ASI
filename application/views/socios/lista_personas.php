@@ -139,7 +139,7 @@
 
 											</td>
 											
-											<td><div hidden>' . estadoSocio($estado) . '</div>
+											<td><div>' . estadoSocio($estado) . '</div>
 											<span class="' . $badge . '"><i class="' . $glyphy . '"></i></span>
 											</td>
 
