@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Validacion Entrada</title>
 </head>
+<script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
 
 <body>
   <div class="main">
@@ -15,9 +16,9 @@
 
       <h3>Testqr</h3>
       <hr>
-      <select class="form-control"></select>
+
       <br>
-      <canvas class="container"></canvas>
+      <div style="width: 500px" id="reader"></div>
       <hr>
       <input type="hidden" name="qr_texto" id="qr_texto">
       <hr>
@@ -25,44 +26,20 @@
     </div>
 
   </div>
-  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/qrcodelib.js"></script>
-  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/webcodecamjs.js"></script>
-  <script type="text/javascript">
-    var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init(arg).play();
+  <script>
+    function onScanSuccess(decodedText, decodedResult) {
+      // Handle on success condition with the decoded text or result.
+      console.log(`Scan result: ${decodedText}`, decodedResult);
+    }
 
-    document.getElementById('select').addEventListener('change', function() {
-      decoder.stop().play();
-    });
-
-    var arg = {
-      resultFunction: function(resultado) {
-
-        console.log(resultado);
-        $('#qr_texto').val(resultado.code);
-        decoder.stop();
-
-        swal({
-            title: "Valido!",
-            text: "Con el rut: " + $('#qr_texto').val(),
-            icon: "success",
-          })
-          .then((ok) => {
-            if (ok) {
-              decoder.play();
-            } else {
-              decoder.play();
-            }
-
-          });
-
-
-
-
-
-
-      }
-    };
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader", {
+        fps: 10,
+        qrbox: 250
+      });
+    html5QrcodeScanner.render(onScanSuccess);
   </script>
+
 </body>
 
 </html>

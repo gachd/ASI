@@ -30,7 +30,21 @@
 
 	}
 </style>
+<?php function estadoSocio($estado) {
 
+	if ($estado == 0) {
+
+		return '<span class="ico badge badge-success">Activo</span>';
+
+	} else {
+
+		return '<span class="ico badge badge-danger">Inactivo</span>';
+
+	}
+
+} ?>
+
+} ?>
 <body>
 
 	<div class="main">
@@ -125,7 +139,7 @@
 
 											</td>
 											
-											<td><div hidden>' . $estado . '</div>
+											<td><div hidden>' . estadoSocio($estado) . '</div>
 											<span class="' . $badge . '"><i class="' . $glyphy . '"></i></span>
 											</td>
 
