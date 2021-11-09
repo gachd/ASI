@@ -193,7 +193,7 @@ class Titulos extends CI_Controller
 
 
     }
-    public function obtenerTitulosT()
+    public function obtener_titulos_transmision()
     {
 
         // header('Content-Type: application/json');

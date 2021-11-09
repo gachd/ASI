@@ -827,7 +827,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulosT",
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtener_titulos_transmision",
                         success: function(response) {
 
                             $('#TituloP').html(response);
