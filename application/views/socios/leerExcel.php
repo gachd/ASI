@@ -75,8 +75,7 @@
   </nav>
 
   <div class="col-md-12" id="resultado_excel">
-
-
+   
 
 
   </div>
@@ -142,53 +141,50 @@
 
           html += '<table  class=" table table-hover table-bordered" >';
 
-          Object.keys(personas).forEach(function(key) {
+          html += '<thead>';
+          html += '<tr>';
 
-            html += '<tr><td>' + key + '</td><td>' + personas[key][0] + '</td><td>' + personas[key][1] + '</td><tr>';
 
+          html += '<th>Indice</th>';
+          html += '<th>Rut</th>';
+          html += '<th>Nombre</th>';
+          html += '<th>Debe</th>';
+          html += '<th>Haber</th>';
+          html += '<th>Saldo</th>';
+
+
+          html += '</tr>';
+          html += '</thead>';
+
+
+          html += '<tbody>';
+
+
+
+
+
+
+          Object.keys(personas).forEach(function(indice) {
+
+            html += '<tr>';
+
+            html += '<td>' + indice + '</td>';
+            html += '<td>' + personas[indice]["rut"] + '</td>';
+            html += '<td>' + personas[indice]["nombre"] + '</td>';
+            html += '<td>' + personas[indice]["debe"] + '</td>';
+            html += '<td>' + personas[indice]["haber"] + '</td>';
+            html += '<td>' + personas[indice]["saldo"] + '</td>';
+
+            html += '</tr>';
           })
 
 
+
+          html += '</tbody>';
           html += '</table>';
 
 
 
-
-
-          /*     for (let i = 0; i < excel.length; i++) {
-
-                html += "<tr>";
-
-
-                for (let j = 0; j < excel[i].length; j++) {
-
-                  if (excel[i][j] == null) {
-
-                    excel[i][j] = '';
-
-                  }
-
-                  html += "<td>" + excel[i][j] + "</td>"
-
-
-                };
-
-                html += "</tr>";
-
-              };
-
-              html += '</table>'; */
-
-
-
-
-          /* 
-                    for (var p of personas) {
-
-                      html += '<tr><td>' + p[0] + '</td><td>' + p[1] + '<td>/<tr>';
-                      console.log(p);
-
-                    } */
 
 
 
@@ -220,15 +216,11 @@
 
 
     } else {
-      
+
       swal("Ingrese archivo", "", "warning");
     }
 
 
 
   });
-
-
-
-
 </script>

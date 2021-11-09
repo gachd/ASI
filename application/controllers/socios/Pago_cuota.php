@@ -163,7 +163,7 @@ class pago_cuota extends CI_Controller
 
         $excel = $worksheet->toArray();
 
-        break 1;
+        break 1; // solo lee la primera hoja
       }
 
 
@@ -209,8 +209,8 @@ class pago_cuota extends CI_Controller
 
       $cont = 0;
 
-      $personas[$cont][0] = dv($excel[7][1]);
-      $personas[$cont][1] = $excel[7][4];
+      $personas[$cont]["rut"] = dv($excel[7][1]);
+      $personas[$cont]["nombre"] = $excel[7][4];
 
 
 
@@ -222,10 +222,19 @@ class pago_cuota extends CI_Controller
         //filas
 
         if (strrpos($excel[$i][0], '==========================')) {
+          //saldo del socio anterior
+          $personas[$cont]["debe"] = $excel[$i-1][10];
+
+          $personas[$cont]["haber"] = $excel[$i-1][11];
+
+          $personas[$cont]["saldo"] = $excel[$i-1][12];
+
           $cont++;
 
-          $personas[$cont][0] = dv($excel[$i + 1][1]);
-          $personas[$cont][1] = $excel[$i + 1][4];
+          //seguimiento al siguiente socio
+
+          $personas[$cont]["rut"] = dv($excel[$i + 1][1]);
+          $personas[$cont]["nombre"] = $excel[$i + 1][4];
         }
 
 
@@ -248,13 +257,15 @@ class pago_cuota extends CI_Controller
       $data["saltos"] = count($personas);
       $data["personas"] = $personas;
 
+      
+
 
 
 
 
       echo (json_encode($data));
-    }else{
-      
+    } else {
+
       header('HTTP/1.1 500 Internal Server Booboo');
       header('Content-Type: application/json; charset=UTF-8');
       die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
