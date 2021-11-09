@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-   
+
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
     <meta charset="UTF-8">
 
@@ -128,8 +128,7 @@
                         <select class="form-control" name="region" id="region" required>
                             <option value=""> Seleccionar </option>
                             <?php
-                            foreach ($region as $i) 
-                            {
+                            foreach ($region as $i) {
 
                                 echo ' <option value="' . $i->region_id   . '" ' . set_select("region", $i->region_id) . '>' . $i->region_nombre . '</option>';
                             }
@@ -477,62 +476,91 @@
 
 
 
-        $('#tipoP input').on('change', function() {
-
-            var personaT = $('input[name=optradio]:checked', '#tipoP').val()
-
-            switch (personaT) {
-
-                case "0":
-
-                    $("#divapellidoP").show();
-                    $('#ApellidoP').prop('required', true);
-                    $("#apellidoM").show();
-                    $('#ApellidoM').prop('required', true);
-                    $("#divfechaN").show();
-                    $('#FechaN').prop('required', true);
-                    $("#divestdoC").show();
-                    $('#estadocivil').prop('required', true);
-                    $("#divgenero").show();
-                    $('#gen1').prop('required', true);
-
-
-                    break;
-
-                case "1":
-
-                    $("#divapellidoP").hide();
-                    $('#ApellidoP').prop('required', false).val('');
-
-                    $("#apellidoM").hide();
-                    $('#ApellidoM').prop('required', false).val('');
-
-                    $("#divfechaN").hide();
-                    $('#FechaN').prop('required', false).val('');
-
-                    $("#divestdoC").hide();
-                    $('#estadocivil').prop('required', false).val('');
-
-                    $("#divgenero").hide();
-
-                    $('#gen1').prop('required', false).val('');
-                    $('input[name=sexo]:checked').prop('checked', false);
-
-
-
-                    break;
-
-
-            }
-
-
-
-        });
 
 
 
 
         $(document).ready(function() {
+
+
+            $('#tipoP input').on('change', function() {
+
+                var personaT = $('input[name=optradio]:checked', '#tipoP').val()
+
+                switch (personaT) {
+
+                    case "0":
+
+                        $("#divapellidoP").show();
+                        $('#ApellidoP').prop('required', true);
+                        $("#apellidoM").show();
+                        $('#ApellidoM').prop('required', true);
+                        $("#divfechaN").show();
+                        $('#FechaN').prop('required', true);
+                        $("#divestdoC").show();
+                        $('#estadocivil').prop('required', true);
+                        $("#divgenero").show();
+                        $('#gen1').prop('required', true);
+
+
+                        break;
+
+                    case "1":
+
+                        $("#divapellidoP").hide();
+                        $('#ApellidoP').prop('required', false).val('');
+
+                        $("#apellidoM").hide();
+                        $('#ApellidoM').prop('required', false).val('');
+
+                        $("#divfechaN").hide();
+                        $('#FechaN').prop('required', false).val('');
+
+                        $("#divestdoC").hide();
+                        $('#estadocivil').prop('required', false).val('');
+
+                        $("#divgenero").hide();
+
+                        $('#gen1').prop('required', false).val('');
+                        $('input[name=sexo]:checked').prop('checked', false);
+
+
+
+                        break;
+
+
+                }
+
+
+
+            });
+
+            var tipo_persona = $('input[name=optradio]:checked', '#tipoP').val()
+            console.log(tipo_persona);
+            if (tipo_persona == "1") {
+
+                $("#divapellidoP").hide();
+                $('#ApellidoP').prop('required', false).val('');
+
+                $("#apellidoM").hide();
+                $('#ApellidoM').prop('required', false).val('');
+
+                $("#divfechaN").hide();
+                $('#FechaN').prop('required', false).val('');
+
+                $("#divestdoC").hide();
+                $('#estadocivil').prop('required', false).val('');
+
+                $("#divgenero").hide();
+
+                $('#gen1').prop('required', false).val('');
+                $('input[name=sexo]:checked').prop('checked', false);
+            }
+
+
+
+
+
 
 
 
