@@ -107,18 +107,12 @@ function getEdad($fecha)
         <!-- Modal -->
 
 
-        <div class="modal fade container-fluid " id="Modal_Beneficiario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal fade " id="Modal_Beneficiario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 
 
-            <div class="salto_celu">
-
-                <br>
-                <br>
-                <br>
-            </div>
 
 
-            <div class=" container-fluid " role="document">
+            <div class="container main " role="document">
 
 
                 <div class="modal-content" id="contenido_modal">

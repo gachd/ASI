@@ -253,45 +253,45 @@
 
 
 
-              <!-- <div class="dropdown" id="drop">  
+              <div class="dropdown" id="drop">
 
-  <button class="dropdown-notify-btn"  id="dLabel" type="button"><img  src="<?php echo base_url(); ?>assets/images/ico-cumple.png"><span class="badge" id="bubble"><?php echo $cumple ?></span><span class="caret"></span>
+                <button class="dropdown-notify-btn" id="dLabel" type="button"><img src="<?php echo base_url(); ?>assets/images/ico-cumple.png"><span class="badge" id="bubble"><?php echo $cumple ?></span><span class="caret"></span>
 
-  </button>
+                </button>
 
-  <?php if ($cumple != 0) {
-    echo '<ul class="dropdown-menu" id="dropdown-menu">
+                <?php if ($cumple != 0) {
+
+                 
+
+                  echo '<ul class="dropdown-menu" id="dropdown-menu">
     <li class="dropdown-notify dropdown-notify-header">Cumpleaños</li>';
-    for ($i = 0; $i < $cumple; $i++) {
-      $rut =  $cumpleañeros[$i];
-      $datos = $this->model_socios->persona($rut);
-      foreach ($datos as $d) {
-
-        echo '
+                  for ($i = 0; $i < $cumple; $i++) {
+                    
+                  
+                    echo '
 
       <li class="dropdown-notify">
 
-        <p class="notify-title">' . $d->prsn_nombres . ' ' . $d->prsn_apellidopaterno . '</p>
+        <p class="notify-title">' .  $cumpleañeros[$i]->prsn_nombres . ' ' .  $cumpleañeros[$i]->prsn_apellidopaterno . '</p>
 
-        <p class="notify-msg">' . $rut . '</p>
+        <p class="notify-msg">' .  $cumpleañeros[$i]->prsn_rut . '</p>
 
-        <p class="notify-date">' . $edad[$i] . ' años</p>
+        <p class="notify-date">' .  $cumpleañeros[$i]->edad . ' años</p>
 
       </li>';
-      }
-    }
+                  }
 
-  ?>
+                ?>
 
-  
 
-        
 
-  </ul>
 
-   <?php } ?>
 
-   </div>-->
+                </ul>
+
+                <?php } ?>
+
+              </div>
 
             </div>
 
@@ -356,7 +356,7 @@
 
               <div class="table-responsive">
 
-                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
 
                   <thead>
 
@@ -478,10 +478,18 @@
 
                           $ult_pago = $this->model_socios->ultima_cuota($rut);
 
-                          foreach ($ult_pago as $u) {
+                          if (!empty($ult_pago)) {
 
-                            echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>' . $u->ano . '-' . $u->semestre . '</center></td>';
+                            foreach ($ult_pago as $u) {
+  
+                              echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>' . $u->ano . '-' . $u->semestre . '</center></td>';
+                            }
+                            
+                          }else{
+
+                            echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>No registra</center></td>';
                           }
+
 
 
 
@@ -530,30 +538,45 @@
 
   </div>
 
-  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chartJS/Chart.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
-<!-- jQuery UI -->
-<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-
-
-<script src="<?php echo base_url(); ?>/assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
-
-<script src="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.js"></script>
-
-<script src="<?php echo base_url(); ?>/assets/js/custom.js"></script>
-<script src="<?php echo base_url(); ?>/assets/js/tables.js"></script>
+  
+ 
 
 
 
 </body>
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+
+$('#grid').DataTable({
+  "oLanguage": {
+    "sProcessing": "Procesando...",
+    "sLengthMenu": "Mostrar _MENU_ registros",
+    "sZeroRecords": "No se encontraron resultados",
+    "sEmptyTable": "Ningún dato disponible en esta tabla",
+    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+    "sInfoPostFix": "",
+    "sSearch": "Buscar:",
+    "sUrl": "",
+    "sInfoThousands": ",",
+    "sLoadingRecords": "Cargando...",
+    "oPaginate": {
+      "sFirst": "Primero",
+      "sLast": "Último",
+      "sNext": "Siguiente",
+      "sPrevious": "Anterior"
+    },
+    "oAria": {
+      "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+  }
+});
+});
+
   $("#menuprincipal").click(function() {
 
     window.location.href = "<?php echo base_url(); ?>socios/inicio";
@@ -566,11 +589,11 @@
 
   });
 
-  $("#dLabel").click(function() {
+  /* $("#dLabel").click(function() {
 
     window.location.href = "<?php echo base_url(); ?>socios/mod_cumple";
 
-  });
+  }); */
 
   $("#gestionsocios").click(function() {
 
@@ -671,35 +694,7 @@
 
   });
 
-  $(document).ready(function() {
-
-    $('#example').DataTable({
-      "oLanguage": {
-        "sProcessing": "Procesando...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sZeroRecords": "No se encontraron resultados",
-        "sEmptyTable": "Ningún dato disponible en esta tabla",
-        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix": "",
-        "sSearch": "Buscar:",
-        "sUrl": "",
-        "sInfoThousands": ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-          "sFirst": "Primero",
-          "sLast": "Último",
-          "sNext": "Siguiente",
-          "sPrevious": "Anterior"
-        },
-        "oAria": {
-          "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
-      }
-    });
-  });
+  
 </script>
 
 </html>

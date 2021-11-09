@@ -283,13 +283,13 @@ $año = $dif_año->y;
                   <thead>
                     <tr>
 
-                      <th>Rut</th>
-                      <th>Nombre</th>
-                      <th>Apellido Paterno</th>
-                      <th>Apellido Materno</th>
-                      <th>Cantidad Acciones</th>
-                      <th>N° Título </th>
-                      <th>Acciones </th>
+                      <th width="14%">Rut</th>
+                      <th width="20%">Nombre</th>
+                      <th width="20%">Apellido Paterno</th>
+                      <th width="20%">Apellido Materno</th>
+                      <th width="4%">Cantidad Acciones</th>
+                      <th width="10%">N° Título </th>
+                      <th width="10%">Acciones </th>
 
 
 
@@ -356,7 +356,7 @@ $año = $dif_año->y;
   <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
 
 
-  <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+  
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chartJS/Chart.min.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -387,7 +387,7 @@ $año = $dif_año->y;
 
 <script type="text/javascript">
   $(document).ready(function() {
-    
+
     $('#grid').DataTable({
       "oLanguage": {
         "sProcessing": "Procesando...",

@@ -104,6 +104,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 	<!-- sweetalert2 -->
 
+	
 
 
 

@@ -743,7 +743,7 @@
   </div>
 
 
-  <div class="main">
+  <div class="">
 
     <div class="container-fluid">
 

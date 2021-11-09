@@ -40,9 +40,7 @@ class mod_cumple extends CI_Controller {
 	public function index(){
 
 	 
-		//$data['cumpleañeros'] = $cumpleañeros;
-        //$data['cumple'] = $cont;
-        //$data['edad'] = $edad;
+		
         $data['cumpleañeros'] = $this -> model_socios->cumpleaños_hoy(); 
         $data['prox_cumple'] = $this -> model_socios->prox_cumpleaños(); 
         $data['ant_cumple'] = $this -> model_socios->ant_cumpleaños();  

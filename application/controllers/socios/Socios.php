@@ -96,7 +96,21 @@ class socios extends CI_Controller {
     $data['cumple'] = $cont;
     $data['edad'] = $edad;*/
     
+    $cumpleañeros =  $this -> model_socios->cumpleaños_hoy();
+
+
+    $cumple = count($cumpleañeros);
+
+
+
+
     $data['socios'] = $this -> model_socios->sociosVigentes();  
+
+    $data['cumpleañeros'] = $cumpleañeros; 
+    $data['cumple'] = $cumple; 
+   
+    
+
 
 		$this->load->view('plantilla/Head');
 
@@ -206,9 +220,3 @@ class socios extends CI_Controller {
 
     
  }
-
-
-
-
-
-?>
