@@ -116,6 +116,12 @@ class pago_cuota extends CI_Controller
 
       $Dir_archivos = 'archivos/excels/';
 
+      if (!is_dir($Dir_archivos)) {
+
+        mkdir($Dir_archivos, 0777, true);
+      }
+
+
       $path_archivo = $Dir_archivos . '/' . $excel["name"];
 
 
