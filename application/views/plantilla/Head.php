@@ -28,6 +28,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<meta name="msapplication-TileColor" content="#2b5797">
 	<meta name="theme-color" content="#ffffff">
 
+	<title>ASI - Stadio Italiano di Concepcion</title>
+
 
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -841,3 +843,8 @@ $ci->load->model("model_login");;
 
 			});
 		</script>
+
+
+
+		<!-- <?php  echo 'SESION CI';
+		print_r($_SESSION) ?> -->

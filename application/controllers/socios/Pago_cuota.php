@@ -188,7 +188,6 @@ class pago_cuota extends CI_Controller
           $s = ($s + $r % 10 * (9 - $m++ % 6)) % 11;
         }
 
-
         $digito = chr($s ? $s + 47 : 75);
 
         $rut = $sinDigito . '-' . $digito;
@@ -222,14 +221,14 @@ class pago_cuota extends CI_Controller
         //filas
 
         if (strrpos($excel[$i][0], '==========================')) {
-          //saldo del socio anterior
+          // del socio anterior
           $personas[$cont]["debe"] = $excel[$i-1][10];
 
           $personas[$cont]["haber"] = $excel[$i-1][11];
 
           $personas[$cont]["saldo"] = $excel[$i-1][12];
 
-          $cont++;
+          $cont++;// se salta al siguinete socio
 
           //seguimiento al siguiente socio
 

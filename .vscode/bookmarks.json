@@ -99,7 +99,7 @@
 			"path": "application/views/plantilla/Head.php",
 			"bookmarks": [
 				{
-					"line": 490,
+					"line": 492,
 					"column": 20,
 					"label": "Control tiempo sesion"
 				}
@@ -112,6 +112,16 @@
 					"line": 182,
 					"column": 28,
 					"label": "Dia de la semana"
+				}
+			]
+		},
+		{
+			"path": "application/controllers/Login.php",
+			"bookmarks": [
+				{
+					"line": 41,
+					"column": 4,
+					"label": "Permisos del login y creacion de sesion"
 				}
 			]
 		}

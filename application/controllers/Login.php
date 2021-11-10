@@ -30,14 +30,20 @@ class Login extends CI_Controller
 			if (isset($_POST['password'])) {
 				$usuario = $this->model_login->login($_POST['username'], $_POST['password']);
 
-			
+
 
 
 				if ($usuario) {
+
+					$permiso_principal = $this->model_login->menu_principal($usuario->funcionario);
+
+					$permiso_principal = $permiso_principal[0]->perm_principal;
+
 					$usuario_data = array(
 						'id' => $usuario->funcionario,
 						'username' => $usuario->username,
 						'permisos' => $usuario->permisos,
+						'perm_principal' => $permiso_principal,
 						'logueado' => TRUE
 					);
 					$this->session->set_userdata($usuario_data);
@@ -80,7 +86,5 @@ class Login extends CI_Controller
 	{
 
 		$this->load->view('errors/404');
-
-		
 	}
 }

@@ -51,9 +51,10 @@ class model_persona extends CI_Model
     function update($data,$id)
     {
 
-    
+        $this->db->query('SET FOREIGN_KEY_CHECKS  = 0');
         $this->db->where('prsn_id', $id);
         $this->db->update('s_personas', $data);
+        $this->db->query('SET FOREIGN_KEY_CHECKS = 1');
     }
 
     function insertar($data)
