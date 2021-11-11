@@ -59,14 +59,14 @@ class nuevo_accionista extends CI_Controller
 
 
 
-			if ($accionista) {
+			if ($accionista) { // si existe como accionista
 
 				$_POST['msj'] = '1';
 				$this->load->view('plantilla/Head');
 
 				$this->load->view('accionistas/accionista_rut');
 				$this->load->view('plantilla/Footer');
-			} else {
+			} else { // si no existe como accionista
 
 				$rut = $_POST['rut'];
 				$data['rut'] = $rut;
@@ -78,19 +78,18 @@ class nuevo_accionista extends CI_Controller
 				$data['libro']	= $this->model_libro->all_libros();
 
 
-				if ($socio) {
-
+				if ($socio) { // si existe como socio
 
 					//si se valida que hay un socios, solo carga vista para agregar datos de accionista 
 					$this->load->view('plantilla/Head');
 					$this->load->view('accionistas/nuevo_accionistaSocio', $data);
 					$this->load->view('plantilla/Footer');
-				} else {
+				} else { //si existe como persona pero no como socio
 
 
 					// al no ser socio validamos que este registrado en tabla personas
 
-					if ($persona) {
+					if ($persona) { // si existe como persona
 
 						$persona = $persona[0];
 
@@ -102,9 +101,9 @@ class nuevo_accionista extends CI_Controller
 						$this->load->view('plantilla/Head');
 						$this->load->view('accionistas/nuevo_accionistaPersona', $data);
 						$this->load->view('plantilla/Footer');
-					} else {
+					} else { // si no existe como persona y no hay registro en BD
 
-						//sino, carga la vista donde aparte ingrese datos personal
+					
 
 						$this->load->view('plantilla/Head');
 						$this->load->view('accionistas/nuevo_accionista', $data);
@@ -154,9 +153,9 @@ class nuevo_accionista extends CI_Controller
 	{
 
 
-		$MaximoP = $this->model_accionistas->ultimoId();
-		$IDPersona = $MaximoP[0]->maximo;
-		$PersonaNuevaID = $IDPersona + 1;
+		$MaximoP = $this->model_accionistas->ultimoId(); // ultimo id de persona
+		$IDPersona = $MaximoP[0]->maximo; // ultimo id de persona
+		$PersonaNuevaID = $IDPersona + 1; // id de nueva persona
 
 
 		$IDMaximo = $this->model_accionistas->ultimoIdAccionista();
@@ -254,8 +253,6 @@ class nuevo_accionista extends CI_Controller
 		// Termino subida de archivos
 
 
-
-
 		$this->model_accionistas->insertar($dataA);
 
 
@@ -287,9 +284,9 @@ class nuevo_accionista extends CI_Controller
 
 
 
-		//Cesion
+		//Cesion y transmision
 
-		if ($tipoaccion == 0) {
+		if ($tipoaccion == 0 || $tipoaccion == 2) {
 
 
 
@@ -310,20 +307,28 @@ class nuevo_accionista extends CI_Controller
 
 
 			$ultimoID = $this->model_titulo->ultimoId();
+
 			$ultimo = $ultimoID[0]->maximo;
 
 
 			if ($acciones_nuevo_titulo_anterior > 0) {
 
-				$dataAntiguoT = array(
-
-
-					'estado' => $estado = 0,
 
 
 
 
-				);
+				$TituloqueTransfiere = array(
+
+
+					'numero_acciones' => $acciones_nuevo_titulo_anterior,
+
+
+
+
+				); 
+
+
+
 
 
 
@@ -345,7 +350,7 @@ class nuevo_accionista extends CI_Controller
 				);
 
 
-				$dataT_Anterior = array(
+			/* 	$dataT_Anterior = array(
 
 					'id_titulos' => $NumeroTitulo + 1,
 
@@ -359,7 +364,9 @@ class nuevo_accionista extends CI_Controller
 
 					'entrega' => $estadoEntrega = 0,
 
-				);
+				); */
+
+
 
 				$dataTablaTanferencia1 = array(
 
@@ -371,7 +378,7 @@ class nuevo_accionista extends CI_Controller
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
 				);
-				$dataTablaTanferencia2 = array(
+				/* $dataTablaTanferencia2 = array(
 
 
 					'titulo_origen ' => $titulo_que_precede,
@@ -381,14 +388,20 @@ class nuevo_accionista extends CI_Controller
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
 				);
+ */
 
 
-
-				$this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+				$this->model_titulo->updatetitulos($TituloqueTransfiere, $titulo_que_precede);
 				$this->model_titulo->nueva_cesion($dataTablaTanferencia1);
-				$this->model_titulo->nueva_cesion($dataTablaTanferencia2);
+
+				/* $this->model_titulo->nueva_cesion($dataTablaTanferencia2); */
+				
 				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
-				$this->model_titulo->nuevo_titulo($dataT_Anterior);
+
+				/* $this->model_titulo->nuevo_titulo($dataT_Anterior); */
+
+
+				
 			};
 
 

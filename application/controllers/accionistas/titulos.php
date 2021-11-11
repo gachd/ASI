@@ -32,6 +32,9 @@ class Titulos extends CI_Controller
         $this->load->library('calendar');
 
         $this->load->library('session');
+
+       
+        
     }
 
 
@@ -179,6 +182,8 @@ class Titulos extends CI_Controller
 
         // header('Content-Type: application/json');
 
+        
+
         $titulos = $this->model_titulo->titulosactivos();
         echo '<option value="">Seleccionar</option>';
 
@@ -271,10 +276,10 @@ class Titulos extends CI_Controller
 
         if ($acciones_nuevo_titulo_anterior > 0) {
 
-            $dataAntiguoT = array(
+            $TituloQueTransfiere = array(
 
 
-                'estado' => $estado = 0,
+                'numero_acciones' => $acciones_nuevo_titulo_anterior,
 
 
 
@@ -301,7 +306,7 @@ class Titulos extends CI_Controller
             );
 
 
-            $dataT_Anterior = array(
+           /*  $dataT_Anterior = array(
 
                 'id_titulos ' => $NumeroTitulo + 1,
 
@@ -315,7 +320,7 @@ class Titulos extends CI_Controller
 
                 'entrega' => $estadoEntrega = 0,
 
-            );
+            ); */
 
             $dataTablaTanferencia1 = array(
 
@@ -327,7 +332,7 @@ class Titulos extends CI_Controller
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
 
             );
-            $dataTablaTanferencia2 = array(
+          /*   $dataTablaTanferencia2 = array(
 
 
                 'titulo_origen ' => $titulo_que_precede,
@@ -337,14 +342,14 @@ class Titulos extends CI_Controller
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
 
             );
+ */
 
 
-
-            $this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+            $this->model_titulo->updatetitulos($TituloQueTransfiere, $titulo_que_precede);
             $this->model_titulo->nueva_cesion($dataTablaTanferencia1);
-            $this->model_titulo->nueva_cesion($dataTablaTanferencia2);
+           /*  $this->model_titulo->nueva_cesion($dataTablaTanferencia2); */
             $this->model_titulo->nuevo_titulo($dataT_Nuevo);
-            $this->model_titulo->nuevo_titulo($dataT_Anterior);
+           /*  $this->model_titulo->nuevo_titulo($dataT_Anterior); */
         };
 
 

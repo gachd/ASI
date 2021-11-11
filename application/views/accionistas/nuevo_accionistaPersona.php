@@ -262,6 +262,8 @@
 
                     <div class="form-group col-md-4" id="divaccion">
                         <label>Accion</label>
+
+
                         <div class="radio">
                             <label class="radio-inline">
                                 <input type="radio" required name="accion" id="accionN" value="1">Nueva</label>
@@ -269,7 +271,10 @@
                                 <input type="radio" name="accion" value="0">Cesion</label>
                             <label class="radio-inline">
                                 <input type="radio" name="accion" value="2">Transmision</label>
+                            
                         </div>
+
+
                     </div>
                     <div class="form-group col-md-4 oculto" id="AccionesNuevoT">
                         <label>Acciones del nuevo Accionista</label>
@@ -483,20 +488,20 @@
         $(document).ready(function() {
 
             $("#NumeroTitulo").blur(function() {
-                
+
                 var NuevoT = $(this);;
                 var NumeroNuevoT = NuevoT.val();
-                
 
-            
+
+
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>accionistas/titulos/titulos_existentes",
                     data: {
                         idTitulo: NumeroNuevoT
                     },
-                    
-                    success: function (r) {
+
+                    success: function(r) {
 
                         if (r == 1) {
 
@@ -510,11 +515,11 @@
                             NuevoT.val('');
 
                         }
-                    
-                    }
-                });            
 
-                
+                    }
+                });
+
+
 
             });
 
@@ -874,6 +879,8 @@
                             alert('Ocurrio un error en el servidor ..');
                         }
                     });
+
+                    break;
 
 
 

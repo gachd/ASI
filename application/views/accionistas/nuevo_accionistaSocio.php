@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    
+
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
     <meta charset="UTF-8">
 
@@ -51,7 +51,7 @@
             <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionistaSocio" method="post" enctype="multipart/form-data">
 
                 <div class="container">
-                    <h1  class="h1">Socio-Accionista</h1>
+                    <h1 class="h1">Socio-Accionista</h1>
                     <br>
                     <br>
                     <br>
@@ -114,6 +114,8 @@
                                 <input type="radio" required name="accion" id="accionN" value="1">Nueva</label>
                             <label class="radio-inline">
                                 <input type="radio" name="accion" value="0">Cesion</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="accion" value="2">Transmision</label>
                         </div>
                     </div>
                     <div class="form-group col-md-4 oculto" id="AccionesNuevoT">
@@ -125,7 +127,7 @@
                         <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4">
-                        <label ">Fecha Titulo</label>
+                        <label>Fecha Titulo</label>
                         <input type=" text" readonly style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
                     </div>
 
@@ -154,7 +156,7 @@
 
 
                     <div class="form-group col-md-4 oculto" id="DivFechaCesion">
-                        <label ">Fecha Cesion</label>
+                        <label>Fecha Cesion</label>
                         <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
                     </div>
 
@@ -376,20 +378,20 @@
 
 
             $("#NumeroTitulo").blur(function() {
-                
+
                 var NuevoT = $(this);;
                 var NumeroNuevoT = NuevoT.val();
-                
 
-            
+
+
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>accionistas/titulos/titulos_existentes",
                     data: {
                         idTitulo: NumeroNuevoT
                     },
-                    
-                    success: function (r) {
+
+                    success: function(r) {
 
                         if (r == 1) {
 
@@ -403,11 +405,11 @@
                             NuevoT.val('');
 
                         }
-                    
-                    }
-                });            
 
-                
+                    }
+                });
+
+
 
             });
 
@@ -607,7 +609,6 @@
             switch (accion) {
 
                 case "0": //cesion
-
                     $("#Aprocedente").show();
                     $('#TituloP').prop('required', true);
 
@@ -621,6 +622,19 @@
                     $("#DivFechaCesion").show();
                     $('#fechaC').prop('required', true);
 
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+                        success: function(response) {
+
+                            $('#TituloP').html(response);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
 
 
 
@@ -645,6 +659,41 @@
 
 
                     break;
+
+                case "2": //Transmision
+
+                    $("#Aprocedente").show();
+                    $('#TituloP').prop('required', true);
+
+                    $("#DivNumeroaTransferir").show();
+                    $('#NumNuevoCesion').prop('required', true);
+
+                    $("#AccionesNuevoT").hide();
+                    $("#AccioniesNuevoT").prop('required', false).val('');
+
+
+                    $("#DivFechaCesion").show();
+                    $('#fechaC').prop('required', true);
+
+                    $('#TituloP').find('option').remove();
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtener_titulos_transmision",
+                        success: function(response) {
+
+                            $('#TituloP').html(response);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
+
+                    break;
+
 
 
             }
