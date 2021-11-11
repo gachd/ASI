@@ -88,16 +88,16 @@
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Nombre</label>
-                        <input value="<?php echo $persona->prsn_nombres ?>" type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Nombre" name="nombres" id="Nombre" required style="text-transform:uppercase">
+                        <input value="<?php echo $persona->prsn_nombres ?>" type="text" class="form-control" placeholder="Nombre" name="nombres" id="Nombre" required onKeyUp="mayusculas(this)">
                     </div>
 
                     <div class="form-group col-md-4 " id="divapellidoP">
                         <label for="first-name">Apellido Paterno</label>
-                        <input value="<?php echo $persona->prsn_apellidopaterno ?>" type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" style="text-transform:uppercase">
+                        <input value="<?php echo $persona->prsn_apellidopaterno ?>" type="text" class="form-control" placeholder="Apellido Paterno" name="ApellidoP" id="ApellidoP" onKeyUp="mayusculas(this)">
                     </div>
                     <div class="form-group col-md-4 " id="apellidoM">
                         <label for="first-name">Apellido Materno</label>
-                        <input value="<?php echo $persona->prsn_apellidomaterno ?>" type="text" class="form-control" pattern="^[A-ZÀ-ÿ'\u00d1]+(\s*[A-ZÀ-ÿ'\u00d1]*)*[A-ZÀ-ÿ'\u00d1]+$" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" style="text-transform:uppercase">
+                        <input value="<?php echo $persona->prsn_apellidomaterno ?>" type="text" class="form-control" placeholder="Apellido Materno" name="ApellidoM" id="ApellidoM" onKeyUp="mayusculas(this)">
                     </div>
 
                     <div class="form-group col-md-4 " id="divfechaN">
@@ -107,7 +107,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Email</label>
-                        <input value="<?php echo $persona->prsn_email ?>" type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo" title="Debe ser un Correo Valido" required style="text-transform:uppercase">
+                        <input value="<?php echo $persona->prsn_email ?>" type="email" name="Correo" class="form-control" placeholder="correo@correo.cl" id="Correo" title="Debe ser un Correo Valido" required onKeyUp="mayusculas(this)">
                     </div>
 
                     <div class="form-group col-md-4">
@@ -117,7 +117,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Dirección </label>
-                        <input value="<?php echo $persona->prsn_direccion ?>" type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required style="text-transform:uppercase">
+                        <input value="<?php echo $persona->prsn_direccion ?>" type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required onKeyUp="mayusculas(this)">
                     </div>
 
 
@@ -226,7 +226,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Foja</label>
-                        <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required style="text-transform:uppercase">
+                        <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="mayusculas(this)">
                     </div>
 
                     <div class="form-group col-md-4">
@@ -271,7 +271,7 @@
                                 <input type="radio" name="accion" value="0">Cesion</label>
                             <label class="radio-inline">
                                 <input type="radio" name="accion" value="2">Transmision</label>
-                            
+
                         </div>
 
 
@@ -381,6 +381,14 @@
     </div>
 
     <script type="text/javascript">
+        function mayusculas(input) {
+
+            input.value = input.value.toUpperCase();
+
+
+        }
+
+
         function valida_archivo(archivo) {
 
             var nombre_archivo = archivo.value; //obtengo el nombre del archvo
