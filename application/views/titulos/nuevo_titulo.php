@@ -1,7 +1,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
- 
+
 
 
     <meta charset="UTF-8">
@@ -40,56 +40,56 @@
             <form action="<?php echo base_url(); ?>accionistas/titulos/guadarNuevoTitulo" method="post">
                 <div class="container">
                     <h2>Nuevo Titulo</h1>
-                    <br>
-                    <br>
-                    <br>
+                        <br>
+                        <br>
+                        <br>
 
-                    <div class="form-group col-md-4">
+                        <div class="form-group col-md-4">
 
 
 
-                        <label for="accionista">Accionista</label>
+                            <label for="accionista">Accionista</label>
 
-                        <select class="form-control" name="accionistaID" id="accionista_select" required>
-                            <option value=""> Seleccionar </option>
-                            <?php
-                            foreach ($accionista as $i) {
+                            <select class="form-control" name="accionistaID" id="accionista_select" required>
+                                <option value=""> Seleccionar </option>
+                                <?php
+                                foreach ($accionista as $i) {
 
-                                echo ' <option value="' . $i->id_accionista . '" >' . $i->prsn_rut . '&nbsp;' . $i->prsn_nombres . '&nbsp;' . $i->prsn_apellidopaterno . '</option>';
-                            }
-                            ?>
+                                    echo ' <option value="' . $i->id_accionista . '" >' . $i->prsn_rut . '&nbsp;' . $i->prsn_nombres . '&nbsp;' . $i->prsn_apellidopaterno . '</option>';
+                                }
+                                ?>
 
-                        </select>
-                    </div>
+                            </select>
+                        </div>
 
-                    <div class="form-group col-md-4">
-                        <label>Numero de Titulo</label>
-                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off" required>
-                    </div>
+                        <div class="form-group col-md-4">
+                            <label>Numero de Titulo</label>
+                            <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off" required>
+                        </div>
 
-                    <div>
+                        <div>
 
-                        <div class="form-group col-md-3">
-                            <label for="fecha">Fecha Titulo</label>
-                            <input type="text" autocomplete="off" class="form-control" id="fecha" name="fechaT" required>
+                            <div class="form-group col-md-3">
+                                <label for="fecha">Fecha Titulo</label>
+                                <input type="text" autocomplete="off" class="form-control" id="fecha" name="fechaT" required>
+                            </div>
+
+
+
                         </div>
 
 
 
-                    </div>
+                        <div class="form-group col-md-4">
+                            <label for="fecha">Numero de acciones</label>
+                            <input type="number" class="form-control" min="1" name="NumAC" required>
+                        </div>
 
 
+                        <div class="col-md-12">
+                            <button type="Guadar" class="btn btn-primary">Guardar</button>
 
-                    <div class="form-group col-md-4">
-                        <label for="fecha">Numero de acciones</label>
-                        <input type="number" class="form-control" min="1" name="NumAC" required>
-                    </div>
-
-
-                    <div class="col-md-12">
-                        <button type="Guadar" class="btn btn-primary">Guardar</button>
-
-                    </div>
+                        </div>
                 </div>
 
 
@@ -143,6 +143,44 @@
             changeMonth: true,
             changeYear: true,
 
+
+        });
+    });
+
+
+    $(document).ready(function() {
+
+        $("#NumeroTitulo").blur(function() {
+
+            var NuevoT = $(this);;
+            var NumeroNuevoT = NuevoT.val();
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>accionistas/titulos/titulos_existentes",
+                data: {
+                    idTitulo: NumeroNuevoT
+                },
+
+                success: function(r) {
+
+                    if (r == 1) {
+
+                        swal({
+                            title: "Titulo ya existe",
+                            text: "El titulo ya existe",
+                            icon: "error",
+                            button: "Aceptar",
+                        });
+
+                        NuevoT.val('');
+
+                    }
+
+                }
+            });
 
         });
     });

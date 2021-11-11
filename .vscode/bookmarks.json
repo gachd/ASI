@@ -124,6 +124,16 @@
 					"label": "Permisos del login y creacion de sesion"
 				}
 			]
+		},
+		{
+			"path": "application/controllers/Correo.php",
+			"bookmarks": [
+				{
+					"line": 3,
+					"column": 0,
+					"label": "Envio de correos"
+				}
+			]
 		}
 	]
 }

@@ -375,6 +375,43 @@
         $(document).ready(function() {
 
 
+            $("#NumeroTitulo").blur(function() {
+                
+                var NuevoT = $(this);;
+                var NumeroNuevoT = NuevoT.val();
+                
+
+            
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>accionistas/titulos/titulos_existentes",
+                    data: {
+                        idTitulo: NumeroNuevoT
+                    },
+                    
+                    success: function (r) {
+
+                        if (r == 1) {
+
+                            swal({
+                                title: "Titulo ya existe",
+                                text: "El titulo ya existe",
+                                icon: "error",
+                                button: "Aceptar",
+                            });
+
+                            NuevoT.val('');
+
+                        }
+                    
+                    }
+                });            
+
+                
+
+            });
+
+
 
             $.ajax({
                 type: "POST",

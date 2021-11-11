@@ -170,6 +170,48 @@
             $(this).parent('div').remove(); //Remove field html
             x--; //Decrement field counter
         });
+
+
+
+
+
+
+        $("#NumeroTitulo").blur(function() {
+
+            var NuevoT = $(this);;
+            var NumeroNuevoT = NuevoT.val();
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>accionistas/titulos/titulos_existentes",
+                data: {
+                    idTitulo: NumeroNuevoT
+                },
+
+                success: function(r) {
+
+                    if (r == 1) {
+
+                        swal({
+                            title: "Titulo ya existe",
+                            text: "El titulo ya existe",
+                            icon: "error",
+                            button: "Aceptar",
+                        });
+
+                        NuevoT.val('');
+
+                    }
+
+                }
+            });
+
+        });
+
+
+        
     });
 
 
@@ -288,31 +330,31 @@
 
             //elimiar accionista dueño del titulo
 
-         /*    $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>accionistas/titulos/ObtenerIDAccionista_deTitulo",
-                data: {
-                    id: tituloP
+            /*    $.ajax({
+                   type: "POST",
+                   url: "<?php echo base_url(); ?>accionistas/titulos/ObtenerIDAccionista_deTitulo",
+                   data: {
+                       id: tituloP
 
-                },
+                   },
 
-                success: function(idAccionista) {
-                 
+                   success: function(idAccionista) {
+                    
 
-               
-                    var select_accionista = document.getElementById("accionista_select");
-                    for (var i = 0; i < select_accionista.length; i++) {
-                        console.log(select_accionista.options[i].value);
-                        if (select_accionista.options[i].value == idAccionista.trim()) {                        
-                            select_accionista.remove(i)
+                  
+                       var select_accionista = document.getElementById("accionista_select");
+                       for (var i = 0; i < select_accionista.length; i++) {
+                           console.log(select_accionista.options[i].value);
+                           if (select_accionista.options[i].value == idAccionista.trim()) {                        
+                               select_accionista.remove(i)
 
-                        }
-                    }
+                           }
+                       }
 
 
 
-                }
-            }); */
+                   }
+               }); */
 
 
 

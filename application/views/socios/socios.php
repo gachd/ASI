@@ -251,47 +251,41 @@
               <button type="button" class="btn btn-success" id="dato_pagos"><span class="badge"><i class="glyphicon glyphicon-signal"></i>Datos <br> Socios</span></button>
               <button type="button" class="btn btn-info" id="agenda"><span class="badge"><i class="glyphicon glyphicon-envelope"></i>Agenda <br> Socios</span></button>
 
-
-
               <div class="dropdown" id="drop">
-
-                <button class="dropdown-notify-btn" id="dLabel" type="button"><img src="<?php echo base_url(); ?>assets/images/ico-cumple.png"><span class="badge" id="bubble"><?php echo $cumple ?></span><span class="caret"></span>
+                <button id="dLabel" type="button" class="dropdown-notify-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="<?php echo base_url(); ?>assets/images/ico-cumple.png">
+                  <span class="badge" id="bubble"><?php echo $cumple ?></span>
+                  <span class="caret"></span>
 
                 </button>
+                <?php if ($cumple != 0) { ?>
+                  <ul class="dropdown-menu" aria-labelledby="dLabel">
+                    <li class="dropdown-notify dropdown-notify-header">Cumpleaños</li>
 
-                <?php if ($cumple != 0) {
+                    <?php for ($i = 0; $i < $cumple; $i++) { ?>
+                      <li class="dropdown-notify">
 
-                 
+                        <p class="notify-title"> <?php echo $cumpleañeros[$i]->prsn_nombres . ' ' .  $cumpleañeros[$i]->prsn_apellidopaterno  ?> </p>
 
-                  echo '<ul class="dropdown-menu" id="dropdown-menu">
-    <li class="dropdown-notify dropdown-notify-header">Cumpleaños</li>';
-                  for ($i = 0; $i < $cumple; $i++) {
-                    
-                  
-                    echo '
+                        <p class="notify-msg"><?php echo $cumpleañeros[$i]->prsn_rut  ?></p>
 
-      <li class="dropdown-notify">
+                        <p class="notify-date"><?php echo $cumpleañeros[$i]->edad ?> </p>
 
-        <p class="notify-title">' .  $cumpleañeros[$i]->prsn_nombres . ' ' .  $cumpleañeros[$i]->prsn_apellidopaterno . '</p>
 
-        <p class="notify-msg">' .  $cumpleañeros[$i]->prsn_rut . '</p>
-
-        <p class="notify-date">' .  $cumpleañeros[$i]->edad . ' años</p>
-
-      </li>';
-                  }
-
-                ?>
+                      </li>
 
 
 
+                    <?php } ?>
 
-
-                </ul>
+                  </ul>
 
                 <?php } ?>
 
               </div>
+
+
+             
 
             </div>
 
@@ -481,11 +475,10 @@
                           if (!empty($ult_pago)) {
 
                             foreach ($ult_pago as $u) {
-  
+
                               echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>' . $u->ano . '-' . $u->semestre . '</center></td>';
                             }
-                            
-                          }else{
+                          } else {
 
                             echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>No registra</center></td>';
                           }
@@ -538,44 +531,43 @@
 
   </div>
 
-  
- 
+
+
 
 
 
 </body>
 
 <script type="text/javascript">
+  $(document).ready(function() {
 
-$(document).ready(function() {
-
-$('#grid').DataTable({
-  "oLanguage": {
-    "sProcessing": "Procesando...",
-    "sLengthMenu": "Mostrar _MENU_ registros",
-    "sZeroRecords": "No se encontraron resultados",
-    "sEmptyTable": "Ningún dato disponible en esta tabla",
-    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-    "sInfoPostFix": "",
-    "sSearch": "Buscar:",
-    "sUrl": "",
-    "sInfoThousands": ",",
-    "sLoadingRecords": "Cargando...",
-    "oPaginate": {
-      "sFirst": "Primero",
-      "sLast": "Último",
-      "sNext": "Siguiente",
-      "sPrevious": "Anterior"
-    },
-    "oAria": {
-      "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
-  }
-});
-});
+    $('#grid').DataTable({
+      "oLanguage": {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+          "sFirst": "Primero",
+          "sLast": "Último",
+          "sNext": "Siguiente",
+          "sPrevious": "Anterior"
+        },
+        "oAria": {
+          "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+      }
+    });
+  });
 
   $("#menuprincipal").click(function() {
 
@@ -693,8 +685,6 @@ $('#grid').DataTable({
       .fadeOut(500);
 
   });
-
-  
 </script>
 
 </html>

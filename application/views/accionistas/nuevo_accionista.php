@@ -520,187 +520,234 @@
 
         $(document).ready(function() {
 
+            $("#NumeroTitulo").blur(function() {
+                
+                var NuevoT = $(this);;
+                var NumeroNuevoT = NuevoT.val();
+                
+
+            
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>accionistas/titulos/titulos_existentes",
+                    data: {
+                        idTitulo: NumeroNuevoT
+                    },
+                    
+                    success: function (r) {
+
+                        if (r == 1) {
+
+                            swal({
+                                title: "Titulo ya existe",
+                                text: "El titulo ya existe",
+                                icon: "error",
+                                button: "Aceptar",
+                            });
+
+                            NuevoT.val('');
+
+                        }
+                    
+                    }
+                });
+
+               
+
+                
+
+            });
 
 
+
+      
+
+
+
+
+
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+            success: function(response) {
+
+                $('#TituloP').html(response).fadeIn();
+
+
+            },
+            error: function() {
+                alert('Ocurrio un error en el servidor ..');
+            }
+        });
+
+        $("#TituloP").change(function() {
+            var tituloP = $(this).val();
+
+
+
+
+            if (tituloP != '') {
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        id: tituloP
+                    },
+                    url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
+                    success: function(r) {
+
+
+                        var embargo = r.embargo;
+                        var accionesEmbargo = r.acciones_embargadas;
+
+
+
+                        var Id_accionistaAnt = r.id_accionista;
+                        var t = r.numero_acciones;
+
+
+                        if (embargo == 1) {
+
+                            t = t - accionesEmbargo;
+
+                            swal({
+                                title: 'Titulo con ' + accionesEmbargo + ' acciones embargadas',
+                                icon: "warning",
+                                button: "OK",
+                            });
+
+                        }
+
+                        $('#AccionesANT').attr("value", t);
+
+                        $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
+
+                        $('#NumNuevoCesion').attr("max", t);
+                        $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
+
+
+                    },
+                    error: function() {
+                        alert('Ocurrio un error en el servidor ..');
+                    }
+                });
+            };
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        // Bloqueamos el SELECT de los cursos
+        $("#provi").prop('disabled', true);
+        $("#comu").prop('disabled', true);
+
+
+        // Hacemos la lógica que cuando nuestro SELECT cambia de valor haga algo
+        $("#region").change(function() {
+            $("#comu").prop('disabled', true);
+
+            $('#comu').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
+
+
+
+            // Guardamos el select de cursos
+            var provincia = $("#provi");
+
+            // Guardamos el select de alumnos
+            var region = $(this);
+
+            if ($(this).val() != '') {
+                $.ajax({
+                    data: {
+
+                        id: region.val()
+                    },
+                    url: "<?php echo base_url(); ?>/accionistas/nuevo_accionista/ProvinciaporRegion",
+                    type: 'POST',
+                    dataType: 'json',
+                    beforeSend: function() {
+                        region.prop('disabled', true);
+                    },
+                    success: function(r) {
+                        region.prop('disabled', false);
+
+                        // Limpiamos el select
+                        provincia.find('option').remove();
+                        provincia.append('<option value=""> Seleccionar </option>')
+
+                        $(r).each(function(i, v) { // indice, valor
+                            provincia.append('<option value="' + v.provincia_id + '">' + v.provincia_nombre + '</option>');
+                        })
+                        provincia.prop('disabled', false);
+
+
+
+                    },
+                    error: function() {
+                        alert('Ocurrio un error en el servidor ..');
+                        region.prop('disabled', false);
+                    }
+                });
+            } else {
+                provincia.find('option').remove();
+                provincia.prop('disabled', true);
+            }
+        })
+
+
+
+        $("#provi").change(function() {
+        // Guardamos el select de cursos
+        var comuna = $("#comu");
+
+        // Guardamos el select de alumnos
+        var provincia = $(this);
+
+        if ($(this).val() != '') {
             $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
-                success: function(response) {
+                data: {
+                    id: provincia.val()
+                },
+                url: "<?php echo base_url(); ?>/accionistas/nuevo_accionista/ComunaporProvincia",
+                type: 'POST',
+                dataType: 'json',
+                beforeSend: function() {
+                    provincia.prop('disabled', true);
+                },
+                success: function(r) {
+                    provincia.prop('disabled', false);
 
-                    $('#TituloP').html(response).fadeIn();
+                    // Limpiamos el select
+                    comuna.find('option').remove();
+                    comuna.append('<option value=""> Seleccionar </option>')
 
+                    $(r).each(function(i, v) { // indice, valor
+                        comuna.append('<option value="' + v.comuna_id + '">' + v.comuna_nombre + '</option>');
+                    })
 
+                    comuna.prop('disabled', false);
                 },
                 error: function() {
                     alert('Ocurrio un error en el servidor ..');
+                    provincia.prop('disabled', false);
                 }
             });
-
-            $("#TituloP").change(function() {
-                var tituloP = $(this).val();
-
-
-
-
-                if (tituloP != '') {
-                    $.ajax({
-                        type: "POST",
-                        data: {
-                            id: tituloP
-                        },
-                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
-                        success: function(r) {
-
-
-                            var embargo = r.embargo;
-                            var accionesEmbargo = r.acciones_embargadas;
-
-
-
-                            var Id_accionistaAnt = r.id_accionista;
-                            var t = r.numero_acciones;
-
-
-                            if (embargo == 1) {
-
-                                t = t - accionesEmbargo;
-
-                                swal({
-                                    title: 'Titulo con ' + accionesEmbargo + ' acciones embargadas',
-                                    icon: "warning",
-                                    button: "OK",
-                                });
-
-                            }
-
-                            $('#AccionesANT').attr("value", t);
-
-                            $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
-
-                            $('#NumNuevoCesion').attr("max", t);
-                            $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
-
-
-                        },
-                        error: function() {
-                            alert('Ocurrio un error en el servidor ..');
-                        }
-                    });
-                };
-
-
-
-
-
-
-            });
-
-
-
-
-
-
-
-            // Bloqueamos el SELECT de los cursos
-            $("#provi").prop('disabled', true);
-            $("#comu").prop('disabled', true);
-
-
-            // Hacemos la lógica que cuando nuestro SELECT cambia de valor haga algo
-            $("#region").change(function() {
-                $("#comu").prop('disabled', true);
-
-                $('#comu').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
-
-
-
-                // Guardamos el select de cursos
-                var provincia = $("#provi");
-
-                // Guardamos el select de alumnos
-                var region = $(this);
-
-                if ($(this).val() != '') {
-                    $.ajax({
-                        data: {
-
-                            id: region.val()
-                        },
-                        url: "<?php echo base_url(); ?>/accionistas/nuevo_accionista/ProvinciaporRegion",
-                        type: 'POST',
-                        dataType: 'json',
-                        beforeSend: function() {
-                            region.prop('disabled', true);
-                        },
-                        success: function(r) {
-                            region.prop('disabled', false);
-
-                            // Limpiamos el select
-                            provincia.find('option').remove();
-                            provincia.append('<option value=""> Seleccionar </option>')
-
-                            $(r).each(function(i, v) { // indice, valor
-                                provincia.append('<option value="' + v.provincia_id + '">' + v.provincia_nombre + '</option>');
-                            })
-                            provincia.prop('disabled', false);
-
-
-
-                        },
-                        error: function() {
-                            alert('Ocurrio un error en el servidor ..');
-                            region.prop('disabled', false);
-                        }
-                    });
-                } else {
-                    provincia.find('option').remove();
-                    provincia.prop('disabled', true);
-                }
-            })
-
-
-
-            $("#provi").change(function() {
-                // Guardamos el select de cursos
-                var comuna = $("#comu");
-
-                // Guardamos el select de alumnos
-                var provincia = $(this);
-
-                if ($(this).val() != '') {
-                    $.ajax({
-                        data: {
-                            id: provincia.val()
-                        },
-                        url: "<?php echo base_url(); ?>/accionistas/nuevo_accionista/ComunaporProvincia",
-                        type: 'POST',
-                        dataType: 'json',
-                        beforeSend: function() {
-                            provincia.prop('disabled', true);
-                        },
-                        success: function(r) {
-                            provincia.prop('disabled', false);
-
-                            // Limpiamos el select
-                            comuna.find('option').remove();
-                            comuna.append('<option value=""> Seleccionar </option>')
-
-                            $(r).each(function(i, v) { // indice, valor
-                                comuna.append('<option value="' + v.comuna_id + '">' + v.comuna_nombre + '</option>');
-                            })
-
-                            comuna.prop('disabled', false);
-                        },
-                        error: function() {
-                            alert('Ocurrio un error en el servidor ..');
-                            provincia.prop('disabled', false);
-                        }
-                    });
-                } else {
-                    comuna.find('option').remove();
-                    comuna.prop('disabled', true);
-                }
-            })
+        } else {
+            comuna.find('option').remove();
+            comuna.prop('disabled', true);
+        }
+        })
         })
 
 

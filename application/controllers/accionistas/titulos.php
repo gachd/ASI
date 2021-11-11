@@ -222,7 +222,6 @@ class Titulos extends CI_Controller
         $accionista = $this->model_titulo->IdAccionistaDelTitulo($id_titulo);
 
         echo $accionista[0]->id_accionista;
-        
     }
 
 
@@ -647,6 +646,35 @@ class Titulos extends CI_Controller
 
             redirect('accionistas/titulos');
         }
+    }
+
+    public function titulos_existentes()
+    {
+
+        $idTitulosNuevo = $this->input->post('idTitulo');
+
+        $titulos = $this->model_titulo->all_titulos();
+
+        $buscador = 0;
+
+
+        foreach ($titulos as $t) {
+
+            if ($t->id_titulos == $idTitulosNuevo) {
+                
+                $buscador ++;
+            }
+        }
+
+        if ($buscador > 0) {
+            echo "1";
+        }
+        else{
+            echo "0";
+        }
+        
+
+        
     }
 
 
