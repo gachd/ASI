@@ -580,9 +580,9 @@ class nuevo_accionista extends CI_Controller
 
 
 				$this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
 				$this->model_titulo->nueva_cesion($dataTablaTanferencia);
 
-				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
 
 	
 			};

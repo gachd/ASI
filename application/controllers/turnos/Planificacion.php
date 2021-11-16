@@ -41,6 +41,8 @@ class planificacion extends CI_Controller
 			echo ' <option value="0"> Todos</option>';
 		}
 	}
+
+
 	function cargar()
 	{
 
@@ -49,10 +51,16 @@ class planificacion extends CI_Controller
 		$funcionario = $this->input->post('funcionario');
 		$tipo_funcionario = $this->input->post('tipo_funcionario');
 
-		/*echo 'funcionario:'.$funcionario.'<br>';
+		/*
+		
+		echo 'funcionario:'.$funcionario.'<br>';
 		echo 'tipo_funcionario:'.$tipo_funcionario.'<br>';
 		echo 'year:'.$year.'<br>';
-		echo 'mes:'.$mes.'<br>';*/
+		echo 'mes:'.$mes.'<br>';
+		
+		*/
+
+
 		$data_fun = $this->model_turnos->FuncionarioId($funcionario, $tipo_funcionario);
 		$turnos = $this->model_turnos->getTurnoTipo($tipo_funcionario);
 
@@ -155,8 +163,10 @@ class planificacion extends CI_Controller
 		echo "<br>";
 		echo $a;*/
 		if ($this->db->affected_rows() > 0) {
+
 			$this->session->set_flashdata('category_success', 'Agregado exitosamente.');
 			redirect(base_url() . 'turnos/planificacion');
+			
 		} else {
 			echo 'error';
 		}

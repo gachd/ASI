@@ -185,7 +185,7 @@ class inicio extends CI_Controller
 
          $nro_acciones = $s->numero_acciones;
 
-         if ($nro_acciones >= 1) { // si es != de 1 se agrega a minoritarios
+         if ($nro_acciones != 1) { // si es != de 1 se agrega a minoritarios
 
             if ($s->prsn_apellidopaterno == '') {
                $nombres[$i] = $s->prsn_nombres;
