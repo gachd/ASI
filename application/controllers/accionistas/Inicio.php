@@ -173,19 +173,19 @@ class inicio extends CI_Controller
       $accionistas = $this->model_accionistas->nro_acciones_all();
 
 
-      $data = [];
+      $data = []; // array para almacenar los datos
 
-      $rango = [];
-      $nombres = [];
+      $rango = []; //array para almacenar los rangos
+      $nombres = []; //nombres de los accionistas
 
-      $i = 0;
-      $cont = 0;
+      $i = 0; 
+      $cont = 0; //contador para los minoritarios
 
       foreach ($accionistas as $s) {
 
          $nro_acciones = $s->numero_acciones;
 
-         if ($nro_acciones != 1) {
+         if ($nro_acciones >= 1) { // si es != de 1 se agrega a minoritarios
 
             if ($s->prsn_apellidopaterno == '') {
                $nombres[$i] = $s->prsn_nombres;
@@ -205,6 +205,7 @@ class inicio extends CI_Controller
 
 
       for ($j = 0; $j < $i; $j++) {
+
          $data[] = [(string)$nombres[$j], (int)$rango[$j]];
       }
 

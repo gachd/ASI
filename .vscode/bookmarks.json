@@ -134,6 +134,16 @@
 					"label": "Envio de correos"
 				}
 			]
+		},
+		{
+			"path": "application/models/Model_persona.php",
+			"bookmarks": [
+				{
+					"line": 51,
+					"column": 5,
+					"label": "Solucion Foreign Key"
+				}
+			]
 		}
 	]
 }

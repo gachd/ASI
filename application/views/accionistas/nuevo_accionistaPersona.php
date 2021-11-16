@@ -48,6 +48,8 @@
         <div class="container-fluid">
 
 
+
+
             <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionista" method="post" enctype="multipart/form-data">
                 <div class="container">
 
@@ -169,7 +171,7 @@
                             <?php
                             foreach ($estado_civil as $i) {
 
-                                echo ' <option value="' . $i->estacivil_id . ' "   ' . set_select("estado_civil", $i->estacivil_id) . '>' . $i->estacivil_nombre . '</option>';
+                                echo ' <option value="' . $i->estacivil_id . '"   ' . set_select("estado_civil", $i->estacivil_id) . '>' . $i->estacivil_nombre . '</option>';
                             }
                             ?>
 
@@ -272,7 +274,8 @@
                                 <input type="radio" name="accion" value="0">Cesion</label>
                             <label class="radio-inline">
                                 <input type="radio" name="accion" value="2">Transmision</label>
-
+                            <label class="radio-inline">
+                                <input type="radio" name="accion" value="3">Canje</label>
                         </div>
 
 
@@ -319,11 +322,11 @@
                         <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
                     </div>
 
-                    
+
                     <!-- nuevo numero del titulo procedente -->
                     <div class="form-group col-md-4 oculto" id="DivNumeroTituloProcedente">
                         <label>Numero Titulo Procedente</label>
-                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" autocomplete="off" >
+                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" autocomplete="off">
                     </div>
 
 
@@ -503,9 +506,21 @@
 
         $(document).ready(function() {
 
-        
+
+            function selecionarEstadoCivil(estadocivil_ID) {
+                console.log(estadocivil_ID);
+
+
+
+                $("#estadocivil").val(estadocivil_ID).change();
+
+            }
+
+            selecionarEstadoCivil(<?php echo $persona->s_estado_civil_estacivil_id ?>);
+
+
             function obtenerRegionyProvincia(comuna) {
-                
+
 
                 $.ajax({
                     url: "<?php echo base_url(); ?>accionistas/nuevo_accionista/datos_comuna",
@@ -514,17 +529,19 @@
                         id_comuna: comuna
                     },
                     success: function(data) {
-                      
 
-                       
 
-                        $("#region option[value='"+data["s_regiones_region_id"] +"']").attr("selected", true);
 
-                        $("#provi").append('<option value="'+data["s_provincia_provincia_id"]+'" selected>'+data["provincia_nombre"]+'</option>');
 
-                        $("#comu").append('<option value="'+data["comuna_id"]+'" selected>'+data["comuna_nombre"]+'</option>');
+                        $("#region option[value='" + data["s_regiones_region_id"] + "']").attr("selected", true);
 
-                        
+                        $("#provi").append('<option value="' + data["s_provincia_provincia_id"] + '" selected>' + data["provincia_nombre"] + '</option>');
+
+                        $("#comu").append('<option value="' + data["comuna_id"] + '" selected>' + data["comuna_nombre"] + '</option>');
+                        $("#comu").attr("disabled", false);
+                        $("#comu").attr("readonly", true);
+
+
 
 
 
@@ -532,8 +549,8 @@
                 });
 
             }
-            
-            obtenerRegionyProvincia(<?php echo $persona->s_comunas_comuna_id?>)
+
+            obtenerRegionyProvincia(<?php echo $persona->s_comunas_comuna_id ?>);
 
 
 
@@ -740,6 +757,7 @@
 
             // Hacemos la lógica que cuando nuestro SELECT cambia de valor haga algo
             $("#region").change(function() {
+                $("#comu").attr("readonly", false);
                 $("#comu").prop('disabled', true);
 
                 $('#comu').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
@@ -904,9 +922,9 @@
                     $("#DivFechaCesion").hide();
                     $('#fechaC').prop('required', false).val('');
 
-                      //Numero de titulo procedente
+                    //Numero de titulo procedente
 
-                      $("#DivNumeroTituloProcedente").hide();
+                    $("#DivNumeroTituloProcedente").hide();
                     $('#NuevoNumeroTituloProcedente').prop('required', false).val('');
 
 
@@ -929,9 +947,9 @@
                     $("#DivFechaCesion").show();
                     $('#fechaC').prop('required', true);
 
-                     //titulo nuevo para transferencia
+                    //titulo nuevo para transferencia
 
-                     $("#DivNumeroTituloProcedente").show();
+                    $("#DivNumeroTituloProcedente").show();
                     $('#NuevoNumeroTituloProcedente').prop('required', true);
 
                     $('#TituloP').find('option').remove();
@@ -952,6 +970,40 @@
                     });
 
                     break;
+
+                case "3": //Canje
+
+
+                    $("#Aprocedente").show();
+                    $('#TituloP').prop('required', true);
+
+                    $("#DivNumeroaTransferir").show();
+                    $('#NumNuevoCesion').prop('required', true);
+
+                    $("#AccionesNuevoT").hide();
+                    $("#AccioniesNuevoT").prop('required', false).val('');
+
+
+                    $("#DivFechaCesion").show();
+                    $('#fechaC').prop('required', true);
+
+                    //Numero de titulo procedente
+                    $("#DivNumeroTituloProcedente").hide();
+                    $('#NuevoNumeroTituloProcedente').prop('required', false).val('');
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+                        success: function(response) {
+
+                            $('#TituloP').html(response);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
 
 
 

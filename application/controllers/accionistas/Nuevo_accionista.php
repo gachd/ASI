@@ -77,15 +77,18 @@ class nuevo_accionista extends CI_Controller
 				$data['region']	= $this->model_persona->all_region();
 				$data['libro']	= $this->model_libro->all_libros();
 
-				$data['persona'] = $persona =  $persona[0];
+
 
 
 
 
 				if ($socio) { // si existe como socio
 
-					//si se valida que hay un socios, solo carga vista para agregar datos de accionista 
+					$data['persona'] = $persona =  $persona[0];
 
+
+
+					//si se valida que hay un socios, solo carga vista para agregar datos de accionista 
 
 
 
@@ -103,6 +106,7 @@ class nuevo_accionista extends CI_Controller
 					if ($persona) { // si existe como persona
 
 
+						$data['persona'] = $persona =  $persona[0];
 
 						$this->load->view('plantilla/Head');
 						$this->load->view('accionistas/nuevo_accionistaPersona', $data);
@@ -180,6 +184,9 @@ class nuevo_accionista extends CI_Controller
 
 
 		$NuevoNumeroTituloProcedente = $this->input->post('NuevoNumeroTituloProcedente');
+
+
+
 
 
 
@@ -275,7 +282,6 @@ class nuevo_accionista extends CI_Controller
 		// MODULO DE TTITULO
 
 		//Nueva
-
 
 		if ($tipoaccion == 1) {
 
@@ -397,6 +403,8 @@ class nuevo_accionista extends CI_Controller
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
+					'tipo_transferencia' => $tipoaccion ,
+
 				);
 				$dataTablaTanferencia2 = array(
 
@@ -406,6 +414,8 @@ class nuevo_accionista extends CI_Controller
 					'tiulo_actual' => $NuevoNumeroTituloProcedente,
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+
+					'tipo_transferencia' => $tipoaccion ,
 
 				);
 
@@ -490,6 +500,162 @@ class nuevo_accionista extends CI_Controller
 				};
 			};
 		};
+
+
+
+
+		//canje de acciones
+		if ($tipoaccion == 3) {
+
+
+			$id_accionista_que_cede = $this->input->post('IdAccionistaANT');
+
+			$id_accionista_que_recibe = $AccionistaNuevo;
+
+			$numero_acciones_titulo_que_cede = $this->input->post('AccionesANT');
+
+			$cantidad_de_acciones_que_se_ceden = $this->input->post('NumNuevoCesion');
+
+			$titulo_que_precede = $this->input->post('TituloP');
+
+			$acciones_nuevo_titulo_anterior = $numero_acciones_titulo_que_cede - $cantidad_de_acciones_que_se_ceden;
+
+
+
+			$ultimoID = $this->model_titulo->ultimoId();
+
+			$ultimo = $ultimoID[0]->maximo;
+
+
+
+			// Si le quedan acciones al titulos que cede
+
+			if ($acciones_nuevo_titulo_anterior > 0) {
+
+
+				$dataAntiguoT = array(
+
+
+					'numero_acciones' => $acciones_nuevo_titulo_anterior,
+
+
+
+				);
+
+
+				$dataT_Nuevo = array(
+
+					'id_titulos' => $NumeroTitulo,
+
+					'id_accionista' => $id_accionista_que_recibe,
+
+					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
+
+					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+
+					'estado' => $estado = 1,
+
+					'entrega' => $estadoEntrega = 0,
+
+				);
+
+
+				
+
+
+
+				$dataTablaTanferencia = array(
+
+
+					'titulo_origen ' => $titulo_que_precede,
+
+					'tiulo_actual' => $NumeroTitulo,
+
+					'fecha_cesion' => $fecha_transferencia = $this->input->post('fechaC'),
+
+					'tipo_transferencia' => $tipoaccion ,
+
+				);
+				
+
+
+				$this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+				$this->model_titulo->nueva_cesion($dataTablaTanferencia);
+
+				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
+
+	
+			};
+
+
+			/* if ($acciones_nuevo_titulo_anterior == 0) {
+
+
+				$dataAntiguoT = array(
+
+
+					'estado' => $estado = 0,
+
+
+
+				);
+
+
+
+
+				$dataT_Nuevo = array(
+
+					'id_titulos ' => $NumeroTitulo,
+
+					'id_accionista' => $id_accionista_que_recibe,
+
+					'numero_acciones' => $cantidad_de_acciones_que_se_ceden,
+
+					'fecha' => $fecha_titulo = $this->input->post('fechaT'),
+
+					'estado' => $estado = 1,
+
+
+					'entrega' => $estadoEntrega = 0,
+
+				);
+
+
+
+
+				$dataTablaTanferencia = array(
+
+
+					'titulo_origen ' => $titulo_que_precede,
+
+					'tiulo_actual' => $NumeroTitulo,
+
+					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+
+				);
+
+
+
+				$this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
+				$this->model_titulo->nueva_cesion($dataTablaTanferencia);
+				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
+
+
+
+				//validar si el accionista tiene tituloos activos si no los tiene se da de baja
+
+				$validar = $this->model_accionistas->validar_estado($id_accionista_que_cede);
+
+				if (empty($validar)) {
+					$dataAccionista = array(
+
+						'estado_accionista' => $estadoaccionista = 0,
+						'fecha_baja' => $fecha = date('Y-m-d'),
+					);
+					$this->model_accionistas->update($dataAccionista, $id_accionista_que_cede);
+				};
+			}; */
+		}
 
 
 
@@ -970,16 +1136,14 @@ class nuevo_accionista extends CI_Controller
 	public function datos_comuna()
 	{
 
-		 header('Content-Type: application/json');
+		header('Content-Type: application/json');
 
 		/* $id_comuna = $this->input->post("id_comuna"); */
-		 $id_comuna = '8108'; 
+		$id_comuna = '8108';
 
-		$DatosComu = $this->model_persona->PronvinciaYRegion_deComuna($id_comuna); 
+		$DatosComu = $this->model_persona->PronvinciaYRegion_deComuna($id_comuna);
 
 		echo json_encode($DatosComu);
-
-
 	}
 
 

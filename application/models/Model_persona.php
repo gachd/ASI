@@ -59,8 +59,9 @@ class model_persona extends CI_Model
 
     function insertar($data)
     {
-
+        $this->db->query('SET FOREIGN_KEY_CHECKS  = 0');
         $this->db->insert('s_personas', $data);
+        $this->db->query('SET FOREIGN_KEY_CHECKS = 1');
     }
 
     function ultimoId()

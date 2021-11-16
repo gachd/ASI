@@ -109,7 +109,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Dirección </label>
-                        <input type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required>
+                        <input type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                     </div>
 
 
@@ -257,6 +257,8 @@
                                 <input type="radio" name="accion" value="0">Cesion</label>
                             <label class="radio-inline">
                                 <input type="radio" name="accion" value="2">Transmision</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="accion" value="3">Canje</label>
                         </div>
                     </div>
                     <div class="form-group col-md-4 oculto" id="AccionesNuevoT">
@@ -301,11 +303,11 @@
                         <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
                     </div>
 
-                    
+
                     <!-- nuevo numero del titulo procedente -->
                     <div class="form-group col-md-4 oculto" id="DivNumeroTituloProcedente">
                         <label>Numero Titulo Procedente</label>
-                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" autocomplete="off" >
+                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" autocomplete="off">
                     </div>
 
 
@@ -829,9 +831,9 @@
                     $("#DivFechaCesion").hide();
                     $('#fechaC').prop('required', false).val('');
 
-                      //Numero de titulo procedente
+                    //Numero de titulo procedente
 
-                      $("#DivNumeroTituloProcedente").hide();
+                    $("#DivNumeroTituloProcedente").hide();
                     $('#NuevoNumeroTituloProcedente').prop('required', false).val('');
 
 
@@ -853,9 +855,9 @@
                     $("#DivFechaCesion").show();
                     $('#fechaC').prop('required', true);
 
-                     //titulo nuevo para transferencia
+                    //titulo nuevo para transferencia
 
-                     $("#DivNumeroTituloProcedente").show();
+                    $("#DivNumeroTituloProcedente").show();
                     $('#NuevoNumeroTituloProcedente').prop('required', true);
 
                     $('#TituloP').find('option').remove();
@@ -876,6 +878,41 @@
                     });
 
                     break;
+
+
+                case "3": //Canje
+
+
+                    $("#Aprocedente").show();
+                    $('#TituloP').prop('required', true);
+
+                    $("#DivNumeroaTransferir").show();
+                    $('#NumNuevoCesion').prop('required', true);
+
+                    $("#AccionesNuevoT").hide();
+                    $("#AccioniesNuevoT").prop('required', false).val('');
+
+
+                    $("#DivFechaCesion").show();
+                    $('#fechaC').prop('required', true);
+
+                    //Numero de titulo procedente
+                    $("#DivNumeroTituloProcedente").hide();
+                    $('#NuevoNumeroTituloProcedente').prop('required', false).val('');
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+                        success: function(response) {
+
+                            $('#TituloP').html(response);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
 
 
             }
