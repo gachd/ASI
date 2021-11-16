@@ -96,7 +96,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="first-name">Dirección </label>
-                    <input value="<?php echo $accionista[0]->prsn_direccion  ?>" type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required>
+                    <input value="<?php echo $accionista[0]->prsn_direccion  ?>" type="text" name="Direccion" class="form-control" placeholder="Calle #123" id="Direccion" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                 </div>
 
 

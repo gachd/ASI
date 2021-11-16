@@ -777,7 +777,7 @@
 
                                       <td> <input id="num_libro" disabled="disabled" type="text" class="Corp<?php echo $cont_corp ?> form-control"></td>
 
-                                      <td><input disabled="disabled" class="Corp<?php echo $cont_corp ?> form-control w_fecha" type="text" name="fecha_reg" id="fecha_reg<?php echo $cont_corp ?>" value="<?php echo set_value('fecha_reg'); ?>"></td>
+                                      <td><input disabled="disabled" class="Corp<?php echo $cont_corp ?> form-control" type="text" name="fecha_reg" id="fecha_reg<?php echo $cont_corp ?>" value=""></td>
 
                                     </tr>
 
@@ -1854,19 +1854,30 @@
 
     var nacionalidad = $("#nacionalidad option:selected").val();
 
-    validador = 0;
+   let validador = 0;
 
+    let ValidaCheckCorp = 0;
+
+
+   
+   
 
 
     //una vez que tenemos la tabla recorremos esta misma recorriendo cada TR y por cada uno de estos se ejecuta el siguiente codigo
 
     TABLA.each(function() {
 
+
+
       //por cada fila o TR que encuentra rescatamos 3 datos, el ID de cada fila, la Descripción que tiene asociada en el input text, y el valor seleccionado en un select    
 
       var paso = $(this).find("input:checkbox:checked").val();
 
       if (paso == 1) {
+
+        ValidaCheckCorp  ++;
+
+
 
 
 
@@ -1971,9 +1982,12 @@
     var data1 = JSON.stringify(DATA);
     var data2 = JSON.stringify(DATA_P);
 
+    
 
 
-    if (validador != 1) {
+   
+
+    if (validador != 1 && ValidaCheckCorp > 0) {
 
       DatosCorp["Coporacion"] = DATA;
       DatosCorp["Patrocinador"] = DATA_P;
@@ -1988,6 +2002,8 @@
       $("li#soc").removeClass("active");
 
       $("li#carg").addClass("active");
+
+
     } else {
 
 
@@ -2828,9 +2844,9 @@
           console.log(result);
 
           if (result == 0) {
-            
+
             //no es persona ni socio
-            
+
             DatosP["persona"] = 0;
 
             $('#eduplicado').hide();
@@ -2858,7 +2874,7 @@
 
             let DatosPersona = data["datos"];
 
-          
+
 
             let rut = rut_socio;
             let paterno = DatosPersona["prsn_apellidopaterno"];
@@ -2970,29 +2986,29 @@
 
 
           swal({
-            title: "Guardado!",
-            text: "Con el rut: " + data['rut'] +
-              "     El socio: " + data['nombre'],
-            icon: "success",
-            buttons: {
+              title: "Guardado!",
+              text: "Con el rut: " + data['rut'] +
+                "     El socio: " + data['nombre'],
+              icon: "success",
+              buttons: {
 
-              OK: true,
-            },
-          })
-          .then((ok) => {
+                OK: true,
+              },
+            })
+            .then((ok) => {
 
-            if (ok) {
+              if (ok) {
 
-              window.location.href = '<?php echo base_url() ?>socios/nuevo_socio'
+                window.location.href = '<?php echo base_url() ?>socios/nuevo_socio'
 
-            } else {
-              window.location.href = '<?php echo base_url() ?>socios/nuevo_socio'
+              } else {
+                window.location.href = '<?php echo base_url() ?>socios/nuevo_socio'
 
-            }
+              }
 
-          });
+            });
 
-          
+
         },
 
         error: function() {

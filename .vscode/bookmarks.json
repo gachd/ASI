@@ -14,22 +14,22 @@
 					"label": "Data Corp"
 				},
 				{
-					"line": 2628,
+					"line": 2644,
 					"column": 3,
 					"label": "Datos Persona"
 				},
 				{
-					"line": 2917,
+					"line": 2933,
 					"column": 33,
 					"label": "Guadar todo"
 				},
 				{
-					"line": 3021,
+					"line": 3037,
 					"column": 4,
 					"label": "Boton mostar consola Persona"
 				},
 				{
-					"line": 3030,
+					"line": 3046,
 					"column": 4,
 					"label": "Data Deportes"
 				}

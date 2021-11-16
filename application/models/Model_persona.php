@@ -101,5 +101,24 @@ class model_persona extends CI_Model
 
 
 
+    function PronvinciaYRegion_deComuna($id_comuna)
+    {
+
+        $this->db->select('*');
+         $this->db->from('s_comunas AS comu ,s_provincia AS provi,s_regiones AS regi');
+
+        $this->db->where('comu.comuna_id',$id_comuna);
+        $this->db->where('comu.s_provincia_provincia_id = provi.provincia_id');
+        $this->db->where('provi.s_regiones_region_id = regi.region_id');
+
+        $p = $this->db->get();        
+        return  $p->row(0); // devuelte la primera fila del resultado
+        
+        
+      
+    }
+
+
+
 
 }

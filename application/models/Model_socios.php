@@ -962,7 +962,7 @@
 
 
 
-		function actualizarSocio($data, $rut)
+		function actualizarSocio($data, $rut) // actualiza personas
 		{
 
 			$this->db->where('prsn_rut', $rut);

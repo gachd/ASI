@@ -103,6 +103,13 @@
 <script>
 	$(document).ready(function() {
 
+		$('#calendar').append(
+			'<div class="center-block" >' +
+			'<img src="<?php echo base_url(); ?>assets/img/loader.gif" alt="">' +
+			'</div>');
+
+
+
 		$.post('<?php echo base_url(); ?>actividades/calendario/getactivity',
 			function(data) {
 				//alert (data);
@@ -111,6 +118,7 @@
 				// alert(estado);
 
 
+				$('#calendar').empty();
 
 				$('#calendar').fullCalendar({
 					header: {
@@ -125,6 +133,8 @@
 					eventLimit: true,
 
 					dayClick: function(date, jsEvent, view) {
+
+						alert(date.format());
 
 						dia = date.format();
 						/*$.post( "<?php //echo base_url();
@@ -145,6 +155,8 @@
 							//  console.log('entrooo');
 							//$('.fc-content').css("text-decoration-line", "line-through");
 						}
+
+						console.log(events);
 					}
 
 

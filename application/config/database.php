@@ -134,7 +134,7 @@ if ($_SERVER['SERVER_ADDR'] == '::1') { // IP LOCALHOST
 		'hostname' => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'database' => 'bd_test',
+		'database' => 'stadioit_stadioitaliano',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,

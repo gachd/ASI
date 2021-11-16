@@ -63,7 +63,7 @@
 		}
 
 
-		function   nro_acciones($rut)
+		function nro_acciones($rut)
 		{
 
 			$p = $this->db->query('SELECT SUM(t.numero_acciones) as total FROM s_accionista a, s_titulos t, s_personas p WHERE t.estado = "1" AND a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.prsn_rut = "' . $rut . '"  ');

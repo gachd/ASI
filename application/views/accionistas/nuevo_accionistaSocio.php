@@ -19,7 +19,7 @@
         display: none;
     }
 
-    form {
+    .form {
         color: #008000;
         padding-bottom: 20px;
     }
@@ -47,14 +47,33 @@
 
         <div class="container-fluid">
 
+          
 
-            <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionistaSocio" method="post" enctype="multipart/form-data">
+            <div class="container form">
+            <h1 class="h1">Socio-Accionista</h1>
+                    <br>
+                    <br>
+                    <br>
+            <div class="form-group col-md-4">
+
+            <h4><?php echo $persona->prsn_nombres?></h4>
+             
+            </div>
+            <div class="form-group col-md-4">
+
+            <h4><?php echo $persona->prsn_apellidopaterno. ' '.$persona->prsn_apellidomaterno ?></h4>
+             
+            </div>
+
+            
+
+            </div>
+
+
+            <form class="form" action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionistaSocio" method="post" enctype="multipart/form-data">
 
                 <div class="container">
-                    <h1 class="h1">Socio-Accionista</h1>
-                    <br>
-                    <br>
-                    <br>
+                    
 
 
                     <h2>Datos de Accionista</h2>
@@ -123,11 +142,11 @@
                         <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4" id="NumeroNuevoT">
-                        <label>Numero de Titulo</label>
-                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off">
+                        <label>Numero de Nuevo Titulo</label>
+                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" required autocomplete="off">
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Fecha Titulo</label>
+                        <label>Fecha Emision Titulo Nuevo</label>
                         <input type=" text" readonly style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
                     </div>
 
@@ -160,6 +179,12 @@
                         <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
                     </div>
 
+
+                    <!-- nuevo numero del titulo procedente -->
+                    <div class="form-group col-md-4 oculto" id="DivNumeroTituloProcedente">
+                        <label>Numero Titulo Procedente</label>
+                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" autocomplete="off">
+                    </div>
 
 
 
@@ -196,7 +221,7 @@
 
 
 
-
+                    <div class="clearfix"></div>
 
 
 
@@ -377,9 +402,13 @@
         $(document).ready(function() {
 
 
-            $("#NumeroTitulo").blur(function() {
 
-                var NuevoT = $(this);;
+
+
+
+            $("#NumeroTitulo,#NuevoNumeroTituloProcedente").blur(function() {
+
+                var NuevoT = $(this);
                 var NumeroNuevoT = NuevoT.val();
 
 
@@ -622,6 +651,11 @@
                     $("#DivFechaCesion").show();
                     $('#fechaC').prop('required', true);
 
+
+                    //Numero de titulo procedente
+                    $("#DivNumeroTituloProcedente").show();
+                    $('#NuevoNumeroTituloProcedente').prop('required', true);
+
                     $.ajax({
                         type: "POST",
                         url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
@@ -656,6 +690,11 @@
                     $("#DivFechaCesion").hide();
                     $('#fechaC').prop('required', false).val('');
 
+                    //Numero de titulo procedente
+
+                    $("#DivNumeroTituloProcedente").hide();
+                    $('#NuevoNumeroTituloProcedente').prop('required', false).val('');
+
 
 
                     break;
@@ -674,6 +713,11 @@
 
                     $("#DivFechaCesion").show();
                     $('#fechaC').prop('required', true);
+
+                    //titulo nuevo para transferencia
+
+                    $("#DivNumeroTituloProcedente").show();
+                    $('#NuevoNumeroTituloProcedente').prop('required', true);
 
                     $('#TituloP').find('option').remove();
 

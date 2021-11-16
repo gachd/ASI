@@ -110,6 +110,11 @@
                         <input type="text" autocomplete="off" class="form-control" id="fechaNtitulo" name="fechaNtitulo" required>
                     </div>
 
+                    <div class="form-group col-md-3">
+                        <label for="fecha">Numero Para titulo que cede</label>
+                        <input type="text" autocomplete="off" class="form-control" id="NuevoTituloqueCede" name="NuevoTituloqueCede" required>
+                    </div>
+
                     <div class="col-md-12">
 
                         <button type="Guardar" class="btn btn-default">Guardar</button>
@@ -176,7 +181,7 @@
 
 
 
-        $("#NumeroTitulo").blur(function() {
+        $("#NumeroTitulo, #NuevoTituloqueCede").blur(function() {
 
             var NuevoT = $(this);;
             var NumeroNuevoT = NuevoT.val();

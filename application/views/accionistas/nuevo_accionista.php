@@ -264,12 +264,12 @@
                         <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4" id="NumeroNuevoT">
-                        <label>Numero de Titulo</label>
+                        <label>Numero de Nuevo Titulo</label>
                         <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4">
-                        <label ">Fecha Titulo</label>
-                        <input type=" text" readonly style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
+                        <label ">Fecha Emision Titulo Nuevo</label>
+                        <input type=" text" style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
                     </div>
 
                     <div class="form-group col-md-4 procedente oculto" id="Aprocedente">
@@ -299,6 +299,13 @@
                     <div class="form-group col-md-4 oculto" id="DivFechaCesion">
                         <label ">Fecha Cesion</label>
                         <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
+                    </div>
+
+                    
+                    <!-- nuevo numero del titulo procedente -->
+                    <div class="form-group col-md-4 oculto" id="DivNumeroTituloProcedente">
+                        <label>Numero Titulo Procedente</label>
+                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" autocomplete="off" >
                     </div>
 
 
@@ -336,7 +343,7 @@
                     </div> -->
 
 
-
+                    <div class="clearfix"></div>
 
 
 
@@ -525,7 +532,7 @@
 
         $(document).ready(function() {
 
-            $("#NumeroTitulo").blur(function() {
+            $("#NumeroTitulo,#NuevoNumeroTituloProcedente").blur(function() {
 
                 var NuevoT = $(this);;
                 var NumeroNuevoT = NuevoT.val();
@@ -782,6 +789,10 @@
                     $("#DivFechaCesion").show();
                     $('#fechaC').prop('required', true);
 
+                    //Numero de titulo procedente
+                    $("#DivNumeroTituloProcedente").show();
+                    $('#NuevoNumeroTituloProcedente').prop('required', true);
+
                     $.ajax({
                         type: "POST",
                         url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
@@ -818,6 +829,11 @@
                     $("#DivFechaCesion").hide();
                     $('#fechaC').prop('required', false).val('');
 
+                      //Numero de titulo procedente
+
+                      $("#DivNumeroTituloProcedente").hide();
+                    $('#NuevoNumeroTituloProcedente').prop('required', false).val('');
+
 
 
                     break;
@@ -836,6 +852,11 @@
 
                     $("#DivFechaCesion").show();
                     $('#fechaC').prop('required', true);
+
+                     //titulo nuevo para transferencia
+
+                     $("#DivNumeroTituloProcedente").show();
+                    $('#NuevoNumeroTituloProcedente').prop('required', true);
 
                     $('#TituloP').find('option').remove();
 

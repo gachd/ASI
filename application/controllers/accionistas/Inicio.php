@@ -97,7 +97,7 @@ class inicio extends CI_Controller
 
       $activos = $this->model_accionistas->id_activos();
 
-      
+
 
 
       $bajas = [];
@@ -124,44 +124,44 @@ class inicio extends CI_Controller
 
 
 
-   // public function mostrarGrafico()
-   // {
-   //    $accionistas = $this->model_accionistas->accionistas();
+   /*    public function mostrarGrafico()
+   {
+      $accionistas = $this->model_accionistas->accionistas();
 
-   //    $data = [];
+      $data = [];
 
-   //    $rango = [];
-   //    $nombres = [];
+      $rango = [];
+      $nombres = [];
 
-   //    $i = 0;
-   //    $cont = 0;
-   //    foreach ($accionistas as $s) {
+      $i = 0;
+      $cont = 0;
+      foreach ($accionistas as $s) {
 
-   //       $nro_acciones = $s->nro_acciones;
+         $nro_acciones = $s->nro_acciones;
 
-   //       if ($nro_acciones != 1) {
-   //          $rango[$i] = $nro_acciones;
-   //          if ($s->prsn_apellidopaterno == '') {
-   //             $nombres[$i] = $s->prsn_nombres;
-   //          } else {
-   //             $nombres[$i] = $s->prsn_nombres . ' ' . $s->prsn_apellidopaterno;
-   //          }
-   //          $i = $i + 1;
-   //       } else {
-   //          $cont = $cont + 1;
-   //       }
-   //    }
+         if ($nro_acciones != 1) {
+            $rango[$i] = $nro_acciones;
+            if ($s->prsn_apellidopaterno == '') {
+               $nombres[$i] = $s->prsn_nombres;
+            } else {
+               $nombres[$i] = $s->prsn_nombres . ' ' . $s->prsn_apellidopaterno;
+            }
+            $i = $i + 1;
+         } else {
+            $cont = $cont + 1;
+         }
+      }
 
-   //    $rango[$i] = $cont;
-   //    $nombres[$i] = 'MINORITARIOS';
-   //    $i = $i + 1;
-   //    for ($j = 0; $j < $i; $j++) {
-   //       $data[] = [(string)$nombres[$j], (int)$rango[$j]];
-   //    }
+      $rango[$i] = $cont;
+      $nombres[$i] = 'MINORITARIOS';
+      $i = $i + 1;
+      for ($j = 0; $j < $i; $j++) {
+         $data[] = [(string)$nombres[$j], (int)$rango[$j]];
+      }
 
-   //    echo json_encode($data);
-   // }
-
+      echo json_encode($data);
+   }
+ */
 
 
 
@@ -169,9 +169,8 @@ class inicio extends CI_Controller
 
    public function mostrarGrafico1()
    {
+
       $accionistas = $this->model_accionistas->nro_acciones_all();
-
-
 
 
       $data = [];
@@ -209,12 +208,11 @@ class inicio extends CI_Controller
          $data[] = [(string)$nombres[$j], (int)$rango[$j]];
       }
 
-      if ($cont!=0) {
+      if ($cont != 0) {
          $data[$j] = ["MINORISTAS", $cont];
-        
       }
 
-      
+
 
 
 
@@ -253,31 +251,29 @@ class inicio extends CI_Controller
 
       $data['titulos'] = $this->model_accionistas->validar_estado($id);
 
-     
 
-      $rut_accionista=$data['accionista'][0]->prsn_rut;
 
-      $DirAccionista=$data['accionista'][0]->path;
+      $rut_accionista = $data['accionista'][0]->prsn_rut;
 
-      
-  
+      $DirAccionista = $data['accionista'][0]->path;
 
-     
 
-      $data['socio'] = $this->model_accionistas->accionistas_es_socio($rut_accionista); 
-      
+
+
+
+
+      $data['socio'] = $this->model_accionistas->accionistas_es_socio($rut_accionista);
+
 
       $this->load->view('plantilla/Head');
 
       $this->load->view('accionistas/show_accionista', $data);
 
-      $this->load->view('plantilla/Footer'); 
-
-
+      $this->load->view('plantilla/Footer');
    }
 
 
- 
+
 
 
 
@@ -343,30 +339,29 @@ class inicio extends CI_Controller
 
 
       $baja = array(
-			
-         'estado_accionista'=> 0,
-         'fecha_baja'=> $fecha ,
-		);
 
-   $this->model_accionistas->update($baja,$id_accionista);
+         'estado_accionista' => 0,
+         'fecha_baja' => $fecha,
+      );
 
-   $this->session->set_flashdata('exito', 'Actualizado');
+      $this->model_accionistas->update($baja, $id_accionista);
 
-
+      $this->session->set_flashdata('exito', 'Actualizado');
 
 
 
 
 
-      
-
-     
-
-   
 
 
-		redirect('accionistas/inicio/bajas');
-      
+
+
+
+
+
+
+
+      redirect('accionistas/inicio/bajas');
    }
 
 

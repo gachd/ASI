@@ -82,7 +82,7 @@
         </div>
 
         <div class="form-group col-md-4">
-          <label>Seleccione Fecha</label>
+          <label>Seleccione Fecha entrega en persona</label>
           <input class="form-control" type="text" name="fecha" id="Fecha" autocomplete="off" required>
         </div>
 

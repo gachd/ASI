@@ -130,7 +130,7 @@ class nuevo_socio extends CI_Controller
 
    public function newsocio()
    {
-
+      /* 
       $this->form_validation->set_error_delimiters('<div class="error alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>', '</div>');
 
 
@@ -145,9 +145,9 @@ class nuevo_socio extends CI_Controller
 
       $data['socio_pat'] = $this->model_socios->all_sociospat();
 
-      $data['parentesco'] = $this->model_socios->all_parentesco();
+      $data['parentesco'] = $this->model_socios->all_parentesco(); */
 
-      $this->load->view('socios/index', $data);
+      /* $this->load->view('socios/index', $data); */
    }
 
 
@@ -355,7 +355,7 @@ class nuevo_socio extends CI_Controller
          'prsn_nac' => $nac = $DatosP->nac,  //$this->input->post('nac')
       );
 
-   
+
 
       if ($DatosP->persona == 2) {
 
@@ -375,6 +375,28 @@ class nuevo_socio extends CI_Controller
 
    private function reg_Socio($DatosCorp)
    {
+
+
+      function formatFecha($fecha)
+      {
+
+         if ($fecha != "") {
+
+            $fechaNew = explode("/", $fecha);
+   
+            $fecha_mysql = $fechaNew[2] . '-' . $fechaNew[1] . '-' . $fechaNew[0];
+   
+            return $fecha_mysql;
+            
+         } else {
+
+            return "0000-00-00";
+            
+         }
+
+      }
+
+
 
       /*  $DATA     = json_decode($_POST['data']);
 
@@ -452,7 +474,7 @@ class nuevo_socio extends CI_Controller
 
             'observaciones' =>  'Sin Observaciones',
 
-            'fecha_registro' => $DATA[$i]->fecha_reg,
+            'fecha_registro' => formatFecha($DATA[$i]->fecha_reg),
 
             'fecha_retiro' =>  '0000-00-00',
 
