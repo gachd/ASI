@@ -47,7 +47,6 @@
 
         <div class="container-fluid">
 
-        <?php var_dump($persona) ?>
 
             <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/agregaraccionista" method="post" enctype="multipart/form-data">
                 <div class="container">
