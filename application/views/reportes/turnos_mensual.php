@@ -1,5 +1,5 @@
 <style>
-    body {}
+    
 
     #contenedor {
         margin: 0 auto;

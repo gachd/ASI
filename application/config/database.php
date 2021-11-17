@@ -74,31 +74,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 
-if ($_SERVER['SERVER_ADDR'] == "192.168.1.244") {  // DEBE SER LA IP DEL HOSTING
 
-
-	$db['default'] = array(
-		'dsn'	=> '',
-		'hostname' => 'localhost',
-		'username' => 'root',
-		'password' => 'Stadio.2020',
-		'database' => 'stadioit_desarrollo',
-		'dbdriver' => 'mysqli',
-		'dbprefix' => '',
-		'pconnect' => FALSE,
-		'db_debug' => (ENVIRONMENT !== 'production'),
-		'cache_on' => FALSE,
-		'cachedir' => '',
-		'char_set' => 'utf8',
-		'dbcollat' => 'utf8_general_ci',
-		'swap_pre' => '',
-		'encrypt' => FALSE,
-		'compress' => FALSE,
-		'stricton' => FALSE,
-		'failover' => array(),
-		'save_queries' => TRUE
-	);
-}
 
 if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // DEBE SER LA IP DEL HOSTING
 
@@ -125,7 +101,8 @@ if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // DEBE SER LA IP DEL HOSTIN
 		'save_queries' => TRUE
 	);
 }
-if ($_SERVER['SERVER_ADDR'] == '::1') { // IP LOCALHOST
+
+if ($_SERVER['SERVER_NAME'] == 'localhost') { // Nombre del  LOCALHOST
 
 
 
@@ -134,7 +111,7 @@ if ($_SERVER['SERVER_ADDR'] == '::1') { // IP LOCALHOST
 		'hostname' => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'database' => 'stadioit_stadioitaliano',
+		'database' => 'db_test',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,

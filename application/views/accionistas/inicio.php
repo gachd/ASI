@@ -68,9 +68,9 @@ $dif_año = $hoy->diff($fecha_aviso);
 $año = $dif_año->y;
 
 
-?>
-
-<?php if ($año >= 3) { ?>
+if ($año >= 3) { 
+  
+  ?>
 
   <script>
     swal({
@@ -388,7 +388,12 @@ $año = $dif_año->y;
 <script type="text/javascript">
   $(document).ready(function() {
 
+   
+
     $('#grid').DataTable({
+
+      "order": [[ 1, "asc" ]],
+
       "oLanguage": {
         "sProcessing": "Procesando...",
         "sLengthMenu": "Mostrar _MENU_ registros",
