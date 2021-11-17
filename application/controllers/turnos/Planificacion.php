@@ -42,6 +42,8 @@ class planificacion extends CI_Controller
 		}
 	}
 
+	
+
 
 	function cargar()
 	{
@@ -143,6 +145,9 @@ class planificacion extends CI_Controller
 		foreach ($data_fun as $df) {
 			$selected = "";
 			for ($i = 1; $i <= $numero; $i++) {
+
+				$post = ('turno' . $df->rut . '' . $i . '');
+
 				$turno = $this->input->post('turno' . $df->rut . '' . $i . '');
 				if (!empty($turno)) {
 					$data = array(
@@ -170,5 +175,22 @@ class planificacion extends CI_Controller
 		} else {
 			echo 'error';
 		}
+	}
+
+
+
+	public function carga_tipo()
+	{
+
+		$tipo = $this->model_turnos->carga_tipo();
+
+		echo '<option value="">Seleccione</option>';
+
+		
+		foreach ($tipo as $t) {
+			echo '<option value="' . $t->id_turno_tipo . '">' . $t->nombre . '</option>';
+		}
+
+
 	}
 }

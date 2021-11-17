@@ -111,7 +111,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') { // Nombre del  LOCALHOST
 		'hostname' => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'database' => 'db_test',
+		'database' => 'bd_test',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,

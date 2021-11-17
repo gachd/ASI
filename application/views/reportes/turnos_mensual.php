@@ -74,6 +74,12 @@
         case 4:
             $titulo = "GUARDIAS";
             break;
+        case 5:
+            $titulo = "COSINA";
+            break;
+        case 6:
+            $titulo = "AUX.GALERIA";
+            break;
 
         default:
             # code...
@@ -88,7 +94,7 @@
             break;
 
         default:
-            # code...
+        $institucion = "";
             break;
     }
     ?>

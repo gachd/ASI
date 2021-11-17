@@ -20,19 +20,19 @@ class model_turnos extends CI_Model
 		$this->db->select('*');
 		$this->db->from('funcionario');
 		$this->db->where("tipo", $tipo);
-	/* 	$this->db->where("tipo_inst", $tipo_inst); */
+		/* 	$this->db->where("tipo_inst", $tipo_inst); */
 		$this->db->where("habilitado", 0);
 		$this->db->order_by('nombre_fun', 'asc');
 
 		$funcionario = $this->db->get();
 
-		
 
 
-		 if ($funcionario->num_rows() > 0) {
+
+		if ($funcionario->num_rows() > 0) {
 
 			return $funcionario->result();
-		} 
+		}
 	}
 
 	//funcionarios stadio y guardias
@@ -168,5 +168,16 @@ INNER JOIN funcionario ON turno_has_funcionario.funcionario = funcionario.rut
 WHERE fecha= "' . $fecha . '" AND t_inicio ="' . $inicio . '" AND t_termino="' . $termino . '" AND turno.tipo=4
 ORDER by funcionario.paterno');
 		return $query->result();
+	}
+
+
+
+	function carga_tipo(){
+
+		$this->db->select('*');
+		$this->db->from('turno_tipo');
+		$query = $this->db->get();
+		return $query->result();
+		
 	}
 }

@@ -38,19 +38,19 @@
 </style>
 
 <div class="main">
-<?php if ($this->session->flashdata('category_success')) {  ?>
+    <?php if ($this->session->flashdata('category_success')) {  ?>
 
-<script>
-  swal({
-    title: "Turnos",
-    text: "<?php echo $this->session->flashdata('category_success'); ?>",
-    timer: 4000,
-    type: 'success',
-    showConfirmButton: false
-  });
-</script>
+        <script>
+            swal({
+                title: "Turnos",
+                text: "<?php echo $this->session->flashdata('category_success'); ?>",
+                timer: 4000,
+                type: 'success',
+                showConfirmButton: false
+            });
+        </script>
 
-<?php } ?>
+    <?php } ?>
 
     <?php
     /*print_r($this->session->all_userdata());*/
@@ -99,9 +99,11 @@
         <div class="col-md-2">
             <label for="tipo_funcionario">Tipo:</label>
             <select class="form-control" name="tipo_funcionario" id="tipo_funcionario">
-               <!--  <option value="0">Seleccionar</option> -->
-                <option value="2">Personal Stadio</option>
+                <!--  <option value="0">Seleccionar</option> -->
+                <!--       <option value="2">Personal Stadio</option>
                 <option value="4">Guardias</option>
+                <option value="5">Cocina Stadio</option>
+                <option value="6">Auxiliares Galeria</option> -->
             </select>
         </div>
         <!--     </div>-->
@@ -147,35 +149,45 @@
     $(document).ready(function() {
 
 
+        $.get("<?php echo base_url() ?>turnos/planificacion/carga_tipo", function(data) {
 
-    $("#tipo_funcionario").change(function() {
-
-        $("#tipo_funcionario option:selected").each(function() {
-
-            tipo_fun = $('#tipo_funcionario').val();
-
-            $.post("<?php echo base_url() ?>turnos/planificacion/select_funcionario", {
-
-
-                tipo_fun: tipo_fun
-
-            }, function(data) {
-                $("#funcionario").empty();
-                $("#funcionario").append(data);
-            });
+            $('#tipo_funcionario').html(data);
+            
         });
-    })
 
-
-
-    $("#mes , #year, #tipo_funcionario, #funcionario").change(function() {
         
-        
-
-        $('#planificacion').empty();
+       
 
 
-    });
+
+        $("#tipo_funcionario").change(function() {
+
+            $("#tipo_funcionario option:selected").each(function() {
+
+                tipo_fun = $('#tipo_funcionario').val();
+
+                $.post("<?php echo base_url() ?>turnos/planificacion/select_funcionario", {
+
+
+                    tipo_fun: tipo_fun
+
+                }, function(data) {
+                    $("#funcionario").empty();
+                    $("#funcionario").append(data);
+                });
+            });
+        })
+
+
+
+        $("#mes , #year, #tipo_funcionario, #funcionario").change(function() {
+
+
+
+            $('#planificacion').empty();
+
+
+        });
 
 
 

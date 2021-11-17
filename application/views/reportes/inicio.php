@@ -114,8 +114,7 @@
         <div class="filtro">
           <select class="form-control input-sm" name="tipo_funcionario" id="tipo_funcionario">
             <option value="" disabled selected>Tipo Personal</option>
-            <option value="2">Personal Stadio</option>
-            <option value="4">Guardias</option>
+            
           </select>
         </div>
         <div class="filtro">
@@ -126,7 +125,7 @@
           </select>
         </div>
         <div class="filtro">
-          <select class="form-contro input-sm" name="funcionario" id="funcionario" placeholder="funcionario">
+          <select class="form-control input-sm" name="funcionario" id="funcionario" placeholder="funcionario">
             <option value="" disabled selected>Funcionario</option>
           </select>
 
@@ -142,7 +141,7 @@
           </select>
         </div>
         <div class="filtro">
-          <select class="form-control" name="work_subcategoria" id="work_subcategoria">
+          <select class="form-control input-sm" name="work_subcategoria" id="work_subcategoria">
             <option value="0"> Selccionar </option>
           </select>
         </div>
@@ -196,6 +195,17 @@
   </div>
 </div>
 <script>
+
+
+
+$.get("<?php echo base_url() ?>turnos/planificacion/carga_tipo", function(data) {
+
+$('#tipo_funcionario').html(data);
+
+});
+
+
+
   $("#enviar").click(function() {
 
     $('#informes').html('<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
@@ -274,6 +284,7 @@
   });
 
   $(document).ready(function() {
+    
     $("#work_categorias").change(function() {
       $("#work_categorias option:selected").each(function() {
         micategoria = $('#work_categorias').val();
