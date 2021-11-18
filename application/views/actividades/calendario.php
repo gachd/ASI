@@ -134,7 +134,7 @@
 
 					dayClick: function(date, jsEvent, view) {
 
-						alert(date.format());
+						
 
 						dia = date.format();
 						/*$.post( "<?php //echo base_url();
