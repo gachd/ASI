@@ -105,7 +105,7 @@
 
                     <div class="form-group col-md-4 " id="divfechaN">
                         <label for="first-name">Fecha Nacimiento</label>
-                        <input value="<?php echo $persona->prsn_fechanacimi ?>" readonly style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
+                        <input value="<?php echo $persona->prsn_fechanacimi ?>"  style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN" onkeypress="return false;">
                     </div>
 
                     <div class="form-group col-md-4">
@@ -215,7 +215,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="libro">Libro</label>
-                        <select class="form-control" name="libro" id="libro">
+                        <select class="form-control" name="libro" id="libro" required>
                             <option value=""> Seleccionar </option>
                             <?php
                             foreach ($libro as $i) {
@@ -234,7 +234,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="FechaIgreso">Fecha Ingreso</label>
-                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" readonly required>
+                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" onkeypress="return false;" required>
 
                     </div>
 
@@ -282,15 +282,15 @@
                     </div>
                     <div class="form-group col-md-4 oculto" id="AccionesNuevoT">
                         <label>Acciones del nuevo Accionista</label>
-                        <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off">
+                        <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" required autocomplete="off">
                     </div>
                     <div class="form-group col-md-4" id="NumeroNuevoT">
                         <label>Numero de Nuevo Titulo</label>
-                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off">
+                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" required autocomplete="off">
                     </div>
                     <div class="form-group col-md-4">
                         <label ">Fecha Emision Titulo Nuevo</label>
-                        <input type=" text" readonly style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
+                        <input type=" text" style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT"  onkeypress="return false;" required>
                     </div>
 
                     <div class="form-group col-md-4 procedente oculto" id="Aprocedente">
@@ -313,20 +313,20 @@
 
                     <div class="form-group col-md-4 oculto" id="DivNumeroaTransferir">
                         <label>Numero de acciones a tranferir</label>
-                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off">
+                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off" required>
                     </div>
 
 
                     <div class="form-group col-md-4 oculto" id="DivFechaCesion">
                         <label ">Fecha Cesion</label>
-                        <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
+                        <input type=" text" autocomplete="off"  style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required onkeypress="return false;">
                     </div>
 
 
                     <!-- nuevo numero del titulo procedente -->
                     <div class="form-group col-md-4 oculto" id="DivNumeroTituloProcedente">
                         <label>Numero Titulo Procedente</label>
-                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" autocomplete="off">
+                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" required autocomplete="off">
                     </div>
 
 
@@ -392,6 +392,23 @@
     </div>
 
     <script type="text/javascript">
+        function checkKey(e) {
+            e = e || event;
+            var code = e.which || e.keyCode || e.charCode;
+            var cando = !([8, 46].indexOf(code) > -1);
+            void(!cando &&
+                Helpers.log2Screen('`&lt;',
+                    code == 8 && 'Backspace' || 'Delete',
+                    '&gt`',
+                    ' is disabled', {
+                        clear: true
+                    })
+            );
+            return cando;
+        }
+
+
+
         function mayusculas(input) {
 
             input.value = input.value.toUpperCase();
@@ -604,12 +621,14 @@
 
                 switch (personaT) {
 
+                    //natural
+
                     case "0":
 
                         $("#divapellidoP").show();
                         $('#ApellidoP').prop('required', true);
                         $("#apellidoM").show();
-                        $('#ApellidoM').prop('required', true);
+                        $('#ApellidoM').prop('required', false);
                         $("#divfechaN").show();
                         $('#FechaN').prop('required', true);
                         $("#divestdoC").show();
@@ -621,6 +640,8 @@
                         break;
 
                     case "1":
+
+                        //juridica
 
                         $("#divapellidoP").hide();
                         $('#ApellidoP').prop('required', false).val('');

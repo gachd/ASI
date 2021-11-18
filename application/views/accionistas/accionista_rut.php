@@ -116,7 +116,7 @@
         rut.value = cuerpo + '-' + dv
 
         // Si no cumple con el mínimo ej. (n.nnn.nnn)
-        if (cuerpo.length < 7) {
+        if (cuerpo.length < 6) {
             rut.setCustomValidity("RUT Incompleto");
             return false;
         }

@@ -94,7 +94,7 @@
 
                     <div class="form-group col-md-4 oculto" id="divfechaN">
                         <label for="first-name">Fecha Nacimiento</label>
-                        <input readonly style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
+                        <input  style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN" onkeypress="return false;">
                     </div>
 
                     <div class="form-group col-md-4">
@@ -200,7 +200,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="libro">Libro</label>
-                        <select class="form-control" name="libro" id="libro">
+                        <select class="form-control" name="libro" id="libro" required>
                             <option value=""> Seleccionar </option>
                             <?php
                             foreach ($libro as $i) {
@@ -214,12 +214,12 @@
 
                     <div class="form-group col-md-4">
                         <label for="first-name">Foja</label>
-                        <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                        <input type="text" name="foja" class="form-control" placeholder="Foja" id="Foja" required onKeyUp="mayusculas(this)">
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label ">Fecha Ingreso</label>
-                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" readonly required>
+                        <label for="FechaIgreso">Fecha Ingreso</label>
+                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" onkeypress="return false;" required>
 
                     </div>
 
@@ -250,6 +250,8 @@
 
                     <div class="form-group col-md-4" id="divaccion">
                         <label>Accion</label>
+
+
                         <div class="radio">
                             <label class="radio-inline">
                                 <input type="radio" required name="accion" id="accionN" value="1">Nueva</label>
@@ -260,18 +262,20 @@
                             <label class="radio-inline">
                                 <input type="radio" name="accion" value="3">Canje</label>
                         </div>
+
+
                     </div>
                     <div class="form-group col-md-4 oculto" id="AccionesNuevoT">
                         <label>Acciones del nuevo Accionista</label>
-                        <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" autocomplete="off">
+                        <input min="1" type="number" name="NuevaAcionesTitulo" class="form-control" placeholder="Acciones nuevo socio" id="NuevaAcionesTitulo" required autocomplete="off">
                     </div>
                     <div class="form-group col-md-4" id="NumeroNuevoT">
                         <label>Numero de Nuevo Titulo</label>
-                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" autocomplete="off">
+                        <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" required autocomplete="off">
                     </div>
                     <div class="form-group col-md-4">
                         <label ">Fecha Emision Titulo Nuevo</label>
-                        <input type=" text" style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT" required>
+                        <input type=" text" style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT"  onkeypress="return false;" required>
                     </div>
 
                     <div class="form-group col-md-4 procedente oculto" id="Aprocedente">
@@ -294,20 +298,20 @@
 
                     <div class="form-group col-md-4 oculto" id="DivNumeroaTransferir">
                         <label>Numero de acciones a tranferir</label>
-                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off">
+                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off" required>
                     </div>
 
 
                     <div class="form-group col-md-4 oculto" id="DivFechaCesion">
                         <label ">Fecha Cesion</label>
-                        <input type=" text" autocomplete="off" readonly style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required>
+                        <input type=" text" autocomplete="off"  style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required onkeypress="return false;">
                     </div>
 
 
                     <!-- nuevo numero del titulo procedente -->
                     <div class="form-group col-md-4 oculto" id="DivNumeroTituloProcedente">
                         <label>Numero Titulo Procedente</label>
-                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" autocomplete="off">
+                        <input min="1" type="number" name="NuevoNumeroTituloProcedente" class="form-control" placeholder="Numero Titulo Procedente" id="NuevoNumeroTituloProcedente" required autocomplete="off">
                     </div>
 
 
@@ -480,12 +484,13 @@
 
             switch (personaT) {
 
+                //natural
                 case "0":
 
                     $("#divapellidoP").show();
                     $('#ApellidoP').prop('required', true);
                     $("#apellidoM").show();
-                    $('#ApellidoM').prop('required', true);
+                    $('#ApellidoM').prop('required', false);
                     $("#divfechaN").show();
                     $('#FechaN').prop('required', true);
                     $("#divestdoC").show();
@@ -497,6 +502,8 @@
                     break;
 
                 case "1":
+
+                    //juridica
 
                     $("#divapellidoP").hide();
                     $('#ApellidoP').prop('required', false).val('');
