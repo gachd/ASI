@@ -146,14 +146,17 @@
 </div>
 
 <script>
+
+    $.get("<?php echo base_url() ?>turnos/planificacion/carga_tipo", function(data) {
+
+        $('#tipo_funcionario').html(data);
+        
+    });
+
+    
     $(document).ready(function() {
 
 
-        $.get("<?php echo base_url() ?>turnos/planificacion/carga_tipo", function(data) {
-
-            $('#tipo_funcionario').html(data);
-            
-        });
 
         
        
