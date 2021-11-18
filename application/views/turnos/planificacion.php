@@ -228,7 +228,8 @@
 
 
                 $('#planificacion select').on('change', function(ev) {
-                    $(this).attr('class', '').addClass($(this).children(":selected").attr("id"));
+
+                    /* $(this).attr('class', '').addClass($(this).children(":selected").attr("id")); */
                     //$("select[name*='turno']").addClass($(this).children(":selected").attr("id"));
 
 

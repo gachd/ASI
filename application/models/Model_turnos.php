@@ -176,8 +176,9 @@ ORDER by funcionario.paterno');
 
 		$this->db->select('*');
 		$this->db->from('turno_tipo');
+		$this->db->where('habilitado',0);
 		$query = $this->db->get();
 		return $query->result();
-		
+
 	}
 }
