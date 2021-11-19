@@ -111,7 +111,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') { // Nombre del  LOCALHOST
 		'hostname' => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'database' => 'bd_test',
+		'database' => 'stadioit_stadioitaliano',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,

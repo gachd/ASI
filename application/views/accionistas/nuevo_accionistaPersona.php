@@ -895,7 +895,7 @@
                     $('#NumNuevoCesion').prop('required', true);
 
                     $("#AccionesNuevoT").hide();
-                    $("#AccioniesNuevoT").prop('required', false).val('');
+                    $("#NuevaAcionesTitulo").prop('required', false).val('');
 
 
                     $("#DivFechaCesion").show();
@@ -938,7 +938,7 @@
                     $('#NumNuevoCesion').prop('required', false).val('');
 
                     $("#AccionesNuevoT").show();
-                    $("#AccioniesNuevoT").prop('required', true);
+                    $("#NuevaAcionesTitulo").prop('required', true);
 
                     $("#DivFechaCesion").hide();
                     $('#fechaC').prop('required', false).val('');
@@ -955,6 +955,8 @@
 
                 case "2": //Transmision
 
+                  
+
                     $("#Aprocedente").show();
                     $('#TituloP').prop('required', true);
 
@@ -962,7 +964,7 @@
                     $('#NumNuevoCesion').prop('required', true);
 
                     $("#AccionesNuevoT").hide();
-                    $("#AccioniesNuevoT").prop('required', false).val('');
+                    $("#NuevaAcionesTitulo").prop('required', false).val('');
 
 
                     $("#DivFechaCesion").show();
@@ -995,6 +997,9 @@
                 case "3": //Canje
 
 
+                    $("#AccionesNuevoT").hide();
+                    $("#NuevaAcionesTitulo").prop('required', false).val('');;
+
                     $("#Aprocedente").show();
                     $('#TituloP').prop('required', true);
 
@@ -1002,7 +1007,7 @@
                     $('#NumNuevoCesion').prop('required', true);
 
                     $("#AccionesNuevoT").hide();
-                    $("#AccioniesNuevoT").prop('required', false).val('');
+                    $("#NuevaAcionesTitulo").prop('required', false).val('');
 
 
                     $("#DivFechaCesion").show();

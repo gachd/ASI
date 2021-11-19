@@ -792,7 +792,7 @@
                     $('#NumNuevoCesion').prop('required', true);
 
                     $("#AccionesNuevoT").hide();
-                    $("#AccioniesNuevoT").prop('required', false).val('');
+                    $("#NuevaAcionesTitulo").prop('required', false).val('');
 
 
                     $("#DivFechaCesion").show();
@@ -833,7 +833,7 @@
                     $('#NumNuevoCesion').prop('required', false).val('');
 
                     $("#AccionesNuevoT").show();
-                    $("#AccioniesNuevoT").prop('required', true);
+                    $("#NuevaAcionesTitulo").prop('required', true);
 
                     $("#DivFechaCesion").hide();
                     $('#fechaC').prop('required', false).val('');
@@ -856,7 +856,7 @@
                     $('#NumNuevoCesion').prop('required', true);
 
                     $("#AccionesNuevoT").hide();
-                    $("#AccioniesNuevoT").prop('required', false).val('');
+                    $("#NuevaAcionesTitulo").prop('required', false).val('');
 
 
                     $("#DivFechaCesion").show();
@@ -897,7 +897,7 @@
                     $('#NumNuevoCesion').prop('required', true);
 
                     $("#AccionesNuevoT").hide();
-                    $("#AccioniesNuevoT").prop('required', false).val('');
+                    $("#NuevaAcionesTitulo").prop('required', false).val('');
 
 
                     $("#DivFechaCesion").show();
