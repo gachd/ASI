@@ -1965,12 +1965,15 @@
 
                                   if ($bloqueo == 1) {
                                     $estado = "Bloqueado";
+                                    $class_bloq = "bloqueado";
+                                    
                                   } else {
                                     $estado = "Activo";
                                   }
 
-                                  if (($edad > 18) && ($id_parentesco == 2)) {
+                                  if ((($edad > 18) && ($id_parentesco == 2)) || $bloqueo == 1 ) {
                                     $class_bloq = "bloqueado";
+                                    $estado = "Bloqueado";
                                   }
 
                                   if ($c->prsn_email == '0') {
