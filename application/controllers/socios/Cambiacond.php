@@ -45,56 +45,52 @@
     $rut = $this->input->post('rut');
     $Activo = $this->model_socios->es_Socio($rut);
 
-    if ($Activo) {  
-   
-    
-
-
-    $data['corporaciones'] = $this->model_socios->all_corporaciones();
+    if ($Activo) {
 
 
 
-    $data['datos'] = $this->model_socios->persona($rut);
 
-    $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
-
-    $data['patrocinadores'] = $this->model_socios->patrocinadores($rut);
-
-    $data['patrocinados'] = $this->model_socios->patrocinados($rut);
-
-    $data['cargas'] = $this->model_socios->cargas($rut);
-
-    $data['cuotas'] = $this->model_socios->cuotas($rut);
-
-    $data['estado_civil2'] = $this->model_socios->all_estadocivil();
-
-    $data['nac'] = $this->model_socios->all_nacionalidades();
-
-    $data['comuna'] = $this->model_socios->all_comunas();
-
-    $data['condicion_lab'] = $this->model_socios->all_condicionlab();
-
-    $data['condicion'] = $this->model_socios->all_condicion();
-
-    $data['condicion2'] = $this->model_socios->all_condicion2();
-
-    $data['tipo'] = $this->model_socios->all_tipo();
-
-    $data['subCond'] = $this->model_socios->all_subcond();
+      $data['corporaciones'] = $this->model_socios->all_corporaciones();
 
 
 
-    $this->load->view('socios/cambiar_cond', $data);
-   
+      $data['datos'] = $this->model_socios->persona($rut);
+
+      $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
+
+      $data['patrocinadores'] = $this->model_socios->patrocinadores($rut);
+
+      $data['patrocinados'] = $this->model_socios->patrocinados($rut);
+
+      $data['cargas'] = $this->model_socios->cargas($rut);
+
+      $data['cuotas'] = $this->model_socios->cuotas($rut);
+
+      $data['estado_civil2'] = $this->model_socios->all_estadocivil();
+
+      $data['nac'] = $this->model_socios->all_nacionalidades();
+
+      $data['comuna'] = $this->model_socios->all_comunas();
+
+      $data['condicion_lab'] = $this->model_socios->all_condicionlab();
+
+      $data['condicion'] = $this->model_socios->all_condicion();
+
+      $data['condicion2'] = $this->model_socios->all_condicion2();
+
+      $data['tipo'] = $this->model_socios->all_tipo();
+
+      $data['subCond'] = $this->model_socios->all_subcond();
+
+
+
+      $this->load->view('socios/cambiar_cond', $data);
     } else {
 
       header('HTTP/1.1 500 Internal Server Booboo');
       header('Content-Type: application/json; charset=UTF-8');
       die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
-
-
     }
-  
   } //fin funcion mostrar_socio
 
 
@@ -128,7 +124,7 @@
 
       // $fecha_actual = date("Y-m-d");
 
-      $micarpeta = './docSocios/' . $rutSocio . '/' . $rut_corp;
+      $micarpeta = 'archivos/socios/' . $rutSocio . '/corp/' . $rut_corp;
 
       //  echo $micarpeta;
 

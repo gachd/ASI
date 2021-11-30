@@ -12,6 +12,7 @@
 </head>
 
 <style>
+
   .table_wrapper {
     display: block;
 
@@ -100,7 +101,7 @@
 
         </div>
         <div class="col-md-1">
-          <a href="<?php echo base_url(); ?>accionistas/sa" class="btn btn-info"><span class="badge"><i class="glyphicon glyphicon-tower"></i>Sociedad <br>Anonima</span></a>
+          <a href="<?php echo base_url(); ?>accionistas/SA" class="btn btn-info"><span class="badge"><i class="glyphicon glyphicon-tower"></i>Sociedad <br>Anonima</span></a>
 
         </div>
         <div class="col-md-1">

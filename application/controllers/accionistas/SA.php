@@ -52,5 +52,14 @@ class SA extends CI_Controller
         $this->load->view('plantilla/Head');
         $this->load->view('accionistas/menu_sa',$data);
         $this->load->view('plantilla/Footer');
+
+    }
+
+
+    public function mostrar_accionista()
+    {
+        
+
+       
     }
 }
