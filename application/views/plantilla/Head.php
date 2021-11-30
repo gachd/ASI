@@ -100,14 +100,24 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
+
 	<!-- Alertas -->
+	<!-- sweetalert -->
 	<script src="<?php echo base_url(); ?>/assets/js/sweetalert.min.js"></script>
+
+	<!-- Toastr -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
 	<!-- sweetalert2 -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
-	
 
+	<!-- Busqueda select -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" />
 
 
 	<!-- new navbar -->
@@ -124,11 +134,32 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
+		/* spinner cargando... */
+
+		.spinner {
+
+			margin: 10px auto;	
+			border: 4px solid rgba(0, 0, 0, 0.1);
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			border-left-color: #61cc33;
+
+			animation: spin 1s linear infinite;
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
 
 
 
-
-		
 
 		.dropdown-submenu {
 			position: relative;
@@ -220,7 +251,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 		@media (min-width: 765px) {
-		
+
 
 			.main {
 				position: absolute;
@@ -362,6 +393,12 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			cursor: pointer;
 
 		}
+		
+		nav.bradcrumb {
+			position: fixed;
+			top: 40px;
+			width: 100%;
+		}
 
 		ul.breadcrumb {
 
@@ -370,6 +407,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			list-style: none;
 			background-color: #eee;
 		}
+
 
 		ul.breadcrumb li {
 			display: inline;
@@ -423,10 +461,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		}
 
 
-		@media only screen and (max-width: 480px) {
-			
-			
-		}
+		@media only screen and (max-width: 480px) {}
 	</style>
 
 	<script>
@@ -593,6 +628,11 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		$(document).ready(function() {
 
 
+
+
+
+
+
 			$('.tabla_dinamica').DataTable({
 				"oLanguage": {
 					"sProcessing": "Procesando...",
@@ -740,7 +780,6 @@ $ci->load->model("model_login");;
 
 								if (($principal == 6) or ($principal == 0)) {
 									echo ' <li ><a href="' . base_url() . 'socios/socios" >Socios<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench  Try it"></span></a> </li>';
-         
 								}
 								if (($principal == 7) or ($principal == 0)) {
 									echo ' <li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase  Try it"></span></a> </li>';
@@ -846,5 +885,5 @@ $ci->load->model("model_login");;
 
 
 
-		<!-- <?php  echo 'SESION CI';
-		print_r($_SESSION) ?> -->
+		<!-- <?php echo 'SESION CI';
+				print_r($_SESSION) ?> -->

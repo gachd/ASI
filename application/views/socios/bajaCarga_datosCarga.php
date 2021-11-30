@@ -233,6 +233,8 @@ foreach ($cargasSocios as $cs) {
 
           btnGuardar.click(function() {
 
+            
+
             var rutCarga = $("#rutCarga").val();
 
             var estCarga = $("#est_carga option:selected").val();
@@ -245,7 +247,7 @@ foreach ($cargasSocios as $cs) {
 
 
 
-            //Ojo: En este caso 'foto' será el nombre con el que recibiremos el archivo en el servidor
+            //Ojo: el nombre del campo del formulario debe ser igual al nombre del campo en PHP
 
             formData.append('rutCarga', rutCarga);
 
@@ -272,19 +274,57 @@ foreach ($cargasSocios as $cs) {
               success: function(resultados) {
 
 
+                swal({
+                    title: "Actualizado!",
+                    text: "Se ha dado de baja con exito!",
+                    icon: "success",
+                    buttons: {
 
-                console.log("Petición terminada. Resultados", resultados);
+                      OK: true,
+                    },
+                  })
+                  .then((ok) => {
 
-                // $('#msg').fadeIn();     
+                    if (ok) {
 
-                // setTimeout(function() {
+                      window.location.href = '<?php echo base_url() ?>socios/Bajacarga'
 
-                //        $("#msg").fadeOut();           
+                    } else {
+                      window.location.href = '<?php echo base_url() ?>socios/Bajacarga'
 
-                //},5000);
+                    }
 
-                //setTimeout("window.location.href = '<?php echo base_url() ?>socios/editacarga'",3500);
+                  });
 
+
+
+
+
+              },
+              error: function(resultados) {
+
+
+                swal({
+                    title: "Error!!",
+                    text: "No se pudo cargar la información!",
+                    icon: "error",
+                    buttons: {
+
+                      OK: true,
+                    },
+                  })
+                  .then((ok) => {
+
+                    if (ok) {
+
+                      window.location.href = '<?php echo base_url() ?>socios/Bajacarga'
+
+                    } else {
+                      window.location.href = '<?php echo base_url() ?>socios/Bajacarga'
+
+                    }
+
+                  });
 
 
               }

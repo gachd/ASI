@@ -8,9 +8,9 @@
 
   <title>Ingreso de Socios</title>
 
-  <?php echo form_open(base_url() . 'socios/nuevo_socio/newsocio'); ?>
 
-  <?php echo validation_errors(); ?>
+
+
 
   <?php
 
@@ -157,10 +157,10 @@
   } */
 
   /* deshabilita el boton de las pestañas  */
-  .inactivo {
+  /*  .inactivo {
     pointer-events: none;
     cursor: default;
-  }
+  } */
 
 
 
@@ -235,80 +235,80 @@
 
 
           <div class="panel-heading" style="overflow: hidden;">
+            <form id="FormDatosP">
+              <div class="col-md-2">
+                <center>
 
-            <div class="col-md-2">
-              <center>
-
-                <label for="imagen_perfil">
-                  <img alt="Foto socio" src="<?php echo base_url() ?>assets/images/camara-icon.png" id="img_perfil" class="img-circle img-responsive img-thumbnail">
-                </label>
-                <div class="subida_oculto">
-                  <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto(this)">
-                </div>
-
-
-              </center>
+                  <label for="imagen_perfil">
+                    <img alt="Foto socio" src="<?php echo base_url() ?>assets/images/camara-icon.png" id="img_perfil" class="img-circle img-responsive img-thumbnail">
+                  </label>
+                  <div class="subida_oculto">
+                    <input type="file" name="img_perfil" id="imagen_perfil" accept="image/png,image/jpeg,image/jpg" onchange="ver_foto(this)">
+                  </div>
 
 
-            </div>
+                </center>
 
 
-            <div class="col-md-10">
-
-              <table style="text-align: center;">
-
-                <tbody>
-
-                  <tr>
-
-                    <td class="td_reponsive">RUT</td>
-
-                    <td class="td_reponsive"><input type="text" class="form-control" id="rut_socio" placeholder="Ej: 11111111-1" oninput="checkRut(this)">
-
-                      <span id="erut_socio" style="display:none;color:red;">Rut incorrecto</span>
-                      <span id="eduplicado" style="display:none;color:red;">Rut ya esta registrado</span>
-                    </td>
-
-                    <td class="td_reponsive">Nombres</td>
-
-                    <td class="td_reponsive"><input type="text" class="form-control" id="nombres" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
-
-                      <span id="errorNom" style="display:none;color:red;">incorrecto</span>
-
-                    </td>
-
-                  </tr>
+              </div>
 
 
+              <div class="col-md-10">
 
-                  <tr>
+                <table style="text-align: center;">
 
-                    <td class="td_reponsive">Apellido Paterno</td>
+                  <tbody>
 
-                    <td class="td_reponsive"><input type="text" class="form-control" id="ap_paterno" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                    <tr>
 
-                      <span id="errorPat" style="display:none;color:red;">incorrecto</span>
-                    </td>
+                      <td class="td_reponsive">RUT</td>
 
-                    </td>
+                      <td class="td_reponsive"><input type="text" class="form-control" id="rut_socio" placeholder="Ej: 11111111-1" oninput="checkRut(this)" required>
 
-                    <td class="td_reponsive">Apellido Materno</td>
+                        <span id="erut_socio" style="display:none;color:red;">Rut incorrecto</span>
+                        <span id="eduplicado" style="display:none;color:red;">Rut ya esta registrado</span>
+                      </td>
 
-                    <td class="td_reponsive"><input type="text" class="form-control" id="ap_materno" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                      <td class="td_reponsive">Nombres</td>
 
-                      <span id="errorMat" style="display:none;color:red;">incorrecto</span>
+                      <td class="td_reponsive"><input required type="text" class="form-control" id="nombres" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
 
-                    </td>
+                        <span id="errorNom" style="display:none;color:red;">incorrecto</span>
 
-                  </tr>
+                      </td>
 
-                </tbody>
-
-              </table>
+                    </tr>
 
 
 
-            </div>
+                    <tr>
+
+                      <td class="td_reponsive">Apellido Paterno</td>
+
+                      <td class="td_reponsive"><input required type="text" class="form-control" id="ap_paterno" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+
+                        <span id="errorPat" style="display:none;color:red;">incorrecto</span>
+                      </td>
+
+                      </td>
+
+                      <td class="td_reponsive">Apellido Materno</td>
+
+                      <td class="td_reponsive"><input required type="text" class="form-control" id="ap_materno" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+
+                        <span id="errorMat" style="display:none;color:red;">incorrecto</span>
+
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+
+                </table>
+
+
+
+              </div>
 
 
 
@@ -353,6 +353,8 @@
 
                     <div role="tabpanel" class="tab-pane active" id="home">
 
+
+
                       <!-- datos personales -->
                       <br>
                       <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
@@ -367,7 +369,8 @@
 
                               <td width="31%">Sexo</td>
 
-                              <td width="69%"><select class="form-control" name="sexo" id="sexo">
+                              <td width="69%">
+                                <select class="form-control" name="sexo" id="sexo" required>
 
                                   <option value="" selected="selected">Seleccionar</option>
 
@@ -385,7 +388,7 @@
 
                               <td>Fecha de nacimiento</td>
 
-                              <td><input class="form-control" type="date" name="txt_fecha" id="txt_fecha" max='<?php echo $fecha_18 ?>' value="<?php echo set_value('txt_fecha'); ?>" autocomplete="off"></td>
+                              <td><input class="form-control" required type="date" name="txt_fecha" id="txt_fecha" max='<?php echo $fecha_18 ?>' value="<?php echo set_value('txt_fecha'); ?>" autocomplete="off"></td>
 
                             </tr>
 
@@ -393,7 +396,7 @@
 
                               <td>Lugar nacimiento</td>
 
-                              <td><input type="text" class="form-control" id="nac" name="nac" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
+                              <td><input type="text" required class="form-control" id="nac" name="nac" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"></td>
 
                             </tr>
 
@@ -401,7 +404,7 @@
 
                               <td>Estado civil</td>
 
-                              <td><select class="form-control" name="estadocivil" id="estadocivil">
+                              <td><select class="form-control" required name="estadocivil" id="estadocivil">
 
                                   <option value=""> Seleccionar </option>
 
@@ -424,7 +427,7 @@
 
                               <td>Nacionalidad</td>
 
-                              <td><select class="form-control" name="nacionalidad" id="nacionalidad">
+                              <td><select class="form-control" required name="nacionalidad" id="nacionalidad">
 
                                   <option value=""> Seleccionar </option>
 
@@ -450,7 +453,7 @@
 
 
 
-                                  <input class="form-check-input" type="radio" name="descendiente" id="desc1" value="1">
+                                  <input class="form-check-input" type="radio" name="descendiente" id="desc1" value="1" required>
 
                                   <label class="form-check-label" for="desc1">Si</label>
 
@@ -495,7 +498,7 @@
 
                               <td>Celular</td>
 
-                              <td><input type="text" class="form-control" id="tel_cel" placeholder="Ej: 99234567">
+                              <td><input type="text" class="form-control" id="tel_cel" required placeholder="Ej: 99234567">
                                 <span id="errorCel" style="display:none;color:red;">Celular incorrecto</span>
                               </td>
 
@@ -505,7 +508,7 @@
 
                               <td>Correo</td>
 
-                              <td><input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="ejemplo@correo.com" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                              <td><input type="email" required class="form-control" id="email" aria-describedby="emailHelp" placeholder="ejemplo@correo.com" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
                                 <span id="errorMail" style="display:none;color:red;">Email incorrecto</span>
                               </td>
 
@@ -515,7 +518,7 @@
 
                               <td>Dirección</td>
 
-                              <td><input type="text" id="direc" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control"></td>
+                              <td><input required type="text" id="direc" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control"></td>
 
                             </tr>
 
@@ -523,7 +526,7 @@
 
                               <td>Sector</td>
 
-                              <td><input type="text" id="sector" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control"></td>
+                              <td><input required type="text" id="sector" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control"></td>
 
                             </tr>
 
@@ -531,7 +534,7 @@
 
                               <td>Comuna</td>
 
-                              <td><select class="form-control" name="comu" id="comu">
+                              <td><select required class="form-control" name="comu" id="comu">
 
                                   <option value=""> Seleccionar </option>
 
@@ -570,7 +573,7 @@
 
                               <td width="69%">
 
-                                <select class="form-control" name="laboral" id="laboral">
+                                <select class="form-control" name="laboral" id="laboral" required>
 
                                   <option value=""> Seleccionar </option>
 
@@ -673,13 +676,7 @@
 
                                       <td>
 
-
-                                        <button type="button" class="btn btn-info" id="guardar_dp" aria-controls="settings" role="tab" data-toggle="tab"><span>Siguiente</span></button>
-
-
-
-
-
+                                        <input type="submit" class="btn btn-info" value="Siguiente">
 
                                       </td>
 
@@ -705,7 +702,7 @@
 
                       </div>
 
-
+                      </form>
 
                     </div>
 
@@ -713,6 +710,140 @@
 
 
 
+                    <div role="tabpanel" class="tab-pane" id="depor">
+
+                      <div class="col-md-3">
+
+                        <div class="panel panel-default">
+
+                          <div class="panel-heading">Practica deporte:</div>
+
+                          <div class="panel-body box-pat">
+
+                            <table width="100%">
+
+                              <tbody>
+
+                                <tr>
+
+                                  <td>
+
+                                    <input type="radio" class="deporte" name="deporte" id="deporte_si" value="deporte_si"> Si
+
+                                  </td>
+
+                                  <td>
+
+                                    <input type="radio" class="deporte" name="deporte" id="deporte_no" value="deporte_no" checked> No
+
+                                  </td>
+
+                                </tr>
+
+                              </tbody>
+
+                            </table>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                      <div id="div2" style="display:none;" class="col-md-7">
+
+                        <div class="panel panel-default">
+
+                          <div class="panel-heading">Deportes:</div>
+
+                          <div class="panel-body box-pat">
+
+                            <table width="100%">
+
+                              <tbody>
+
+                                <tr>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="1"> Fútbol</label></td>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="2"> Basketball</label></td>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="3"> Tenis</label></td>
+
+                                </tr>
+
+                                <tr>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="4"> Tiro al Plato</label></td>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="5"> Natación</label></td>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="6"> Voleiball</label></td>
+
+                                </tr>
+
+                                <tr>
+
+                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="7"> Pool</label></td>
+
+                                </tr>
+
+                              </tbody>
+
+                            </table>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+
+                        <div class="col-sm-6">
+
+                          <div class="panel panel-default">
+
+                            <div class="panel-heading" style="overflow: hidden;">
+
+                              <div class="col-md-6">
+
+                                <table>
+
+                                  <tbody>
+
+                                    <tr>
+
+                                      <td>
+
+                                        <!--  <a type="button" class="btn btn-info" id="mostrarDatos"><span>Consola datos</span></a> -->
+                                        <a type="button" class="btn btn-info" id="guardar_id" href="#profile" aria-controls="settings" role="tab" data-toggle="tab"><span>Siguiente</span></a>
+
+                                      </td>
+
+
+
+
+
+                                    </tr>
+
+                                  </tbody>
+
+                                </table>
+
+                                <div id="info-guardar" data-datper="1"></div>
+
+                              </div>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
 
 
                     <!-- PESTAÑA SOSCIO -->
@@ -917,150 +1048,12 @@
                     </div>
 
 
-
-                    <div role="tabpanel" class="tab-pane" id="depor">
-
-                      <div class="col-md-3">
-
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Practica deporte:</div>
-
-                          <div class="panel-body box-pat">
-
-                            <table width="100%">
-
-                              <tbody>
-
-                                <tr>
-
-                                  <td>
-
-                                    <input type="radio" class="deporte" name="deporte" id="deporte_si" value="deporte_si"> Si
-
-                                  </td>
-
-                                  <td>
-
-                                    <input type="radio" class="deporte" name="deporte" id="deporte_no" value="deporte_no" checked> No
-
-                                  </td>
-
-                                </tr>
-
-                              </tbody>
-
-                            </table>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                      <div id="div2" style="display:none;" class="col-md-7">
-
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Deportes:</div>
-
-                          <div class="panel-body box-pat">
-
-                            <table width="100%">
-
-                              <tbody>
-
-                                <tr>
-
-                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="1"> Fútbol</label></td>
-
-                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="2"> Basketball</label></td>
-
-                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="3"> Tenis</label></td>
-
-                                </tr>
-
-                                <tr>
-
-                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="4"> Tiro al Plato</label></td>
-
-                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="5"> Natación</label></td>
-
-                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="6"> Voleiball</label></td>
-
-                                </tr>
-
-                                <tr>
-
-                                  <td class="td_reponsive"><label><input name="chek_dep" type="checkbox" value="7"> Pool</label></td>
-
-                                </tr>
-
-                              </tbody>
-
-                            </table>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                      <div class="row">
-
-                        <div class="col-sm-6">
-
-                          <div class="panel panel-default">
-
-                            <div class="panel-heading" style="overflow: hidden;">
-
-                              <div class="col-md-6">
-
-                                <table>
-
-                                  <tbody>
-
-                                    <tr>
-
-                                      <td>
-
-                                        <!--  <a type="button" class="btn btn-info" id="mostrarDatos"><span>Consola datos</span></a> -->
-                                        <a type="button" class="btn btn-info" id="guardar_id" href="#profile" aria-controls="settings" role="tab" data-toggle="tab"><span>Siguiente</span></a>
-
-                                      </td>
-
-
-
-
-
-                                    </tr>
-
-                                  </tbody>
-
-                                </table>
-
-                                <div id="info-guardar" data-datper="1"></div>
-
-                              </div>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-
-
+                    <!-- PESTAÑA CARGAS FAMILIARES -->
 
                     <div role="tabpanel" class="tab-pane" id="extra">
 
 
 
-                      </form>
 
                       <div class="col-md-12">
 
@@ -1094,9 +1087,7 @@
 
                           </div>
 
-
                           <div class="panel-body table-responsive" id="div3" style="display:none;">
-
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Agregar</button>
 
                             <table width="100%" class="table table-bordered table-hover table-border" id="tablacargas" name="tablacargas">
@@ -1198,11 +1189,11 @@
 
   <!-- Modal -->
 
-  <div class="modal fade" id="myModal" role="dialog">
+  <!--  <div class="modal fade" id="myModal" role="dialog">
 
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" style="width: 80%;">
 
-      <!-- Modal content-->
+       Modal content
 
       <div class="modal-content" style="width: auto;">
 
@@ -1210,24 +1201,23 @@
 
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-          <h4 class="modal-title h4">Agregar Beneficiario</h4>
+          <h4 class="modal-title">Agregar Carga</h4>
 
         </div>
 
         <div class="modal-body">
 
-          <div class="table-responsive">
+          <div class="form-group">
 
-            <table class="table table-bordered " id="tablacargas" name="tablacargas">
-
+            <table class="table table-bordered  table-responsive" id="tablacargas" name="tablacargas">
 
               <tbody>
 
                 <tr>
 
-                  <td class="td_reponsive">PARENTESCO</td>
+                  <td width="11%">PARENTESCO</td>
 
-                  <td class="td_reponsive">
+                  <td width="22%">
 
                     <select class="form-control" name="parentesco" id="parentesco">
 
@@ -1244,86 +1234,73 @@
 
                   </td>
 
-                  <td class="td_reponsive">RUT</td>
+                  <td width="8%">RUT</td>
 
-                  <td class="td_reponsive"><input maxlength="10" type="text" class="form-control" oninput="checkRut(this)" id="rut_carga" placeholder="Ej: 11111111-1" required>
+                  <td width="22%"><input maxlength="10" type="text" class="form-control" oninput="checkRut(this)" id="rut_carga" placeholder="Ej: 11111111-1" required>
 
                     <span id="erut_carga" style="display:none;color:red;">Rut incorrecto</span>
-                    <span id="duplirut_carga" style="display:none;color:red;">Rut Duplicado</span>
                   </td>
 
                   <script src="<?php echo base_url(); ?>/assets/js/validarRUT.js"></script>
-                </tr>
 
+                  <td width="9%">NOMBRES</td>
 
-
-                <tr>
-
-                  <td class="td_reponsive">NOMBRES</td>
-
-                  <td class="td_reponsive"><input type="text" class="form-control" id="nombre_carga" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                  <td width="24%"><input type="text" class="form-control" id="nombre_carga" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
 
                     <span id="error3" style="display:none;color:red;">Nombre incorrecto</span>
                   </td>
-                  <td class="td_reponsive">APELLIDO PATERNO</td>
 
-                  <td class="td_reponsive"><input type="text" class="form-control" id="pat_carga" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                </tr>
+
+                <tr>
+
+                  <td>APELLIDO PATERNO</td>
+
+                  <td width="12%"><input type="text" class="form-control" id="pat_carga" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
 
                     <span id="error4" style="display:none;color:red;">Apellido Paterno incorrecto</span>
                   </td>
 
+                  <td>APELLIDO MATERNO</td>
 
-
-                </tr>
-
-
-
-
-                <tr>
-
-
-                  <td class="td_reponsive">APELLIDO MATERNO</td>
-
-                  <td class="td_reponsive"><input type="text" class="form-control" id="mat_carga" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                  <td width="12%"><input type="text" class="form-control" id="mat_carga" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
 
                     <span id="error5" style="display:none;color:red;">Apellido Materno incorrecto</span>
                   </td>
 
-                  <td class="td_reponsive">FECHA DE NACIMIENTO</td>
+                  <td>FECHA DE NACIMIENTO</td>
 
-                  <td class="td_reponsive"><input class="form-control" type="date" name="nac_carga" id="nac_carga" value="<?php echo set_value('nac_carga'); ?>"></td>
+                  <td width="10%"><input class="form-control w_fecha" type="text" name="nac_carga" id="nac_carga" value="<?php echo set_value('nac_carga'); ?>"></td>
+
+                </tr>
+
+                <td>CELULAR</td>
+
+                <td width="10%"><input maxlength="9" type="text" class="form-control" id="cel_carga">
+
+                  <span id="error2" style="display:none;color:red;">Celular incorrecto</span>
+
+                </td>
+
+
+
+                <td>MAIL</td>
+
+                <td colspan="4"><input type="text" class="form-control" id="mail_carga" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+
+                  <span id="error" style="display:none;color:red;">Email incorrecto</span>
+
+                </td>
+
+
 
                 </tr>
 
                 <tr>
 
-                  <td class="td_reponsive">CELULAR</td>
+                  <td>ESTUDIANTE</td>
 
-                  <td class="td_reponsive"><input maxlength="9" type="text" class="form-control" id="cel_carga">
-
-                    <span id="error2" style="display:none;color:red;">Celular incorrecto</span>
-
-                  </td>
-
-
-
-                  <td class="td_reponsive">MAIL</td>
-
-                  <td class="td_reponsive"><input type="text" class="form-control" id="mail_carga" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
-
-                    <span id="error" style="display:none;color:red;">Email incorrecto</span>
-
-                  </td>
-
-
-
-                </tr>
-
-                <tr>
-
-                  <td class="td_reponsive">ESTUDIANTE</td>
-
-                  <td class="td_reponsive"><select class="form-control" name="est_carga" id="est_carga">
+                  <td width="6%"><select class="form-control" name="est_carga" id="est_carga">
 
                       <option value="0"></option>
 
@@ -1333,30 +1310,31 @@
 
                     </select></td>
 
-                  <td class="td_reponsive">CERTIFICADO<br>
+                  <td>CERTIFICADO<br>
 
                     ALUMNO REGULAR</td>
 
-                  <td class="td_reponsive">
+                  <td width="7%">
 
+                    <form action="<?php echo base_url() ?>socios/nuevo_socio/cargar_cert" method="post" enctype="multipart/form-data" target="request">
 
-                    <input type="file" class="form-control" name="certificado" id="cert_alumno">
+                      <input type="file" name="certificado">
 
+                      <input type="hidden" name="rutCarga" id="rutCarga" value="">
+
+                      <input type="submit" value="Submit" id="enviarArch">
+
+                      <input type="hidden" name="subido" id="subido" value="">
+
+                    </form>
 
 
 
                   </td>
 
-                </tr>
-                <tr>
-
-
                   <iframe style="display: none;" id="request"></iframe>
 
                 </tr>
-
-
-
 
 
 
@@ -1370,8 +1348,8 @@
 
         <div class="modal-footer">
 
-          <!--Uso la funcion onclick para llamar a la funcion en javascript-->
-          <!--agcargasocio para hacer desaparecer el botoon-->
+          //Uso la funcion onclick para llamar a la funcion en javascript
+          //agcargasocio para hacer desaparecer el botoon
           <button type="button" id="agCargaSocio" class="btn btn-default"><span>Agregar</span></button>
 
         </div>
@@ -1383,7 +1361,7 @@
 
 
   </div>
-
+ -->
 
 
 </body>
@@ -1391,6 +1369,102 @@
 </html>
 
 <script type="text/javascript">
+  
+  
+      function checkRut(rut) {
+        // Despejar Puntos
+        var valor = rut.value.replace('.', '');
+        // Despejar Guión
+        valor = valor.replace('-', '');
+  
+        // Aislar Cuerpo y Dígito Verificador
+        cuerpo = valor.slice(0, -1);
+        dv = valor.slice(-1).toUpperCase();
+  
+        // Formatear RUN
+        rut.value = cuerpo + '-' + dv
+  
+        // Si no cumple con el mínimo ej. (n.nnn.nnn)
+        if (cuerpo.length < 6) {
+          rut.setCustomValidity("RUT Incompleto");
+          return false;
+        }
+  
+        // Calcular Dígito Verificador
+        suma = 0;
+        multiplo = 2;
+  
+        // Para cada dígito del Cuerpo
+        for (i = 1; i <= cuerpo.length; i++) {
+  
+          // Obtener su Producto con el Múltiplo Correspondiente
+          index = multiplo * valor.charAt(cuerpo.length - i);
+  
+          // Sumar al Contador General
+          suma = suma + index;
+  
+          // Consolidar Múltiplo dentro del rango [2,7]
+          if (multiplo < 7) {
+            multiplo = multiplo + 1;
+          } else {
+            multiplo = 2;
+          }
+  
+        }
+  
+        // Calcular Dígito Verificador en base al Módulo 11
+        dvEsperado = 11 - (suma % 11);
+  
+        // Casos Especiales (0 y K)
+        dv = (dv == 'K') ? 10 : dv;
+        dv = (dv == 0) ? 11 : dv;
+  
+        // Validar que el Cuerpo coincide con su Dígito Verificador
+        if (dvEsperado != dv) {
+          rut.setCustomValidity("RUT Inválido");
+          return false;
+        }
+  
+        // Si todo sale bien, eliminar errores (decretar que es válido)
+        rut.setCustomValidity('');
+      }
+  //Validacion de formularios
+  $(document).ready(function() {
+
+
+
+
+    $('#FormDatosP').submit(function(e) {
+      e.preventDefault();
+
+      $('#dep').find('a').trigger('click');
+
+
+      $("#h").removeClass("active").addClass("inactivo");
+      $("#dep").addClass("active");
+
+
+      var datos = new FormData($(this)[0]);
+
+      console.log(datos);
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+  });
+
+
+
+
   //agregar archivo
   $("#agregar_archivo").click(function() {
     var html = '';
@@ -1430,12 +1504,6 @@
   var DatosCorp = new Object();
   var DatosCargas = new Object();
 
-  var formData = new FormData(); // guarda todos datos a enviar al controlador
- 
-
-  var CerificadosdeCarga = new FormData();
-
-
   //Funcion para ver foto en miniatura
 
   function ver_foto(archivo) {
@@ -1458,7 +1526,7 @@
     }
 
 
-    var archivos_permitidos = ["jpg", "jpeg", "png"];
+    var archivos_permitidos = ["jpg", "jpeg", "png", ""];
 
 
 
@@ -1508,7 +1576,7 @@
 
 
 
-    var archivos_permitidos = ["jpg", "jpeg", "png", "pdf"]; // extensiones en minusculas
+    var archivos_permitidos = ["jpg", "jpeg", "png", "pdf", ""]; // extensiones en minusculas
 
     if (archivos_permitidos.includes(extension)) { //validamos la extension del archivos
 
@@ -1563,7 +1631,6 @@
 
 
   $('input[name="cargas"]').change(function() {
-
     if ($(this).is(':checked') && $(this).val() == 'cargas_si') {
       $('#myModal').modal('show');
     }
@@ -2158,7 +2225,7 @@
 
   function validaInputCarga() {
 
-    if (vrfCargaMail == 1 || vrfCargaPat == 1 || vrfCargaMat == 1 || vrfCargaNom == 1 || vrfCargaDup == 1 || vrfCargaRut == 1) {
+    if (vrfCargaMail == 1 || vrfCargaPat == 1 || vrfCargaMat == 1 || vrfCargaNom == 1) {
       $('#agCargaSocio').css('display', 'none');
 
     } else {
@@ -2229,36 +2296,27 @@
 
     jQuery('#mail_carga').keyup(function() {
 
-      if ($('#mail_carga').val() != '') {
+      var email = $('#mail_carga').val();
 
+      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-        var email = $('#mail_carga').val();
+      if (!filter.test(email)) {
 
-        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        //alert('Please provide a valid email address');
 
-        if (!filter.test(email)) {
+        $('#error').show();
 
-          //alert('Please provide a valid email address');
+        email.focus;
+        vrfCargaMail = 1;
+        validaInputCarga();
+        //return false;
 
-          $('#error').show();
-
-          email.focus;
-          vrfCargaMail = 1;
-          validaInputCarga();
-          //return false;
-
-        } else {
-
-          $('#error').hide()
-          vrfCargaMail = 0;
-          validaInputCarga();
-        }
       } else {
+
+        $('#error').hide()
         vrfCargaMail = 0;
         validaInputCarga();
       }
-
-
 
     });
     jQuery('#email').keyup(function() {
@@ -2949,54 +3007,6 @@
         });
 
       });
-
-
-
-
-      $("#rut_carga").blur(function() {
-
-        var rut_carga = $(this).val();
-
-        $.post("<?php echo base_url() ?>socios/nuevo_socio/ValidaSocio", {
-          rut: rut_carga
-        }, function(data) {
-
-          data = JSON.parse(data);
-
-
-
-          let resultado = data["validaP"];
-
-
-          if (resultado == 0) {
-
-            //no es persona ni socio
-
-
-            $('#duplirut_carga').hide();
-            vrfCargaDup = 0;
-            validaInputCarga();
-
-
-          } else {
-            // es socio
-
-
-            $('#duplirut_carga').show();
-
-            vrfCargaDup = 1;
-            validaInputCarga();
-
-
-          }
-
-        });
-
-
-
-
-      });
-
     });
 
 
@@ -3026,7 +3036,7 @@
 
 
 
-     
+      var formData = new FormData();
 
       var archivos = document.getElementById('imagen_perfil').files[0];
 
@@ -3040,7 +3050,7 @@
       formData.append('DatosDeportes', JSON.stringify(DatosDeportes));
 
       for (var item of inputs) {
-      
+        console.log(item.files[0]);
         formData.append('archivosSoc[]', item.files[0]);
 
       }
@@ -3065,8 +3075,6 @@
         success: function(data) {
 
           // data = JSON.parse((data))
-
-          console.log(data);
 
 
           swal({
@@ -3213,42 +3221,19 @@
   });
   //funcion para el agregar carga en socio para usarlo con JQUERY y validarlo
   $(document).ready(function() {
+    btnGuardar1 = $("#agCargaSocio");
 
-    btnGuardarCarga = $("#agCargaSocio");
-
-    btnGuardarCarga.click(function() {
+    btnGuardar1.click(function() {
 
       var rutCarga2 = document.getElementById('rut_carga').value.length;
       var nombreCarga2 = document.getElementById('nombre_carga').value.length;
       var paternoCarga2 = document.getElementById('pat_carga').value.length;
       var maternoCarga2 = document.getElementById('mat_carga').value.length;
       var fecha_nac_carga2 = document.getElementById('nac_carga').value.length;
-      var esEstudiante = document.getElementById('est_carga').value;
 
-     let CertificadoAlumno = document.getElementById('cert_alumno').files[0];
+      if (rutCarga2 == 0 || nombreCarga2 == 0 || paternoCarga2 == 0 || maternoCarga2 == 0 || $('#sexo_carga').val() == 0 || fecha_nac_carga2 == 0 || $('#parentesco').val() == 0 || $('#est_carga').val() == 0) {
 
-      console.log(CertificadoAlumno);
-
-     
-
-
-
-
-
-      if (rutCarga2 == 0 || nombreCarga2 == 0 || paternoCarga2 == 0 || maternoCarga2 == 0 || $('#sexo_carga').val() == 0 || fecha_nac_carga2 == 0 || $('#parentesco').val() == 0 || esEstudiante == 0) {
-
-
-
-        swal({
-          title: "Complete todos los campos !",
-          text: "Por favor ingrese todos los campos requeridos",
-          icon: "warning",
-          buttons: {
-
-            OK: true,
-          },
-        })
-
+        alert('Complete todos los campos');
         $('#agCargaSocio').attr('href', 'javascript:void(0)');
 
 
@@ -3259,269 +3244,110 @@
       } else {
 
 
-        if (esEstudiante == 1) {
 
+        var cont = 1;
 
-          if (document.getElementById("cert_alumno").files.length == 0) {
+        var numFilas = $("#CargaSelect tr").length;
 
-            swal({
-              title: "Complete todos los campos !",
-              text: "Por favor ingrese todos los campos requeridos",
-              icon: "warning",
-              buttons: {
+        cont = numFilas + cont;
 
-                OK: true,
-              },
-            })
+        var sel = $('#parentesco').find(':selected').val(); //Capturo el Value del parentesco
 
-            $('#agCargaSocio').attr('href', 'javascript:void(0)');
+        var text = $('#parentesco').find(':selected').text(); //Capturo el Nombre del parentesco- Texto dentro del Select
 
+        var rut = document.getElementById('rut_carga').value; //Capturo el valor del rut
 
-          } else {
+        var nombres = document.getElementById('nombre_carga').value; //Capturo el valor del nombre
 
+        var paterno = document.getElementById('pat_carga').value; //Capturo el valor del apellido paterno
 
+        var materno = document.getElementById('mat_carga').value; //Capturo el valor del apellido materno
 
-            formData.append('CertificadosCarga[]', CertificadoAlumno);
-            formData.append('rut_carga_certificado[]', document.getElementById('rut_carga').value);
+        var fecha_nac = document.getElementById('nac_carga').value; //Capturo el valor de la fecha de nacimiento
 
+        var celu = document.getElementById('cel_carga').value; //Capturo el valor del celular
 
+        var mail = document.getElementById('mail_carga').value; //Capturo el valor del mail
 
-            var cont = 1;
+        var sel_est = $('#est_carga').find(':selected').val(); //Capturo el Value del parentesco
 
-            var numFilas = $("#CargaSelect tr").length;
+        var text_est = $('#est_carga').find(':selected').text(); //Capturo el Nombre del parentesco- Texto dentro del Select
 
-            cont = numFilas + cont;
+        var subido = document.getElementById('subido').value;
 
-            var sel = $('#parentesco').find(':selected').val(); //Capturo el Value del parentesco
+        var sptext = text.split();
 
-            var text = $('#parentesco').find(':selected').text(); //Capturo el Nombre del parentesco- Texto dentro del Select
+        if (subido == 1) {
 
-            var rut = document.getElementById('rut_carga').value; //Capturo el valor del rut
-
-            var nombres = document.getElementById('nombre_carga').value; //Capturo el valor del nombre
-
-            var paterno = document.getElementById('pat_carga').value; //Capturo el valor del apellido paterno
-
-            var materno = document.getElementById('mat_carga').value; //Capturo el valor del apellido materno
-
-            var fecha_nac = document.getElementById('nac_carga').value; //Capturo el valor de la fecha de nacimiento
-
-            var celu = document.getElementById('cel_carga').value; //Capturo el valor del celular
-
-            var mail = document.getElementById('mail_carga').value; //Capturo el valor del mail
-
-            var sel_est = $('#est_carga').find(':selected').val(); //Capturo el Value del parentesco
-
-            var text_est = $('#est_carga').find(':selected').text(); //Capturo el Nombre del parentesco- Texto dentro del Select
-
-
-            var sptext = text.split();
-
-
-          
-
-            subido = 1;
-
-
-            if (subido == 1) {
-
-              sub = 'Si';
-
-            } else {
-
-              sub = 'No';
-
-            }
-
-
-
-            var newtr = '<tr class="item" id="item' + cont + '"  data-id="' + cont + '"  >';
-
-            newtr = newtr + '<td id="par_carg" class="iCarga" data-parent="' + sel + '" >' + text + '</td>';
-
-            newtr = newtr + '<td id="rut_carg" class="rut" >' + rut + '</td>';
-
-            newtr = newtr + '<td id="nom_carg" class="nombres" >' + nombres + '</td>';
-
-            newtr = newtr + '<td id="pat_carg" class="paterno" >' + paterno + '</td>';
-
-            newtr = newtr + '<td id="mat_carg" class="materno" >' + materno + '</td>';
-
-            newtr = newtr + '<td id="nac_carg" class="fecha_nac" >' + fecha_nac + '</td>';
-
-            newtr = newtr + '<td id="cel_carg" class="celu" >' + celu + '</td>';
-
-            newtr = newtr + '<td id="mail_carg" class="mail" >' + mail + '</td>';
-
-            newtr = newtr + '<td id="est_carg" class="iProduct" data-estud="' + sel_est + '" >' + text_est + '</td>';
-
-            newtr = newtr + '<td id="cert" class="iProduct" data-subido="' + subido + '" >' + sub + '</td>';
-
-
-            newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item"><i class="fa fa-times"></i></button></td></tr>';
-
-
-
-            $('#CargaSelect').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
-
-
-
-            RefrescaCarga(); //Refresco Productos
-
-            limpiarModal();
-
-
-
-
-            $('.remove-item').off().click(function(e) {
-
-              $(this).parent('td').parent('tr').remove(); //En accion elimino carga de la Tabla
-
-              if ($('#CargaSelect tr.item').length == 0)
-
-                $('#CargaSelect .no-item').slideDown(300);
-
-              RefrescaCarga();
-
-            });
-
-            $('.iCarga').off().change(function(e) {
-
-              RefrescaCarga();
-
-            });
-            //manualmente obliga clickear data-dismiss=modal despues de agregar a la tabla de cargas para el socio
-            $("[data-dismiss=modal]").trigger({
-              type: "click"
-            });
-
-          }
-
-
-
-
-
-
-
-
-
+          sub = 'Si';
 
         } else {
 
-
-
-
-          var cont = 1;
-
-          var numFilas = $("#CargaSelect tr").length;
-
-          cont = numFilas + cont;
-
-          var sel = $('#parentesco').find(':selected').val(); //Capturo el Value del parentesco
-
-          var text = $('#parentesco').find(':selected').text(); //Capturo el Nombre del parentesco- Texto dentro del Select
-
-          var rut = document.getElementById('rut_carga').value; //Capturo el valor del rut
-
-          var nombres = document.getElementById('nombre_carga').value; //Capturo el valor del nombre
-
-          var paterno = document.getElementById('pat_carga').value; //Capturo el valor del apellido paterno
-
-          var materno = document.getElementById('mat_carga').value; //Capturo el valor del apellido materno
-
-          var fecha_nac = document.getElementById('nac_carga').value; //Capturo el valor de la fecha de nacimiento
-
-          var celu = document.getElementById('cel_carga').value; //Capturo el valor del celular
-
-          var mail = document.getElementById('mail_carga').value; //Capturo el valor del mail
-
-          var sel_est = $('#est_carga').find(':selected').val(); //Capturo el Value del parentesco
-
-          var text_est = $('#est_carga').find(':selected').text(); //Capturo el Nombre del parentesco- Texto dentro del Select
-
-
-          var sptext = text.split();
-
-
-
-
-          subido = 2;
-
-
-          if (subido == 1) {
-
-            sub = 'Si';
-
-          } else {
-
-            sub = 'No';
-
-          }
-
-
-
-          var newtr = '<tr class="item" id="item' + cont + '"  data-id="' + cont + '"  >';
-
-          newtr = newtr + '<td id="par_carg" class="iCarga" data-parent="' + sel + '" >' + text + '</td>';
-
-          newtr = newtr + '<td id="rut_carg" class="rut" >' + rut + '</td>';
-
-          newtr = newtr + '<td id="nom_carg" class="nombres" >' + nombres + '</td>';
-
-          newtr = newtr + '<td id="pat_carg" class="paterno" >' + paterno + '</td>';
-
-          newtr = newtr + '<td id="mat_carg" class="materno" >' + materno + '</td>';
-
-          newtr = newtr + '<td id="nac_carg" class="fecha_nac" >' + fecha_nac + '</td>';
-
-          newtr = newtr + '<td id="cel_carg" class="celu" >' + celu + '</td>';
-
-          newtr = newtr + '<td id="mail_carg" class="mail" >' + mail + '</td>';
-
-          newtr = newtr + '<td id="est_carg" class="iProduct" data-estud="' + sel_est + '" >' + text_est + '</td>';
-
-          newtr = newtr + '<td id="cert" class="iProduct" data-subido="' + subido + '" >' + sub + '</td>';
-
-
-          newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item"><i class="fa fa-times"></i></button></td></tr>';
-
-
-
-          $('#CargaSelect').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
-
-
-
-          RefrescaCarga(); //Refresco Productos
-
-          limpiarModal();
-
-
-
-
-          $('.remove-item').off().click(function(e) {
-
-            $(this).parent('td').parent('tr').remove(); //En accion elimino carga de la Tabla
-
-            if ($('#CargaSelect tr.item').length == 0)
-
-              $('#CargaSelect .no-item').slideDown(300);
-
-            RefrescaCarga();
-
-          });
-
-          $('.iCarga').off().change(function(e) {
-
-            RefrescaCarga();
-
-          });
-          //manualmente obliga clickear data-dismiss=modal despues de agregar a la tabla de cargas para el socio
-          $("[data-dismiss=modal]").trigger({
-            type: "click"
-          });
+          sub = 'No';
 
         }
 
+
+
+        var newtr = '<tr class="item" id="item' + cont + '"  data-id="' + cont + '"  >';
+
+        newtr = newtr + '<td id="par_carg" class="iCarga" data-parent="' + sel + '" >' + text + '</td>';
+
+        newtr = newtr + '<td id="rut_carg" class="rut" >' + rut + '</td>';
+
+        newtr = newtr + '<td id="nom_carg" class="nombres" >' + nombres + '</td>';
+
+        newtr = newtr + '<td id="pat_carg" class="paterno" >' + paterno + '</td>';
+
+        newtr = newtr + '<td id="mat_carg" class="materno" >' + materno + '</td>';
+
+        newtr = newtr + '<td id="nac_carg" class="fecha_nac" >' + fecha_nac + '</td>';
+
+        newtr = newtr + '<td id="cel_carg" class="celu" >' + celu + '</td>';
+
+        newtr = newtr + '<td id="mail_carg" class="mail" >' + mail + '</td>';
+
+        newtr = newtr + '<td id="est_carg" class="iProduct" data-estud="' + sel_est + '" >' + text_est + '</td>';
+
+        newtr = newtr + '<td id="cert" class="iProduct" data-subido="' + subido + '" >' + sub + '</td>';
+
+
+        newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item"><i class="fa fa-times"></i></button></td></tr>';
+
+
+
+        $('#CargaSelect').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
+
+
+
+        RefrescaCarga(); //Refresco Productos
+
+        limpiarModal();
+
+
+
+
+        $('.remove-item').off().click(function(e) {
+
+          $(this).parent('td').parent('tr').remove(); //En accion elimino carga de la Tabla
+
+          if ($('#CargaSelect tr.item').length == 0)
+
+            $('#CargaSelect .no-item').slideDown(300);
+
+          RefrescaCarga();
+
+        });
+
+        $('.iCarga').off().change(function(e) {
+
+          RefrescaCarga();
+
+        });
+        //manualmente obliga clickear data-dismiss=modal despues de agregar a la tabla de cargas para el socio
+        $("[data-dismiss=modal]").trigger({
+          type: "click"
+        });
 
       }
     });

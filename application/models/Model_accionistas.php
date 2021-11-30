@@ -21,9 +21,11 @@
 		function accionistas_es_socio($rut)
 		{
 
-			$this->db->select('prsn_rut');
-			$this->db->from('s_socios');
-			$this->db->where('prsn_rut', $rut);
+			$this->db->select('*');
+			$this->db->from('s_socios as s,corporaciones as c');
+			$this->db->where('s.prsn_rut', $rut);
+			$this->db->where('s.estado', 0);
+			$this->db->where('s.corporacion = c.co_rut');
 
 			$p = $this->db->get();
 
@@ -190,7 +192,7 @@
 		function existe($rut)
 		{
 
-			$p = $this->db->query('SELECT a.prsn_rut  FROM s_personas p , s_accionista a WHERE p.prsn_rut = a.prsn_rut  AND p.prsn_rut ="' . $rut . '"');
+			$p = $this->db->query('SELECT a.prsn_rut,a.id_accionista  FROM s_personas p , s_accionista a WHERE p.prsn_rut = a.prsn_rut  AND p.prsn_rut ="' . $rut . '"');
 			return $p->result();
 		}
 		function existeSocio($rut)
@@ -236,12 +238,56 @@
 			$p = $this->db->query('SELECT p.prsn_rut,p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_apellidomaterno,a.fecha,a.estado_accionista, a.fecha_baja FROM s_personas p, s_accionista a WHERE p.prsn_rut=a.prsn_rut AND a.estado_accionista=' . $tipo . ' AND a.fecha_baja<= "' . $fecha2 . '"  AND a.fecha_baja>="' . $fecha1 . '"');
 			return $p->result_array();
 		}
+
+		function HistorialTitulosporAccionista($id_accionista)
+		{
+
+
+			//funcion que obtiene todos los titulos por el id del accionista sean activos o inactivos
+
+
+			$this->db->select('*');
+			$this->db->from('s_titulos');
+			$this->db->where('id_accionista', $id_accionista);
+
+			$p = $this->db->get();
+			return $p->result();
+		}
+
+		function TitulosActivosporAccionista($id_accionista)
+		{
+
+			$this->db->select('*');
+			$this->db->from('s_titulos');
+			$this->db->where('id_accionista', $id_accionista);
+			$this->db->where('estado', 1);
+
+			$p = $this->db->get();
+			return $p->result();
+		}
+
+		function datos_accionista_por_rut($rut_accionista)
+		{
+
+
+			$this->db->select('*');
+			$this->db->from('s_accionista');
+			$this->db->where('prsn_rut', $rut_accionista);
+			$p = $this->db->get();
+			return $p->result();
+		}
+
+		function accionistaInactivo($id_accionista)
+		{
+
+			$this->db->select('*');
+			$this->db->from('s_accionista');
+			$this->db->where('id_accionista', $id_accionista);
+			$this->db->where('estado_accionista', 0);
+			$p = $this->db->get();
+			return $p->result();
+		}
 	}
-
-
-
-
-
 
 
 	?>

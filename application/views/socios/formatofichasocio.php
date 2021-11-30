@@ -142,7 +142,7 @@
 
     table th {
 
-      background-color: #006b3a;
+      background-color: #008928;
 
       color: white;
 
@@ -376,6 +376,14 @@
           <td>DPTO </td>
 
           <td></td>
+
+        </tr>
+        <tr>
+
+          <td>EMAIL</td>
+          <td> </td>
+
+       
 
         </tr>
 

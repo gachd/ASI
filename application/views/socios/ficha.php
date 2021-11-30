@@ -508,7 +508,7 @@
 
   }
 
- /*  .archivos_socios {
+  /*  .archivos_socios {
 
 
   } */
@@ -670,7 +670,7 @@
     if (!empty($dir)) {
 
       $dir = $dir . "/perfil";
-      $ignorados = array('.', '..', '.svn', '.htaccess');
+      $permitidos = array('jpeg', 'png', 'jpg', 'gif');
       $archivos = array();
       $urlBase = base_url();
 
@@ -679,15 +679,25 @@
         foreach (scandir($dir) as $listado) {
 
           //validor los elementos oermitidos
-          if (!in_array($listado, $ignorados)) {
-
+         
             //valido que el elemto no sea un directorio
             if (!is_dir($dir . '/' . $listado)) {
 
+              $extension = pathinfo($dir . '/' . $listado, PATHINFO_EXTENSION);
 
-              $archivos[$listado] = filemtime($dir . '/' . $listado);
+              $extension = strtolower($extension);
+
+              if (in_array($extension, $permitidos)) {
+
+
+                $archivos[$listado] = filemtime($dir . '/' . $listado);
+
+
+              }
+
+
             }
-          }
+          
         }
         //ordeno del mas reciente al mas antiguo gracias al filetime
         arsort($archivos);
@@ -710,6 +720,60 @@
       }
     } else {
       echo 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png';
+    }
+  }
+
+
+
+  function certificado_carga($dir_socio, $rut_carga)
+  {
+
+
+
+    if (!empty($dir_socio)) {
+
+      $ignorados = array('.', '..', '.svn', '.htaccess');
+      $archivos = array();
+      $urlBase = base_url();
+
+      $directorio = $dir_socio . "/cargas/" . $rut_carga;
+
+      if (is_dir($directorio)) {
+
+        foreach (scandir($directorio) as $listado) {
+
+          //validor los elementos oermitidos
+          if (!in_array($listado, $ignorados)) {
+
+            //valido que el elemto no sea un directorio
+            if (!is_dir($directorio . '/' . $listado)) {
+
+
+              $archivos[$listado] = filemtime($directorio . '/' . $listado);
+            }
+          }
+        }
+        //ordeno del mas reciente al mas antiguo gracias al filetime
+        arsort($archivos);
+
+        $archivos = array_keys($archivos);
+
+        //valido que el directorio no este vacio
+        if (empty($archivos)) {
+
+          echo '';
+        } else {
+
+          //muestro el certificado mas reciente
+
+          $ultimoCertificado = $urlBase . $directorio . '/' . $archivos[0];
+
+          return $ultimoCertificado;
+        }
+      } else {
+
+        echo '';
+      }
     }
   }
 
@@ -772,6 +836,7 @@
   <div class="main">
 
     <div class="container-fluid">
+    
 
       <div class="row">
 
@@ -784,6 +849,7 @@
                 <img alt="User Pic" src="<?php FotoPerfil($InfoSocio->path) ?>" id="profile-image1" class="img-circle img-responsive img-thumbnail">
               </center>
             </div>
+
 
 
 
@@ -900,7 +966,7 @@
 
                     <li role="presentation"><a href="#cuotas" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-usd"></i>  <span>Cuotas <br> Sociales</span></a></li>
 
-                    <li role="presentation"><a href="#messages" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-briefcase"></i>  <span><br>Acciones</span></a></li>
+                    <!-- <li role="presentation"><a href="#messages" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-briefcase"></i>  <span><br>Acciones</span></a></li> -->
 
                     <!--                     <li role="presentation"><a href="#noti" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-envelope"></i>  <span><br> Notificaciones</span></a></li>
  -->
@@ -1933,11 +1999,14 @@
 
                                   if ($c->certificado == 1) {
                                     $cert = '';
-                                    $img = '<a target="_blank" href="' . base_url() . '/uploads/' . $c->prsn_rut . '.pdf"><img width="20px" src="' . base_url() . '/assets/images/pdf-flat.png"></a>';
+                                    $url  = certificado_carga($InfoSocio->path, $c->prsn_rut);
+                                    $img = '<a target="_blank" href="'.$url.' "><img width="20px" src="' . base_url() . '/assets/images/pdf-flat.png"></a>';
                                   } else {
                                     $cert = 'NO';
                                     $img = '';
                                   }
+                                
+                              
 
                                   echo '<tr class="' . $class_bloq . '">
 

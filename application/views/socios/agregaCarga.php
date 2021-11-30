@@ -1020,7 +1020,7 @@
 
                   <label>FECHA DE NACIMIENTO</label>
 
-                  <input class="form-control w_fecha" type="text" name="nac_carga" id="nac_carga" value="<?php echo set_value('nac_carga'); ?>">
+                  <input class="form-control " type="date" name="nac_carga" id="nac_carga" value="<?php echo set_value('nac_carga'); ?>">
 
                 </div>
 
@@ -1119,6 +1119,8 @@
 </html>
 
 <script type="text/javascript">
+
+
   var vrfCargaMail = 0;
   var vrfCargaPat = 0;
   var vrfCargaMat = 0;
@@ -1614,11 +1616,6 @@
 
   $.datepicker.setDefaults($.datepicker.regional['es']);
 
-  $(function() {
-
-    $("#nac_carga").datepicker();
-
-  });
 
 
 

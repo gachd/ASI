@@ -287,77 +287,6 @@ class editaCarga extends CI_Controller
 
 
 
-  public function test_foto_subir()
-
-  {
-    $this->load->view('socios/test_foto');
-
-
-  }
-  public function test_foto()
-  {
-
-   var_dump($_POST);
-
-  
-
-   
-
-    if ($_POST['valido'] == 1) {
-      $var_paso = 1;
-    } else {
-      $var_paso = 0;
-    }
-
-
-    if ($var_paso == 1) {
-      echo 'entro';
-
-
-      // $fecha_actual = date("Y-m-d");
-
-      $micarpeta = 'docSocios/fotos/';
-
-
-
-      if (!file_exists($micarpeta)) {
-
-        mkdir($micarpeta, 0777, true);
-      }
-
-      $config['upload_path'] = $micarpeta;
-
-      $config['file_name'] =  'fotito';
-
-      $config['allowed_types'] = 'gif|jpg|png';
-
-      $config['max_size'] = 2048;
-
-
-
-      $this->load->library('upload', $config);
-
-      $this->upload->initialize($config);
-
-      if (!$this->upload->do_upload('doc')) { #Aquí me refiero a "foto", el nombre que pusimos en FormData
-
-        $error = array('error' => $this->upload->display_errors());
-
-        echo json_encode($error);
-      } else {
-
-        echo json_encode(true);
-      }
-    }
-    else {
-      echo 'error';
-    }
-    
-  }
-
-
-  
-
 
 
   public function editacarga()
@@ -529,7 +458,8 @@ class editaCarga extends CI_Controller
 
       // $fecha_actual = date("Y-m-d");
 
-      $micarpeta = './docSocios/' . $rut_socio . '/cargas/' . $rut_carga . '/';
+      $micarpeta= 'archivos/socios/' . $rut_socio . '/cargas/' . $rut_carga . '/certificados/';
+      
 
 
 

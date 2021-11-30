@@ -44,6 +44,8 @@ function getEstado($estado)
 
         </div>
 
+       
+
 
 
         <div class="table-responsive table_wrapper">
@@ -53,13 +55,13 @@ function getEstado($estado)
                     <tr>
 
 
-                        <th>Titulo</th>
-                        <th>Fecha Cesion</th>
-                        <th>Titulo Origen</th>
-                        <th>Poseedor</th>
-                        <th>Rut</th>
+                        <th>Titulo Actual</th>
                         <th>Cantidad Acciones</th>
-                        <th>Estado</th>
+                        <th>Estado Titulo</th>
+                        <th>Poseedor Titulo</th>
+                        <th>Rut Poseedor</th>
+                        <th>Fecha Tranferencia</th>
+                        <th>Titulo Origen</th>
 
 
 
@@ -79,15 +81,16 @@ function getEstado($estado)
 
 
                         <tr class="odd gradeX">
+
                             <td> <?php echo $historial_t[$i][0]['tiulo_actual'] ?> </td>
-                            <td> <?php echo $historial_t[$i][0]['fecha_cesion'] ?> </td>
-                            <td> <?php echo $historial_t[$i][0]['titulo_origen'] ?> </td>
-                            <td> <?php echo $historial_t[$i][0]['prsn_nombres']  ?></td>
-                            <td> <?php echo $historial_t[$i][0]['prsn_rut'] ?> </td>
                             <td> <?php echo $historial_t[$i][0]['numero_acciones'] ?> </td>
                             <td> <?php echo getEstado($historial_t[$i][0]['estado'])  ?> </td>
+                            <td> <?php echo $historial_t[$i][0]['prsn_nombres'].' '.$historial_t[$i][0]['prsn_apellidopaterno'].' '.$historial_t[$i][0]['prsn_apellidomaterno']   ?></td>
+                            <td> <?php echo $historial_t[$i][0]['prsn_rut']?> </td>
+                            <td> <?php echo $historial_t[$i][0]['fecha_cesion'] ?> </td>
+                            <td> <?php echo $historial_t[$i][0]['titulo_origen'] ?> </td>
 
-
+<br>
                         </tr>
 
                     <?php  } ?>

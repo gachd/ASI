@@ -435,13 +435,17 @@
       <div class="col-sm-6">
         <div class="panel panel-default">
           <div class="panel-heading" style="overflow: hidden;">
-            <div class="col-sm-1">
+
+            <div class="col-md-2">
               <label for="">RUT SOCIO</label>
             </div>
+
             <div class="col-md-6">
               <input autocomplete="off" type="text" class="form-control" name="rut_socio" id="rut_socio" placeholder="Ej: 11111111-1" value="<?php echo set_value('rut_socio'); ?>">
               <span id="rut_socio" style="display:none;color:red;">RUT INCORRECTO</span>
             </div>
+
+
             <div class="col-md-4">
 
               <button id="enviar" type="button" class="btn btn-info">
@@ -449,10 +453,15 @@
               </button>
 
             </div>
+
+
           </div>
           <div style="display:none;" id="msg" class="alert alert-success">¡Bien hecho! se guardo correctamente</div>
         </div>
       </div>
+
+
+
       <div class="col-sm-6">
         <div class="panel panel-default">
           <div class="panel-heading" style="overflow: hidden;">
@@ -469,17 +478,6 @@
 
     <div class="row">
       <div id="mostrar">
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -522,15 +520,8 @@
     yearSuffix: ''
   };
   $.datepicker.setDefaults($.datepicker.regional['es']);
-  $(function() {
-    $("#txt_fechaS").datepicker();
-  });
-  $(function() {
-    $("#nac_carga").datepicker();
-  });
-  $(function() {
-    $("#fecha_pago").datepicker();
-  });
+
+
   var socios = [
     <?php
     $socios = $this->model_socios->allSoocios();
@@ -542,18 +533,21 @@
 
   autocomplete(document.getElementById("rut_socio"), socios);
 
+
+
+
+
   $("#enviar").click(function() {
 
     $("#mostrar").empty()
-    $("#mostrar").append('<div class="center-block" style="text-align:center" ><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt=""></div>');
+    $("#mostrar").html('<div class="spinner"></div>');
 
 
     var rut = $('#rut_socio').val();
 
-    console.log(rut);
+
     var enviar = 1;
-    //alert(rut);
-    //    $('#edit_socios').html('<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+
 
 
     $.ajax({
@@ -574,7 +568,6 @@
         $("#mostrar").empty();
 
 
-
         swal({
           title: "No se encontraron registros",
           icon: "info",
@@ -585,15 +578,6 @@
     });
 
 
-    /*   $.post("<?php echo base_url() ?>socios/nuevacarga/mostrar_datos", {
-          rut: rut,
-          enviar: enviar
-        },
-        function(data) {
-          $("#mostrar").html(data)
-          //        $("#edit_socios").html(data);           
-          //  $("#valores").css("display","block")        
 
-        }); */
   });
 </script>

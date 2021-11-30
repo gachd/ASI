@@ -43,7 +43,7 @@ class model_titulo extends CI_Model
         $this->db->group_by('t.id_titulos');
         $this->db->order_by('t.id_titulos', 'ASC');
         $p = $this->db->get();
-        
+
         return $p->result();
     }
 
@@ -113,17 +113,57 @@ class model_titulo extends CI_Model
         return $p->result();
     }
 
-    function IdAccionistaDelTitulo($idTitulo){
+    function IdAccionistaDelTitulo($idTitulo)
+    {
 
 
         $this->db->select('a.id_accionista');
         $this->db->from('s_titulos t, s_accionista a');
-        $this->db->where('t.id_titulos', $idTitulo);    
-        $this->db->where('t.id_accionista = a.id_accionista');    
-      
+        $this->db->where('t.id_titulos', $idTitulo);
+        $this->db->where('t.id_accionista = a.id_accionista');
+
         $p = $this->db->get();
-        
+
         return $p->result();
-        
+    }
+
+
+    function titulos_con_tranferencia_recibida($id_titulo)
+    {
+
+
+        $this->db->select('*');
+        $this->db->from('s_titulos as t, cesion_titulo as c');
+        $this->db->where('c.tiulo_actual = t.id_titulos');
+        $this->db->where('t.id_titulos', $id_titulo);
+
+        $p = $this->db->get();
+
+        return $p->result_array();
+    }
+    function titulos_con_tranferencia_realizada($id_titulo)
+    {
+
+
+        $this->db->select('*');
+        $this->db->from('s_titulos as t, cesion_titulo as c');
+        $this->db->where('c.titulo_origen = t.id_titulos');
+        $this->db->where('t.id_titulos', $id_titulo);
+
+        $p = $this->db->get();
+
+        return $p->result_array();
+    }
+
+    function DatosAccionistaDelTitulo($id_titulo)
+    {
+
+        $this->db->select('*');
+        $this->db->from('s_accionista AS a,s_titulos AS t,s_personas AS p');
+        $this->db->where('t.id_accionista = a.id_accionista');
+        $this->db->where('t.id_titulos', $id_titulo);
+        $this->db->where('a.prsn_rut = p.prsn_rut');
+        $p = $this->db->get();
+        return $p->result_array();
     }
 }

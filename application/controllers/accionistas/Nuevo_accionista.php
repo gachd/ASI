@@ -61,11 +61,45 @@ class nuevo_accionista extends CI_Controller
 
 			if ($accionista) { // si existe como accionista
 
-				$_POST['msj'] = '1';
-				$this->load->view('plantilla/Head');
 
-				$this->load->view('accionistas/accionista_rut');
-				$this->load->view('plantilla/Footer');
+
+
+
+				$ac_inactivo = $this->model_accionistas->accionistaInactivo($accionista[0]->id_accionista);
+
+				//esta inactivo
+
+				if (!empty($ac_inactivo)) {
+
+					$rut = $_POST['rut'];
+					$data['rut'] = $rut;
+					$data['comunas'] = $this->model_persona->all_comunas();
+					$data['laboral'] = $this->model_persona->all_condicionlab();
+					$data['estado_civil'] = $this->model_persona->all_estadocivil();
+					$data['provincia']	= $this->model_persona->all_provincias();
+					$data['region']	= $this->model_persona->all_region();
+					$data['libro']	= $this->model_libro->all_libros();
+					$data['persona'] = $persona =  $persona[0];
+					$data['accionista'] = $accionista[0];
+
+
+
+
+					$this->load->view('plantilla/Head');
+					$this->load->view('accionistas/nuevo_accionistaInactivo',$data);
+					$this->load->view('plantilla/Footer');
+
+				} else {
+
+					
+
+					//es accionista acitvo
+
+					$_POST['msj'] = '1';
+					$this->load->view('plantilla/Head');
+					$this->load->view('accionistas/accionista_rut');
+					$this->load->view('plantilla/Footer');
+				}
 			} else { // si no existe como accionista
 
 				$rut = $_POST['rut'];
@@ -87,10 +121,7 @@ class nuevo_accionista extends CI_Controller
 					$data['persona'] = $persona =  $persona[0];
 
 
-
 					//si se valida que hay un socios, solo carga vista para agregar datos de accionista 
-
-
 
 
 
@@ -171,8 +202,14 @@ class nuevo_accionista extends CI_Controller
 		$IDMaximo = $this->model_accionistas->ultimoIdAccionista();
 		$prsnID = $IDMaximo[0]->maximo;
 
+		if (isset($_POST['IdAccionista'])) {
+			$AccionistaNuevo = $_POST['IdAccionista'];
+		}
+		else{
+			$AccionistaNuevo = $prsnID + 1;
+		}
 
-		$AccionistaNuevo = $prsnID + 1;
+	
 
 		$rut = $_POST['rutP'];
 		$prsn_tipo = $this->input->post('optradio');
@@ -266,6 +303,23 @@ class nuevo_accionista extends CI_Controller
 		}
 
 
+		//si existe como acconista inactivo
+		if (isset($_POST['IdAccionista'])) {
+
+			$id_accionista_inactivo = $this->input->post('IdAccionista');
+
+			// se elimina del array de ingreso el id creado para nueva accionista
+			unset($dataA['id_accionista']);
+			unset($dataA['prsn_rut']);
+
+			// se actualiza los datos del accionista existente 
+			$this->model_accionistas->update($dataA, $id_accionista_inactivo);
+		} else {
+
+			$this->model_accionistas->insertar($dataA);
+		}
+
+
 		//Subida de archivos 
 		$archivo = $_FILES["miarchivo"]; //nombre del input file de la vista
 
@@ -276,7 +330,7 @@ class nuevo_accionista extends CI_Controller
 		// Termino subida de archivos
 
 
-		$this->model_accionistas->insertar($dataA);
+	
 
 
 		// MODULO DE TTITULO
@@ -403,7 +457,7 @@ class nuevo_accionista extends CI_Controller
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
-					'tipo_transferencia' => $tipoaccion ,
+					'tipo_transferencia' => $tipoaccion,
 
 				);
 				$dataTablaTanferencia2 = array(
@@ -415,7 +469,7 @@ class nuevo_accionista extends CI_Controller
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
 
-					'tipo_transferencia' => $tipoaccion ,
+					'tipo_transferencia' => $tipoaccion,
 
 				);
 
@@ -475,6 +529,8 @@ class nuevo_accionista extends CI_Controller
 					'tiulo_actual' => $NumeroTitulo,
 
 					'fecha_cesion' => $fecha_titulo = $this->input->post('fechaC'),
+
+					'tipo_transferencia' => $tipoaccion,
 
 				);
 
@@ -560,7 +616,7 @@ class nuevo_accionista extends CI_Controller
 				);
 
 
-				
+
 
 
 
@@ -573,18 +629,15 @@ class nuevo_accionista extends CI_Controller
 
 					'fecha_cesion' => $fecha_transferencia = $this->input->post('fechaC'),
 
-					'tipo_transferencia' => $tipoaccion ,
+					'tipo_transferencia' => $tipoaccion,
 
 				);
-				
+
 
 
 				$this->model_titulo->updatetitulos($dataAntiguoT, $titulo_que_precede);
 				$this->model_titulo->nuevo_titulo($dataT_Nuevo);
 				$this->model_titulo->nueva_cesion($dataTablaTanferencia);
-
-
-	
 			};
 
 

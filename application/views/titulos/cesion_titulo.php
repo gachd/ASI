@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
     <meta charset="UTF-8">
 
-    <title>Cesion de titulo</title>
+    <title>Transferencias de titulo</title>
 
 
 
@@ -36,15 +36,31 @@
                     <li><a href="<?php echo base_url()  ?>accionistas/inicio">Inicio</a></li>
                     <li><a href="<?php echo base_url()  ?>accionistas/titulos">Titulos</a></li>
 
-                    <li>Cesion de Titulo</li>
+                    <li>Transaccion de Acciones</li>
                 </ul>
             </div>
             <form action="<?php echo base_url(); ?>accionistas/titulos/guadarCesionTitulo" method="post">
                 <div class="container well">
-                    <h2>Cesion Titulos</h2>
+                    <h2>Transaccion de Acciones</h2>
                     <br>
                     <br>
                     <br>
+
+                    <div class="form-group col-md-4">
+
+                        <label for="TipoTransac">Tipo de Transferencia</label>
+                        <select class="form-control" id="TipoTransac" name="TipoTransac" required>
+                            <option value="">Seleccione una opción</option>
+                            <option value="0">Cesion</option>
+                            <option value="2">Transmision</option>
+                            <option value="3">Canje</option>
+                            <option value="4">Anulacion</option>
+                        </select>
+
+
+                    </div>
+
+
 
 
                     <div class="form-group col-md-3">
@@ -53,12 +69,7 @@
 
                         <select class="form-control" name="tituloAnterior" id="tituloAnterior" required>
                             <option value=""> Seleccionar </option>
-                            <?php
-                            foreach ($titulos as $t) {
 
-                                echo ' <option value="' . $t->id_titulos . '" >' . $t->id_titulos . '&nbsp;' . $t->prsn_nombres . '&nbsp;' . $t->prsn_apellidopaterno . '</option>';
-                            }
-                            ?>
 
                         </select>
                     </div>
@@ -88,7 +99,7 @@
 
                     <div class="form-group col-md-3" id="DivNumeroaTransferir">
                         <label>Numero de acciones a tranferir</label>
-                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" id="NumNuevoCesion" autocomplete="off">
+                        <input min="1" type="number" name="NumNuevoCesion" class="form-control" placeholder="Numero a Tranferir" required id="NumNuevoCesion" autocomplete="off">
                     </div>
 
 
@@ -110,7 +121,7 @@
                         <input type="text" autocomplete="off" class="form-control" id="fechaNtitulo" name="fechaNtitulo" required>
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-3" id="div_nuevoT_cede">
                         <label for="fecha">Numero Para titulo que cede</label>
                         <input type="text" autocomplete="off" class="form-control" id="NuevoTituloqueCede" name="NuevoTituloqueCede" required>
                     </div>
@@ -158,23 +169,192 @@
 
 
 <script>
+    $.ajax({
+        type: "POST",
+        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+        success: function(response) {
+
+            $('#tituloAnterior').html(response).fadeIn();
+
+
+        },
+        error: function() {
+            alert('Ocurrio un error en el servidor ..');
+        }
+    });
+
+
+
+
+
     $(document).ready(function() {
-        var maxField = 10; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="remove-icon.png"/></a></div>'; //New input field html 
-        var x = 1; //Initial field counter is 1
-        $(addButton).click(function() { //Once add button is clicked
-            if (x < maxField) { //Check maximum number of input fields
-                x++; //Increment field counter
-                $(wrapper).append(fieldHTML); // Add field html
+
+
+        $("#TipoTransac").change(function() {
+
+
+            let tipoTransac = $(this).val();
+
+
+
+            if (tipoTransac == 0) { //Cesion
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+                    success: function(response) {
+
+                        $('#tituloAnterior').html(response).fadeIn();
+
+
+                    },
+                    error: function() {
+                        alert('Ocurrio un error en el servidor ..');
+                    }
+                });
+
+
+
+
+
             }
+
+            if (tipoTransac == 2) { //Transmision
+
+                $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtener_titulos_transmision",
+                        success: function(response) {
+
+                            $('#tituloAnterior').html(response);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
+
+
+
+            }
+
+            if (tipoTransac == 3) { //Canje
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+                    success: function(response) {
+
+                        $('#tituloAnterior').html(response).fadeIn();
+
+
+                    },
+                    error: function() {
+                        alert('Ocurrio un error en el servidor ..');
+                    }
+                });
+
+
+            }
+            if (tipoTransac == 4) { //Anulacion
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
+                    success: function(response) {
+
+                        $('#tituloAnterior').html(response).fadeIn();
+
+
+                    },
+                    error: function() {
+                        alert('Ocurrio un error en el servidor ..');
+                    }
+                });
+
+
+            }
+
+
+
+
+
+
         });
-        $(wrapper).on('click', '.remove_button', function(e) { //Once remove button is clicked
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-            x--; //Decrement field counter
-        });
+
+
+
+        //embargadas
+
+
+        $("#tituloAnterior").change(function() {
+                var tituloP = $(this).val();
+
+
+
+
+                if (tituloP != '') {
+                    $.ajax({
+                        type: "POST",
+                        data: {
+                            id: tituloP
+                        },
+                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
+                        success: function(r) {
+
+
+                            var embargo = r.embargo;
+                            var accionesEmbargo = r.acciones_embargadas;
+
+
+
+                            var Id_accionistaAnt = r.id_accionista;
+                            var t = r.numero_acciones;
+
+
+                            if (embargo == 1) {
+
+                                t = t - accionesEmbargo;
+
+                                swal({
+                                    title: 'Titulo con ' + accionesEmbargo + ' acciones embargadas',
+                                    icon: "warning",
+                                    button: "OK",
+                                });
+
+                            }
+
+                            $('#AccionesANT').attr("value", t);
+
+                            $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
+
+                            $('#NumNuevoCesion').attr("max", t);
+                            $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
+
+
+                        },
+                        error: function() {
+                            alert('Ocurrio un error en el servidor ..');
+                        }
+                    });
+                };
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+
 
 
 
@@ -183,7 +363,7 @@
 
         $("#NumeroTitulo, #NuevoTituloqueCede").blur(function() {
 
-            var NuevoT = $(this);;
+            var NuevoT = $(this);
             var NumeroNuevoT = NuevoT.val();
 
 
@@ -216,7 +396,7 @@
         });
 
 
-        
+
     });
 
 
@@ -278,6 +458,7 @@
 
 
     $("#tituloAnterior").change(function() {
+
         var tituloP = $(this).val();
 
 
@@ -375,5 +556,35 @@
 
 
 
+    });
+
+
+    //validacion de cantidad de acciones cediendo
+
+    $("#NumNuevoCesion").blur(function() {
+
+
+        let NumNuevoCesion = $(this).val();
+
+        let MaxAcciones = $(this).attr("max");
+
+        if (NumNuevoCesion > 0) {
+
+            let totalAcciones = MaxAcciones - NumNuevoCesion;
+
+            if (totalAcciones == 0) {
+
+
+                $('#div_nuevoT_cede').hide();
+                $('#NuevoTituloqueCede').attr("required", false);
+
+            } else {
+
+                $('#div_nuevoT_cede').show();
+                $('#NuevoTituloqueCede').attr("required", true);
+
+            }
+
+        }
     });
 </script>

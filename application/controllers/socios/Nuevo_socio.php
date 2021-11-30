@@ -2,7 +2,8 @@
 
 //defined('BASEPATH') OR exit('No direct script access allowed');
 
-
+use Mpdf\Tag\A;
+use Mpdf\Tag\Em;
 
 class nuevo_socio extends CI_Controller
 {
@@ -78,6 +79,7 @@ class nuevo_socio extends CI_Controller
 
 
    public function cargar_cert()
+
    {
 
 
@@ -221,6 +223,7 @@ class nuevo_socio extends CI_Controller
       $DatosCorp = json_decode($_POST['DatosCorp']);
       $DatosCargas = json_decode($_POST['DatosCargas']);
 
+ 
 
 
 
@@ -264,17 +267,23 @@ class nuevo_socio extends CI_Controller
 
       if (!empty($DatosCargas->Cargas)) {
 
-         $this->agregaCarga($DatosCargas);
+
+         $CertificadosCarga = $_FILES["CertificadosCarga"];
+         $RutCargaCertificado = $_POST["rut_carga_certificado"];
+
+
+         $this->agregaCarga($DatosCargas, $CertificadosCarga, $RutCargaCertificado);
       }
 
 
 
-      $devuelta = [
+
+      /* $devuelta = [
          "rut" => $DatosP->rut,
          "nombre" => $DatosP->nombres . ' ' . $DatosP->paterno . ' ' . $DatosP->materno,
       ];
 
-      print_r(json_encode($devuelta));
+      print_r(json_encode($devuelta)); */
    }
 
 
@@ -383,17 +392,14 @@ class nuevo_socio extends CI_Controller
          if ($fecha != "") {
 
             $fechaNew = explode("/", $fecha);
-   
+
             $fecha_mysql = $fechaNew[2] . '-' . $fechaNew[1] . '-' . $fechaNew[0];
-   
+
             return $fecha_mysql;
-            
          } else {
 
             return "0000-00-00";
-            
          }
-
       }
 
 
@@ -474,7 +480,7 @@ class nuevo_socio extends CI_Controller
 
             'observaciones' =>  'Sin Observaciones',
 
-            'fecha_registro' => formatFecha($DATA[$i]->fecha_reg),
+            'fecha_registro' => $DATA[$i]->fecha_reg,
 
             'fecha_retiro' =>  '0000-00-00',
 
@@ -600,14 +606,38 @@ class nuevo_socio extends CI_Controller
 
 
 
-   private function agregaCarga($DatosCargas)
+   private function agregaCarga($DatosCargas, $ArchivosCertificado, $RutCargaCertificado)
    {
+
 
 
 
       $DATA     = $DatosCargas->Cargas;
       $rut_socio    = $DatosCargas->RutSocio;
 
+
+
+      if (!empty($ArchivosCertificado) &&  !empty($RutCargaCertificado)) {
+
+
+         foreach ($DATA as $IndiceCargas => $CargasPost) {
+
+
+            foreach ($RutCargaCertificado as $IndiceRCC => $RCC) {
+
+               if ($CargasPost->rut == $RCC) {
+
+                  $Archivo["name"] = $ArchivosCertificado["name"][$IndiceRCC];
+                  $Archivo["type"] = $ArchivosCertificado["type"][$IndiceRCC];
+                  $Archivo["tmp_name"] = $ArchivosCertificado["tmp_name"][$IndiceRCC];
+                  $Archivo["error"] = $ArchivosCertificado["error"][$IndiceRCC];
+                  $Archivo["size"] = $ArchivosCertificado["size"][$IndiceRCC];
+
+                  $this->Subir_Archivos_Carga($CargasPost->rut, $rut_socio, $Archivo);
+               }
+            }
+         }
+      }
 
 
 
@@ -813,49 +843,10 @@ class nuevo_socio extends CI_Controller
 
    }
 
-   private function Subir_foto_Socio_CODEIGNITER($rut_socio)
-   {
-
-      // $fecha_actual = date("Y-m-d");
-
-      $micarpeta = 'archivos/socios/' . $rut_socio . '/perfil/';
-
-      $fecha = date("Y.m.d_");
 
 
 
-      if (!file_exists($micarpeta)) {
-
-         mkdir($micarpeta, 0777, true);
-      }
-
-      $config['upload_path'] = $micarpeta;
-
-      $config['file_name'] =  $fecha . 'perfil';
-
-      $config['allowed_types'] = 'gif|jpg|jpeg|png';
-
-      $config['max_size'] = 2048;
-
-
-
-      $this->load->library('upload', $config);
-
-      $this->upload->initialize($config);
-
-      if (!$this->upload->do_upload('foto')) { #Aquí me refiero a "foto", el nombre que pusimos en FormData
-
-         $error = array('error' => $this->upload->display_errors());
-
-         echo json_encode($error);
-      } else {
-
-         echo json_encode(true);
-      }
-   }
-
-
-   private function Subir_Archivos_Socio($user, $archivo)
+   private function Subir_Archivos_Socio($rut, $archivo)
    {
 
 
@@ -878,7 +869,7 @@ class nuevo_socio extends CI_Controller
 
             $fuente = $archivo["tmp_name"][$key];
 
-            $carpeta = $Dir_archivos . $user . '/docs/'; //Declaramos el nombre de la carpeta que guardara los archivos
+            $carpeta = $Dir_archivos . $rut . '/docs/'; //Declaramos el nombre de la carpeta que guardara los archivos
 
             if (!file_exists($carpeta)) {
 
@@ -913,6 +904,55 @@ class nuevo_socio extends CI_Controller
 
 
          }
+      }
+   }
+
+
+   private function Subir_Archivos_Carga($rutCarga, $RutSocio, $Archivos)
+   {
+
+      $formatos = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
+
+      $fecha = date("Y.m.d_");
+
+
+      $directorio = 'archivos/socios/' . $RutSocio . '/cargas/' . $rutCarga . '/certificados/';
+
+      if ($Archivos['name']) {
+
+         $nombre_archivo = $fecha . $Archivos['name'];
+
+         $fuente = $Archivos['tmp_name'];
+
+         if (!file_exists($directorio)) {
+
+            mkdir($directorio, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+         }
+
+         $dir = opendir($directorio);
+
+         $path_archivo = $directorio . $nombre_archivo; //indicamos la ruta de destino de los archivos
+
+         $Tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+         if (in_array($Tipo_archivo, $formatos)) {
+
+            if (move_uploaded_file($fuente, $path_archivo)) {
+
+               echo "El archivo $nombre_archivo se han cargado de forma correcta.<br>";
+            } else {
+
+               echo "Se ha producido un error, por favor revise los archivos e intentelo de nuevo.<br>";
+            }
+         } else {
+
+            echo "Formato del archivo $nombre_archivo no valido.<br>";
+         }
+
+         closedir($dir); //Cerramos la conexion con la carpeta destino
+
+
+
       }
    }
 }

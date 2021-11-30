@@ -158,6 +158,8 @@ class nuevaCarga extends CI_Controller
 
 
 
+
+
     //$DATA     = json_decode($_POST['data']);
 
     $rut_socio    = $_POST['rutSocio'];
@@ -323,11 +325,15 @@ class nuevaCarga extends CI_Controller
 
 
 
-      // $fecha_actual = date("Y-m-d");
+     
 
-      $micarpeta = './docSocios/' . $rut_socio . '/cargas/' . $rut_carga;
+      $micarpeta= 'archivos/socios/' . $rut_socio . '/cargas/' . $rut_carga . '/certificados/';
 
+      
       echo $micarpeta;
+
+
+     
 
       if (!file_exists($micarpeta)) {
 

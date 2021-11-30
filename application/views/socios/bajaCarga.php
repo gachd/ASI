@@ -694,7 +694,7 @@
 
             <div class="col-md-6">
 
-              <input autocomplete="on" type="text" class="form-control" name="rut_socio" id="rut_socio" placeholder="Ej: 11111111-1" value="<?php echo set_value('rut_socio'); ?>">
+              <input autocomplete="off" type="text" class="form-control" name="rut_socio" id="rut_socio" placeholder="Ej: 11111111-1" value="<?php echo set_value('rut_socio'); ?>">
 
               <span id="rut_socio" style="display:none;color:red;">Rut incorrecto</span>
 
@@ -896,33 +896,103 @@
 
   $("#enviar").click(function() {
 
-    rut = $('#rut_socio').val();
+    rut = $('#rut_socio');
+
+    if (rut.val() == "") {
+
+      rut.focus();
+
+      rut.css("border", "1px solid red");
 
 
 
-    //alert(rut);
 
-    //    $('#edit_socios').html('<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+    } else {
 
-
-
-    $.post("<?php echo base_url() ?>socios/bajacarga/mostrar_datos", {
-
-        rut: rut
-
-      },
-
-      function(data) {
-
-        $("#mostrar").html(data)
-
-        //        $("#edit_socios").html(data);           
-
-        //  $("#valores").css("display","block")        
+      rut.css("border", "1px solid #ccc");
 
 
+
+
+      $("#mostrar").empty();
+
+      $('#mostrar').html("<div class='spinner'></div>");;
+
+
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url() ?>socios/bajacarga/mostrar_datos",
+        data: {
+          rut: rut.val()
+        },
+
+        success: function(response) {
+          $("#mostrar").empty();
+
+          $("#mostrar").html(response)
+
+        },
+        error: function(response) {
+          $("#mostrar").empty();
+         
+
+        
+         swal("Error!", "No se pudo cargar la información!", "error");
+        }
 
       });
 
-  });
+
+
+
+
+    }
+
+  })
+
+
+  /*  document.getElementById("enviar").onclick = function() {
+
+     mostrar = document.getElementById("mostrar");
+
+       rut = document.getElementById("rut_socio");
+
+       if (rut.value == "") {
+
+         rut.focus();
+
+         rut.style.border="1px solid red";
+
+       }else{
+
+         rut.style.border="1px solid #ccc";
+
+         mostrar.innerHTML = '<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>';
+
+         const peticion = new XMLHttpRequest();
+
+         peticion.open('POST', '<?php echo base_url() ?>socios/bajacarga/mostrar_datos');
+
+         const data = new FormData();
+         data.append('rut', rut.value);
+
+         peticion.send(data);
+
+         peticion.onload = function() {
+
+           mostrar.innerHTML = peticion.response;
+
+        
+
+         };
+
+
+         
+
+
+
+
+     }
+   
+   } */
 </script>

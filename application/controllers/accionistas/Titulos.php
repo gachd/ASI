@@ -236,6 +236,21 @@ class Titulos extends CI_Controller
 
         $NuevoNumeroTituloProcedente = $this->input->post('NuevoTituloqueCede');
 
+        
+
+        
+        /*  
+        
+        0 = cesion
+        1 = nueva      
+        2 =  trasmision  
+        3 =  canje  
+        4 =  anulacion  */
+              
+        
+        
+        $tipoaccion = $this->input->post('TipoTransac');
+
 
 
 
@@ -296,6 +311,8 @@ class Titulos extends CI_Controller
 
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
 
+                'tipo_transferencia' => $tipoaccion ,
+
             );
             $dataTablaTanferencia2 = array(
 
@@ -304,6 +321,8 @@ class Titulos extends CI_Controller
                 'tiulo_actual' =>  $NuevoNumeroTituloProcedente,
 
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
+
+                'tipo_transferencia' => $tipoaccion ,
 
             );
 
@@ -350,6 +369,8 @@ class Titulos extends CI_Controller
                 'tiulo_actual' => $NumeroTitulo,
 
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
+
+                'tipo_transferencia' => $tipoaccion ,
 
             );
 

@@ -102,7 +102,7 @@ if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // DEBE SER LA IP DEL HOSTIN
 	);
 }
 
-if ($_SERVER['SERVER_NAME'] == 'localhost') { // Nombre del  LOCALHOST
+if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == 'localhost' ) { // Nombre del  LOCALHOST
 
 
 
@@ -111,7 +111,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') { // Nombre del  LOCALHOST
 		'hostname' => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'database' => 'stadioit_stadioitaliano',
+		'database' => 'bd_test',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,

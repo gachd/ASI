@@ -76,45 +76,58 @@ class bajaCarga extends CI_Controller
 
 
 
-    $data['corporaciones'] = $this->model_socios->all_corporaciones();
+    $Activo = $this->model_socios->es_Socio($rut);
+
+
+    if ($Activo) {
+
+
+      $data['corporaciones'] = $this->model_socios->all_corporaciones();
 
 
 
-    $data['datos'] = $this->model_socios->persona($rut);
+      $data['datos'] = $this->model_socios->persona($rut);
 
-    $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
+      $data['sociosDatos'] = $this->model_socios->sociosDatos($rut);
 
-    $data['patrocinadores'] = $this->model_socios->patrocinadores($rut);
+      $data['patrocinadores'] = $this->model_socios->patrocinadores($rut);
 
-    $data['patrocinados'] = $this->model_socios->patrocinados($rut);
+      $data['patrocinados'] = $this->model_socios->patrocinados($rut);
 
-    $data['cargas'] = $this->model_socios->cargas($rut);
+      $data['cargas'] = $this->model_socios->cargas($rut);
 
-    $data['cuotas'] = $this->model_socios->cuotas($rut);
+      $data['cuotas'] = $this->model_socios->cuotas($rut);
 
-    $data['estado_civil2'] = $this->model_socios->all_estadocivil();
+      $data['estado_civil2'] = $this->model_socios->all_estadocivil();
 
-    $data['nac'] = $this->model_socios->all_nacionalidades();
+      $data['nac'] = $this->model_socios->all_nacionalidades();
 
-    $data['comuna'] = $this->model_socios->all_comunas();
+      $data['comuna'] = $this->model_socios->all_comunas();
 
-    $data['condicion_lab'] = $this->model_socios->all_condicionlab();
+      $data['condicion_lab'] = $this->model_socios->all_condicionlab();
 
-    $data['condicion'] = $this->model_socios->all_condicion();
+      $data['condicion'] = $this->model_socios->all_condicion();
 
-    $data['condicion2'] = $this->model_socios->all_condicion2();
+      $data['condicion2'] = $this->model_socios->all_condicion2();
 
-    $data['tipo'] = $this->model_socios->all_tipo();
+      $data['tipo'] = $this->model_socios->all_tipo();
 
-    $data['subCond'] = $this->model_socios->all_subcond();
+      $data['subCond'] = $this->model_socios->all_subcond();
 
-    $data['parentesco'] = $this->model_socios->all_parentesco();
-
-
+      $data['parentesco'] = $this->model_socios->all_parentesco();
 
 
 
-    $this->load->view('socios/baja_Carga', $data);
+
+
+      $this->load->view('socios/baja_Carga', $data);
+    } else {
+
+
+      header('HTTP/1.1 500 Internal Server Booboo');
+      header('Content-Type: application/json; charset=UTF-8');
+      die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
+    }
   }
 
 
@@ -134,21 +147,27 @@ class bajaCarga extends CI_Controller
 
     $cargasSocios = $this->model_socios->cargasSocios($rutSocio, $rutCarga);
 
-    $datosCargas = $this->model_socios->persona($rutCarga);
+    if ($cargasSocios) {
 
-    $parentesco = $this->model_socios->all_parentesco();
+      $datosCargas = $this->model_socios->persona($rutCarga);
 
-
-
-    $data["rutCarga"] = $rutCarga;
-    
-    
-    $data["cargasSocios"] = $cargasSocios;
-  
+      $parentesco = $this->model_socios->all_parentesco();
 
 
 
-    $this->load->view('socios/bajaCarga_datosCarga', $data);
+      $data["rutCarga"] = $rutCarga;
+
+
+      $data["cargasSocios"] = $cargasSocios;
+
+
+      $this->load->view('socios/bajaCarga_datosCarga', $data);
+    } else {
+
+      header('HTTP/1.1 500 Internal Server Booboo');
+      header('Content-Type: application/json; charset=UTF-8');
+      die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
+    }
   }
 
 
@@ -176,7 +195,7 @@ class bajaCarga extends CI_Controller
 
 
 
-    $estado    = $_POST['estado'];
+    $estado   = $_POST['estado'];
 
 
 

@@ -1106,38 +1106,48 @@
 
     $("select[name=cargas]").change(function() {
 
-
+      $("#contenido").empty();  //borramos el contenido del div    
 
       var rut_carga = $('select[name=cargas]').val();
 
       var rut_socio = $('#rutSocio').val();
 
-
-
-      $.post("<?php echo base_url() ?>socios/bajacarga/datosCarga", {
-
-          rutCarga: rut_carga,
-
-          rutSocio: rut_socio
-
-        },
-
-        function(data) {
-
-          $("#contenido").html(data)
-
-          //        $("#edit_socios").html(data);           
-
-          //  $("#valores").css("display","block")        
+      $("#contenido").html("<div class='spinner'></div>");
 
 
 
+
+        $.ajax({
+          type: "POST",
+          url: "<?php echo base_url() ?>socios/bajacarga/datosCarga",
+          data: {
+            rutCarga: rut_carga,
+            rutSocio: rut_socio
+          },
+         
+          success: function (response) {
+
+            $("#contenido").empty();
+            
+            $("#contenido").html(response);   //agregamos el contenido devuelto por AJAX
+          },
+          error: function (response) {
+            
+            $("#contenido").empty();
+
+            swal("Error!", "No se pudo cargar la información!", "error");
+
+          }
         });
 
 
 
-      // $('input[name=valor1]').val($(this).val());
 
+
+
+
+
+     
     });
   });
 </script>

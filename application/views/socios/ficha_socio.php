@@ -2,539 +2,555 @@
 
 <head>
 
-	<link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
 
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.css">
 
 </head>
 
 <style>
+  @page oficio {
 
-	@page oficio {
+    size: 210mm 330mm;
 
-		size: 210mm 330mm;
+    margin: 2cm;
 
-		margin: 2cm;
+  }
 
-	}
+  div.tamaño {
+    page: oficio;
+  }
 
-	div.tamaño {page: oficio;}
+  di.row {
+    width: 100%;
+  }
 
-	di.row {width: 100%;}
+  .tbl-inf-af tr {
+    height: 18px;
+  }
 
-	.tbl-inf-af tr {height: 18px;}
+  .tbl-inf-af tr td {
+    font-size: 10px;
+  }
 
-	.tbl-inf-af tr td {font-size: 10px;}
+  .tbl-inf-af th {
+    font-size: 12px;
+  }
 
-	.tbl-inf-af th {font-size: 12px;}
-
-	.tbl-inf-af {margin-left: 16%;}
-
-
-
-	.container {
-
-		width: 1000px;
-
-	}
-
-	.col-md-4 img {
-
-		display: block;
-
-        margin-left: auto;
-
-        margin-right: auto;
+  .tbl-inf-af {
+    margin-left: 16%;
+  }
 
 
 
-	}
+  .container {
 
-	table th,td,tr {
+    width: 1000px;
 
-		border: 1px solid black;
+  }
 
-        border-collapse: collapse;
+  .col-md-4 img {
 
-	}
+    display: block;
 
-	table th{
+    margin-left: auto;
 
-	   background-color: #008928;
-
-	   color: white;
-
-	}
-
-	table tr{
-
-		height: 35px;
-
-	}
-
-	
+    margin-right: auto;
 
 
 
+  }
 
+  table th,
+  td,
+  tr {
 
+    border: 1px solid black;
+
+    border-collapse: collapse;
+
+  }
+
+  table th {
+
+    background-color: #008928;
+
+    color: white;
+
+  }
+
+  table tr {
+
+    height: 35px;
+
+  }
 </style>
 
 <body>
 
-	<div class="container" >
+  <div class="container">
 
-   <div class="row">
-
-      <div class="col-md-4">
-
-         <img  src="<?php echo base_url(); ?>assets/images/user.jpg" width="150px" height="120px" alt="user" border="0">
-
-      </div>      
+    <div class="row">
 
       <div class="col-md-4">
 
-         <img width="320" height="195" src="http://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png">
-
-        
+        <img src="<?php echo base_url(); ?>assets/images/user.jpg" width="150px" height="120px" alt="user" border="0">
 
       </div>
 
       <div class="col-md-4">
 
-         
+        <img width="320" height="195" src="http://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png">
 
-            <table width="80%" border="1" class="tbl-inf-af">
 
-               <thead>
 
-                  <tr>
+      </div>
 
-                  <th width="70%">Corporación</th>
+      <div class="col-md-4">
 
-                  <th width="30%">Nº Registro</th>
 
-                  </tr>
 
-               </thead>
+        <table width="80%" border="1" class="tbl-inf-af">
 
-               <tbody>
+          <thead>
 
-                 <tr>
+            <tr>
 
-                    <td >CENTRO ITALIANO DI CONCEPCIÓN</td>
+              <th width="70%">Corporación</th>
 
-                    <td></td>
+              <th width="30%">Nº Registro</th>
 
-                 </tr>
+            </tr>
 
-                 <tr>
+          </thead>
 
-                    <td>SOCIEDAD SOCORROS MUTUOS CONCORDIA</td>
+          <tbody>
 
-                    <td></td>
+            <tr>
 
-                 </tr>
+              <td>CENTRO ITALIANO DI CONCEPCIÓN</td>
 
-                 <tr>
+              <td></td>
 
-                    <td>STADIO ATLETICO ITALIANO</td>
+            </tr>
 
-                    <td></td>
+            <tr>
 
-                 </tr>
+              <td>SOCIEDAD SOCORROS MUTUOS CONCORDIA</td>
 
-                 <tr>
+              <td></td>
 
-                     <td>STADIO ITALIANO DI CONCEPCIÓN</td>
+            </tr>
 
-                     <td></td>
+            <tr>
 
-                 </tr>
+              <td>STADIO ATLETICO ITALIANO</td>
 
-                 <tr>
+              <td></td>
 
-                     <td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
+            </tr>
 
-                     <td></td>
+            <tr>
 
-                 </tr>
+              <td>STADIO ITALIANO DI CONCEPCIÓN</td>
 
-                  <tr>
+              <td></td>
 
-                     <td>Nº ACCIONES</td>
+            </tr>
 
-                     <td></td>
+            <tr>
 
-                 </tr>
+              <td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
 
-                 </tbody>
+              <td></td>
 
-             </table>
+            </tr>
 
-       </div>
+            <tr>
 
-       <div class="col-md-12"><a href="#" title="Exportar Pdf" id="pdf" class="descargar btn btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF</a>
+              <td>Nº ACCIONES</td>
 
-       	<h3 align="center">FICHA INCORPORACIÓN SOCIOS</h3></div>
+              <td></td>
 
-       
+            </tr>
 
-       <table width="100%"  class="table tbl-datos">
+          </tbody>
 
-                <thead>
+        </table>
 
-                	<tr>
+      </div>
 
-                      <th colspan="4">1.- ANTECEDENTES PERSONALES</th>
+      <div class="col-md-12"><a href="#" title="Exportar Pdf" id="pdf" class="descargar btn btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF</a>
 
-                    </tr>
+        <h3 align="center">FICHA INCORPORACIÓN SOCIOS</h3>
+      </div>
 
-                </thead>
 
-                <tbody>
 
-                  <tr>
+      <table width="100%" class="table tbl-datos">
 
-                    <td width="15%" >RUT </td>
+        <thead>
 
-                    <td ></td>
+          <tr>
 
-                    <td width="15%">NOMBRES </td>
+            <th colspan="4">1.- ANTECEDENTES PERSONALES</th>
 
-                    <td ></td>
+          </tr>
 
-                  </tr>
+        </thead>
 
-                  <tr>
+        <tbody>
 
-                    <td width="21%" >APELLIDO PATERNO </td>
+          <tr>
 
-                    <td ></td>
+            <td width="15%">RUT </td>
 
-                    <td width="20%">APELLIDO MATERNO </td>
+            <td></td>
 
-                    <td></td>
+            <td width="15%">NOMBRES </td>
 
-                  </tr>
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                    <td>FECHA DE NACIMIENTO </td>
+          <tr>
 
-                    <td></td>
+            <td width="21%">APELLIDO PATERNO </td>
 
-                    <td>LUGAR </td>
+            <td></td>
 
-                    <td></td>
+            <td width="20%">APELLIDO MATERNO </td>
 
-                    
+            <td></td>
 
-                  </tr>
+          </tr>
 
-                  <tr>
+          <tr>
 
-                    <td>ESTADO CIVIL </td>
+            <td>FECHA DE NACIMIENTO </td>
 
-                    <td></td>
+            <td></td>
 
-                    <td >NACIONALIDAD </td>
+            <td>LUGAR </td>
 
-                    <td ></td>                    
+            <td></td>
 
-                  </tr>
 
-                  <tr>
 
-                  	<td>TELEFONO </td>
+          </tr>
 
-                    <td></td>
+          <tr>
 
-                    <td>CELULAR </td>
+            <td>ESTADO CIVIL </td>
 
-                    <td></td>
+            <td></td>
 
-                  </tr>
+            <td>NACIONALIDAD </td>
 
-                  <tr>
+            <td></td>
 
-                    <td>CIUDAD </td>
+          </tr>
 
-                    <td></td>
+          <tr>
 
-                    <td >DOMICILIO(CALLE) </td>
+            <td>TELEFONO FIJO </td>
 
-                    <td ></td>                   
+            <td></td>
 
-                  </tr>
+            <td>TELEFONO CELULAR </td>
 
-                  <tr>
+            <td></td>
 
-                  	<td>Nª </td>
+          </tr>
 
-                    <td></td>
 
-                    <td>DPTO </td>
 
-                    <td></td>                    
 
-                  </tr>
+          <tr>
 
-                </tbody>
+            <td>CIUDAD </td>
 
-              </table>
+            <td></td>
 
-              <table width="100%"  class="table tbl-datos">
+            <td>DOMICILIO(CALLE) </td>
 
-                <thead>
+            <td></td>
 
-                	<tr>
+          </tr>
 
-                      <th colspan="6">2.- ANTECEDENTES LABORALES</th>
+          <tr>
 
-                    </tr>
+            <td>Nª </td>
 
-                </thead>
+            <td></td>
 
-                <tbody>
+            <td>DPTO </td>
 
-                  <tr>
+            <td></td>
 
-                    <td width="25%" >ACTIVIDAD O PROFESIÓN </td>
+          </tr>
+          <tr>
 
-                    <td colspan="2"></td>                   
+            <td>CORREO</td>
 
-                    <td width="10%">EMPRESA </td>
 
-                    <td colspan="2"></td>
+          </tr>
 
-                  </tr>
+        </tbody>
 
-                  <tr>
+      </table>
 
-                    <td >CALLE </td>
+      <table width="100%" class="table tbl-datos">
 
-                    <td width="30%"></td>
+        <thead>
 
-                    <td width="5%">Nº </td>
+          <tr>
 
-                    <td ></td>
+            <th colspan="6">2.- ANTECEDENTES LABORALES</th>
 
-                    <td width="8%">DPTO </td>
+          </tr>
 
-                    <td ></td>
+        </thead>
 
-                  </tr>  
+        <tbody>
 
-                </tbody>
+          <tr>
 
-              </table>
+            <td width="25%">ACTIVIDAD O PROFESIÓN </td>
 
-              <table width="100%"  class="table tbl-datos">
+            <td colspan="2"></td>
 
-                <thead>
+            <td width="10%">EMPRESA </td>
 
-                	<tr>
+            <td colspan="2"></td>
 
-                      <th colspan="4">3.- PATROCINANTES</th>
+          </tr>
 
-                    </tr>
+          <tr>
 
-                </thead>
+            <td>CALLE </td>
 
-                <tbody>
+            <td width="30%"></td>
 
-                  <tr>
+            <td width="5%">Nº </td>
 
-                    <td width="21%" >NOMBRE SOCIO </td>
+            <td></td>
 
-                    <td colspan="3"></td>
+            <td width="8%">DPTO </td>
 
-                  </tr>
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                    <td>FECHA DE NACIMIENTO </td>
+        </tbody>
 
-                    <td ></td>
+      </table>
 
-                    <td width="18%">Nº DE REGISTRO </td>
+      <table width="100%" class="table tbl-datos">
 
-                    <td ></td>                    
+        <thead>
 
-                  </tr>
+          <tr>
 
-                  <tr>
+            <th colspan="4">3.- PATROCINANTES</th>
 
-                    <td width="20%" >NOMBRE SOCIO </td>
+          </tr>
 
-                    <td colspan="3"></td>
+        </thead>
 
-                  </tr>
+        <tbody>
 
-                  <tr>
+          <tr>
 
-                    <td>FECHA DE NACIMIENTO </td>
+            <td width="21%">NOMBRE SOCIO </td>
 
-                    <td ></td>
+            <td colspan="3"></td>
 
-                    <td >Nº DE REGISTRO </td>
+          </tr>
 
-                    <td ></td>                    
+          <tr>
 
-                  </tr>
+            <td>FECHA DE NACIMIENTO </td>
 
-                </tbody>
+            <td></td>
 
-              </table>
+            <td width="18%">Nº DE REGISTRO </td>
 
-              <table width="100%"  class="table tbl-datos">
+            <td></td>
 
-                <thead>
+          </tr>
 
-                	<tr>
+          <tr>
 
-                      <th colspan="6">4.- FAMILIAR ITALIANO(CERTIFICADO POR UN ÁRBOL GENEALOGICO)</th>
+            <td width="20%">NOMBRE SOCIO </td>
 
-                    </tr>
+            <td colspan="3"></td>
 
-                </thead>
+          </tr>
 
-                <tbody>
+          <tr>
 
-                  <tr>
+            <td>FECHA DE NACIMIENTO </td>
 
-                    <td >NOMBRE </td>
+            <td></td>
 
-                    <td colspan="2"></td>
+            <td>Nº DE REGISTRO </td>
 
-                    <td width="14%">PARENTESCO </td>
+            <td></td>
 
-                    <td colspan="2"></td>
+          </tr>
 
-                  </tr>
+        </tbody>
 
-                  <tr>
+      </table>
 
-                    <td width="21%">FECHA DE NACIMIENTO </td>
+      <table width="100%" class="table tbl-datos">
 
-                    <td width="15%"></td>
+        <thead>
 
-                    <td width="10%">REGIÓN </td>
+          <tr>
 
-                    <td ></td> 
+            <th colspan="6">4.- FAMILIAR ITALIANO(CERTIFICADO POR UN ÁRBOL GENEALOGICO)</th>
 
-                    <td width="18%">CIUDAD O PUEBLO </td>
+          </tr>
 
-                    <td width="12%"></td>                    
+        </thead>
 
-                  </tr>                  
+        <tbody>
 
-                </tbody>
+          <tr>
 
-              </table>
+            <td>NOMBRE </td>
 
+            <td colspan="2"></td>
 
+            <td width="14%">PARENTESCO </td>
 
-              <table width="100%"  class="table tbl-datos">
+            <td colspan="2"></td>
 
-                <thead>
+          </tr>
 
-                	<tr>
+          <tr>
 
-                      <th colspan="4">5.- ANTECEDENTES FAMILIARES</th>
+            <td width="21%">FECHA DE NACIMIENTO </td>
 
-                    </tr>
+            <td width="15%"></td>
 
-                    <tr>
+            <td width="10%">REGIÓN </td>
 
-                      <th colspan="4">5.1.- CONYUGE</th>
+            <td></td>
 
-                    </tr>                     
+            <td width="18%">CIUDAD O PUEBLO </td>
 
-                </thead>
+            <td width="12%"></td>
 
-                <tbody>
+          </tr>
 
-                  <tr>
+        </tbody>
 
-                    <td >NOMBRE </td>
+      </table>
 
-                    <td ></td>
 
-                    <td>APELLIDO PATERNO </td>
 
-                    <td ></td>
+      <table width="100%" class="table tbl-datos">
 
-                  </tr>
+        <thead>
 
-                  <tr>
+          <tr>
 
-                    <td >APELLIDO MATERNO </td>
+            <th colspan="4">5.- ANTECEDENTES FAMILIARES</th>
 
-                    <td ></td>
+          </tr>
 
-                    <td>RUT </td>
+          <tr>
 
-                    <td ></td>
+            <th colspan="4">5.1.- CONYUGE</th>
 
-                  </tr>
+          </tr>
 
-                  <tr>
+        </thead>
 
-                    <td width="21%">FECHA DE NACIMIENTO </td>
+        <tbody>
 
-                    <td width="28%" ></td>
+          <tr>
 
-                    <td width="20%">CELULAR </td>
+            <td>NOMBRE </td>
 
-                    <td ></td>                                       
+            <td></td>
 
-                  </tr>   
+            <td>APELLIDO PATERNO </td>
 
-                  <tr>
+            <td></td>
 
-                    <td>EMAIL </td>
+          </tr>
 
-                    <td colspan="3"></td>                                                         
+          <tr>
 
-                  </tr> 
+            <td>APELLIDO MATERNO </td>
 
-                                       
+            <td></td>
 
-                </tbody>
+            <td>RUT </td>
 
-              </table>
+            <td></td>
 
-               <table width="100%"  class="table tbl-cargas">
+          </tr>
 
-                <thead>
+          <tr>
 
-                  <tr>
+            <td width="21%">FECHA DE NACIMIENTO </td>
 
-                    <th colspan="4">5.2.- PADRES</th>                                                                             
+            <td width="28%"></td>
 
-                  </tr> 
+            <td width="20%">CELULAR </td>
 
-                </thead>
+            <td></td>
 
-                <tbody>                
+          </tr>
 
-                                               
+          <tr>
 
-                  <tr>
+            <td>EMAIL </td>
 
-                  	<td align="center" rowspan="4" width="20%">PADRE</td>
+            <td colspan="3"></td>
 
-                  	<td >NOMBRE </td>
+          </tr>
 
-                    <td ></td>                    
 
-                  </tr> 
 
-                  <tr>
+        </tbody>
 
-                  	<td ">APELLIDO PATERNO </td>
+      </table>
+
+      <table width="100%" class="table tbl-cargas">
+
+        <thead>
+
+          <tr>
+
+            <th colspan="4">5.2.- PADRES</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+
+
+          <tr>
+
+            <td align="center" rowspan="4" width="20%">PADRE</td>
+
+            <td>NOMBRE </td>
+
+            <td></td>
+
+          </tr>
+
+          <tr>
+
+            <td ">APELLIDO PATERNO </td>
 
                     <td ></td>
 
@@ -550,25 +566,25 @@
 
                   <tr>
 
-                  	<td width="21%">FECHA DE NACIMIENTO </td>
+                  	<td width=" 21%">FECHA DE NACIMIENTO </td>
 
-                    <td ></td>
+            <td></td>
 
-                  </tr>     
+          </tr>
 
-                   <tr>
+          <tr>
 
-                  	<td align="center" rowspan="4" width="20%">MADRE</td>
+            <td align="center" rowspan="4" width="20%">MADRE</td>
 
-                  	<td >NOMBRE </td>
+            <td>NOMBRE </td>
 
-                    <td ></td>                    
+            <td></td>
 
-                  </tr> 
+          </tr>
 
-                  <tr>
+          <tr>
 
-                  	<td ">APELLIDO PATERNO </td>
+            <td ">APELLIDO PATERNO </td>
 
                     <td ></td>
 
@@ -594,348 +610,381 @@
 
               </table>
 
-              <table width="100%"  class="table tbl-cargas">
+              <table width=" 100%" class="table tbl-cargas">
 
-                <thead>
+              <thead>
 
-                	<tr>
+                <tr>
 
-                      <th colspan="5">5.3.- CARGAS O BENEFICIARIOS</th>
+                  <th colspan="5">5.3.- CARGAS O BENEFICIARIOS</th>
 
-                    </tr>
+                </tr>
 
-                </thead>
+              </thead>
 
-                <tbody>
+        <tbody>
 
-                  <tr>
+          <tr>
 
-                  	<th width="10%"><center>PARENTESCO</center></th>
+            <th width="10%">
+              <center>PARENTESCO</center>
+            </th>
 
-                    <th width="35%"><center>NOMBRES Y APELLIDOS</center></th>
+            <th width="35%">
+              <center>NOMBRES Y APELLIDOS</center>
+            </th>
 
-                    <th width="12%"><center>RUT</center></th>
+            <th width="12%">
+              <center>RUT</center>
+            </th>
 
-                    <th><center>FECHA DE NACIMIENTO</center></th>
+            <th>
+              <center>FECHA DE NACIMIENTO</center>
+            </th>
 
-                    <th><center>CELULAR</center></th>
+            <th>
+              <center>CELULAR</center>
+            </th>
 
-                  </tr>
+          </tr>
 
-                  <tr>
+          <tr>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>
+          </tr>
 
-                  <tr>
+          <tr>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>
+          </tr>
 
-                  <tr>
+          <tr>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>
+          </tr>
 
-                                
 
-                </tbody>
 
-              </table>
+        </tbody>
 
-               <table width="100%"  class="table tbl-cargas">
+      </table>
 
-                <thead>
+      <table width="100%" class="table tbl-cargas">
 
-                	<tr>
+        <thead>
 
-                      <th colspan="5">6.- ¿QUÉ LO MOTIVA A POSTULARSE COMO SOCIO DE LAS INSTITUCIONES ITALIANAS?</th>
+          <tr>
 
-                    </tr>
+            <th colspan="5">6.- ¿QUÉ LO MOTIVA A POSTULARSE COMO SOCIO DE LAS INSTITUCIONES ITALIANAS?</th>
 
-                </thead>
+          </tr>
 
-                <tbody>
+        </thead>
 
-                  <tr>
+        <tbody>
 
-                  	<td height="200px"></td>                    
+          <tr>
 
-                  </tr>      
+            <td height="200px"></td>
 
-                </tbody>
+          </tr>
 
-              </table>
+        </tbody>
 
-              <table width="100%"  class="table tbl-datos">
+      </table>
 
-                <thead>
+      <table width="100%" class="table tbl-datos">
 
-                	<tr>
+        <thead>
 
-                      <th colspan="3">7.- USO INTERNO</th>
+          <tr>
 
-                    </tr>
+            <th colspan="3">7.- USO INTERNO</th>
 
-                    <tr>
+          </tr>
 
-                      <th colspan="3">7.1.- INGRESO</th>
+          <tr>
 
-                    </tr>                     
+            <th colspan="3">7.1.- INGRESO</th>
 
-                </thead>
+          </tr>
 
-                <tbody>
+        </thead>
 
-                  <tr>
+        <tbody>
 
-                    <th width="32%"><center>REUNION DIRECTORIO</center></th>
+          <tr>
 
-                    <th width="25%"><center>FECHA ACTA</center></th>
+            <th width="32%">
+              <center>REUNION DIRECTORIO</center>
+            </th>
 
-                    <th><center>GLOSA</center></th>
+            <th width="25%">
+              <center>FECHA ACTA</center>
+            </th>
 
-                  </tr>
+            <th>
+              <center>GLOSA</center>
+            </th>
 
-                  <tr>
+          </tr>
 
-                  	<td>CENTRO ITALIANO DE CONCEPCIÓN</td>
+          <tr>
 
-                  	<td></td>
+            <td>CENTRO ITALIANO DE CONCEPCIÓN</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr> 
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                  	<td>STADIO ATLÉTICO ITALIANO</td>
+          <tr>
 
-                  	<td></td>
+            <td>STADIO ATLÉTICO ITALIANO</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>   
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                  	<td>SOCIEDAD DE SOCORROS MUTUOS CONCORDIA</td>
+          <tr>
 
-                  	<td></td>
+            <td>SOCIEDAD DE SOCORROS MUTUOS CONCORDIA</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>  
+            <td></td>
 
-                   <tr>
+          </tr>
 
-                  	<td>STADIO ITALIANO DI CONCEPCIÓN</td>
+          <tr>
 
-                  	<td></td>
+            <td>STADIO ITALIANO DI CONCEPCIÓN</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>     
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                  	<td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
+          <tr>
 
-                  	<td></td>
+            <td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr> 
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                  	<th colspan="3">7.2.- RETIRO</th>
+          <tr>
 
-                  </tr>  
+            <th colspan="3">7.2.- RETIRO</th>
 
-                   <tr>
+          </tr>
 
-                    <th width="32%"><center>REUNION DIRECTORIO</center></th>
+          <tr>
 
-                    <th width="25%"><center>FECHA ACTA</center></th>
+            <th width="32%">
+              <center>REUNION DIRECTORIO</center>
+            </th>
 
-                    <th><center>GLOSA</center></th>
+            <th width="25%">
+              <center>FECHA ACTA</center>
+            </th>
 
-                  </tr>
+            <th>
+              <center>GLOSA</center>
+            </th>
 
-                  <tr>
+          </tr>
 
-                  	<td>CENTRO ITALIANO DE CONCEPCIÓN</td>
+          <tr>
 
-                  	<td></td>
+            <td>CENTRO ITALIANO DE CONCEPCIÓN</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr> 
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                  	<td>STADIO ATLÉTICO ITALIANO</td>
+          <tr>
 
-                  	<td></td>
+            <td>STADIO ATLÉTICO ITALIANO</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>   
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                  	<td>SOCIEDAD DE SOCORROS MUTUOS CONCORDIA</td>
+          <tr>
 
-                  	<td></td>
+            <td>SOCIEDAD DE SOCORROS MUTUOS CONCORDIA</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>  
+            <td></td>
 
-                   <tr>
+          </tr>
 
-                  	<td>STADIO ITALIANO DI CONCEPCIÓN</td>
+          <tr>
 
-                  	<td></td>
+            <td>STADIO ITALIANO DI CONCEPCIÓN</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>     
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                  	<td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
+          <tr>
 
-                  	<td></td>
+            <td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>      
+            <td></td>
 
-                </tbody>
+          </tr>
 
-              </table>
+        </tbody>
 
-               <table width="100%"  class="table tbl-cargas">
+      </table>
 
-                <thead>
+      <table width="100%" class="table tbl-cargas">
 
-                	<tr>
+        <thead>
 
-                      <th colspan="5">8.- INFORMACIÓN ACCIONISTAS</th>
+          <tr>
 
-                    </tr>
+            <th colspan="5">8.- INFORMACIÓN ACCIONISTAS</th>
 
-                </thead>
+          </tr>
 
-                <tbody>
+        </thead>
 
-                  <tr>
+        <tbody>
 
-                  	<th width="10%"><center>ACCIONES</center></th>
+          <tr>
 
-                    <th width="35%"><center>Nº LIBRO</center></th>
+            <th width="10%">
+              <center>ACCIONES</center>
+            </th>
 
-                    <th width="12%"><center>FOJAS</center></th>
+            <th width="35%">
+              <center>Nº LIBRO</center>
+            </th>
 
-                    <th><center>TITULO Nº</center></th>
+            <th width="12%">
+              <center>FOJAS</center>
+            </th>
 
-                    <th><center>FECHA ACCION</center></th>
+            <th>
+              <center>TITULO Nº</center>
+            </th>
 
-                  </tr>
+            <th>
+              <center>FECHA ACCION</center>
+            </th>
 
-                  <tr>
+          </tr>
 
-                  	<td></td>
+          <tr>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  	<td></td>
+            <td></td>
 
-                  </tr>
+            <td></td>
 
-                  <tr>
+          </tr>
 
-                  	<th colspan="5">DATOS DE LA VENTA DE LA ACCION</th>
+          <tr>
 
-                  </tr> 
+            <th colspan="5">DATOS DE LA VENTA DE LA ACCION</th>
 
-                  <tr>
+          </tr>
 
-                  	<th colspan="2"><center>FECHA DE VENTA</center></th>
+          <tr>
 
-                  	<th colspan="3"><center>NOMBRE COMPRADOR</center></th>
+            <th colspan="2">
+              <center>FECHA DE VENTA</center>
+            </th>
 
-                  </tr> 
+            <th colspan="3">
+              <center>NOMBRE COMPRADOR</center>
+            </th>
 
-                  <tr>
+          </tr>
 
-                  	<td colspan="2"></td>
+          <tr>
 
-                  	<td colspan="3"></td>
+            <td colspan="2"></td>
 
-                  </tr>             
+            <td colspan="3"></td>
 
-                                
+          </tr>
 
-                </tbody>
 
-              </table>
 
-        
+        </tbody>
 
-   </div>
+      </table>
 
-</div>
 
-<script src="js/bootstrap.js"></script>
+
+    </div>
+
+  </div>
+
+  <script src="js/bootstrap.js"></script>
 
 </body>
 
 <script>
+  $("a[id=pdf]").click(function() {
 
-$("a[id=pdf]").click(function(){
 
-  
-     url =  "<?php echo base_url(); ?>socios/Ficha_socio/ficha_socios";
+    url = "<?php echo base_url(); ?>socios/Ficha_socio/ficha_socios";
 
-      window.open(url, '_blank');
+    window.open(url, '_blank');
 
-});
-
+  });
 </script>
 
 </html>
-

@@ -2,8 +2,7 @@
 
 require_once APPPATH . '/vendor/autoload.php';
 
-
-
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -39,6 +38,7 @@ class inicio extends CI_Controller
       $this->load->model('model_reportes');
 
       $this->load->model('model_socios');
+
       $this->load->model('model_libro');
       $this->load->model('model_titulo');
       $this->load->model('model_persona');
@@ -178,7 +178,7 @@ class inicio extends CI_Controller
       $rango = []; //array para almacenar los rangos
       $nombres = []; //nombres de los accionistas
 
-      $i = 0; 
+      $i = 0;
       $cont = 0; //contador para los minoritarios
 
       foreach ($accionistas as $s) {
@@ -248,9 +248,180 @@ class inicio extends CI_Controller
 
    {
 
+
+
+      $Tranferencia_de_acciones = array();
+
+
       $data['accionista'] = $this->model_accionistas->datosaccionista($id);
 
-      $data['titulos'] = $this->model_accionistas->validar_estado($id);
+      $data['titulos'] = $this->model_accionistas->TitulosActivosporAccionista($id);
+
+
+
+      //Consulta a BD por todos los titulos que posee o fueron alguna ves del accionista
+
+      $TitulosHistoricosAccionista = $this->model_accionistas->HistorialTitulosporAccionista($id);
+
+
+
+
+      foreach ($TitulosHistoricosAccionista as $t_h) {
+
+
+
+
+
+         $HistoricoTitulosVendidos = $this->model_titulo->titulos_con_tranferencia_realizada($t_h->id_titulos);
+
+
+         //validamos la venta, canje o herencia de acciones
+
+         if (!empty($HistoricoTitulosVendidos)) {
+
+
+            for ($i = 0; $i < count($HistoricoTitulosVendidos); $i++) {
+
+               //Consultamos los datos de los compradosres del los titulos
+
+               $LosQueCompraron = $this->model_titulo->DatosAccionistaDelTitulo($HistoricoTitulosVendidos[$i]['tiulo_actual']);
+               $LosQueCompraron = $LosQueCompraron[0];
+
+
+               $HistoricoTitulosVendidos[$i]["Comprador_IdAccionista"] = $LosQueCompraron["id_accionista"];
+               $HistoricoTitulosVendidos[$i]["Comprador_Nombres"] = $LosQueCompraron["prsn_nombres"];
+               $HistoricoTitulosVendidos[$i]["Comprador_ApellidoP"] = $LosQueCompraron["prsn_apellidopaterno"];
+               $HistoricoTitulosVendidos[$i]["Comprador_ApellidoM"] = $LosQueCompraron["prsn_apellidomaterno"];
+               $HistoricoTitulosVendidos[$i]["Comprador_Rut"] = $LosQueCompraron["prsn_rut"];
+               $HistoricoTitulosVendidos[$i]["Acciones_Vendidas"] = $LosQueCompraron["numero_acciones"];
+            }
+
+
+
+            //Guardamos en un array con indice del mismo numero de titulos del accionista de $TitulosHistoricosAccionista
+
+            $Tranferencia_de_accionesVedidas[$t_h->id_titulos] = $HistoricoTitulosVendidos;
+         }
+
+         //Validamos la compra de acciones
+
+         $HistoricoTitulosComprados = $this->model_titulo->titulos_con_tranferencia_recibida($t_h->id_titulos);
+         $HistoricoTitulosComprados = $HistoricoTitulosComprados[0];
+
+         if (!empty($HistoricoTitulosComprados)) {
+
+
+
+            //Consultamos los datos de los compradosres del los titulos
+
+            $AquienCompro = $this->model_titulo->DatosAccionistaDelTitulo($HistoricoTitulosComprados['titulo_origen']);
+            $AquienCompro = $AquienCompro[0];
+
+
+
+            $HistoricoTitulosComprados["Vendedor_IdAccionista"] = $AquienCompro["id_accionista"];
+            $HistoricoTitulosComprados["Vendedor_Nombres"] = $AquienCompro["prsn_nombres"];
+            $HistoricoTitulosComprados["Vendedor_ApellidoP"] = $AquienCompro["prsn_apellidopaterno"];
+            $HistoricoTitulosComprados["Vendedor_ApellidoM"] = $AquienCompro["prsn_apellidomaterno"];
+            $HistoricoTitulosComprados["Vendedor_Rut"] = $AquienCompro["prsn_rut"];
+            $HistoricoTitulosComprados["Acciones_Compradas"] = $HistoricoTitulosComprados['numero_acciones'];
+
+            //Guadamos el historico de acciones compradas y sus titulos
+
+            $Tranferencia_de_accionesCompradas[$t_h->id_titulos] = $HistoricoTitulosComprados;
+         } else {
+
+            //si la accion no fue comprada a un tercera es una accion suscrita nueva
+
+            $TitulosSuscritos[$t_h->id_titulos]['Titulo'] = $t_h->id_titulos;
+
+            $TitulosSuscritos[$t_h->id_titulos]['Acciones'] = $t_h->numero_acciones;
+            $TitulosSuscritos[$t_h->id_titulos]['Fecha'] = $t_h->fecha;
+         }
+
+
+         //Fin recorrido array de Titulos
+
+
+      }
+
+
+
+
+
+
+
+      $index = 0;
+
+      if (!empty($Tranferencia_de_accionesVedidas)) {
+
+         foreach ($Tranferencia_de_accionesVedidas as $indice => $value) {
+
+
+
+
+
+            $contador_canje = 0;
+            $contandorVenta = 0;
+
+            /* echo "Venta Titulo".$indice; */
+
+
+
+
+            foreach ($Tranferencia_de_accionesVedidas[$indice] as $acciones) {
+
+               if ($acciones['tipo_transferencia'] == 3) { //canje
+
+                  $contador_canje = $contador_canje + $acciones["Acciones_Vendidas"];
+               }
+            }
+            $AccionesOriginalesT[$index]["Titulo"] = $indice;
+            $AccionesOriginalesT[$index]["Canjeadas"] = $contador_canje;
+            $AccionesOriginalesT[$index]["Vendidas"] = $contandorVenta;
+            $AccionesOriginalesT[$index]["Acciones_originales"] = $contador_canje + $acciones["numero_acciones"];
+
+
+            $index++;
+         }
+      }
+
+
+      $data['TitulosHistoricosAccionista'] = $TitulosHistoricosAccionista;
+      $data['Tranferencia_de_accionesVedidas'] = $Tranferencia_de_accionesVedidas;
+      $data['Tranferencia_de_accionesCompradas'] = $Tranferencia_de_accionesCompradas;
+
+
+
+      $data['AccionesOriginalesT'] = $AccionesOriginalesT;
+
+
+      //resgitrar las acciones realizadas del titulo antes de los canjes
+
+      if (!empty($TitulosSuscritos)) {
+
+         foreach ($TitulosSuscritos as $indexTS => $TS) {
+
+            if (!empty($AccionesOriginalesT)) {
+
+               foreach ($AccionesOriginalesT as $indexAOT => $AOT) {
+
+                  if ($indexTS == $AOT["Titulo"]) {
+
+                     $TitulosSuscritos[$indexTS]['Acciones'] =  $AOT["Acciones_originales"];
+                  }
+               }
+            }
+         }
+      }
+
+
+
+
+      $data['TitulosSuscritos'] = $TitulosSuscritos;
+
+
+
 
 
 
@@ -263,7 +434,11 @@ class inicio extends CI_Controller
 
 
 
+
       $data['socio'] = $this->model_accionistas->accionistas_es_socio($rut_accionista);
+
+
+
 
 
       $this->load->view('plantilla/Head');
@@ -274,7 +449,251 @@ class inicio extends CI_Controller
    }
 
 
+   public function menu_corriente()
+   {
+      
+      
+      $this->load->view('plantilla/Head');
 
+      $this->load->view('accionistas/menu_cuentascorrientes');
+     
+      $this->load->view('plantilla/Footer');
+
+
+
+   }
+
+   public function cuentas_corrientes()
+   {
+      $accionista = $this->input->post("rut_accionista");
+
+      $dataAccionista = $this->model_accionistas->datos_accionista_por_rut($accionista);
+
+      if (!empty($dataAccionista)) {
+       
+         $dataAccionista = $dataAccionista[0];
+   
+
+
+        $id = $dataAccionista->id_accionista;
+
+        $Tranferencia_de_acciones = array();
+
+
+        $data['accionista'] = $this->model_accionistas->datosaccionista($id);
+  
+        $data['titulos'] = $this->model_accionistas->TitulosActivosporAccionista($id);
+  
+  
+  
+        //Consulta a BD por todos los titulos que posee o fueron alguna ves del accionista
+  
+        $TitulosHistoricosAccionista = $this->model_accionistas->HistorialTitulosporAccionista($id);
+  
+  
+  
+  
+        foreach ($TitulosHistoricosAccionista as $t_h) {
+  
+  
+  
+  
+  
+           $HistoricoTitulosVendidos = $this->model_titulo->titulos_con_tranferencia_realizada($t_h->id_titulos);
+  
+  
+           //validamos la venta, canje o herencia de acciones
+  
+           if (!empty($HistoricoTitulosVendidos)) {
+  
+  
+              for ($i = 0; $i < count($HistoricoTitulosVendidos); $i++) {
+  
+                 //Consultamos los datos de los compradosres del los titulos
+  
+                 $LosQueCompraron = $this->model_titulo->DatosAccionistaDelTitulo($HistoricoTitulosVendidos[$i]['tiulo_actual']);
+                 $LosQueCompraron = $LosQueCompraron[0];
+  
+  
+                 $HistoricoTitulosVendidos[$i]["Comprador_IdAccionista"] = $LosQueCompraron["id_accionista"];
+                 $HistoricoTitulosVendidos[$i]["Comprador_Nombres"] = $LosQueCompraron["prsn_nombres"];
+                 $HistoricoTitulosVendidos[$i]["Comprador_ApellidoP"] = $LosQueCompraron["prsn_apellidopaterno"];
+                 $HistoricoTitulosVendidos[$i]["Comprador_ApellidoM"] = $LosQueCompraron["prsn_apellidomaterno"];
+                 $HistoricoTitulosVendidos[$i]["Comprador_Rut"] = $LosQueCompraron["prsn_rut"];
+                 $HistoricoTitulosVendidos[$i]["Acciones_Vendidas"] = $LosQueCompraron["numero_acciones"];
+              }
+  
+  
+  
+              //Guardamos en un array con indice del mismo numero de titulos del accionista de $TitulosHistoricosAccionista
+  
+              $Tranferencia_de_accionesVedidas[$t_h->id_titulos] = $HistoricoTitulosVendidos;
+           }
+  
+           //Validamos la compra de acciones
+  
+           $HistoricoTitulosComprados = $this->model_titulo->titulos_con_tranferencia_recibida($t_h->id_titulos);
+           $HistoricoTitulosComprados = $HistoricoTitulosComprados[0];
+  
+           if (!empty($HistoricoTitulosComprados)) {
+  
+  
+  
+              //Consultamos los datos de los compradosres del los titulos
+  
+              $AquienCompro = $this->model_titulo->DatosAccionistaDelTitulo($HistoricoTitulosComprados['titulo_origen']);
+              $AquienCompro = $AquienCompro[0];
+  
+  
+  
+              $HistoricoTitulosComprados["Vendedor_IdAccionista"] = $AquienCompro["id_accionista"];
+              $HistoricoTitulosComprados["Vendedor_Nombres"] = $AquienCompro["prsn_nombres"];
+              $HistoricoTitulosComprados["Vendedor_ApellidoP"] = $AquienCompro["prsn_apellidopaterno"];
+              $HistoricoTitulosComprados["Vendedor_ApellidoM"] = $AquienCompro["prsn_apellidomaterno"];
+              $HistoricoTitulosComprados["Vendedor_Rut"] = $AquienCompro["prsn_rut"];
+              $HistoricoTitulosComprados["Acciones_Compradas"] = $HistoricoTitulosComprados['numero_acciones'];
+  
+              //Guadamos el historico de acciones compradas y sus titulos
+  
+              $Tranferencia_de_accionesCompradas[$t_h->id_titulos] = $HistoricoTitulosComprados;
+           } else {
+  
+              //si la accion no fue comprada a un tercera es una accion suscrita nueva
+  
+              $TitulosSuscritos[$t_h->id_titulos]['Titulo'] = $t_h->id_titulos;
+  
+              $TitulosSuscritos[$t_h->id_titulos]['Acciones'] = $t_h->numero_acciones;
+              $TitulosSuscritos[$t_h->id_titulos]['Fecha'] = $t_h->fecha;
+           }
+  
+  
+           //Fin recorrido array de Titulos
+  
+  
+        }
+  
+  
+  
+  
+  
+  
+  
+        $index = 0;
+  
+        if (!empty($Tranferencia_de_accionesVedidas)) {
+  
+           foreach ($Tranferencia_de_accionesVedidas as $indice => $value) {
+  
+  
+  
+  
+  
+              $contador_canje = 0;
+              $contandorVenta = 0;
+  
+              /* echo "Venta Titulo".$indice; */
+  
+  
+  
+  
+              foreach ($Tranferencia_de_accionesVedidas[$indice] as $acciones) {
+  
+                 if ($acciones['tipo_transferencia'] == 3) { //canje
+  
+                    $contador_canje = $contador_canje + $acciones["Acciones_Vendidas"];
+                 }
+              }
+              $AccionesOriginalesT[$index]["Titulo"] = $indice;
+              $AccionesOriginalesT[$index]["Canjeadas"] = $contador_canje;
+              $AccionesOriginalesT[$index]["Vendidas"] = $contandorVenta;
+              $AccionesOriginalesT[$index]["Acciones_originales"] = $contador_canje + $acciones["numero_acciones"];
+  
+  
+              $index++;
+           }
+        }
+  
+  
+        $data['TitulosHistoricosAccionista'] = $TitulosHistoricosAccionista;
+        $data['Tranferencia_de_accionesVedidas'] = $Tranferencia_de_accionesVedidas;
+        $data['Tranferencia_de_accionesCompradas'] = $Tranferencia_de_accionesCompradas;
+  
+  
+  
+        $data['AccionesOriginalesT'] = $AccionesOriginalesT;
+  
+  
+        //resgitrar las acciones realizadas del titulo antes de los canjes
+  
+        if (!empty($TitulosSuscritos)) {
+  
+           foreach ($TitulosSuscritos as $indexTS => $TS) {
+  
+              if (!empty($AccionesOriginalesT)) {
+  
+                 foreach ($AccionesOriginalesT as $indexAOT => $AOT) {
+  
+                    if ($indexTS == $AOT["Titulo"]) {
+  
+                       $TitulosSuscritos[$indexTS]['Acciones'] =  $AOT["Acciones_originales"];
+                    }
+                 }
+              }
+           }
+        }
+  
+  
+  
+  
+        $data['TitulosSuscritos'] = $TitulosSuscritos;
+  
+  
+  
+  
+  
+  
+        $rut_accionista = $data['accionista'][0]->prsn_rut;
+  
+        $DirAccionista = $data['accionista'][0]->path;
+  
+  
+  
+  
+  
+  
+  
+        $data['socio'] = $this->model_accionistas->accionistas_es_socio($rut_accionista);
+  
+  
+  
+  
+  
+      
+  
+        $this->load->view('accionistas/cuenta_corriente_accionista', $data);
+  
+        
+
+
+
+
+
+
+
+
+      }else{
+         
+        
+         //send message error header
+         header('HTTP/1.1 500 Internal Server Booboo');
+         header('Content-Type: application/json; charset=UTF-8');
+         die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
+
+
+
+      }
+
+   }
 
 
 
@@ -634,6 +1053,7 @@ class inicio extends CI_Controller
 
       $writer->save('php://output');
    }
+
 
 
 

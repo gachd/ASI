@@ -56,218 +56,227 @@
 
 
 
-<!-- aviso cada 3 años-->
-<?php
-
-
-$aviso = $todo_sa[0]->aviso_acciones;
-
-$fecha_aviso = new DateTime($todo_sa[0]->aviso_acciones);
-$hoy = new Datetime(date('Y/m/d'));
-$dif_año = $hoy->diff($fecha_aviso);
-$año = $dif_año->y;
-
-
-if ($año >= 3) { 
-  
-  ?>
-
-  <script>
-    swal({
-      title: "AVISO",
-      text: "No se pueden realizar ventas de acciones",
-      icon: "error",
-      button: "OK",
-    });
-  </script>
-
-
-<?php } ?>
-
 
 
 
 
 <body class="">
-  <?php if (!empty($bajas)) {  ?>
-    <div class="bg-danger col-md-offset-8 col-md-2 fixeded">
-      <h5>Hay accionistas sin titulo</h5>
-
-      <div><a href="inicio/bajas" class="btn btn-danger">ver</a></div>
-
-    </div>
-  <?php }  ?>
-
-
-
 
   <div class="main">
+
     <div class="header">
+
       <div class="container">
 
-
         <div class="row">
+
           <h1>Administración Accionistas</h1>
+
         </div>
+
       </div>
+
     </div>
 
+
     <div class="page-content">
+
+
+
       <div class="row well">
+        <!-- row well -->
 
-        <div class="content-box-large">
 
-          <div class="col-md-1">
-            <button type="button" class="btn btn-success" id="newaccionista"><span class="badge"><i class="glyphicon glyphicon-plus"></i> Nuevo <br> Accionista</span></button>
-          </div>
-          <div class="col-md-1">
-            <button type="button" class="btn btn-primary" id="titulos"><span class="badge"><i class="glyphicon glyphicon-ok"></i> Titulos <br> Accionista</span></button>
-          </div>
-          <div class="col-md-1">
-            <button type="button" class="btn btn-warning" id="fechas"><span class="badge"><i class="glyphicon glyphicon-search"></i> Buscar <br>Fecha</span></button>
-          </div>
+        <div class="col-md-1">
+          <a href="<?php echo base_url(); ?>accionistas/nuevo_accionista" class="btn btn-success"><span class="badge"><i class="glyphicon glyphicon-plus"></i> Nuevo <br> Accionista</span></a>
 
-          <div class="col-md-5">
-            <nav class="navbar navbar-default nav-titulo">
-              <div class="col-md-3">
-                <label style="text-align:center;">GENERADOR DE LISTADOS</label>
+        </div>
+        <div class="col-md-1">
+          <a href="<?php echo base_url(); ?>accionistas/titulos" class="btn btn-primary"><span class="badge"><i class="glyphicon glyphicon-ok"></i> Titulos <br> Accionista</span></a>
+
+        </div>
+        <div class="col-md-1">
+          <a href="<?php echo base_url(); ?>accionistas/inicio/menu_corriente" class="btn btn-danger"><span class="badge"><i class="glyphicon glyphicon-book"></i> Cuenta<br>Accionista</span></a>
+
+        </div>
+        <div class="col-md-1">
+          <a href="<?php echo base_url(); ?>accionistas/sa" class="btn btn-info"><span class="badge"><i class="glyphicon glyphicon-tower"></i>Sociedad <br>Anonima</span></a>
+
+        </div>
+        <div class="col-md-1">
+          <a href="<?php echo base_url(); ?>accionistas/inicio/verfechas" class="btn btn-warning"><span class="badge"><i class="glyphicon glyphicon-search"></i> Buscar <br>Fecha</span></a>
+
+        </div>
+        <div class="col-md-1">
+          <br>
+
+        </div>
+
+        <div class="col-md-6">
+
+          <nav class="navbar navbar-default nav-titulo">
+
+            <div class="col-md-3">
+              <label style="text-align:center;">GENERADOR DE LISTADOS</label>
+            </div>
+
+            <div class="col-md-6">
+              <!-- tipo informe -->
+              <div class="form-inline">
+
+                <div class="form-group">
+                  <label>Formato:</label>
+
+                  <select class="form-control" name="tipo" id="select_formato">
+
+                    <option value="">seleccionar</option>
+                    <option value="1">Excel</option>
+                    <option value="2">PDF</option>
+
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Tipo:</label>
+
+                  <select class="form-control" name="tipo" id="select_tipo">
+
+                    <option value="0">seleccionar</option>
+                    <option value="1">Todos</option>
+                    <option value="2">Mayoritarios</option>
+
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <a href="#" title="Generar" id="pdf" class="descargar btn  btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar</a>
+                </div>
+
               </div>
-              <div class="col-md-8">
+            </div>
 
-                <!-- tipo informe -->
-                <form class="form-inline">
 
-                  <div class="form-group">
-                    <label>Formato:</label>
+          </nav>
+        </div>
 
-                    <select class="form-control " name="tipo" id="select_formato">
-                      <option value="0">seleccionar</option>
-                      <option value="1">Excel</option>
-                      <option value="2">PDF</option>
 
-                    </select>
-                  </div>
 
-                  <div class="form-group">
-                    <label>Tipo:</label>
+      </div> <!-- row well -->
 
-                    <select class="form-control" name="tipo" id="select_tipo">
-                      <option value="0">seleccionar</option>
-                      <option value="1">Todos</option>
-                      <option value="2">Mayoritarios</option>
 
-                    </select>
-                  </div>
 
-                  <div class="form-group">
-                    <a href="#" title="Generar" id="pdf" class="descargar btn  btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar</a>
+    <!--   <div class="container">
 
-                  </div>
+        <div class="row">
+          <div class="col-md-6 panel">
+            <div class="widget">
+              <div class="widget-header">
+                <h5>Accicones</h5>
 
-                </form>
+
               </div>
+              <div class="widget-content ">
+                
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
+
+                  <tr class="bg-primary">
+                    <td>Suscritas</td>
+                    <td><?php echo $sa ?></td>
+                  </tr>
+                  <tr class="bg-success">
+                    <td>Emitidas</td>
+                    <td><strong>
+                        <?php echo $emitidas ?>
+                      </strong></td>
+                  </tr>
+                  <tr class="bg-warning">
+                    <td>Saldo acciones suscritas</td>
+                    <td><?php echo $saldo ?></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <?php if ($no_entregados > 0) : ?>
+                    <tr class="bg-danger">
+                      <td>Titulos por entregar</td>
+                      <td>
+
+                        <a href="<?php echo base_url(); ?>accionistas/titulos/entregados" class="btn btn-danger"><?php echo $no_entregados ?></a>
 
 
-            </nav>
+                        <?php if ($no_entregados == 0) : ?>
+                          <?php echo $no_entregados ?>
+                        <?php endif; ?>
+
+                      </td>
+                    </tr>
+
+                  <?php endif; ?>
+
+
+                </table>
+
+              </div>
+            </div>
           </div>
+
+          <div class="col-md-6 panel">
+            <div class="widget">
+              <div class="widget-header row">
+                <h5>Ultimos Accionitas</h5>
+
+              </div>
+              <div class="widget-content">
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
+                  <thead class="thead-light">
+                    <tr>
+                      <th width="40%">Accionistas </th>
+                      <th>Fecha</th>
+                      <th># Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <?php if (!empty($ultimos)) {
+
+                      foreach ($ultimos as $u) {
+                        echo '<tr class="odd gradeX">';
+                        echo '<td>' . $u->prsn_nombres . ' ' . $u->prsn_apellidopaterno . '</td>';
+                        echo '<td>' . $u->fecha . '</td>';
+                        echo '<td>' . $u->accionesA . '</td>';
+                        echo '</tr>';
+                      }
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
 
         </div>
 
       </div>
-      <div class="well row">
 
-        <div class="resultados">
-
-          <div class="col-md-8">
-
-            <div id="grafico2"></div>
-
-          </div>
-
-
-
-
-        </div>
-        <div class="col-md-4">
-          <div class="row">
-            <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
-
-              <tr class="bg-primary">
-                <td>Suscritas</td>
-                <td><?php echo $sa ?></td>
-              </tr>
-              <tr class="bg-success">
-                <td>Emitidas</td>
-                <td><strong>
-                    <?php echo $emitidas ?>
-                  </strong></td>
-              </tr>
-              <tr class="bg-warning">
-                <td>Saldo acciones suscritas</td>
-                <td><?php echo $saldo ?></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-              </tr>
-              <?php if ($no_entregados > 0) : ?>
-                <tr class="bg-danger">
-                  <td>Titulos por entregar</td>
-                  <td>
-
-                    <a href="<?php echo base_url(); ?>accionistas/titulos/entregados" class="btn btn-danger"><?php echo $no_entregados ?></a>
-
-
-                    <?php if ($no_entregados == 0) : ?>
-                      <?php echo $no_entregados ?>
-                    <?php endif; ?>
-
-                  </td>
-                </tr>
-
-              <?php endif; ?>
-
-
-            </table>
-
-          </div>
-          <div class="row panel">
-            <h5>Ultimos Accionitas</h5>
-            <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
-              <thead class="thead-light">
-                <tr>
-                  <th width="40%">Accionistas </th>
-                  <th>Fecha</th>
-                  <th># Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-
-                <?php if (!empty($ultimos)) {
-
-                  foreach ($ultimos as $u) {
-                    echo '<tr class="odd gradeX">';
-                    echo '<td>' . $u->prsn_nombres . ' ' . $u->prsn_apellidopaterno . '</td>';
-                    echo '<td>' . $u->fecha . '</td>';
-                    echo '<td>' . $u->accionesA . '</td>';
-                    echo '</tr>';
-                  }
-                }
-                ?>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-
-      </div>
+ -->
 
 
 
 
 
 
-      <div class="row panel table-responsive" id="mostrarSocios">
+
+
+
+
+
+
+
+
+
+      <div class="row panel table-responsive" id="mostrarAccionistas">
         <div class="col-md-12">
 
           <div class="content-box-large">
@@ -297,46 +306,70 @@ if ($año >= 3) {
                   </thead>
                   <tbody>
 
+                    <?php foreach ($accionistas as $a) {     ?>
 
 
-                    <?php foreach ($accionistas as $s) {
+                      <tr class="odd gradeX">
 
+                        <td>
+                          <?php if ($s->prsn_fallecido == "1") { ?>
 
-                      echo '<tr class="">';
-                      if ($s->prsn_fallecido == "1") {
+                            <?php echo $a->prsn_rut  ?>
 
-                        echo '<td class="text-left">' . $s->prsn_rut . ' <span class="pull-right text-right">&#10015; <span style="display:none;">Muerte</span>  </span></td>';
-                      } else {
+                            <span class="pull-right text-right">&#10015; <span style="display:none;">Muerte</span> </span>
 
-                        echo '<td class="text-left">' . $s->prsn_rut . ' <span class="pull-right text-right"></span></td>';
-                      }
+                          <?php } else { ?>
 
+                            <?php echo $a->prsn_rut ?>
 
+                          <?php } ?>
 
-                      echo '<td><div>' . $s->prsn_nombres . '</td>';
-                      echo '<td><div>' . $s->prsn_apellidopaterno . '</div></td>';
-                      echo '<td><div>' . $s->prsn_apellidomaterno . '</div></td>';
-                      echo '<td><div>' . $s->numero_acciones . '</div></td>';
-                      $rut = $s->prsn_rut;
+                        </td>
+                        <td><?php echo $a->prsn_nombres ?></td>
+                        <td><?php echo $a->prsn_apellidopaterno ?></td>
+                        <td><?php echo $a->prsn_apellidomaterno ?></td>
+                        <td><?php echo $a->numero_acciones ?></td>
+                        <td>
+                          <?php
 
-                      $titulo = $this->model_accionistas->nro_titulo($rut);
-                      if (!empty($titulo)) {
-                        echo '<td>';
-                        foreach ($titulo as $t) {
-                          echo ' #' . $t->nro_titulo . ' ';
-                        }
-                        echo '</td>';
-                      }
-
-                      echo '<td><a  href=inicio/editar/' . $s->id_accionista . '><span class="ico badge badge-info">Editar</span></a> <a  href=inicio/ver/' . $s->id_accionista . '><span class="ico badge badge-info">Ver</span></a></td>';
+                          $rut = $a->prsn_rut;
+                          $titulo = $this->model_accionistas->nro_titulo($rut); ?>
 
 
 
-                      echo '</tr>';
-                    }
+                          <?php if (!empty($titulo)) { ?>
 
-                    ?>
-                    <a href=""></a>
+
+                            <?php foreach ($titulo as $t) { ?>
+
+
+
+                              <?php echo '#' . $t->nro_titulo . " " ?>
+
+                            <?php  } ?>
+
+
+
+                          <?php }  ?>
+
+                        </td>
+                        <td>
+
+                          <a href="<?php echo base_url(); ?>accionistas/inicio/editar/<?php echo $a->id_accionista ?>" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                          <a href="<?php echo base_url(); ?>accionistas/inicio/ver/<?php echo $a->id_accionista ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-list-alt"></i> Ver</a>
+                        </td>
+
+                      </tr>
+
+                    <?php  } ?>
+
+
+
+
+
+
+
 
                   </tbody>
                 </table>
@@ -346,8 +379,12 @@ if ($año >= 3) {
           </div>
         </div>
       </div>
-    </div>
-  </div>
+
+
+    </div> <!--  page content -->
+
+
+  </div> <!-- main -->
 
 
 
@@ -356,7 +393,7 @@ if ($año >= 3) {
   <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
 
 
-  
+
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chartJS/Chart.min.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -388,11 +425,13 @@ if ($año >= 3) {
 <script type="text/javascript">
   $(document).ready(function() {
 
-   
+
 
     $('#grid').DataTable({
 
-      "order": [[ 1, "asc" ]],
+      "order": [
+        [1, "asc"]
+      ],
 
       "oLanguage": {
         "sProcessing": "Procesando...",
@@ -423,15 +462,7 @@ if ($año >= 3) {
 
 
 
-  $("#titulos").click(function() {
-    window.location.href = "<?php echo base_url(); ?>accionistas/titulos";
-  });
-  $("#newaccionista").click(function() {
-    window.location.href = "<?php echo base_url(); ?>accionistas/nuevo_accionista";
-  });
-  $("#fechas").click(function() {
-    window.location.href = "<?php echo base_url(); ?>accionistas/inicio/verfechas";
-  });
+
 
 
   $("a[id=pdf]").click(function() {

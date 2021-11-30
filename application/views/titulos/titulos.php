@@ -54,8 +54,7 @@
   <div class="main">
     <div class="container ">
 
-      <!-- <button type="button" class="btn btn-primary" id="menuprincipal"><span class="badge"><i class="glyphicon glyphicon-home"></i> Menú <br> Principal</span></button> -->
-
+     
       <ul class="breadcrumb">
         <li><a href="<?php echo base_url()  ?>accionistas/inicio">Inicio</a></li>
 
@@ -64,7 +63,7 @@
 
     </div>
 
-    <div class="container well" >
+    <div class="container well">
       <h3><strong>Titulos</strong></h3>
       <br>
 
@@ -75,7 +74,7 @@
       </div>
 
       <div class="col-md-4" style="padding-bottom: 10px;">
-        <a href="<?php echo base_url(); ?>accionistas/titulos/cesionTitulo" class="btn btn-lg btn-block btn-warning">Cesion</a>
+        <a href="<?php echo base_url(); ?>accionistas/titulos/cesionTitulo" class="btn btn-lg btn-block btn-warning">Tranferencias</a>
       </div>
 
       <div class="col-md-4" style="padding-bottom: 10px;">
@@ -92,7 +91,7 @@
 
 
 
-    <div class="container well" >
+    <div class="container well">
       <h3><strong>HISTORIAL TITULOS ACTIVOS</strong></h3>
       <br>
 
@@ -104,12 +103,12 @@
 
 
 
-          <select class="form-control" name="Titulo" id="Titulo" required>
+          <select class="form-control busquedaSelect" name="Titulo" id="Titulo" required>
             <option value=""> Seleccionar </option>
             <?php
             foreach ($titulos as $i) {
 
-              echo ' <option value="' . $i->id_titulos   . '" >' . $i->id_titulos . '</option>';
+              echo ' <option value="' . $i->id_titulos   . '" >Titulo ' . $i->id_titulos . '</option>';
             }
 
             ?>
@@ -159,7 +158,9 @@
     </div>
 
 
-    <div class="container table-responsive div-wrapper well" >
+
+
+    <div class="container table-responsive div-wrapper well">
 
 
       <h4><strong>TITULOS ACTIVOS</strong></h4>
@@ -213,7 +214,7 @@
               </td>
 
               <td class="text-left">
-                <span >
+                <span>
 
                   <?php if ($t->embargo) { ?>
 
@@ -284,24 +285,13 @@
     </>
 
 </body>
-<link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery.js"></script>
-<!-- jQuery UI -->
-<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 
 
-<script src="<?php echo base_url(); ?>/assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
-
-<script src="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.js"></script>
-
-<script src="<?php echo base_url(); ?>/assets/js/custom.js"></script>
-<script src="<?php echo base_url(); ?>/assets/js/tables.js"></script>
-<!-- Latest compiled and minified CSS -->
 
 <script>
+
+
+
   $("#menuprincipal").click(function() {
     window.location.href = "<?php echo base_url(); ?>accionistas/inicio";
   });
