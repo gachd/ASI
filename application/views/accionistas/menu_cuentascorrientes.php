@@ -65,7 +65,7 @@
 
             <li>Cuentas Accionistas</li>
         </ul>
-        
+
 
     </div>
 
@@ -197,7 +197,7 @@
                 },
                 error: function(data) {
 
-                    alert("error");
+                   swal("Alerta!", "No se encontraron resgistros", "warning");
 
                     $("#datos_accionista").removeClass("spinner");
                     $("#datos_accionista").empty();
