@@ -11,12 +11,14 @@ class Correo extends CI_Controller
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('session');
-        
     }
     public function index()
+
     {
 
+
         $config = array(
+
             'protocol' => 'smtp', // protocolo de envio
             'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
             'smtp_port' => 587, //Puerto de envio
@@ -24,34 +26,59 @@ class Correo extends CI_Controller
             'smtp_pass' => 'Stadio.2020', // Contraseña del correo
             'mailtype' => 'html', //Formato de correo
             'charset' => 'iso-8859-1', //Codificación
-            'wordwrap' => TRUE 
+            'wordwrap' => TRUE
+
+        );
+        
+
+
+
+
+        $accionistas[0] = array(
+            'rut' => '19332562-9',
+
+            'correo' => 'gersonchaparro@gmail.com',
+
+        );
+        $accionistas[1] = array(
+            'rut' => '11111111-1',
+
+            'correo' => 'gchaparro@stadioitalianodiconcepcion.cl',
+
         );
 
-        $data = []; //Array para enviar los datos a la vista
+      
+  
 
-        $mensaje = $this->load->view('welcome_message', $data, TRUE); // carga de vista para el mensaje
+        foreach ($accionistas as $a) {
 
-        $destinatarios = array('gersonchaparro@gmail.com', 'jtoledo@stadioitalianodiconcepcion.cl',); // array con los destinatarios
 
-        $this->load->library('email', $config); // carga de la libreria email
 
-        $this->email->set_newline("\r\n"); // formato de salto de linea
+            $data = []; //Array para enviar los datos a la vista
 
-        $this->email->from('prueba@stadioitalianodiconcepcion.cl'); //direccion de correo que envia
+            $mensaje = $this->load->view('accionistas/sociedad/correo_ordinaria', $data, TRUE); // carga de vista para el mensaje
 
-        $this->email->to($destinatarios); //direccion de correo que recibe
+            $destinatarios = $a["correo"]; // array con los destinatarios
 
-        $this->email->subject('Bienvenido a codeigniter');
+            $this->load->library('email', $config); // carga de la libreria email
 
-        $this->email->message($mensaje);
+            $this->email->set_newline("\r\n"); // formato de salto de linea
 
-        if ($this->email->send()) {
+            $this->email->from('prueba@stadioitalianodiconcepcion.cl'); //direccion de correo que envia
 
-            echo 'Email Enviado.'; 
+            $this->email->to($destinatarios); //direccion de correo que recibe
 
-        } else {
+            $this->email->subject(utf8_decode('Citación a Junta Ordinaria')); // asunto del correo
 
-            show_error($this->email->print_debugger()); 
+            $this->email->message($mensaje);
+
+            if ($this->email->send()) {
+
+                echo 'Email Enviado a .' . $a['rut'];
+            } else {
+
+                show_error($this->email->print_debugger());
+            }
         }
     }
 }

@@ -1966,7 +1966,8 @@
                                   if ($bloqueo == 1) {
                                     $estado = "Bloqueado";
                                     $class_bloq = "bloqueado";
-                                    
+                                    $motivoBloqueo = 'Sistema';
+
                                   } else {
                                     $estado = "Activo";
                                   }
@@ -1974,6 +1975,8 @@
                                   if ((($edad > 18) && ($id_parentesco == 2)) || $bloqueo == 1 ) {
                                     $class_bloq = "bloqueado";
                                     $estado = "Bloqueado";
+                                    $motivoBloqueo = 'Edad';
+                              
                                   }
 
                                   if ($c->prsn_email == '0') {
@@ -2008,8 +2011,9 @@
                                     $cert = 'NO';
                                     $img = '';
                                   }
-                                
-                              
+
+                                  
+                                  
 
                                   echo '<tr class="' . $class_bloq . '">
 

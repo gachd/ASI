@@ -162,40 +162,19 @@ function listadoDirectorio($directorio)
 
 ?>
 
-<div class="salto_linea">
-    <br>
-    <br>
-    <br>
-</div>
 
 
 
 
 <body>
 
-    <script>
-        $(document).ready(function() {
-            $(".open-dropdown").click(function() {
-                $(this).next("ul.dropdown").toggleClass('d-none');
-            });
-        });
-    </script>
+   
 
-    <div class="main">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-
-
-
-        <div class="container">
-
-            <ul class="breadcrumb">
-                <li><a href="<?php echo base_url()  ?>accionistas/inicio">Inicio</a></li>
-
-                <li>Ver Accionista</li>
-            </ul>
-        </div>
-
-
+    </div>
+    <div class="">
 
 
         <div class="container well">
@@ -473,6 +452,8 @@ function listadoDirectorio($directorio)
                                         </td>
                                         <td class="">
 
+                                        <div class="table-responsive">
+
                                             <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
                                                 <thead>
                                                     <tr>
@@ -507,6 +488,8 @@ function listadoDirectorio($directorio)
 
                                                 </tbody>
                                             </table>
+
+                                        </div>
 
 
 
@@ -728,6 +711,7 @@ function listadoDirectorio($directorio)
 
                                         <tr>
 
+                                            <th><strong>#</strong></th>
                                             <th><strong>Titulo que vende</strong></th>
                                             <th>Fecha de venta </th>
                                             <th>Tipo de Transaccion</th>
@@ -744,13 +728,15 @@ function listadoDirectorio($directorio)
 
                                     <tbody>
 
-
+                                        <?php $contador = 0; ?>
                                         <?php foreach ($Tranferencia_de_accionesVedidas as $indexTAV => $TAV) { ?>
 
                                             <?php foreach ($TAV as $HistorialVenta) { ?>
-
+                                                <?php $contador++; ?>
 
                                                 <tr>
+
+                                                    <td><?php echo $contador ?></td>
                                                     <td><?php echo $indexTAV ?></td>
                                                     <td><?php echo formatFecha($HistorialVenta["fecha_cesion"]) ?></td>
                                                     <td><?php echo getTipoTransaccion($HistorialVenta["tipo_transferencia"]) ?></td>
@@ -775,6 +761,7 @@ function listadoDirectorio($directorio)
                                     </tbody>
 
                                 </table>
+
                             <?php } else {
 
                                 echo 'No registra Venta de acciones a terceros';
@@ -790,7 +777,7 @@ function listadoDirectorio($directorio)
 
                     <div class="panel-heading" role="tab" id="headingThree">
                         <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" href="#DivCompra"  data-parent="#accordion" aria-expanded="true" aria-controls="DivCompra">
+                            <a role="button" data-toggle="collapse" href="#DivCompra" data-parent="#accordion" aria-expanded="true" aria-controls="DivCompra">
                                 Compra de acciones
                             </a>
                         </h4>
@@ -857,7 +844,7 @@ function listadoDirectorio($directorio)
                     </div>
                 </div>
 
-      
+
 
             </div>
 
@@ -872,6 +859,15 @@ function listadoDirectorio($directorio)
 
 
     </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $(".open-dropdown").click(function() {
+                $(this).next("ul.dropdown").toggleClass('d-none');
+            });
+        });
+    </script>
 
 
 

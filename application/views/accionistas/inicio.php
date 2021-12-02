@@ -12,7 +12,6 @@
 </head>
 
 <style>
-
   .table_wrapper {
     display: block;
 
@@ -166,7 +165,7 @@
 
 
 
-    <!--   <div class="container">
+      <!--   <div class="container">
 
         <div class="row">
           <div class="col-md-6 panel">
@@ -356,9 +355,12 @@
                         </td>
                         <td>
 
-                          <a href="<?php echo base_url(); ?>accionistas/inicio/editar/<?php echo $a->id_accionista ?>" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                          <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal_accion_accionista" data-rut="<?php echo $a->id_accionista ?>" data-accion="editar" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-pencil"></span></button>
+                          <button type="button" c class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_accion_accionista" data-rut="<?php echo $a->id_accionista ?>" data-accion="ver" data-backdrop="static" data-keyboard="false"><i class="glyphicon glyphicon-list-alt"></i> Ver</button>
 
-                          <a href="<?php echo base_url(); ?>accionistas/inicio/ver/<?php echo $a->id_accionista ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-list-alt"></i> Ver</a>
+
+                          <!--  <a href="<?php echo base_url(); ?>accionistas/inicio/editar/<?php echo $a->id_accionista ?>" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a> -->
+                          <!--  <a href="<?php echo base_url(); ?>accionistas/inicio/ver/<?php echo $a->id_accionista ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-list-alt"></i> Ver</a> -->
                         </td>
 
                       </tr>
@@ -383,6 +385,38 @@
 
 
     </div> <!--  page content -->
+
+
+
+    <div class="modal fade " id="modal_accion_accionista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+      <div class="container main " role="document">
+       
+
+        <div class="modal-content" id="contenido_modal">
+
+          <div class="modal-body" id="body_modal">
+            <!--   <form>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label">Recipient:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="control-label">Message:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                </div>
+            </form> -->
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+        </div> -->
+
+
+        </div>
+      </div>
+    </div>
+
 
 
   </div> <!-- main -->
@@ -424,6 +458,83 @@
 
 
 <script type="text/javascript">
+  $('#modal_accion_accionista').on('show.bs.modal', function(evento) {
+
+    $("#contenido_modal").empty();
+    $("#contenido_modal").html("<div class='spinner'></div>");
+
+    var boton = $(evento.relatedTarget);
+
+
+    var id_accionista = boton.data('rut');
+    var accion = boton.data('accion');
+
+
+
+    $.ajax({
+      type: "POST",
+      url: "<?php echo base_url()  ?>accionistas/inicio/editar_ver_accionista",
+      data: {
+
+        id_accionista: id_accionista,
+        accion: accion,
+
+      },
+
+
+      success: function(datos) {
+
+
+
+        $("#contenido_modal").empty();
+        $("#contenido_modal").append(datos);
+
+
+
+      },
+      error: function(datos) {
+
+        var html = ' <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  </div>';
+
+        $("#contenido_modal").empty();
+        $("#contenido_modal").append(html);
+        $("#modal_accion_accionista .close").click();
+        alert("Error de servidor, compruebe conexion");
+
+
+
+
+      }
+    });
+
+
+
+
+
+
+
+
+
+    /* 
+            var modal = $(this);
+
+            modal.find('.modal-title').text(rut + ' ' + accion);
+
+            modal.find('.modal-body input').val(rut) */
+
+  })
+
+  $('#modal_accion_accionista').on('hidden.bs.modal', function(e) {
+    $("#body_modal").empty();
+  });
+
+
+
+
+
+
+
+
   $(document).ready(function() {
 
 
@@ -496,102 +607,6 @@
     }
 
   });
-
-
-
-
-  $(document).ready(function() {
-
-    $.ajax({
-      url: "<?php echo base_url(); ?>accionistas/inicio/mostrarGrafico1",
-      dataType: 'json',
-      contentType: "application/json; charset=utf-8",
-      method: "GET",
-      success: function(data) {
-        options.series[0].data = data;
-        console.log(data);
-
-        var chart = new Highcharts.Chart(options);
-        chart.setTitle({
-          text: 'Accionistas S.A.'
-        });
-      },
-      error: function(data) {
-        alert(data);
-        console.log(data);
-      }
-    });
-  });
-
-
-
-
-
-
-
-
-  var options = {
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false,
-      type: 'pie',
-      renderTo: 'grafico2'
-    },
-    title: {
-      text: 'Número de Socios por Edades'
-    },
-    tooltip: {
-      //pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        point: {
-          events: {
-            click: function() {
-
-              // alert('value: ' + this.name);
-
-              detalleGrafico(this.name);
-
-
-
-            }
-
-          }
-
-        },
-
-        cursor: 'pointer',
-
-        dataLabels: {
-
-          enabled: true,
-
-          //format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-
-          format: '<b>{point.name}</b>: {point.y}',
-
-          style: {
-
-            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-
-          }
-
-        },
-
-
-
-        showInLegend: true
-
-      }
-
-    },
-
-    series: [{}]
-
-  };
 </script>
 
 </html>

@@ -107,6 +107,7 @@ if ($año >= 3) {
 
 
     <ul class="breadcrumb">
+
       <li><a href="<?php echo base_url()  ?>accionistas/inicio">Inicio</a></li>
 
       <li>Sociedad Anonima</li>
@@ -116,22 +117,114 @@ if ($año >= 3) {
 
 
 
-  <div class="header">
 
-    <div class="container">
 
-      <div class="row">
-
-        <h1>Administración Accionistas</h1>
-
-      </div>
-
-    </div>
-
-  </div>
 
 
   <div class="page-content">
+
+    <div class="col-md-offset-3 col-md 6">
+
+      <div class="col-md-4 ">
+
+        <a class="btn btn-warning" href="<?php echo base_url(); ?>accionistas/SA/ordinaria">Ordinaria</a>
+
+      </div>
+
+
+      <div class="col-md-4">
+
+        <a class="btn btn-success" href="<?php echo base_url(); ?>accionistas/SA/extraordinaria">Extraordinaria</a>
+
+      </div>
+
+
+      <div class="col-md-4">
+
+        <a class="btn btn-primary" href="<?php echo base_url(); ?>accionistas/SA/directorio">Directorio</a>
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+
+
+      <h5>
+        La sociedad anónima Stadio Italiano fue creada en el año de 2001, con el objetivo de promover el deporte y la cultura italiana,
+        de la cual se compone el sigiuente directorio actual:
+      </h5>
+      <div id="div_directorio" class="table-responsive">
+
+        <table class="table">
+
+          <thead>
+
+            <tr>
+              <th>Rut</th>
+              <th>Nombre</th>
+              <th>Cargo</th>
+              <th>Fecha Nombramiento</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+
+
+            <?php foreach ($directorio  as $indexDir => $Dir) { ?>
+          
+              <?php if ($indexDir != "fecha") {   ?>
+
+
+                <?php if ($indexDir != "director") { ?>
+
+                  <tr>
+                    <td> <?php echo  $Dir->prsn_rut ?> </td>
+                    <td> <?php echo  $Dir->prsn_nombres . ' ' . $Dir->prsn_apellidopaterno . ' ' . $Dir->prsn_apellidomaterno ?> </td>
+                    <td> <?php echo strtoupper($indexDir) ?> </td>
+                    <td> <?php echo $directorio["fecha"] ?> </td>
+                  </tr>
+
+                <?php } else { ?>
+
+                  <?php foreach ($Dir as $indexDirec => $Directores) { ?>
+
+                    <tr>
+                      <td> <?php echo  $Directores->prsn_rut ?> </td>
+                      <td> <?php echo  $Directores->prsn_nombres . ' ' . $Directores->prsn_apellidopaterno . ' ' . $Directores->prsn_apellidomaterno ?> </td>
+                      <td> <?php echo strtoupper($indexDir) ?> </td>
+                      <td> <?php echo $directorio["fecha"] ?> </td>
+                    </tr>
+                  <?php } ?>
+
+                <?php } ?>
+              <?php  }  ?>
+            <?php } ?>
+
+          </tbody>
+        </table>
+
+      </div>
+
+
+
+
+    </div>
+
+
 
 
 
@@ -151,6 +244,7 @@ if ($año >= 3) {
 
 
       </div>
+
       <div class="col-md-4">
         <div class="row">
           <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
@@ -223,6 +317,10 @@ if ($año >= 3) {
         </div>
       </div>
 
+
+
+
+
     </div>
 
 
@@ -271,8 +369,10 @@ if ($año >= 3) {
       contentType: "application/json; charset=utf-8",
       method: "GET",
       success: function(data) {
-        options.series[0].data = data;
+
         console.log(data);
+
+        options.series[0].data = data;
 
         var chart = new Highcharts.Chart(options);
 
@@ -306,11 +406,13 @@ if ($año >= 3) {
           events: {
             click: function() {
 
+              console.log(this);
 
-              detalleGrafico(this.name);
 
 
-            }
+            },
+
+
 
           }
 

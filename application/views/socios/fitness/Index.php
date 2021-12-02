@@ -169,10 +169,13 @@ function getEdad($fecha)
 
 <script type="text/javascript">
     $(document).ready(function() {
+        
         $('#tabla_socios').DataTable();
+
     });
 
     $('#Modal_Beneficiario').on('show.bs.modal', function(evento) {
+
         $("#contenido_modal").empty();
         $("#contenido_modal").append('<div class="center-block" style="text-align:center"><img src="<?php echo base_url(); ?>assets/img/loader.gif" alt="cargando..."></div>');
 

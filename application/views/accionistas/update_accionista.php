@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-   
+
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/styleAccion.css">
     <meta charset="UTF-8">
 
@@ -30,15 +30,15 @@
 </style>
 
 <body>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-    <div class="main">
+    </div>
 
-        <div class="salto_linea">
-            <br>
-            <br>
-            <br>
-        </div>
+    <div class="">
 
+
+        <!-- 
         <div class="container">
 
             <ul class="breadcrumb">
@@ -46,14 +46,13 @@
 
                 <li>Editar Accionista</li>
             </ul>
-        </div>
+        </div> -->
 
 
 
 
 
-
-        <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/updateaccionista" method="post" enctype="multipart/form-data" autocomplete="off">
+        <form action="<?php echo base_url(); ?>accionistas/nuevo_accionista/updateaccionista" id="form_update" method="post" enctype="multipart/form-data" autocomplete="off">
 
             <div class="container">
                 <h2 style="text-align:center;">Edicion de Rut : <?php echo $accionista[0]->prsn_rut  ?></h2>
@@ -240,10 +239,6 @@
         </form>
 
 
-
-
-
-
         <div class="container">
 
 
@@ -252,13 +247,84 @@
 
     </div>
 
-
+<button></button>
 
 
 
 </body>
 
 <script type="text/javascript">
+    $(document).ready(function() {
+
+
+        $("#form_update").submit(function(e) {
+
+            e.preventDefault();
+
+            url = $(this).attr('action');
+
+            type = $(this).attr('method');
+
+            
+    
+                 
+
+
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: url,
+                type: type,
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+
+                    swal({
+                            title: 'Accionista Actualizado',
+                            text: "Se ha actualizado el accionista correctamente",
+                            icon: "success",
+                            buttons: {
+
+                                OK: true,
+                            },
+                        })
+                        .then((ok) => {
+
+                            if (ok) {
+
+                                $("#contenido_modal .close").click()
+
+
+
+                            } else {
+
+                                $("#contenido_modal .close").click()
+
+
+
+                            }
+
+                        });
+
+                }
+            });
+
+        });
+
+
+
+
+
+    });
+
+
+
+
+
+
     function valida_archivo(archivo) {
 
 

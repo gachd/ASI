@@ -15,7 +15,6 @@ class SA extends CI_Controller
         $this->load->model('model_accionistas');
         $this->load->model('model_titulo');
         $this->load->model('model_sa');
-
     }
 
 
@@ -49,17 +48,138 @@ class SA extends CI_Controller
 
         $activos = $this->model_accionistas->id_activos();
 
-        $this->load->view('plantilla/Head');
-        $this->load->view('accionistas/menu_sa',$data);
-        $this->load->view('plantilla/Footer');
 
+        $directorioActual = $this->model_sa->directorio_sa_actual();
+
+
+        foreach ($directorioActual as $Index => $directorioA) {
+
+            $presidente = $this->model_accionistas->datosaccionista($directorioA->presidente);
+            $presidente = $presidente[0];
+            $vicepresidente = $this->model_accionistas->datosaccionista($directorioA->vicepresidente);
+            $vicepresidente = $vicepresidente[0];
+            $director1 = $this->model_accionistas->datosaccionista($directorioA->director1);
+            $director1 = $director1[0];
+            $director2 = $this->model_accionistas->datosaccionista($directorioA->director2);
+            $director2 = $director2[0];
+            $director3 = $this->model_accionistas->datosaccionista($directorioA->director3);
+            $director3 = $director3[0];
+            $director4 = $this->model_accionistas->datosaccionista($directorioA->director4);
+            $director4 = $director4[0];
+            $director5 = $this->model_accionistas->datosaccionista($directorioA->director5);
+            $director5 = $director5[0];
+            $fecha = $directorioA->fecha_directorio;
+
+
+
+        }
+
+        $directores = array(
+            1 => $director1,
+            2 => $director2,
+            3 => $director3,
+            4 => $director4,
+            5 => $director5,
+        );
+
+        $directorio = array(
+            'presidente' => $presidente,
+            'vicepresidente' => $vicepresidente,
+            'director' => $directores,
+            'fecha' => $fecha,
+        );
+
+
+
+     
+
+        $data['directorio'] = $directorio;
+
+
+
+
+        $this->load->view('plantilla/Head');
+        $this->load->view('accionistas/menu_sa', $data);
+        $this->load->view('plantilla/Footer');
     }
 
 
-    public function mostrar_accionista()
+    public function extraordinaria()
     {
-        
 
-       
+        $this->load->view('plantilla/Head');
+        $this->load->view('accionistas/sociedad/menu_extraordinaria');
+        $this->load->view('plantilla/Footer');
+    }
+    public function ordinaria()
+    {
+        $this->load->view('plantilla/Head');
+        $this->load->view('accionistas/sociedad/menu_ordinaria');
+        $this->load->view('plantilla/Footer');
+    }
+
+
+
+    //Funciones del directorio
+
+    public function directorio()
+
+    {
+
+
+        $directorio = $this->model_sa->directorio_sa_actual();
+
+
+
+
+        $accionistas = $this->model_accionistas->accionistas();
+
+
+        $data['accionistas'] = $accionistas;
+
+        $this->load->view('plantilla/Head');
+        $this->load->view('accionistas/sociedad/menu_directorio', $data);
+        $this->load->view('plantilla/Footer');
+    }
+
+    public function nuevo_directorio()
+    {
+
+
+        $directorioActual = $this->model_sa->directorio_sa_actual();
+
+        if (!empty($directorioActual)) {
+
+            foreach ($directorioActual as $IndexDA => $DA) {
+
+                $estado = array(
+
+                    'estado_directorio' => '0',
+               
+                );
+
+
+
+                $this->model_sa->actualizar_directorio($DA->id_directorio, $estado);
+            }
+        }
+
+
+
+        $directorio = array(
+
+            'fecha_directorio' => $this->input->post('fecha_directorio'),
+            'presidente' => $this->input->post('presidente'),
+            'vicepresidente' => $this->input->post('vicepresidente'),
+            'director1' => $this->input->post('director1'),
+            'director2' => $this->input->post('director2'),
+            'director3' => $this->input->post('director3'),
+            'director4' => $this->input->post('director4'),
+            'director5' => $this->input->post('director5'),
+            'estado_directorio' => 1,
+        );
+
+
+        return ($this->model_sa->insertar_directorio($directorio));
     }
 }
