@@ -35,6 +35,10 @@
 			.fc-center h2 {
 				text-transform: uppercase;
 			}
+
+			.fc-day{
+				cursor: pointer;
+			}
 		</style>
 	</head>
 
@@ -118,7 +122,7 @@
 
 				$('#calendar').empty();
 
-				$('#calendar').fadeIn().fullCalendar({
+				$('#calendar').fullCalendar({
 					header: {
 						left: 'prev,next today',
 						center: 'title',
@@ -144,6 +148,10 @@
 
 
 					},
+
+					
+
+
 					events: $.parseJSON(data),
 
 					eventRender: function(events, element) {
