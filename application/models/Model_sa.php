@@ -16,6 +16,7 @@ class model_sa extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('sa_directorio');
+        $this->db->order_by('fecha_directorio', 'ASC');
         $query = $this->db->get();
         return $query->result();
        
@@ -26,6 +27,8 @@ class model_sa extends CI_Model
         $this->db->select('*');
         $this->db->from('sa_directorio');
         $this->db->where('estado_directorio',1);
+        $this->db->order_by('fecha_directorio', 'ASC');
+
         $query = $this->db->get();
         return $query->result();
        
@@ -49,6 +52,7 @@ class model_sa extends CI_Model
     {
         $this->db->where('id_directorio', $id);
         $this->db->update('sa_directorio', $data);
+        
     }
     
 

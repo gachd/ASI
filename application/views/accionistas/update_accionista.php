@@ -80,7 +80,7 @@
 
                 <div class="form-group col-md-4" id="divfechaN">
                     <label for="first-name">Fecha Nacimiento</label>
-                    <input value="<?php echo $accionista[0]->prsn_fechanacimi  ?>" type="date" autocomplete="off" class="form-control fecha" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
+                    <input value="<?php echo $accionista[0]->prsn_fechanacimi  ?>" type="date" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN">
                 </div>
 
                 <div class="form-group col-md-4">
@@ -265,7 +265,7 @@
 
             type = $(this).attr('method');
 
-            
+
     
                  
 
@@ -578,19 +578,8 @@
 
         $.datepicker.setDefaults($.datepicker.regional['es']);
 
-        $("#FechaN").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-            yearRange: "-100:+0"
-
-        });
-        $("#FechaIgreso,#fecha_fallecimiento").datepicker({
-            dateFormat: "yy-mm-dd",
-            yearRange: "-100:+0"
-
-
-        });
+    
+      
 
         $("#region").val('<?php echo $accionista[0]->region_id ?>');
         $("#provi").val('<?php echo $accionista[0]->provincia_id  ?>');

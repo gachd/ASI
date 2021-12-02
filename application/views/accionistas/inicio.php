@@ -356,7 +356,7 @@
                         <td>
 
                           <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal_accion_accionista" data-rut="<?php echo $a->id_accionista ?>" data-accion="editar" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-pencil"></span></button>
-                          <button type="button" c class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_accion_accionista" data-rut="<?php echo $a->id_accionista ?>" data-accion="ver" data-backdrop="static" data-keyboard="false"><i class="glyphicon glyphicon-list-alt"></i> Ver</button>
+                          <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_accion_accionista" data-rut="<?php echo $a->id_accionista ?>" data-accion="ver" data-backdrop="static" data-keyboard="false"><i class="glyphicon glyphicon-list-alt"></i> Ver</button>
 
 
                           <!--  <a href="<?php echo base_url(); ?>accionistas/inicio/editar/<?php echo $a->id_accionista ?>" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></a> -->
@@ -391,7 +391,7 @@
     <div class="modal fade " id="modal_accion_accionista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 
       <div class="container main " role="document">
-       
+
 
         <div class="modal-content" id="contenido_modal">
 
@@ -507,20 +507,6 @@
       }
     });
 
-
-
-
-
-
-
-
-
-    /* 
-            var modal = $(this);
-
-            modal.find('.modal-title').text(rut + ' ' + accion);
-
-            modal.find('.modal-body input').val(rut) */
 
   })
 

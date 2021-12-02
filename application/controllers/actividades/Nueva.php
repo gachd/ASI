@@ -93,15 +93,29 @@ class nueva extends CI_Controller
 	function selectcalendar()
 	{
 		$url = $this->uri->segment('4');
+		$porUrl = 1;
+
+		if (empty($url)) {
+
+			$url = $this->input->post('dia');
+			$porUrl = 0;
+		}
+
+
+
 		$date  = $url;
+		$data['porUrl'] = $porUrl;
 		$data['fecha'] = $date;
 		$data['error_message'] = $this->session->flashdata('flash_message');
+
 		$data['query'] = $this->model_actividades->getAll($date);
+
 		$data['personal_stadio'] = $this->model_actividades->turno_personal_stadio($date);
 
 		$data['guardias'] = $this->model_actividades->turno_guardias($date);
 		/*TURNO DE LOS GUARDIAS*/
 		$data['turnos_del_dia_guardias'] = $this->model_actividades->turnosdeldiaguardias($date);
+		
 		$data['turnos'] = $this->model_actividades->turnos();
 
 		/*turnos existentes solo en el dia*/
@@ -113,10 +127,13 @@ class nueva extends CI_Controller
 		$data['trabajos']	= $this->model_actividades->getAllWORK($date);
 		//$data['depend'] = $this -> model_actividades->getDepen();	
 
-
-		$this->load->view('plantilla/Head');
-		$this->load->view('actividades/index', $data);
-		$this->load->view('plantilla/Footer');
+		if ($porUrl == 1) {
+			$this->load->view('plantilla/Head');
+			$this->load->view('actividades/index', $data);
+			$this->load->view('plantilla/Footer');
+		} else {
+			$this->load->view('actividades/index', $data);
+		}
 	}
 
 

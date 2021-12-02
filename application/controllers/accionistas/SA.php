@@ -46,7 +46,7 @@ class SA extends CI_Controller
 
         $data['todo_sa'] = $this->model_sa->datos_sa();
 
-        $activos = $this->model_accionistas->id_activos();
+        /* $activos = $this->model_accionistas->id_activos(); */
 
 
         $directorioActual = $this->model_sa->directorio_sa_actual();

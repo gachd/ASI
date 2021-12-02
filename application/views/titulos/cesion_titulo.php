@@ -11,12 +11,6 @@
 
 </head>
 
-<div class="salto_linea">
-    <br>
-    <br>
-    <br>
-
-</div>
 
 <div>
 
@@ -195,6 +189,13 @@
 
             let tipoTransac = $(this).val();
 
+            $('#accionista_select').val('');
+            $('#NumNuevoCesion').val('');
+            $('#fechaTrans').val('');
+            $('#NumeroTitulo').val('');
+            $('#fechaNtitulo').val('');
+
+
 
 
             if (tipoTransac == 0) { //Cesion
@@ -222,18 +223,18 @@
             if (tipoTransac == 2) { //Transmision
 
                 $.ajax({
-                        type: "POST",
-                        url: "<?php echo base_url(); ?>accionistas/titulos/obtener_titulos_transmision",
-                        success: function(response) {
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>accionistas/titulos/obtener_titulos_transmision",
+                    success: function(response) {
 
-                            $('#tituloAnterior').html(response);
+                        $('#tituloAnterior').html(response);
 
 
-                        },
-                        error: function() {
-                            alert('Ocurrio un error en el servidor ..');
-                        }
-                    });
+                    },
+                    error: function() {
+                        alert('Ocurrio un error en el servidor ..');
+                    }
+                });
 
 
 
@@ -258,14 +259,16 @@
 
 
             }
-            if (tipoTransac == 4) { //Anulacion
+            selectAccionista = $("#accionista_select");
+
+            if (tipoTransac == 4) { //Anulacion 
 
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>accionistas/titulos/obtenerTitulos",
                     success: function(response) {
 
-                        $('#tituloAnterior').html(response).fadeIn();
+                        $('#tituloAnterior').html(response);
 
 
                     },
@@ -275,6 +278,16 @@
                 });
 
 
+                selectAccionista.css({
+                    'pointer-events': 'none'
+                });
+
+
+            } else {
+
+                selectAccionista.css({
+                    'pointer-events': 'auto'
+                });
             }
 
 
@@ -290,63 +303,70 @@
 
 
         $("#tituloAnterior").change(function() {
-                var tituloP = $(this).val();
+            var tituloP = $(this).val();
 
 
 
 
-                if (tituloP != '') {
-                    $.ajax({
-                        type: "POST",
-                        data: {
-                            id: tituloP
-                        },
-                        url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
-                        success: function(r) {
+            if (tituloP != '') {
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        id: tituloP
+                    },
+                    url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
+                    success: function(r) {
 
 
-                            var embargo = r.embargo;
-                            var accionesEmbargo = r.acciones_embargadas;
+                        var embargo = r.embargo;
+                        var accionesEmbargo = r.acciones_embargadas;
 
 
 
-                            var Id_accionistaAnt = r.id_accionista;
-                            var t = r.numero_acciones;
+                        var Id_accionistaAnt = r.id_accionista;
+                        var t = r.numero_acciones;
 
 
-                            if (embargo == 1) {
+                        if (embargo == 1) {
 
-                                t = t - accionesEmbargo;
+                            t = t - accionesEmbargo;
 
-                                swal({
-                                    title: 'Titulo con ' + accionesEmbargo + ' acciones embargadas',
-                                    icon: "warning",
-                                    button: "OK",
-                                });
+                            swal({
+                                title: 'Titulo con ' + accionesEmbargo + ' acciones embargadas',
+                                icon: "warning",
+                                button: "OK",
+                            });
 
-                            }
-
-                            $('#AccionesANT').attr("value", t);
-
-                            $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
-
-                            $('#NumNuevoCesion').attr("max", t);
-                            $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
-
-
-                        },
-                        error: function() {
-                            alert('Ocurrio un error en el servidor ..');
                         }
-                    });
-                };
+
+                        $('#AccionesANT').attr("value", t);
+
+                        $('#IdAccionistaANT').attr("value", Id_accionistaAnt);
+
+                        $('#NumNuevoCesion').attr("max", t);
+                        $('#NumNuevoCesion').attr("placeholder", "Maximo a tranferir " + t);
+
+
+                    },
+                    error: function() {
+                        alert('Ocurrio un error en el servidor ..');
+                    }
+                });
 
 
 
 
 
 
-            });
+
+            };
+
+
+
+
+
+
+        });
 
 
 
@@ -461,6 +481,8 @@
 
         var tituloP = $(this).val();
 
+        var tipoTrasc = $('#TipoTransac');
+
 
 
 
@@ -473,6 +495,8 @@
 
 
         if (tituloP != '') {
+
+
             $.ajax({
                 type: "POST",
                 data: {
@@ -482,7 +506,7 @@
                 url: "<?php echo base_url(); ?>accionistas/titulos/obtenerAccionesTitulo",
                 success: function(r) {
 
-                    console.log(r);
+                    //console.log(r);
 
                     var embargo = r.embargo;
                     var accionesEmbargo = r.acciones_embargadas;
@@ -513,36 +537,32 @@
             });
 
 
+            if (tipoTrasc.val() == 4) { //Anular obtener id accionista segun el titulo
 
-            //elimiar accionista dueño del titulo
+                selectAccionista = $("#accionista_select");
 
-            /*    $.ajax({
-                   type: "POST",
-                   url: "<?php echo base_url(); ?>accionistas/titulos/ObtenerIDAccionista_deTitulo",
-                   data: {
-                       id: tituloP
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>accionistas/titulos/obtener_accionista_del_Titulo",
+                    data: {
+                        id_titulo: tituloP
+                    },
+                    success: function(r) {
 
-                   },
+                        id_accionista = r.replace(/ /g, "");
 
-                   success: function(idAccionista) {
-                    
+                        selectAccionista.val(id_accionista);
 
-                  
-                       var select_accionista = document.getElementById("accionista_select");
-                       for (var i = 0; i < select_accionista.length; i++) {
-                           console.log(select_accionista.options[i].value);
-                           if (select_accionista.options[i].value == idAccionista.trim()) {                        
-                               select_accionista.remove(i)
-
-                           }
-                       }
+                        //desabilitar el click del select
 
 
 
-                   }
-               }); */
+                    }
+                });
 
 
+
+            }
 
 
 

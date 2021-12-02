@@ -46,16 +46,6 @@
 
 
 
-<?php if ($this->session->flashdata('exito')) {  ?>
-
-  <script>
-    toastr.success("Agregado con exito");
-  </script>
-
-<?php } ?>
-
-
-
 <!-- aviso cada 3 años-->
 <?php
 
@@ -72,14 +62,14 @@ if ($año >= 3) {
 
 ?>
 
-  <script>
+  <!--   <script>
     swal({
       title: "AVISO",
       text: "No se pueden realizar ventas de acciones",
       icon: "error",
       button: "OK",
     });
-  </script>
+  </script> -->
 
 
 <?php } ?>
@@ -103,6 +93,7 @@ if ($año >= 3) {
 
 <div class="main">
 
+
   <div class="container-fluid ">
 
 
@@ -115,107 +106,131 @@ if ($año >= 3) {
 
   </div>
 
+  <div class="header">
 
+    <div class="container">
 
+      <div class="row">
 
+        <h1 class="h1">Sociedad Anonima</h1>
 
+      </div>
+
+    </div>
+
+  </div>
 
 
   <div class="page-content">
 
-    <div class="col-md-offset-3 col-md 6">
+    <div class="row well">
 
-      <div class="col-md-4 ">
 
-        <a class="btn btn-warning" href="<?php echo base_url(); ?>accionistas/SA/ordinaria">Ordinaria</a>
+      <div class="col-md-offset-3 col-md 6">
+
+        <div class="col-md-2">
+
+          <a class="btn btn-warning btn-block" href="<?php echo base_url(); ?>accionistas/SA/ordinaria"><span class="badge btn-block"><i class="glyphicon glyphicon-briefcase"></i> Junta <br>Ordinaria</span></a>
+          <br>
+        </div>
+
+
+        <div class="col-md-2">
+
+          <a class="btn btn-success btn-block" href="<?php echo base_url(); ?>accionistas/SA/extraordinaria"><span class="badge btn-block"><i class="glyphicon glyphicon-credit-card"></i> Junta<br>Extraordinaria</span></a>
+          <br>
+        </div>
+
+
+        <div class="col-md-2">
+
+          <a class="btn btn-primary btn-block" href="<?php echo base_url(); ?>accionistas/SA/directorio"><span class="badge btn-block"><i class="glyphicon glyphicon-align-justify"></i> Directorio<br>SA</span></a>
+          <br>
+
+        </div>
+
+
 
       </div>
-
-
-      <div class="col-md-4">
-
-        <a class="btn btn-success" href="<?php echo base_url(); ?>accionistas/SA/extraordinaria">Extraordinaria</a>
-
-      </div>
-
-
-      <div class="col-md-4">
-
-        <a class="btn btn-primary" href="<?php echo base_url(); ?>accionistas/SA/directorio">Directorio</a>
-
-
-      </div>
-
-
-
     </div>
 
 
 
-    <br>
-    <br>
-    <br>
-    <br>
 
     <div class="container">
 
+      <div>
 
-      <h5>
-        La sociedad anónima Stadio Italiano fue creada en el año de 2001, con el objetivo de promover el deporte y la cultura italiana,
-        de la cual se compone el sigiuente directorio actual:
-      </h5>
-      <div id="div_directorio" class="table-responsive">
+        <h5>
 
-        <table class="table">
+          <span>
+            La sociedad anónima Stadio Italiano fue creada en el año de 2001, con el objetivo de promover el deporte y la cultura italiana.
+            <br>
+            <br>
+            Acualmente se compone del sigueinte directorio:
 
-          <thead>
+          </span>
 
-            <tr>
-              <th>Rut</th>
-              <th>Nombre</th>
-              <th>Cargo</th>
-              <th>Fecha Nombramiento</th>
+        </h5>
 
-            </tr>
+      </div>
 
-          </thead>
+      <div class="row panel">
 
-          <tbody>
+        <div id="div_directorio" class="table-responsive">
+
+          <table class="table">
+
+            <thead>
+
+              <tr>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Cargo</th>
+                <th>Fecha Nombramiento</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
 
 
 
-            <?php foreach ($directorio  as $indexDir => $Dir) { ?>
-          
-              <?php if ($indexDir != "fecha") {   ?>
+              <?php foreach ($directorio  as $indexDir => $Dir) { ?>
+
+                <?php if ($indexDir != "fecha") {   ?>
 
 
-                <?php if ($indexDir != "director") { ?>
-
-                  <tr>
-                    <td> <?php echo  $Dir->prsn_rut ?> </td>
-                    <td> <?php echo  $Dir->prsn_nombres . ' ' . $Dir->prsn_apellidopaterno . ' ' . $Dir->prsn_apellidomaterno ?> </td>
-                    <td> <?php echo strtoupper($indexDir) ?> </td>
-                    <td> <?php echo $directorio["fecha"] ?> </td>
-                  </tr>
-
-                <?php } else { ?>
-
-                  <?php foreach ($Dir as $indexDirec => $Directores) { ?>
+                  <?php if ($indexDir != "director") { ?>
 
                     <tr>
-                      <td> <?php echo  $Directores->prsn_rut ?> </td>
-                      <td> <?php echo  $Directores->prsn_nombres . ' ' . $Directores->prsn_apellidopaterno . ' ' . $Directores->prsn_apellidomaterno ?> </td>
+                      <td> <?php echo  $Dir->prsn_rut ?> </td>
+                      <td> <?php echo  $Dir->prsn_nombres . ' ' . $Dir->prsn_apellidopaterno . ' ' . $Dir->prsn_apellidomaterno ?> </td>
                       <td> <?php echo strtoupper($indexDir) ?> </td>
                       <td> <?php echo $directorio["fecha"] ?> </td>
                     </tr>
+
+                  <?php } else { ?>
+
+                    <?php foreach ($Dir as $indexDirec => $Directores) { ?>
+
+                      <tr>
+                        <td> <?php echo  $Directores->prsn_rut ?> </td>
+                        <td> <?php echo  $Directores->prsn_nombres . ' ' . $Directores->prsn_apellidopaterno . ' ' . $Directores->prsn_apellidomaterno ?> </td>
+                        <td> <?php echo strtoupper($indexDir) ?> </td>
+                        <td> <?php echo $directorio["fecha"] ?> </td>
+                      </tr>
+                    <?php } ?>
+
                   <?php } ?>
+                <?php  }  ?>
+              <?php } ?>
 
-                <?php } ?>
-              <?php  }  ?>
-            <?php } ?>
+            </tbody>
+          </table>
 
-          </tbody>
-        </table>
+        </div>
 
       </div>
 

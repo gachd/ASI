@@ -192,12 +192,6 @@ order BY actividades.act_fecha,actividades.act_inicio  ASC');
 	}
 
 
-
-
-
-
-
-
 	function getSubcate()
 	{
 		$this->db->where('sctg_habilitado', 0);

@@ -9,6 +9,8 @@
 
 	<head>
 
+
+
 		<style>
 			body {
 				/* margin: 40px 10px; */
@@ -36,8 +38,13 @@
 				text-transform: uppercase;
 			}
 
-			.fc-day{
+			.fc-day {
 				cursor: pointer;
+			}
+
+			#btn_modal_actividad {
+
+				display: none;
 			}
 		</style>
 	</head>
@@ -49,12 +56,15 @@
 	<?php $this->load->view('actividades/content_actividad', $data); ?>
 
 	<div class="main">
+
 		<nav class="navbar navbar-default nav-titulo">
 			<div class="col-md-3">
 				<h1 style="text-align:center;">Actividades Coorporaciones</h1>
 			</div>
 			<div class="padre buscador1">
+
 				<div class="hijo">
+
 					<div class="col-md-3">
 						<div style="background:#064b70;" class="categoria">&nbsp;</div><span class="text-categoria">Scuola</span>
 					</div>
@@ -86,17 +96,35 @@
 			</div>
 		</nav>
 
+
 		<div class="col-md-12" style="background: white;padding: 15px;">
 			<div id='calendar'></div>
 		</div>
+
+		<button type="button" id="btn_modal_actividad" class="btn btn-info btn-lg" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#modal_actividad_dia">abir modal</button>
+
+
+		<!-- modal_actividad del dia -->
+		<div class="modal fade " id="modal_actividad_dia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+			<div class="container main " role="document">
+				<div class="modal-content" id="contenido_modal">
+					<div class="modal-body" id="body_modal">
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- fin modal_actividad del dia -->
+
+
 	</div>
 
-	<!--fin .wrapper y content -->
-	</div>
-
-	</div>
 
 </body>
+
+
+
 <meta charset='utf-8' />
 <link href='<?php echo base_url(); ?>assets/js/plugins/fullcalendar-3.5.1/fullcalendar.min.css' rel='stylesheet' />
 <link href='<?php echo base_url(); ?>assets/js/plugins/fullcalendar-3.5.1/fullcalendar.print.min.css' rel='stylesheet' media='print' />
@@ -105,6 +133,95 @@
 <script src='<?php echo base_url(); ?>assets/js/plugins/fullcalendar-3.5.1/fullcalendar.min.js'></script>
 <script src='<?php echo base_url(); ?>assets/js/plugins/fullcalendar-3.5.1/locale/es.js'></script>
 <script>
+	var fecha_actividad_calendario;
+
+
+
+	$('#modal_actividad_dia').on('show.bs.modal', function() {
+
+		alert('modal abierto');
+		/* 	$("#contenido_modal").empty();
+			$("#contenido_modal").html("<div class='spinner'></div>"); */
+		/* 
+
+				$.ajax({
+					type: "POST",
+					url: "<?php echo base_url()  ?>accionistas/inicio/editar_ver_accionista",
+					data: {
+
+						id_accionista: id_accionista,
+						accion: accion,
+
+					},
+
+
+					success: function(datos) {
+
+
+
+						$("#contenido_modal").empty();
+						$("#contenido_modal").append(datos);
+
+
+
+					},
+					error: function(datos) {
+
+						var html = ' <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  </div>';
+
+						$("#contenido_modal").empty();
+						$("#contenido_modal").append(html);
+						$("#modal_actividad_dia .close").click();
+						alert("Error de servidor, compruebe conexion");
+
+
+
+					}
+				}); */
+	});
+
+
+
+	$('#modal_actividad_dia').on('hidden.bs.modal', function(e) {
+		$("#body_modal").empty();
+
+		alert('modal cerrado');
+	});
+
+
+	function planificacion_dia() {
+
+
+		$("#btn_modal_actividad").click();
+		$("#contenido_modal").empty();
+		$("#contenido_modal").html("<div class='spinner'></div>");
+		$.ajax({
+			type: "post",
+			url: "<?php echo base_url(); ?>actividades/nueva/selectcalendar",
+			data: {
+				dia: fecha_actividad_calendario,
+			},
+			success: function(response) {
+				$("#contenido_modal").empty();
+				$("#contenido_modal").append(response);
+
+			},
+			error: function(response) {
+				$("#contenido_modal").empty();
+				$("#contenido_modal").append(html);
+				$("#contenido_modal .close").click();
+				alert("Error de servidor, compruebe conexion");
+				alert("Error de servidor, compruebe conexion");
+			}
+
+
+		});
+
+	}
+
+
+
+
 	$(document).ready(function() {
 
 		$('#calendar').append(
@@ -138,18 +255,23 @@
 
 
 
-						dia = date.format();
-						/*$.post( "<?php //echo base_url();
-									?>actividades/nueva/", { fcha: dia} );*/
+						fecha_actividad_calendario = date.format();
 
-						window.location = "<?php echo base_url(); ?>actividades/nueva/selectcalendar/" + date.format();
-						// change the day's background color just for fun
-						// $(this).css('background-color', 'red');
+						dia = fecha_actividad_calendario;
+
+						planificacion_dia(); 
+
+
+
+
+						/* window.location = "<?php echo base_url(); ?>actividades/nueva/selectcalendar/" +dia; */
+
+
 
 
 					},
 
-					
+
 
 
 					events: $.parseJSON(data),
@@ -162,7 +284,7 @@
 							//$('.fc-content').css("text-decoration-line", "line-through");
 						}
 
-						console.log(events);
+						/* console.log(events); */
 					}
 
 

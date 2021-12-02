@@ -170,6 +170,42 @@ class Titulos extends CI_Controller
         // print_r(json_encode($titulos));
 
     }
+    public function obtener_accionista_del_Titulo()
+    {
+
+        // header('Content-Type: application/json');
+
+
+        $id_titulo = $this->input->post('id_titulo');
+
+
+        $accionista = $this->model_titulo->IdAccionistaDelTitulo($id_titulo);
+
+        if (!empty($accionista)) {
+
+            $accionista = $accionista[0];
+
+            echo ($accionista->id_accionista);
+        }
+
+
+        /*   echo '<option value="">Seleccionar</option>';
+
+        foreach ($titulos as $t) {
+            echo '<option value="' . $t->id_titulos . '">' . $t->id_titulos . '  ' . $t->prsn_nombres . ' ' . $t->prsn_apellidopaterno . '</option>';
+        } */
+
+
+
+        // print_r(json_encode($titulos));
+
+    }
+
+
+
+
+
+
     public function obtener_titulos_transmision()
     {
 
@@ -236,9 +272,9 @@ class Titulos extends CI_Controller
 
         $NuevoNumeroTituloProcedente = $this->input->post('NuevoTituloqueCede');
 
-        
 
-        
+
+
         /*  
         
         0 = cesion
@@ -246,9 +282,9 @@ class Titulos extends CI_Controller
         2 =  trasmision  
         3 =  canje  
         4 =  anulacion  */
-              
-        
-        
+
+
+
         $tipoaccion = $this->input->post('TipoTransac');
 
 
@@ -311,7 +347,7 @@ class Titulos extends CI_Controller
 
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
 
-                'tipo_transferencia' => $tipoaccion ,
+                'tipo_transferencia' => $tipoaccion,
 
             );
             $dataTablaTanferencia2 = array(
@@ -322,7 +358,7 @@ class Titulos extends CI_Controller
 
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
 
-                'tipo_transferencia' => $tipoaccion ,
+                'tipo_transferencia' => $tipoaccion,
 
             );
 
@@ -370,7 +406,7 @@ class Titulos extends CI_Controller
 
                 'fecha_cesion' => $fecha_titulo = $this->input->post('fechaTrans'),
 
-                'tipo_transferencia' => $tipoaccion ,
+                'tipo_transferencia' => $tipoaccion,
 
             );
 
