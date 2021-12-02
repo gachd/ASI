@@ -118,7 +118,7 @@
 
 				$('#calendar').empty();
 
-				$('#calendar').fullCalendar({
+				$('#calendar').fadeIn().fullCalendar({
 					header: {
 						left: 'prev,next today',
 						center: 'title',
