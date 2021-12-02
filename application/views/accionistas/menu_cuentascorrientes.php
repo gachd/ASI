@@ -197,7 +197,7 @@
                 },
                 error: function(data) {
 
-                   swal("Alerta!", "No se encontraron resgistros", "warning");
+                   swal("Alerta!", "No se encontraron registros", "warning");
 
                     $("#datos_accionista").removeClass("spinner");
                     $("#datos_accionista").empty();

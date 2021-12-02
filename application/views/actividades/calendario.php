@@ -104,9 +104,7 @@
 	$(document).ready(function() {
 
 		$('#calendar').append(
-			'<div class="center-block" >' +
-			'<img src="<?php echo base_url(); ?>assets/img/loader.gif" alt="">' +
-			'</div>');
+			'<div class="spinner"></div>');
 
 
 
@@ -134,7 +132,7 @@
 
 					dayClick: function(date, jsEvent, view) {
 
-						
+
 
 						dia = date.format();
 						/*$.post( "<?php //echo base_url();
