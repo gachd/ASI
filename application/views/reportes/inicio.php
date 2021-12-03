@@ -208,7 +208,7 @@ $('#tipo_funcionario').html(data);
 
   $("#enviar").click(function() {
 
-    $('#informes').html('<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+    $('#informes').html('<div class="spinner"></div>');
 
     informe = $('#select_informe').val();
     date_inicio = $('#date_inicio').val();
