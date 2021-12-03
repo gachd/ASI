@@ -14,7 +14,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 	<meta charset="utf-8">
@@ -138,7 +138,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 		.spinner {
 
-			margin: 10px auto;	
+			margin: 10px auto;
 			border: 4px solid rgba(0, 0, 0, 0.1);
 			width: 36px;
 			height: 36px;
@@ -393,7 +393,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			cursor: pointer;
 
 		}
-		
+
 		nav.bradcrumb {
 			position: fixed;
 			top: 40px;
@@ -696,7 +696,7 @@ $ci->load->model("model_login");;
 
 <body onload="listo()" onkeypress="resetTiempo()" onclick="resetTiempo()" onMouseMove="resetTiempo()" ontouchstart="resetTiempo()">
 	<div id="wrapper">
-		<div class="cont-sidebar">
+		<div class="cont-sidebar" id="contenido-sidebar">
 			<nav class="navbar navbar-default sidebar" role="navigation">
 				<div class="container-fluid">
 					<div class="navbar-header">
@@ -717,7 +717,8 @@ $ci->load->model("model_login");;
 									<li><a href="<?php echo base_url(); ?>login/logout">Cerrar Sesion</a></li>
 								</ul>
 							</li>
-							<li style="text-align: center;"><img width="120" src="https://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png"></li>
+
+							<li id="logo_sidebar" style="text-align: center;"><img width="120" src="https://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png"></li>
 
 
 
@@ -805,6 +806,34 @@ $ci->load->model("model_login");;
 
 		<!-- Navigation -->
 		<script>
+			
+			sidebar_posicion($(window).width());
+
+			$(window).resize(function() {
+
+				let ancho = $(this).width();
+
+				sidebar_posicion(ancho);
+
+			});
+
+			function sidebar_posicion(ancho) {
+
+				if (ancho < 768) {
+
+				/* 	console.log("menos 768"); */
+					$("#contenido-sidebar").removeClass("cont-sidebar");
+					$("#logo_sidebar").css("display", "none");
+
+				} else {
+					$("#contenido-sidebar").addClass("cont-sidebar");
+					$("#logo_sidebar").css("display", "block");
+				}
+
+			}
+
+
+
 			$(document).ready(function() {
 
 				$('.dropdown-submenu a.test').on("click", function(e) {
@@ -815,7 +844,10 @@ $ci->load->model("model_login");;
 
 
 				$('.navbar-toggle').click(function() {
+
+
 					if (screen.width > 1024) {
+
 						var main = $('.main');
 						var nav = $('nav');
 						var tog = $('.navbar-toggle');
@@ -882,8 +914,3 @@ $ci->load->model("model_login");;
 
 			});
 		</script>
-
-
-
-		<!-- <?php echo 'SESION CI';
-				print_r($_SESSION) ?> -->
