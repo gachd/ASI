@@ -209,6 +209,7 @@ $('#tipo_funcionario').html(data);
   $("#enviar").click(function() {
 
     $('#informes').html('<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+
     informe = $('#select_informe').val();
     date_inicio = $('#date_inicio').val();
     date_termino = $('#date_termino').val();
@@ -223,6 +224,7 @@ $('#tipo_funcionario').html(data);
     fun = $('#funcionario').val();
     work_categorias = $('#work_categorias').val();
     work_subcategoria = $('#work_subcategoria').val();
+
     $.post("<?php echo base_url() ?>reportes/inicio/informes", {
         informe: informe,
         date_inicio: date_inicio,
@@ -260,7 +262,7 @@ $('#tipo_funcionario').html(data);
     work_categorias = $('#work_categorias').val();
     work_subcategoria = $('#work_subcategoria').val();
 
-    url = "<?php echo base_url(); ?>reportes/inicio/informes/" + informe + "/" + date_inicio + "/" + date_termino + "/" + excel + "/" + categoria + "/" + subcategoria + "/" + pdf + "/" + year + "/" + mes + "/" + tipo_fun + "/" + fun + "/" + work_categorias + "/" + work_subcategoria;
+    url = "<?php echo base_url(); ?>reportes/inicio/informes/" + informe + "/" + date_inicio + "/" + date_termino + "/" + excel + "/" + categoria + "/" + subcategoria + "/" + pdf + "/" + year + "/" + mes + "/" + tipo_fun +"/"+ tipo_inst + "/" + fun + "/" + work_categorias + "/" + work_subcategoria;
     window.open(url, '_blank');
   });
   $("a[id=pdf]").click(function() {
@@ -275,11 +277,12 @@ $('#tipo_funcionario').html(data);
     year = $('#year').val();
     mes = $('#mes').val();
     tipo_fun = $('#tipo_funcionario').val();
+    tipo_inst = $('#tipo_institucion').val();
     fun = $('#funcionario').val();
     work_categorias = $('#work_categorias').val();
     work_subcategoria = $('#work_subcategoria').val();
 
-    url = "<?php echo base_url(); ?>reportes/inicio/informes/" + informe + "/" + date_inicio + "/" + date_termino + "/" + excel + "/" + categoria + "/" + subcategoria + "/" + pdf + "/" + year + "/" + mes + "/" + tipo_fun + "/" + fun + "/" + work_categorias + "/" + work_subcategoria;
+    url = "<?php echo base_url(); ?>reportes/inicio/informes/" + informe + "/" + date_inicio + "/" + date_termino + "/" + excel + "/" + categoria + "/" + subcategoria + "/" + pdf + "/" + year + "/" + mes + "/" + tipo_fun +"/"+ tipo_inst + "/" + fun + "/" + work_categorias + "/" + work_subcategoria;
     window.open(url, '_blank');
   });
 

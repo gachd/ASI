@@ -97,6 +97,7 @@ class  inicio extends CI_Controller
 
 	function informes()
 	{
+		
 
 		$informe = "" . $this->uri->segment('4') . "";
 		$date_inicio = "" . $this->uri->segment('5') . "";
