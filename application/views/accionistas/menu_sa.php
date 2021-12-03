@@ -112,7 +112,7 @@ if ($año >= 3) {
 
       <div class="row">
 
-        <h1 class="h1">Sociedad Anonima</h1>
+        <h1 class="h1">Sociedad Anónima</h1>
 
       </div>
 
@@ -195,11 +195,15 @@ if ($año >= 3) {
 
             <tbody>
 
+            <?php $noMostrar =array ("fecha","gerente"); ?>
 
 
               <?php foreach ($directorio  as $indexDir => $Dir) { ?>
 
-                <?php if ($indexDir != "fecha") {   ?>
+
+
+
+                <?php if (!in_array($indexDir,$noMostrar)){  ?>
 
 
                   <?php if ($indexDir != "director") { ?>
@@ -229,6 +233,17 @@ if ($año >= 3) {
 
             </tbody>
           </table>
+
+        <table class="table">
+          <thead>
+            <th>Gerente</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td> <?php echo $directorio["gerente"] ?> </td>
+            </tr>
+          </tbody>
+        </table>
 
         </div>
 

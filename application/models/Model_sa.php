@@ -12,6 +12,8 @@ class model_sa extends CI_Model
         return $p->result();
     }
 
+    #Diretorio SA
+
     function directorios_sa_historico()
     {
         $this->db->select('*');
@@ -54,6 +56,46 @@ class model_sa extends CI_Model
         $this->db->update('sa_directorio', $data);
         
     }
+
+    #Junta Ordinaria
+
+    function nueva_juntaordinaria($data)
+    {
+        $this->db->insert('sa_junta_ordinaria', $data);
+       
+    }
+    function actualizar_juntaordinaria($id,$data)
+    {
+        $this->db->where('id_junta_ordinaria', $id);
+        $this->db->update('sa_junta_ordinaria', $data);
+        
+    }
+
+    function junta_ordinaria_historico()
+    {
+        $this->db->select('*');
+        $this->db->from('sa_junta_ordinaria');
+        $this->db->order_by('fecha_junta_ordinaria', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+       
+    }
+    function junta_ordinaria_programadas()
+    {
+       
+        $this->db->select('*');
+        $this->db->from('sa_junta_ordinaria');
+        $this->db->where('estado_junta_ordinaria',1);
+        $this->db->order_by('fecha_junta_ordinaria', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+       
+    }
+
+    
+
+
+
     
 
 

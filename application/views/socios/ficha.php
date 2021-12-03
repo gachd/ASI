@@ -679,25 +679,20 @@
         foreach (scandir($dir) as $listado) {
 
           //validor los elementos oermitidos
-         
-            //valido que el elemto no sea un directorio
-            if (!is_dir($dir . '/' . $listado)) {
 
-              $extension = pathinfo($dir . '/' . $listado, PATHINFO_EXTENSION);
+          //valido que el elemto no sea un directorio
+          if (!is_dir($dir . '/' . $listado)) {
 
-              $extension = strtolower($extension);
+            $extension = pathinfo($dir . '/' . $listado, PATHINFO_EXTENSION);
 
-              if (in_array($extension, $permitidos)) {
+            $extension = strtolower($extension);
 
-
-                $archivos[$listado] = filemtime($dir . '/' . $listado);
+            if (in_array($extension, $permitidos)) {
 
 
-              }
-
-
+              $archivos[$listado] = filemtime($dir . '/' . $listado);
             }
-          
+          }
         }
         //ordeno del mas reciente al mas antiguo gracias al filetime
         arsort($archivos);
@@ -836,7 +831,7 @@
   <div class="main">
 
     <div class="container-fluid">
-    
+
 
       <div class="row">
 
@@ -1156,6 +1151,8 @@
 
                                 <tr>
 
+                                  <th>Rut Corporación</th>
+
                                   <th>Corporación</th>
 
                                   <th>Estado</th>
@@ -1181,10 +1178,12 @@
                                   $rut_corp = $c->co_rut;
 
                                   if ($rut_corp <> "96942660-9") {
+                                    echo '<tr>';
 
-                                    echo '<tr>
+                                    echo '<td>' . $rut_corp . '</td>';
 
-                               <td class="r_coorp">' . $c->co_nombre . ' </td>';
+
+                                    echo '<td class="r_coorp">' . $c->co_nombre . ' </td>';
 
 
 
@@ -1967,16 +1966,14 @@
                                     $estado = "Bloqueado";
                                     $class_bloq = "bloqueado";
                                     $motivoBloqueo = 'Sistema';
-
                                   } else {
                                     $estado = "Activo";
                                   }
 
-                                  if ((($edad > 18) && ($id_parentesco == 2)) || $bloqueo == 1 ) {
+                                  if ((($edad > 18) && ($id_parentesco == 2)) || $bloqueo == 1) {
                                     $class_bloq = "bloqueado";
                                     $estado = "Bloqueado";
                                     $motivoBloqueo = 'Edad';
-                              
                                   }
 
                                   if ($c->prsn_email == '0') {
@@ -2006,14 +2003,14 @@
                                   if ($c->certificado == 1) {
                                     $cert = '';
                                     $url  = certificado_carga($InfoSocio->path, $c->prsn_rut);
-                                    $img = '<a target="_blank" href="'.$url.' "><img width="20px" src="' . base_url() . '/assets/images/pdf-flat.png"></a>';
+                                    $img = '<a target="_blank" href="' . $url . ' "><img width="20px" src="' . base_url() . '/assets/images/pdf-flat.png"></a>';
                                   } else {
                                     $cert = 'NO';
                                     $img = '';
                                   }
 
-                                  
-                                  
+
+
 
                                   echo '<tr class="' . $class_bloq . '">
 

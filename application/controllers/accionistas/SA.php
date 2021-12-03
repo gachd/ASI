@@ -69,9 +69,7 @@ class SA extends CI_Controller
             $director5 = $this->model_accionistas->datosaccionista($directorioA->director5);
             $director5 = $director5[0];
             $fecha = $directorioA->fecha_directorio;
-
-
-
+            $gerente = $directorioA->gerente;
         }
 
         $directores = array(
@@ -86,12 +84,13 @@ class SA extends CI_Controller
             'presidente' => $presidente,
             'vicepresidente' => $vicepresidente,
             'director' => $directores,
+            'gerente' => $gerente,
             'fecha' => $fecha,
         );
 
 
 
-     
+
 
         $data['directorio'] = $directorio;
 
@@ -155,7 +154,7 @@ class SA extends CI_Controller
                 $estado = array(
 
                     'estado_directorio' => '0',
-               
+
                 );
 
 

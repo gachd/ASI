@@ -211,7 +211,7 @@
 				$("#contenido_modal").append(html);
 				$("#contenido_modal .close").click();
 				alert("Error de servidor, compruebe conexion");
-				alert("Error de servidor, compruebe conexion");
+				
 			}
 
 
