@@ -253,7 +253,7 @@ class SA extends CI_Controller
 
             'protocol' => 'smtp', // protocolo de envio
             'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
-            'smtp_port' => 465, //Puerto de envio
+            'smtp_port' => 587, //Puerto de envio
             'smtp_user' => 'prueba@stadioitalianodiconcepcion.cl', // Usuario servidor de correo
             'smtp_pass' => 'Stadio.2020', // Contraseña del correo
             'mailtype' => 'html', //Formato de correo
@@ -294,7 +294,7 @@ class SA extends CI_Controller
 
             $this->email->set_newline("\r\n"); // formato de salto de linea
 
-            $this->email->from('prueba@stadioitalianodiconcepcion.cl'); //direccion de correo que envia
+            $this->email->from('prueba@stadioitalianodiconcepcion.cl','Contacto Stadio'); //direccion de correo que envia
 
             $this->email->to($destinatario); //direccion de correo que recibe
 
