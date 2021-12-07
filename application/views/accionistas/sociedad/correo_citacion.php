@@ -184,7 +184,7 @@
                 </tr>
                 <tr>
                   <td class="bodycopy" style="font-size:12px;">
-                    <p><?php echo 'Estimado(a) :' .$accionista["nombre"] ?> </p>
+                    <p><?php echo 'Estimado(a) :' .$nombre ?> </p>
                     <p>
                       <?php echo $mensaje; ?>
                     </p>

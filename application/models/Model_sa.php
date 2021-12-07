@@ -73,6 +73,33 @@ class model_sa extends CI_Model
         return $query->result();
     }
 
+    function ingresoDetalleJunta($DataDetalleJunta)
+    {
+        $this->db->insert('sa_junta_detalle', $DataDetalleJunta);
+    }
+
+    function obtenerDetallerJunta($idJunta)
+    {
+        $this->db->select('*');
+        $this->db->from('sa_junta_detalle');
+        $this->db->where('id_junta', $idJunta);
+        $this->db->order_by('fecha_detalle', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+        
+    }
+
+    function resgitrarCorreoEnviado($dataEnviado)
+
+    {
+
+        $this->db->insert('sa_junta_envio_correo', $dataEnviado);
+
+    }
+   
+
+
+
     
 
 }

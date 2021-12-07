@@ -256,9 +256,7 @@ class SA extends CI_Controller
             ";
 
 
-            echo $_SERVER["DOCUMENT_ROOT"].'<br>';
-            
-        
+           
         foreach ($accionistas as $index => $a) {
 
 
