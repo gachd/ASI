@@ -85,7 +85,7 @@
 $ci = &get_instance();
 //$ci->load->model("menu_model");
 
-$ci->load->model('model_socios');
+$ci->load->model('Socio_model');
 
 setlocale(LC_ALL, 'es_ES') . ': ';
 $fecha1 = $inicio;
@@ -99,8 +99,8 @@ function getPuntosRut($rut)
 
   return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
 }
-$agendas = $this->model_socios->date_agenda($fecha1);
-$agenda_externo = $this->model_socios->date_agenda_externo($fecha1);
+$agendas = $this->Socio_model->date_agenda($fecha1);
+$agenda_externo = $this->Socio_model->date_agenda_externo($fecha1);
 
 
 
