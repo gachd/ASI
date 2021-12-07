@@ -236,46 +236,62 @@ class SA extends CI_Controller
 
     {
 
+        $this->load->library("phpmailer_library");
+        $objMail = $this->phpmailer_library->load();
+
+        var_dump($objMail);
+
+
+/* 
+
+        
+
+        $this->load->library('email');
+        
+
         $asunto = "Junta Ordinaria  20/06/2020";
 
-        $persona = 'Estimado(a) :';
 
         $mensaje = "Hola buenas esta es una prueba de correo llamandoa  citacion de junta ordinaria asdas sdas sasda sdasdasd asd sad as asd assd as se adjunta carta de junta ordinaria";
 
         $data['mensaje'] = $mensaje;
         $data['asunto'] = $asunto;
-        $data['persona'] = $persona;
+  
+
+
+        # CONFIGURACION DE CORREO
+
+    
+        $config["protocol"]  = 'smtp'; //protocolo de envio
+        $config["smtp_host"] = 'mail.stadioitalianodiconcepcion.cl'; //servidor de correo
+        $config["smtp_port"] = '587'; //Puerto de envio
+        $config["smtp_user"] = 'prueba@stadioitalianodiconcepcion.cl'; // Usuario servidor de correo
+        $config["smtp_pass"] = 'Stadio.2020'; // Contraseña del correo
+        $config["mailtype"]  = 'html'; //Formato de correo
+        $config["charset"]   = 'utf-8'; //Codificación
+        $config["wordwrap"]  = TRUE; //
+        $config['validate'] = true; //Validar datos de correo
+
 
         
 
-        
-        $config = array(
-
-            'protocol' => 'smtp', // protocolo de envio
-            'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
-            'smtp_port' => 587, //Puerto de envio
-            'smtp_user' => 'prueba@stadioitalianodiconcepcion.cl', // Usuario servidor de correo
-            'smtp_pass' => 'Stadio.2020', // Contraseña del correo
-            'mailtype' => 'html', //Formato de correo
-            'charset' => 'UTF-8', //Codificación
-            'wordwrap' => TRUE
-
-        );
 
 
         $accionistas[0] = array(
             'rut' => '19332562-9',
-            'nombre' => 'Juan ',
-
+            'nombre' => 'Juan Lopez',
             'correo' => 'gersonchaparro@gmail.com',
 
         );
         $accionistas[1] = array(
             'rut' => '11111111-1',
-
+            'nombre' => 'Julio Apeter ',
             'correo' => 'gchaparro@stadioitalianodiconcepcion.cl',
 
         );
+
+      
+
 
 
 
@@ -284,13 +300,14 @@ class SA extends CI_Controller
 
 
 
-            $data = []; //Array para enviar los datos a la vista
+
+            $data ["accionista"] = $a; ; //Array para enviar los datos a la vista
 
             $mensaje = $this->load->view('accionistas/sociedad/correo_citacion', $data, TRUE); // carga de vista para el mensaje
 
             $destinatario = $a["correo"]; // array con los destinatarios
 
-            $this->load->library('email', $config); // carga de la libreria email
+            $this->email->initialize($config);// carga de la libreria email
 
             $this->email->set_newline("\r\n"); // formato de salto de linea
 
@@ -298,9 +315,11 @@ class SA extends CI_Controller
 
             $this->email->to($destinatario); //direccion de correo que recibe
 
-            $this->email->subject(utf8_decode('Citación a Junta Ordinaria')); // asunto del correo
+            $this->email->subject('Citación a Junta Ordinaria'); // asunto del correo
 
             $this->email->message($mensaje);
+
+            $this->email->attach('C:\xampp\htdocs\ASI\archivos\sa\junta_ordinaria\0123-03-12_junta_ordinaria.pdf');
 
             if ($this->email->send()) {
 
@@ -313,6 +332,7 @@ class SA extends CI_Controller
             }
         }
         $this->load->view('accionistas/sociedad/correo_citacion', $data);
+ */
 
     }
 

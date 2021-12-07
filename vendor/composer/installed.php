@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '888cf4f6e10fa4f2d0cb4f54651c390fdf600c52',
+        'reference' => 'c2d066c12c7cead0efde312648f0393b110d7690',
         'name' => 'codeigniter/framework',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '888cf4f6e10fa4f2d0cb4f54651c390fdf600c52',
+            'reference' => 'c2d066c12c7cead0efde312648f0393b110d7690',
             'dev_requirement' => false,
         ),
         'ezyang/htmlpurifier' => array(
@@ -71,6 +71,15 @@
             'install_path' => __DIR__ . '/../myclabs/php-enum',
             'aliases' => array(),
             'reference' => 'b942d263c641ddb5190929ff840c68f78713e937',
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.5.3',
+            'version' => '6.5.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'reference' => 'baeb7cde6b60b1286912690ab0693c7789a31e71',
             'dev_requirement' => false,
         ),
         'phpoffice/phpspreadsheet' => array(

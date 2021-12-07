@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stadio Italiano di Concepcion</title>
-  
+
   <style type="text/css">
     body {
       margin: 0;
@@ -184,7 +184,7 @@
                 </tr>
                 <tr>
                   <td class="bodycopy" style="font-size:12px;">
-                    <p><?php echo $persona ?> </p>
+                    <p><?php echo 'Estimado(a) :' .$accionista["nombre"] ?> </p>
                     <p>
                       <?php echo $mensaje; ?>
                     </p>
