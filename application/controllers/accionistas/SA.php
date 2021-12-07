@@ -256,6 +256,8 @@ class SA extends CI_Controller
             ";
 
 
+            echo $_SERVER["DOCUMENT_ROOT"].'<br>';
+            
         
         foreach ($accionistas as $index => $a) {
 
@@ -285,6 +287,8 @@ class SA extends CI_Controller
     
             $this->email->subject('Citación a Junta Ordinaria');        
             $this->email->message($mensaje);
+
+            $this->email->attach('C:\xampp\htdocs\ASI\archivos\sa\junta_ordinaria\0123-03-12_junta_ordinaria.pdf');
     
             if($this->email->send()){
                 echo "correo enviado";
