@@ -235,13 +235,6 @@ class SA extends CI_Controller
 
     {
 
-        $this->load->library("phpmailer_library");
-        $objMail = $this->phpmailer_library->load();
-
-        var_dump($objMail);
-
-
-/* 
 
         
 
@@ -260,21 +253,8 @@ class SA extends CI_Controller
 
         # CONFIGURACION DE CORREO
 
-<<<<<<< HEAD
-    
-        $config["protocol"]  = 'smtp'; //protocolo de envio
-        $config["smtp_host"] = 'mail.stadioitalianodiconcepcion.cl'; //servidor de correo
-        $config["smtp_port"] = '587'; //Puerto de envio
-        $config["smtp_user"] = 'prueba@stadioitalianodiconcepcion.cl'; // Usuario servidor de correo
-        $config["smtp_pass"] = 'Stadio.2020'; // Contraseña del correo
-        $config["mailtype"]  = 'html'; //Formato de correo
-        $config["charset"]   = 'utf-8'; //Codificación
-        $config["wordwrap"]  = TRUE; //
-        $config['validate'] = true; //Validar datos de correo
+        $config = array(
 
-
-        
-=======
             'protocol' => 'smtp', // protocolo de envio
             'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
             'smtp_port' => 465, //Puerto de envio
@@ -283,8 +263,8 @@ class SA extends CI_Controller
             'mailtype' => 'html', //Formato de correo
             'charset' => 'UTF-8', //Codificación
             'wordwrap' => TRUE
->>>>>>> parent of c2d066c (prueba correo y juntas)
-
+        );
+        
 
 
         $accionistas[0] = array(
@@ -342,7 +322,7 @@ class SA extends CI_Controller
             }
         }
         $this->load->view('accionistas/sociedad/correo_citacion', $data);
- */
+ 
 
     }
 

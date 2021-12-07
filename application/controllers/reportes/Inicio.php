@@ -244,7 +244,6 @@ class  inicio extends CI_Controller
 			ob_end_clean();
 
 			$html = html_entity_decode($html);
-			// $mpdf = new mPDF('', 'Letter');
 			$mpdf = new \Mpdf\Mpdf(['debug' => true]);
 			//  $stylesheet = file_get_contents(base_url().'/assets/css/pdf.css'); // la ruta a tu css 
 			// $mpdf->WriteHTML($stylesheet,1);
@@ -254,6 +253,8 @@ class  inicio extends CI_Controller
 			$mpdf->WriteHTML($html);
 			$mpdf->SetHTMLFooter($pie);
 			$mpdf->Output();
+
+			
 		} else {
 			switch ($informe) {
 				case 1:
