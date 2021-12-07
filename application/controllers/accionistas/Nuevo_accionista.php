@@ -1235,7 +1235,7 @@ class nuevo_accionista extends CI_Controller
 
 					mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
 				}
-				var_dump($carpeta);
+			
 
 				//Abrimos el directorio
 				$dir = opendir($carpeta);

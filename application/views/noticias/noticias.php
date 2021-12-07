@@ -19,7 +19,7 @@
   /*.paneles{padding:0px; margin:15px;}*/
   .tbl-dep {
     text-transform: uppercase;
-    font:
+    
   }
 
   .nav-tabs {

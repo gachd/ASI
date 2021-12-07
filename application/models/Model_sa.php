@@ -12,7 +12,7 @@ class model_sa extends CI_Model
         return $p->result();
     }
 
-    #Diretorio SA
+    #Directorio SA
 
     function directorios_sa_historico()
     {
@@ -21,84 +21,58 @@ class model_sa extends CI_Model
         $this->db->order_by('fecha_directorio', 'ASC');
         $query = $this->db->get();
         return $query->result();
-       
     }
 
     function directorio_sa_actual()
     {
         $this->db->select('*');
         $this->db->from('sa_directorio');
-        $this->db->where('estado_directorio',1);
+        $this->db->where('estado_directorio', 1);
         $this->db->order_by('fecha_directorio', 'ASC');
 
         $query = $this->db->get();
         return $query->result();
-       
     }
 
     function insertar_directorio($data)
     {
         $this->db->insert('sa_directorio', $data);
-      
-
     }
 
     function baja_directorio($id)
     {
         $this->db->where('id_directorio', $id);
-        $this->db->update('sa_directorio', array('estado_directorio' => 0));    
-        
+        $this->db->update('sa_directorio', array('estado_directorio' => 0));
     }
 
-    function actualizar_directorio($id,$data)
+    function actualizar_directorio($id, $data)
     {
         $this->db->where('id_directorio', $id);
         $this->db->update('sa_directorio', $data);
-        
     }
 
-    #Junta Ordinaria
 
-    function nueva_juntaordinaria($data)
+    #############################
+    #Juntas SA
+    ##############################
+    function nueva_junta($DataJunta)
     {
-        $this->db->insert('sa_junta_ordinaria', $data);
-       
-    }
-    function actualizar_juntaordinaria($id,$data)
-    {
-        $this->db->where('id_junta_ordinaria', $id);
-        $this->db->update('sa_junta_ordinaria', $data);
-        
+
+        $this->db->insert('sa_juntas', $DataJunta);
+
     }
 
-    function junta_ordinaria_historico()
+    function alljunta($tipos)
     {
         $this->db->select('*');
-        $this->db->from('sa_junta_ordinaria');
-        $this->db->order_by('fecha_junta_ordinaria', 'ASC');
+        $this->db->from('sa_juntas');
+        $this->db->where('tipo_junta', $tipos);
+        $this->db->order_by('fecha_junta', 'ASC');
+      
         $query = $this->db->get();
         return $query->result();
-       
-    }
-    function junta_ordinaria_programadas()
-    {
-       
-        $this->db->select('*');
-        $this->db->from('sa_junta_ordinaria');
-        $this->db->where('estado_junta_ordinaria',1);
-        $this->db->order_by('fecha_junta_ordinaria', 'ASC');
-        $query = $this->db->get();
-        return $query->result();
-       
     }
 
     
-
-
-
-    
-
-
-
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+use Mpdf\Tag\A;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class SA extends CI_Controller
@@ -24,6 +26,7 @@ class SA extends CI_Controller
 
 
         $data['accionistas'] = $this->model_accionistas->accionistas();
+
         $data['ultimos'] = $this->model_accionistas->ultimos();
 
         $no_entregados = $this->model_titulo->nro_titulos_no_entregados();
@@ -102,24 +105,235 @@ class SA extends CI_Controller
         $this->load->view('plantilla/Footer');
     }
 
-
+    #############################
+    #      JUNTA EXTRAORDINARIA      #
+    #############################
     public function extraordinaria()
     {
 
+
+        $data['tipo_junta'] = $tipo_junta = 2; // extraordinaria
+
+        $data['juntasExtra'] = $juntasExtra = $this->model_sa->alljunta($tipo_junta);
+
         $this->load->view('plantilla/Head');
-        $this->load->view('accionistas/sociedad/menu_extraordinaria');
+        $this->load->view('accionistas/sociedad/menu_extraordinaria', $data);
         $this->load->view('plantilla/Footer');
     }
+
+
+    #############################
+    #      JUNTA ORDINARIA      #
+    #############################
     public function ordinaria()
     {
+
+
+
+
+
+
+        $data['accionistas'] = $this->model_accionistas->accionistas();
+
+        foreach ($data['accionistas'] as $index => $a) {
+
+            $accionistajson[$a->id_accionista] =  $a->prsn_nombres . ' ' . $a->prsn_apellidopaterno . ' ' . $a->prsn_apellidomaterno;
+        }
+
+
+
+
+
+        $data['accionistasjson'] = json_encode($accionistajson);
+
+        $data['tipo_junta'] = $tipo_junta =   1; // ordinaria
+
+        $data['juntaOrdinaria']  = $juntaOrdinaria = $this->model_sa->alljunta($tipo_junta);
+
+
         $this->load->view('plantilla/Head');
-        $this->load->view('accionistas/sociedad/menu_ordinaria');
+        $this->load->view('accionistas/sociedad/menu_ordinaria', $data);
         $this->load->view('plantilla/Footer');
     }
 
+    public function obtenerJuntas()
+    {
 
 
-    //Funciones del directorio
+        $tipo_junta =   $this->input->post("tipo_junta"); // ordinaria = 1 , extraordinaria = 2
+
+
+
+        $Juntas = $this->model_sa->alljunta($tipo_junta);
+
+        echo json_encode($Juntas);
+    }
+
+    public function nueva_junta()
+    {
+
+
+        $fecha = $this->input->post('fecha_junta');
+        $motivo = $this->input->post("motivo_junta");
+        $tipo_junta = $this->input->post("tipo_junta"); // 1 ordinaria 2 extraordinaria
+
+
+        $pathCarta = '';
+
+
+        if (!empty($_FILES["carta_junta"])) { //subia de archivo cartas
+
+            $carta_junta = $_FILES["carta_junta"];
+
+
+
+            if ($tipo_junta == 1) {
+                $directorio = 'archivos/sa/junta_ordinaria/';
+                $junta = '_junta_ordinaria.';
+            }
+            if ($tipo_junta == 2) {
+                $directorio = 'archivos/sa/junta_extraordinaria/';
+                $junta = '_junta_extraordinaria.';
+            }
+
+            if (!file_exists($directorio)) {
+
+                mkdir($directorio, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+            }
+
+
+            //Abrimos el directorio
+            $dir = opendir($directorio);
+
+            $path_archivo = $directorio . '/' . $carta_junta["name"]; //indicamos la ruta de destino de los archivos
+
+            $tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+            $nombreArchivo = $fecha . $junta . $tipo_archivo;
+
+            $pathCarta = $directorio . $nombreArchivo;
+
+            if (move_uploaded_file($carta_junta["tmp_name"], $pathCarta)) {
+
+                $subida = true;
+            } else {
+                $subida = false;
+            }
+        }
+
+
+        $dataJunta = array(
+            'fecha_junta' => $fecha,
+            'asunto_junta' => $motivo,
+            'tipo_junta' => $tipo_junta,
+            'path_carta_junta' => $pathCarta,
+        );
+
+        $this->model_sa->nueva_junta($dataJunta);
+    }
+
+    function correo()
+
+    {
+
+        $asunto = "Junta Ordinaria  20/06/2020";
+
+        $persona = 'Estimado(a) :';
+
+        $mensaje = "Hola buenas esta es una prueba de correo llamandoa  citacion de junta ordinaria asdas sdas sasda sdasdasd asd sad as asd assd as se adjunta carta de junta ordinaria";
+
+        $data['mensaje'] = $mensaje;
+        $data['asunto'] = $asunto;
+        $data['persona'] = $persona;
+
+
+
+     
+
+
+        
+        $config = array(
+
+            'protocol' => 'smtp', // protocolo de envio
+            'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
+           
+            'smtp_user' => 'prueba@stadioitalianodiconcepcion.cl', // Usuario servidor de correo
+            'smtp_pass' => 'Stadio.2020', // Contraseña del correo
+            'mailtype' => 'html', //Formato de correo
+            'charset' => 'UTF-8', //Codificación
+            'wordwrap' => TRUE
+
+        );
+
+        if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") { // ip hosting
+                
+            $config ['smtp_port'] = "465"; //Puerto de envio
+          
+        } else {
+            
+           $config ['smtp_port'] = "587"; //Puerto de envio
+        }
+
+        var_dump($config);
+
+
+        $accionistas[0] = array(
+            'rut' => '19332562-9',
+            'nombre' => 'Juan ',
+
+            'correo' => 'gersonchaparro@gmail.com',
+
+        );
+        $accionistas[1] = array(
+            'rut' => '11111111-1',
+
+            'correo' => 'gchaparro@stadioitalianodiconcepcion.cl',
+
+        );
+
+
+
+
+        foreach ($accionistas as $a) {
+
+
+
+            $data = []; //Array para enviar los datos a la vista
+
+            $mensaje = $this->load->view('accionistas/sociedad/correo_citacion', $data, TRUE); // carga de vista para el mensaje
+
+            $destinatario = $a["correo"]; // array con los destinatarios
+
+            $this->load->library('email', $config); // carga de la libreria email
+
+            $this->email->set_newline("\r\n"); // formato de salto de linea
+
+            $this->email->from('prueba@stadioitalianodiconcepcion.cl'); //direccion de correo que envia
+
+            $this->email->to($destinatario); //direccion de correo que recibe
+
+            $this->email->subject(utf8_decode('Citación a Junta Ordinaria')); // asunto del correo
+
+            $this->email->message($mensaje);
+
+            if ($this->email->send()) {
+
+                echo 'Email Enviado a .' . $a['rut'];
+                
+            } else {
+
+                echo 'Error al enviar el email a ' . $a['rut'];
+              /*   echo $this->email->print_debugger(); */
+            }
+        }
+        $this->load->view('accionistas/sociedad/correo_citacion', $data);
+
+    }
+
+
+    #############################
+    #        DIRECTORIO         #
+    #############################
 
     public function directorio()
 
