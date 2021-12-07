@@ -246,17 +246,14 @@ class SA extends CI_Controller
         $data['asunto'] = $asunto;
         $data['persona'] = $persona;
 
-
-
-     
-
+        
 
         
         $config = array(
 
             'protocol' => 'smtp', // protocolo de envio
             'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
-           
+            'smtp_port' => 465, //Puerto de envio
             'smtp_user' => 'prueba@stadioitalianodiconcepcion.cl', // Usuario servidor de correo
             'smtp_pass' => 'Stadio.2020', // Contraseña del correo
             'mailtype' => 'html', //Formato de correo
@@ -264,17 +261,6 @@ class SA extends CI_Controller
             'wordwrap' => TRUE
 
         );
-
-        if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") { // ip hosting
-                
-            $config ['smtp_port'] = "465"; //Puerto de envio
-          
-        } else {
-            
-           $config ['smtp_port'] = "587"; //Puerto de envio
-        }
-
-        var_dump($config);
 
 
         $accionistas[0] = array(
@@ -323,7 +309,7 @@ class SA extends CI_Controller
             } else {
 
                 echo 'Error al enviar el email a ' . $a['rut'];
-              /*   echo $this->email->print_debugger(); */
+                echo $this->email->print_debugger();
             }
         }
         $this->load->view('accionistas/sociedad/correo_citacion', $data);
