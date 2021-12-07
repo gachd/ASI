@@ -12,6 +12,7 @@ class  inicio extends CI_Controller
 		$this->load->model('model_trabajos');
 		$this->load->model('model_turnos');
 		$this->load->model('model_socios');
+		$this->load->model('Socio_model');
 		
 		$this->load->model('model_actividades');
 		$this->load->helper('url');

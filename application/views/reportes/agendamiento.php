@@ -102,6 +102,8 @@ function getPuntosRut($rut)
 $agendas = $this->model_socios->date_agenda($fecha1);
 $agenda_externo = $this->model_socios->date_agenda_externo($fecha1);
 
+
+
 ?>
 <div class="panel-heading">
   <div class="panel-title">

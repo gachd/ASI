@@ -225,6 +225,10 @@ $('#tipo_funcionario').html(data);
     work_categorias = $('#work_categorias').val();
     work_subcategoria = $('#work_subcategoria').val();
 
+    console.log(fun);
+    console.log(tipo_fun);
+    console.log(tipo_inst);
+
     $.post("<?php echo base_url() ?>reportes/inicio/informes", {
         informe: informe,
         date_inicio: date_inicio,
