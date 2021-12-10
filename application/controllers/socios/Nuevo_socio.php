@@ -362,6 +362,8 @@ class nuevo_socio extends CI_Controller
          's_comunas_comuna_id' => $comu = $DatosP->comu,  //$this->input->post('comu'),
 
          'prsn_nac' => $nac = $DatosP->nac,  //$this->input->post('nac')
+
+         'ingreso' => 1,  //Socio nuevo ingresado para agenda
       );
 
 
