@@ -949,8 +949,9 @@
 		{
 
 
+			$this->db->query('SET FOREIGN_KEY_CHECKS  = 0');
 			$this->db->insert('s_socios', $data);
-			
+			$this->db->query('SET FOREIGN_KEY_CHECKS = 1');
 		}
 
 		function insertarSocPatro($data)
