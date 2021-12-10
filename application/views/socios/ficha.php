@@ -806,10 +806,10 @@
 
           if (!is_dir($directorio . '/' . $elemento)) {
 
-            echo '<li style="list-style-type:none;" class="padding"><a href="' . $urlBase . $directorio . '/' . $elemento . '" target="_blank" class="archivos_socios form-control" >' . $elemento . '</a></li>';
+            echo '<li style="list-style-type:none;" class="padding"><a href="' . $urlBase . $directorio . '/' . $elemento . '" download class="archivos_socios form-control" >' . $elemento . '</a></li>';
           }
           if (is_dir($directorio . '/' . $elemento)) {
-            echo '<li style="list-style-type:none;" class="open-dropdown padding"><a href="javascript:void(0)" download  class="btn btn-primary ">' . $elemento . '<b class="caret"></b> </a> </li>';
+            echo '<li style="list-style-type:none;" class="open-dropdown padding"><a href="javascript:void(0)"   class="btn btn-primary ">' . $elemento . '<b class="caret"></b> </a> </li>';
             echo '<ul class="dropdown d-none">';
             Ver_ArchivosSocios($directorio . '/' . $elemento);
             echo '</ul>';
