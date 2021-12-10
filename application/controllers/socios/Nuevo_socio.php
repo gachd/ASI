@@ -494,6 +494,8 @@ class nuevo_socio extends CI_Controller
             'path' => $path
          );
 
+         
+
 
 
          $this->model_socios->insertarSocCorp($data);
