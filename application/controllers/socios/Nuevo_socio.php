@@ -382,8 +382,11 @@ class nuevo_socio extends CI_Controller
 
 
 
-   private function reg_Socio($DatosCorp)
+   private function reg_Socio($DatosCorp)  
+   
    {
+
+      var_dump($DatosCorp);
 
 
       function formatFecha($fecha)
@@ -496,7 +499,11 @@ class nuevo_socio extends CI_Controller
          $this->model_socios->insertarSocCorp($data);
       }
 
+      var_dump($rut_socio);
+
       $id_soc = $this->model_socios->getIdSocio($rut_socio); //Consulta para obtener id socio
+
+      var_dump($id_soc);
 
       $primerRegistro = true;
 
