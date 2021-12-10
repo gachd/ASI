@@ -37,7 +37,7 @@
 		function accionistas()
 		{
 
-			$this->db->select('SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista,p.prsn_fallecido');
+			$this->db->select('SUM(t.numero_acciones)as numero_acciones, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista,p.prsn_fallecido,p.prsn_email');
 			$this->db->from('s_accionista a, s_titulos t, s_personas p');
 			$this->db->where('t.estado', 1);
 			$this->db->where('a.prsn_rut = p.prsn_rut');
@@ -49,6 +49,9 @@
 			return $Q->result();
 
 		}
+
+	
+
 		function accionistasALL()
 		{
 

@@ -586,14 +586,25 @@ class nuevo_socio extends CI_Controller
       $rut = $DatosDeportes->rutSocio;
       $arr = $DatosDeportes->Deportes;
 
+      if(!empty($arr)){
 
-      $deportes = implode(", ", $arr);
+         $deportes = implode(", ", $arr);
 
-      $data = array(
+         $data = array(
+   
+            'int_deport' => $deportes
+   
+         );
+      }else{
 
-         'int_deport' => $deportes
+         $data = array(
+   
+            'int_deport' => 'Sin Deportes'
+   
+         );
+      }
 
-      );
+     
 
 
 

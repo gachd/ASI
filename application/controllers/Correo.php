@@ -28,7 +28,7 @@ class Correo extends CI_Controller
 
     {
 
-        $mensanje = $this->input->post('mensaje');
+        $mensaje = $this->input->post('mensaje');
 
         $asunto = $this->input->post('asunto');
 
@@ -38,10 +38,14 @@ class Correo extends CI_Controller
 
         $adjunto = $_FILES['archivo'];
 
-        $rutaAdjunto = "";
+    
+         # Se sube el archvio adjunto para poder enviarlo al correo
+        
 
 
         $directorio = 'archivos/adjuntos_correos/';
+
+
 
         if (!file_exists($directorio)) {
 
@@ -49,18 +53,17 @@ class Correo extends CI_Controller
         }
 
 
-        $path_archivo = $directorio . '/' . $adjunto["name"]; //indicamos la ruta de destino de los archivos
+        $path_archivo = $directorio . '/' . $adjunto["name"]; //indicamos la ruta del rchivo
 
         $tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
 
-        $nombre = $asunto;
 
-        $nombreArchivo = $nombre .".". $tipo_archivo;
+        $nombreArchivo = $nombre . "." . $tipo_archivo;
 
-        $pathCarta = $directorio . $nombreArchivo;
+        $pathDocumento = $directorio . $nombreArchivo;
 
 
-        if (move_uploaded_file($adjunto["tmp_name"], $pathCarta)) {
+        if (move_uploaded_file($adjunto["tmp_name"], $pathDocumento)) {
 
             $subida = true;
         } else {
@@ -68,57 +71,63 @@ class Correo extends CI_Controller
         }
 
 
+        if ($subida) { // Si la subida fue exitosa se envia el correo con el archivo adjunto
+
+            $data['asunto'] = $asunto;
+            $data['mensaje'] =  $mensaje;
+    
+            $data["nombre"] = $nombre;
+    
+    
+            $correo_a_enviar = $this->load->view('accionistas/sociedad/correo_citacion', $data, true);
+    
+    
+            $this->load->library('email');
+            //esto es para que lea etiquetas html si no leeria texto plano
+            $configuraciones['mailtype'] = 'html';
+            $configuraciones['charset'] = 'utf-8';
+    
+    
+            $this->email->initialize($configuraciones);
+    
+            $this->email->set_newline("\r\n");
+    
+    
+            $this->email->from('prueba@stadioitalianodiconcepcion.cl', "Informaciones Stadio Italiano");
+            $this->email->to($correo);
+            $this->email->subject($asunto);
+            $this->email->message($correo_a_enviar);
+    
+            $this->email->attach($pathDocumento);
+    
+            if ($this->email->send()) {
+                echo "correo enviado";
+            } else {
+                echo "correo no enviado";
+            }
+    
+    
+    
+            $files = glob($directorio . '*'); //obtenemos todos los nombres de los archivos del fichero
+    
+            foreach ($files as $files) {
+                if (is_file($files)) {
+    
+                    unlink($files); //elimino el archivo
+                }
+            }
 
 
-        $rutaAdjunto = "";
 
-        $data['asunto'] = $asunto;
-        $data['mensaje'] =  $mensanje;
 
+        }else{
 
 
 
-
-
-
-        $data["nombre"] = $nombre;
-
-
-        $correo_a_enviar = $this->load->view('accionistas/sociedad/correo_citacion', $data, true);
-
-
-        $this->load->library('email');
-        //esto es para que lea etiquetas html si no leeria texto plano
-        $configuraciones['mailtype'] = 'html';
-        $configuraciones['charset'] = 'utf-8';
-
-
-        $this->email->initialize($configuraciones);
-
-        $this->email->set_newline("\r\n");
-
-
-        $this->email->from('prueba@stadioitalianodiconcepcion.cl', "Informaciones Stadio Italiano");
-        $this->email->to($correo);
-        $this->email->subject($asunto);
-        $this->email->message($correo_a_enviar);
-
-        $this->email->attach($pathCarta);
-
-        if ($this->email->send()) {
-            echo "correo enviado";
-        } else {
-            echo "correo no enviado";
         }
 
-        $files = glob($directorio . '*'); //obtenemos todos los nombres de los archivos del fichero
 
-      foreach ($files as $files) {
-        if (is_file($files)) {
-
-          unlink($files); //elimino el archivo
-        }
-      }
+       
     }
 
 

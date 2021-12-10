@@ -110,6 +110,18 @@ class SA extends CI_Controller
     public function extraordinaria()
     {
 
+        $data['accionistas'] = $this->model_accionistas->accionistas();
+
+        foreach ($data['accionistas'] as $index => $a) {
+
+            $accionistajson[$a->id_accionista] =  $a->prsn_nombres . ' ' . $a->prsn_apellidopaterno . ' ' . $a->prsn_apellidomaterno;
+        }
+
+
+
+
+
+        $data['accionistasjson'] = json_encode($accionistajson);
 
         $data['tipo_junta'] = $tipo_junta = 2; // extraordinaria
 
@@ -165,6 +177,25 @@ class SA extends CI_Controller
 
         $Juntas = $this->model_sa->alljunta($tipo_junta);
 
+        foreach ($Juntas as $index => $junta) {
+
+            $tieneDetalle = $this->model_sa->obtenerDetalleJunta($junta->id_junta);
+            $tieneCorreo = $this->model_sa->ObtenerCorreo_NoEnviados($junta->id_junta);
+            if ($tieneDetalle) {
+                $detalle = $tieneDetalle[0];;
+                $Juntas[$index]->detalle = $detalle;
+            } else {
+                $junta->detalle = null;
+            }
+
+            if ($tieneCorreo) {
+                $correo = $tieneCorreo[0];
+                $Juntas[$index]->correo = $correo;
+            } else {
+                $junta->correo = null;
+            }
+        }
+
         echo json_encode($Juntas);
     }
 
@@ -177,21 +208,20 @@ class SA extends CI_Controller
         $tipo_junta = $this->input->post("tipo_junta"); // 1 ordinaria 2 extraordinaria
 
 
-        $pathCarta = '';
 
-
-        if (!empty($_FILES["carta_junta"])) { //subia de archivo cartas
+        if (!empty($_FILES["carta_junta"]) && !empty($_FILES["registro_poderes"])) { //subia de archivo cartas
 
             $carta_junta = $_FILES["carta_junta"];
+            $registro_poderes = $_FILES["registro_poderes"];
 
 
 
             if ($tipo_junta == 1) {
-                $directorio = 'archivos/sa/junta_ordinaria/';
+                $directorio = 'archivos/sa/junta_ordinaria';
                 $junta = '_junta_ordinaria.';
             }
             if ($tipo_junta == 2) {
-                $directorio = 'archivos/sa/junta_extraordinaria/';
+                $directorio = 'archivos/sa/junta_extraordinaria';
                 $junta = '_junta_extraordinaria.';
             }
 
@@ -208,100 +238,245 @@ class SA extends CI_Controller
 
             $tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
 
-            $nombreArchivo = $fecha . $junta . $tipo_archivo;
+            $nombreArchivo = 'carta_junta_' . $fecha . '.' . $tipo_archivo;
 
-            $pathCarta = $directorio . $nombreArchivo;
+            $directorio2 = $directorio . '/';
+
+            $pathCarta = $directorio2 . $nombreArchivo;
 
             if (move_uploaded_file($carta_junta["tmp_name"], $pathCarta)) {
 
-                $subida = true;
+                $subidaCarta = true;
             } else {
-                $subida = false;
+                $subidaCarta = false;
+            }
+
+            // subimos junta de poderes
+            $path_archivo = $directorio . '/' . $registro_poderes["name"]; //indicamos la ruta de destino de los archivos
+
+            $tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+            $nombreArchivo = 'poderes_junta_' . $fecha . '.' . $tipo_archivo;
+
+            $pathPoderes = $directorio2 . $nombreArchivo;
+
+            if (move_uploaded_file($registro_poderes["tmp_name"], $pathPoderes)) {
+
+                $subidaPoderes = true;
+            } else {
+                $subidaPoderes = false;
             }
         }
 
 
-        $dataJunta = array(
-            'fecha_junta' => $fecha,
-            'asunto_junta' => $motivo,
-            'tipo_junta' => $tipo_junta,
-            'path_carta_junta' => $pathCarta,
-        );
 
-        $this->model_sa->nueva_junta($dataJunta);
+        if ($subidaCarta && $subidaPoderes) {
+
+            $dataJunta = array(
+
+                'fecha_junta' => $fecha,
+                'asunto_junta' => $motivo,
+                'tipo_junta' => $tipo_junta,
+                'path_carta_junta' => $pathCarta,
+                'path_registro_poderes' => $pathPoderes,
+
+            );
+
+            $this->model_sa->nueva_junta($dataJunta);
+
+            $this->enviarCorreo($tipo_junta, $motivo, $fecha, $pathCarta, $pathPoderes);
+        } else {
+            //se envia un mensaje de error
+
+            header('HTTP/1.0 500 Internal Server Error');
+        }
     }
 
-    function correo()
 
+    private function enviarCorreo($tipoJunta, $motivo, $fecha, $Pathcarta, $Pathpoderes)
     {
 
-        $accionistas[0] = array(
-            'rut' => '19332562-9',
-            'nombre' => 'Juan Lopez',
-            'correo' => 'gersonchaparro@gmail.com',
+        $id_junta = $this->model_sa->obtenerUltimaJunta($fecha, $motivo, $tipoJunta);
+
+        foreach ($id_junta as $index => $junta) {
+
+            $id_junta = $junta->id_junta;
+        }
+
+
+        if ($tipoJunta == 1) {
+
+            $junta = 'Junta Ordinaria';
+        }
+        if ($tipoJunta == 2) {
+
+            $junta = 'Junta Extraordinaria';
+        }
+
+        $formatoFecha = explode("-", $fecha);
+        $formatoFecha = $formatoFecha[2] . '/' . $formatoFecha[1] . '/' . $formatoFecha[0];
+
+        $asunto = "Citacion a " . $junta . " el dia " . $formatoFecha;
+
+
+
+        $accionistas = $this->model_accionistas->datosaccionista("3");
+
+
+        $config = array(
+
+            'protocol' => 'smtp', // protocolo de envio
+            'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
+            'smtp_port' => 587, //Puerto de envio
+            'smtp_user' => 'prueba@stadioitalianodiconcepcion.cl', // Usuario del correo
+            'smtp_pass' => 'Stadio.2020', // Contraseña del correo
+            'mailtype' => 'html', //Formato de correo
+            'charset' => 'utf-8', //Codificación
+            'wordwrap' => TRUE
 
         );
-        $accionistas[1] = array(
-            'rut' => '11111111-1',
-            'nombre' => 'Julio Apeter ',
-            'correo' => 'gchaparro@stadioitalianodiconcepcion.cl',
-
-        );
-
-        $data['asunto'] = "Eleccion Candidato";
-        $data['mensaje'] = "Estimado inversionista,<br><br>
-        Le informamos que el candidato seleccionado para la eleccion de Presidente de la Sociedad de Inversiones, es:<br><br>
-            <b>Nombre:</b> Juan Lopez<br>
-            <b>Rut:</b> 19332562-9<br>
-            ";
 
 
-           
+
+
+
+
+
+
+
+
+
+        $data['asunto'] = $motivo;
+
+
+        $this->load->library('email', $config);
+        $configuraciones['mailtype'] = 'html'; //esto es para que lea etiquetas html si no leeria texto plano
+        $configuraciones['charset'] = 'utf-8';
+
+        $hoy = date("Y-m-d");
+        $contadorEnviados = 0;
+        $contadorNoEnviados = 0;
+
         foreach ($accionistas as $index => $a) {
 
 
-            $correo = $a["correo"];
 
-            $data ["accionista"] = $a;
+           /*  $this->email->initialize($configuraciones); */
 
-     
-            $mensaje = $this->load->view('accionistas/sociedad/correo_citacion',$data,true);
-          
-            
-            $this->load->library('email');
-            //esto es para que lea etiquetas html si no leeria texto plano
-            $configuraciones['mailtype' ]='html';
-            $configuraciones['charset'] = 'utf-8';
+            $correoA = $a->prsn_email;
+            $id_accionista = $a->id_accionista;
 
+            $data["accionista"] = $a;
 
-            $this->email->initialize($configuraciones);
+            $mensaje = $this->load->view('accionistas/sociedad/correo_citacion', $data, true);
+
 
             $this->email->set_newline("\r\n");
-            
-            
-            $this->email->from('prueba@stadioitalianodiconcepcion.cl',"Informaciones Stadio Italiano");
-            $this->email->to($correo);
-
-    
-            $this->email->subject('Citación a Junta Ordinaria');        
+            $this->email->from('prueba@stadioitalianodiconcepcion.cl', "Informaciones Stadio Italiano");
+            $this->email->to($correoA);
+            $this->email->subject($asunto);
             $this->email->message($mensaje);
 
-            $this->email->attach('C:\xampp\htdocs\ASI\archivos\sa\junta_ordinaria\0123-03-12_junta_ordinaria.pdf');
-    
-            if($this->email->send()){
-                echo "correo enviado";
-    
-            }else{
-                echo "correo no enviado";
-            }
-    
+            $this->email->attach($Pathcarta);
+            $this->email->attach($Pathpoderes);
 
+            if ($this->email->send()) {
+
+                $CorreoEnviadoBD = array(
+
+                    'id_accionista' => $id_accionista,
+                    "id_junta" => $id_junta,
+                    'correo_enviado' => 1,
+                    'fecha_envio' =>  $hoy,
+                );
+
+                $this->model_sa->RegitrarCorreoEnviado($CorreoEnviadoBD);
+
+
+                $CorreosEnviados[$contadorEnviados] = $CorreoEnviadoBD;
+                $contadorEnviados++;
+            } else {
+
+                $CorreoNoEnviadoBD = array(
+
+                    'id_accionista' => $id_accionista,
+                    "id_junta" => $id_junta,
+                    'correo_enviado' => 0,
+                    'fecha_envio' =>  $hoy,
+                );
+                $Correos_no_enviados[$contadorNoEnviados] = $CorreoNoEnviadoBD;
+
+                $this->model_sa->RegitrarCorreoEnviado($CorreoNoEnviadoBD);  
+
+                
+                $contadorNoEnviados++;
+            }
 
            
         }
-       
+    }
+
+
+
+    public function guardar_detalle_junta()
+    {
+
+        $id_junta = $this->input->post('id_junta_detalle');
+        $tipo_junta = $this->input->post('tipo_junta_detalle');
+        $detalle_junta = $this->input->post('detalle_junta');
+
+        $fecha_actual = date("Y-m-d");
+
+        $dataJunta = array(
+            'id_junta' => $id_junta,
+            'detalle_junta' => $detalle_junta,
+            'fecha_detalle' => $fecha_actual,
+        );
+
+        $this->model_sa->ingresoDetalleJunta($dataJunta);
+    }
+
+
+
+
+
+    public function guardar_correo_junta()
+    {
+
+        $id_junta = $this->input->post('id_junta_correo');
+        $correo_junta = $this->input->post('correo_junta');
+
+        $fecha_actual = date("Y-m-d");
+
+        $dataJunta = array(
+            'id_junta' => $id_junta,
+            'correo_junta' => $correo_junta,
+            'fecha_correo' => $fecha_actual,
+        );
+
+        $this->model_sa->ingresoCorreoJunta($dataJunta);
+    }
+
+    public function obtener_detalle_junta()
+    {
+
+        $id_junta = $this->input->post('id_junta');
+
+        $detalle = $this->model_sa->obtenerDetalleJunta($id_junta);
+
+        $detalle = $detalle[0];
+
+        echo json_encode($detalle);
+    }
+
+    public function obtener_correo_junta()
+    {
+
         
     }
+
+
+
 
 
     #############################

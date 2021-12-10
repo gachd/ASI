@@ -59,7 +59,6 @@ class model_sa extends CI_Model
     {
 
         $this->db->insert('sa_juntas', $DataJunta);
-
     }
 
     function alljunta($tipos)
@@ -68,7 +67,7 @@ class model_sa extends CI_Model
         $this->db->from('sa_juntas');
         $this->db->where('tipo_junta', $tipos);
         $this->db->order_by('fecha_junta', 'ASC');
-      
+
         $query = $this->db->get();
         return $query->result();
     }
@@ -78,7 +77,7 @@ class model_sa extends CI_Model
         $this->db->insert('sa_junta_detalle', $DataDetalleJunta);
     }
 
-    function obtenerDetallerJunta($idJunta)
+    function obtenerDetalleJunta($idJunta)
     {
         $this->db->select('*');
         $this->db->from('sa_junta_detalle');
@@ -86,20 +85,51 @@ class model_sa extends CI_Model
         $this->db->order_by('fecha_detalle', 'ASC');
         $query = $this->db->get();
         return $query->result();
-        
     }
 
-    function resgitrarCorreoEnviado($dataEnviado)
+    function obtenerUltimaJunta($fecha, $motivo, $tipoJunta)
+    {
+        $this->db->select('*');
+        $this->db->from('sa_juntas');
+        $this->db->where('fecha_junta', $fecha);
+        $this->db->where('asunto_junta', $motivo);
+        $this->db->where('tipo_junta', $tipoJunta);
+        $this->db->order_by('fecha_junta', 'DESC');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
+    //correos junta
+
+    function RegitrarCorreoEnviado($dataEnviado)
     {
 
         $this->db->insert('sa_junta_envio_correo', $dataEnviado);
-
     }
-   
+
+    function ObtenerCorreo_NoEnviados($id_junta)
+    {
 
 
+        $this->db->select('*');
+        $this->db->from('sa_junta_envio_correo');
+        $this->db->where('id_junta', $id_junta);
+        $this->db->where('correo_enviado', 0);
+        $this->db->order_by('fecha_envio', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
-    
+    function ObtenerCorreo_Enviados($id_junta)
+    {
 
+
+        $this->db->select('*');
+        $this->db->from('sa_junta_envio_correo');
+        $this->db->where('id_junta', $id_junta);
+        $this->db->where('correo_enviado', 1);
+        $this->db->order_by('fecha_envio', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

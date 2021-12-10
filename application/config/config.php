@@ -28,6 +28,7 @@ date_default_timezone_set('America/Santiago');
 */
 
 
+
 if ($_SERVER['SERVER_ADDR'] == "192.168.1.244") {  //IP servidor local
 
     $config['base_url'] = 'https://asi.stadioitalianodiconcepcion.cl/';

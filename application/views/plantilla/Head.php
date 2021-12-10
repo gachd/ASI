@@ -40,10 +40,10 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/raphael.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris-data.js"></script>
-
+	<!-- 
 	<script src="<?php echo base_url(); ?>assets/js/plugins/jquery.dataTables.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/plugins/dataTables.bootstrap.min.js"></script>
-
+ -->
 
 
 
@@ -51,7 +51,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 	<!-- Bootstrap -->
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+	<!-- 	<link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 
 
 
@@ -81,12 +81,12 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-	<script src="<?php echo base_url(); ?>assets/js/plugins/jquery.dataTables.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/plugins/dataTables.bootstrap.min.js"></script>
+	<!-- 	<script src="<?php echo base_url(); ?>assets/js/plugins/jquery.dataTables.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/plugins/dataTables.bootstrap.min.js"></script> -->
 
 	<!-- Bootstrap -->
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+	<!-- 	<link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"> -->
 
 
 	<!-- Custom CSS -->
@@ -102,8 +102,16 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+	<!-- datatables -->
 
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
 
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
+
+	<!-- 	fin datables -->
 	<!-- Alertas -->
 	<!-- sweetalert -->
 	<script src="<?php echo base_url(); ?>/assets/js/sweetalert.min.js"></script>
@@ -493,30 +501,30 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-		spain= {
-                  "sProcessing": "Procesando...",
-                  "sLengthMenu": "Mostrar _MENU_ registros",
-                  "sZeroRecords": "No se encontraron resultados",
-                  "sEmptyTable": "Ningún dato disponible en esta tabla",
-                  "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                  "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                  "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                  "sInfoPostFix": "",
-                  "sSearch": "Buscar:",
-                  "sUrl": "",
-                  "sInfoThousands": ",",
-                  "sLoadingRecords": "Cargando...",
-                  "oPaginate": {
-                      "sFirst": "Primero",
-                      "sLast": "Último",
-                      "sNext": "Siguiente",
-                      "sPrevious": "Anterior"
-                  },
-                  "oAria": {
-                      "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                  }
-              };
+		spain = {
+			"sProcessing": "Procesando...",
+			"sLengthMenu": "Mostrar _MENU_ registros",
+			"sZeroRecords": "No se encontraron resultados",
+			"sEmptyTable": "Ningún dato disponible en esta tabla",
+			"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+			"sInfoPostFix": "",
+			"sSearch": "Buscar:",
+			"sUrl": "",
+			"sInfoThousands": ",",
+			"sLoadingRecords": "Cargando...",
+			"oPaginate": {
+				"sFirst": "Primero",
+				"sLast": "Último",
+				"sNext": "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"oAria": {
+				"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+		};
 
 
 		var vis = (function() {
@@ -836,7 +844,6 @@ $ci->load->model("model_login");;
 
 		<!-- Navigation -->
 		<script>
-			
 			sidebar_posicion($(window).width());
 
 			$(window).resize(function() {
@@ -851,7 +858,7 @@ $ci->load->model("model_login");;
 
 				if (ancho < 768) {
 
-				/* 	console.log("menos 768"); */
+					/* 	console.log("menos 768"); */
 					$("#contenido-sidebar").removeClass("cont-sidebar");
 					$("#logo_sidebar").css("display", "none");
 
@@ -942,5 +949,9 @@ $ci->load->model("model_login");;
 
 				/* ocultar(); */
 
+			});
+
+			$(document).ready(function() { // para que tooltip funcione
+				$('[data-toggle="tooltip"]').tooltip();
 			});
 		</script>

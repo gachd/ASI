@@ -130,7 +130,7 @@
 		function all_sociospat()
 		{
 
-			$sociospat = $this->db->query('SELECT DISTINCT p.prsn_rut,p.s_estado_civil_estacivil_id, p.prsn_nombres,p.prsn_apellidopaterno, p.prsn_apellidomaterno  FROM s_personas as p , s_socios as s WHERE p.prsn_rut = s.prsn_rut');
+			$sociospat = $this->db->query('SELECT DISTINCT p.prsn_rut,p.s_estado_civil_estacivil_id, p.prsn_nombres,p.prsn_apellidopaterno, p.prsn_apellidomaterno  FROM s_personas as p , s_socios as s WHERE p.prsn_rut = s.prsn_rut order by p.prsn_nombres asc');
 
 			return $sociospat->result();
 		}

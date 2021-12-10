@@ -49,21 +49,18 @@
 
 <body>
 
-    <div class="salto_linea">
-
-        <br>
-        <br>
-        <br>
-    </div>
+   
 
     <div class="main">
-        <div class="container">
+
+        <div class="container-fluid">
 
             <ul class="breadcrumb">
                 <li><a href="<?php echo base_url()  ?>accionistas/inicio">Inicio</a></li>
                 <li>Nuevo Accionista</li>
             </ul>
         </div>
+        
         <div class="container">
 
 

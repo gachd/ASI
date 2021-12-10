@@ -76,34 +76,8 @@ $query_builder = TRUE;
 
 
 
-if ($_SERVER['SERVER_ADDR'] == "186.64.118.200") {  // DEBE SER LA IP DEL HOSTING
 
-
-	$db['default'] = array(
-		'dsn'	=> '',
-		'hostname' => 'localhost',
-		'username' => 'stadioit_soporte',
-		'password' => '2601196826011968',
-		'database' => 'stadioit_stadioitaliano',
-		'dbdriver' => 'mysqli',
-		'dbprefix' => '',
-		'pconnect' => FALSE,
-		'db_debug' => (ENVIRONMENT == 'production'),
-		'cache_on' => FALSE,
-		'cachedir' => '',
-		'char_set' => 'utf8',
-		'dbcollat' => 'utf8_general_ci',
-		'swap_pre' => '',
-		'encrypt' => FALSE,
-		'compress' => FALSE,
-		'stricton' => FALSE,
-		'failover' => array(),
-		'save_queries' => TRUE
-	);
-}
-
-if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == 'localhost' ) { // Nombre del  LOCALHOST
-
+if (es_localhost()) {  // detetcta si es localhost donde se esta trabajando
 
 
 	$db['default'] = array(
@@ -116,6 +90,30 @@ if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == 'localh
 		'dbprefix' => '',
 		'pconnect' => FALSE,
 		'db_debug' => (ENVIRONMENT !== 'production'),
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => FALSE,
+		'failover' => array(),
+		'save_queries' => TRUE
+	);
+
+} else {
+
+	$db['default'] = array(
+		'dsn'	=> '',
+		'hostname' => 'localhost',
+		'username' => 'stadioit_soporte',
+		'password' => '2601196826011968',
+		'database' => 'stadioit_stadioitaliano',
+		'dbdriver' => 'mysqli',
+		'dbprefix' => '',
+		'pconnect' => FALSE,
+		'db_debug' => (ENVIRONMENT == 'production'),
 		'cache_on' => FALSE,
 		'cachedir' => '',
 		'char_set' => 'utf8',
