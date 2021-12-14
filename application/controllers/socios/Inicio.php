@@ -49,9 +49,7 @@ class inicio extends CI_Controller
     $data['inactivos'] = $this->model_socios->socios_inactivos();
 
     $data['baja'] = $this->model_socios->socios_baja();
-
-
-
+ 
 
 
     $this->load->view('plantilla/Head');

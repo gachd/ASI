@@ -1,3 +1,4 @@
+
 </body>
 
 </html>
@@ -162,7 +163,7 @@
                     <td height="70" style="padding: 0 20px 20px 0;">
                       <img class="fix" src="https://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png" width="70" height="70" border="0" alt="" />
                       
-                      <img class="" src="<?php echo base_url()."/accionistas/SA/rastreoCorreoJunta?code=".$hash ?>" width="1" height="1" border="0" alt="" />
+                      <img class="" src="<?php echo base_url()."/Correo/rastreo?code=".$hash ?>" width="1" height="1" border="0" alt="" />
                     
                     </td>
                   </tr>
@@ -188,13 +189,9 @@
                   </tr>
                   <tr>
                     <td class="bodycopy" style="font-size:12px;">
-                      <p><?php echo 'Estimado(a) :' . $accionista->prsn_nombres . ' ' . $accionista->prsn_apellidopaterno . ' ' . $accionista->prsn_apellidomaterno  ?> </p>
+                      <p><?php echo 'Estimado(a) :' ?> </p>
                       <p>
-                        Se solicta su participiacion en <?php echo $junta ?> de la sociedad <?php echo $sociedad ?> para el dia <?php echo $fecha ?>
-                        
-                      
-                      </p>
-                      Se adjunta el documento de la citacion y el registro de poderes en caso de ser necesario.
+                       <?php  echo $mensaje ?>
                       <p>&nbsp;</p>
                     </td>
                   </tr>

@@ -781,7 +781,7 @@
 		function socios_activos()
 		{
 
-			$this->db->distinct();
+		/* 	$this->db->distinct(); */
 
 			$this->db->select('prsn_rut');
 
@@ -789,27 +789,31 @@
 
 			$this->db->where('estado', 0);
 
+			$this->db->group_by('prsn_rut');
+
 
 
 			$query2 = $this->db->get();
 
-			$returnArray    = array();
+
+	 		$returnArray    = array();
 
 			$returnArray['num_rows'] = $query2->num_rows();  //get num_rows before you do the result()
 
-			return $returnArray;
+			return $returnArray; 
 		}
 
 		function socios_baja()
 		{
-
-			$this->db->distinct();
+/* 
+			$this->db->distinct(); */
 
 			$this->db->select('prsn_rut');
 
 			$this->db->from('s_socios');
 
 			$this->db->where('estado', 1);
+			$this->db->group_by('prsn_rut');
 
 
 
@@ -817,7 +821,7 @@
 
 			$returnArray    = array();
 
-			$returnArray['num_rows'] = $query2->num_rows();  //get num_rows before you do the result()
+			$returnArray['num_rows'] = $query2->num_rows(); 
 
 			return $returnArray;
 		}
@@ -825,13 +829,14 @@
 		function socios_inactivos()
 		{
 
-			$this->db->distinct();
+		/* 	$this->db->distinct(); */
 
 			$this->db->select('prsn_rut');
 
 			$this->db->from('s_socios');
 
 			$this->db->where('tipo_id', 4);
+			$this->db->group_by('prsn_rut');
 
 
 
@@ -839,7 +844,7 @@
 
 			$returnArray    = array();
 
-			$returnArray['num_rows'] = $query2->num_rows();  //get num_rows before you do the result()
+			$returnArray['num_rows'] = $query2->num_rows();  
 
 			return $returnArray;
 		}
@@ -866,6 +871,7 @@
 			$num_rows = $query2->num_rows();
 
 			return $num_rows;
+			
 		}
 
 		function mostrar_sociosb($estado, $rut_corp)

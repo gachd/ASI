@@ -49,6 +49,7 @@
 
         </div>
 
+        
 
 
         <div class="modal fade " id="correo_junta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -60,36 +61,30 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Correo Junta Ordinaria</h4>
                     </div>
-                    <form id="form_correo_junta" action="<?php echo base_url() ?>/accionistas/SA/guardar_correo_junta" method="POST">
-                        <div class="modal-body">
 
-                            <input type="hidden" name="id_junta" id="id_junta_correo" value="">
+                    <div class="modal-body">
 
-                            <h5>A continuacion se realizara el envio de correo notificando de la Junta Ordinaria a todos los accionistas:</h5>
-
-                            <div class="form-group">
-                                <label for="">Asunto:</label>
-                                <input type="text" class="form-control" name="asunto" id="asunto_correo" required value="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Mensaje:</label>
-                                <textarea class="form-control" name="mensaje" id="mensaje_correo" required rows="5"></textarea>
-                            </div>
+                        <input type="hidden" name="id_junta" id="id_junta_correo" value="">
 
 
+                        <div id="AsuntoCorreo">
 
 
 
                         </div>
 
-                        <div class="modal-footer">
 
-                            <button type="submit" class="btn btn-primary">Enviar</button>
 
-                        </div>
 
-                    </form>
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button id="btn_correo_enviar" class="btn btn-primary"><span id="">Ok</span></button>
+
+                    </div>
+
+
 
 
                 </div>
@@ -336,8 +331,10 @@
 
             DIV = $('#div_tabla_juntas');
 
+
             DIV.empty();
 
+            DIV.html('<div class="spinner"></div>');
 
 
             $.ajax({
@@ -446,13 +443,19 @@
 
                 },
                 error: function(error) {
+                    DIV.empty();
+                    DIV.html(`<div class="alert alert-danger" role="alert">Error al cargar la tabla  
+                    <button class="btn btn-danger" onclick="cargaTabla()">Recargar</button>
+                    </div>`);
 
                     swal({
                         title: "Error",
                         text: "No se pudo cargar la tabla",
-                        type: "error",
-                        confirmButtonText: "Cerrar",
+                        icon: "error",
+                        button: "Aceptar",
+                        
                     });
+                   
                 }
 
             });
@@ -461,6 +464,9 @@
 
         }
 
+        function formatoFecha(texto) {
+            return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
+        }
 
         cargaTabla();
 
@@ -561,30 +567,247 @@
             let button = $(evento.relatedTarget);
 
             let modal = $(this);
-            modal.find('#id_junta_correo').val(id);
-            
+
             let id = button.data('id');
+
+            modal.find('#id_junta_correo').val(id);
+            let divRespuesta = modal.find('#AsuntoCorreo')
+
+            divRespuesta.html('<div class="spinner"> </div>');
+
+
             let estado = button.data('estado');
-         
-            if (estado == "enviados") {
 
-                alert("enviados");
-
+            let btn_enviar = modal.find('#btn_correo_enviar');
+            btn_enviar.css('display', 'none');
 
 
+
+            let url = "";
+
+            url = "<?php echo base_url() ?>accionistas/SA/obtener_correo_junta";
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    id_junta: id,
+                    estado: estado
+
+                },
+                dataType: "json",
+                cache: false,
+
+
+                success: function(data) {
+
+                    NoEnviados = data.correosNo;
+                    Enviados = data.correosSI;
+
+                    console.log(NoEnviados);
+                    console.log(Enviados);
+
+                    htmlEnviados = `
+                    <h4>Enviados</4>
+                    <div class="table-responsive" style= "font-size: 12px;">
+                    <table class="table table-striped table-bordered table-hover" id="table_correos_enviados">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    `;
+
+                    if (Enviados) {
+
+                        for (var i = 0; i < Enviados.length; i++) {
+
+
+                            htmlEnviados += `
+                            <tr>
+                                <td>${Enviados[i].prsn_nombres} ${Enviados[i].prsn_apellidopaterno} ${Enviados[i].prsn_apellidomaterno} </td>
+                                <td>${Enviados[i].prsn_email}</td>
+                                <td>${formatoFecha(Enviados[i].fecha_envio)}</td>
+                            </tr>
+                            `;
+
+                        }
+
+                    } else {
+
+                        htmlEnviados += `
+                        <tr>
+                            <td colspan="3">No hay correos enviados</td>
+                        </tr>
+                        `;
+                    }
+
+                    htmlEnviados += `
+                    </tbody>
+                    </table>
+                    </div>`;
+
+                    //No enviados
+
+
+                    htmlNoEnviados = `
+                    <h4>No enviados</4>
+                    <div class="table-responsive" style= "font-size: 12px;">
+                    <table class="table table-striped table-bordered table-hover" id="table_correos_no_enviados">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+
+
+
+
+                    if (NoEnviados) {
+
+                        for (var i = 0; i < NoEnviados.length; i++) {
+
+                            htmlNoEnviados += `
+                                <tr>
+                                    <td>${NoEnviados[i].prsn_nombres} ${NoEnviados[i].prsn_apellidopaterno} ${NoEnviados[i].prsn_apellidomaterno} </td>
+                                    <td>${NoEnviados[i].prsn_email}</td>
+                                    <td>${formatoFecha(NoEnviados[i].fecha_envio)}</td>
+                                </tr>
+                                `;
+
+                        }
+
+                        btn_enviar.removeClass('btn-primary');
+                        btn_enviar.addClass('btn-warning');
+
+                        $("#btn_correo_enviar span").html(`Reenviar correos`);
+
+                        btn_enviar.attr('data-funcionamiento', 'reenviar');
+
+
+
+                    } else {
+                        btn_enviar.removeClass('btn-warning');
+                        btn_enviar.addClass('btn-success');
+
+                        $("#btn_correo_enviar span").html(`Cerrar`);
+
+                        btn_enviar.attr('data-funcionamiento', 'cerrar');
+
+                        htmlNoEnviados += `
+                        <tr>
+                            <td colspan="3">No hay correos no enviados</td>
+                        </tr>
+                        `;
+                    }
+
+                    htmlNoEnviados += `
+                    </tbody>
+                    </table>
+                    </div>`;
+
+
+
+                    divRespuesta.html(htmlEnviados + htmlNoEnviados);
+
+                    btn_enviar.css('display', '');
+
+
+
+                },
+                error: function(error) {
+
+                    divRespuesta.empty();
+                    modal.modal('hide');
+
+                    swal({
+                        title: "Error",
+                        text: "No se pudo cargar el detalle",
+                        type: "error",
+                        confirmButtonText: "Cerrar",
+                    });
+
+
+
+                }
+
+
+            });
+
+
+
+
+
+
+
+
+
+        });
+
+        $("#btn_correo_enviar").click(function() {
+
+            let funcionamiento = $(this).attr('data-funcionamiento');
+
+            boton = $(this);
+
+
+
+            modalCorreo = $('#correo_junta');
+
+            if (funcionamiento == 'cerrar') {
+
+                modalCorreo.modal('hide');
+
+            } else if (funcionamiento == 'reenviar') {
+
+                let id_junta = modalCorreo.find('#id_junta_correo').val();
                
 
-            } else {
+                boton.html(`Cargando..<i class="fa fa-spinner fa-spin">`);
 
+                let url = "<?php echo base_url() ?>accionistas/SA/reEnvioCorreo";
 
-    
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        id_junta: id_junta
+                    },
+                    cache: false,
 
-                alert("no enviados");
-                
+                    success: function(data) {
+
+                        cargaTabla();
+
+                        swal({
+                            title: "Correos reenviados",
+                            text: "Los correos se han reenviado correctamente",
+                            icon: "success",
+                            button: "Cerrar",
+                        });
+
+                     
+
+                        modalCorreo.modal('hide');
+
+                        boton.html(`Reenviar correos`);
+                        
+                    }
+
+                });
 
             }
 
-            
+
+
+
 
 
 
@@ -739,33 +962,6 @@
                     $('#accion_junta').modal('hide');
                 }
             });
-
-        });
-
-
-        $("#form_correo_junta").submit(function(e) {
-
-            e.preventDefault();
-
-            alert('hola');
-            let form = $(this);
-            let url = form.attr('action');
-            let metodo = form.attr('method');
-            let datos = new FormData($(this)[0]);
-
-            $.ajax({
-                type: metodo,
-                url: url,
-                data: datos,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-
-
-                    
-                }
-            });
-
 
         });
     </script>

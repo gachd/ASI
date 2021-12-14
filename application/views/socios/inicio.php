@@ -212,6 +212,8 @@
 </html>
 
 <script type="text/javascript">
+
+  
   $("#btnactivo").click(function() {
 
     var estado = 0;
@@ -220,7 +222,7 @@
 
     // $('#mostrar').show();
 
-    $('#mostrar').html('<div><img style="width:100%" src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+    $('#mostrar').html('<div class = "spinner"></div>');
 
 
 
@@ -252,7 +254,7 @@
 
     // $('#mostrar').show();
 
-    $('#mostrar').html('<div><img style="width:100%" src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+    $('#mostrar').html('<div class = "spinner"></div>');
 
 
 
@@ -290,7 +292,7 @@
 
     // $('#mostrar').show();
 
-    $('#mostrar').html('<div><img style="width:100%" src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+    $('#mostrar').html('<div class = "spinner"></div>');
 
 
 

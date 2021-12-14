@@ -951,7 +951,5 @@ $ci->load->model("model_login");;
 
 			});
 
-			$(document).ready(function() { // para que tooltip funcione
-				$('[data-toggle="tooltip"]').tooltip();
-			});
+		
 		</script>

@@ -11,6 +11,8 @@ class Correo extends CI_Controller
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('session');
+        $this->load->model('model_accionistas');
+        $this->load->model('Correo_model');
     }
 
     public function index()
@@ -21,7 +23,40 @@ class Correo extends CI_Controller
         $this->load->view('plantilla/Footer');
     }
 
+    public function rastreo()
+    {
 
+        //THIS RETURNS THE IMAGE
+        header('Content-Type: image/gif');
+
+       
+
+        $ahora = date("Y-m-d");
+
+        header('Content-Type: image/gif');
+       
+        if (isset($_GET['code'])) {
+
+            $codigoRastreo = $_GET["code"];
+    
+            $ahora = date("Y-m-d");
+    
+            $data = array(
+                'apertura' => 1,
+                'fecha_apertura' => $ahora,
+            );
+    
+            $this->Correo_model->RegistrarAperturaCorreo($codigoRastreo,$data);
+
+        }
+        
+        
+
+
+        exit;
+    }
+
+  
 
 
     public function envio_correo()
@@ -38,9 +73,9 @@ class Correo extends CI_Controller
 
         $adjunto = $_FILES['archivo'];
 
-    
-         # Se sube el archvio adjunto para poder enviarlo al correo
-        
+
+        # Se sube el archvio adjunto para poder enviarlo al correo
+
 
 
         $directorio = 'archivos/adjuntos_correos/';
@@ -49,7 +84,7 @@ class Correo extends CI_Controller
 
         if (!file_exists($directorio)) {
 
-            mkdir($directorio, 0777, true) or die("Erro al crear el directorio");
+            mkdir($directorio, 0777, true) or die("Error al crear el directorio");
         }
 
 
@@ -75,59 +110,95 @@ class Correo extends CI_Controller
 
             $data['asunto'] = $asunto;
             $data['mensaje'] =  $mensaje;
-    
+
             $data["nombre"] = $nombre;
-    
-    
-            $correo_a_enviar = $this->load->view('accionistas/sociedad/correo_citacion', $data, true);
-    
-    
+
+            $hashCorreo = md5(rand());
+
+            $data["hash"] = $hashCorreo;
+
+
+            $correo_a_enviar = $this->load->view('correo_test', $data, true);
+
+
             $this->load->library('email');
             //esto es para que lea etiquetas html si no leeria texto plano
             $configuraciones['mailtype'] = 'html';
             $configuraciones['charset'] = 'utf-8';
-    
-    
+
+
             $this->email->initialize($configuraciones);
-    
+
             $this->email->set_newline("\r\n");
-    
-    
+
+
             $this->email->from('prueba@stadioitalianodiconcepcion.cl', "Informaciones Stadio Italiano");
             $this->email->to($correo);
             $this->email->subject($asunto);
             $this->email->message($correo_a_enviar);
-    
+
             $this->email->attach($pathDocumento);
-    
+
             if ($this->email->send()) {
+
+                $DataCorreo = array(
+                    'hash_correo' => $hashCorreo,
+                    'fecha_envio' => date("Y-m-d"),
+                    'enviado' => 1,
+                    'apertura' => 0,
+                    
+                );
+
                 echo "correo enviado";
+
+                
             } else {
                 echo "correo no enviado";
             }
-    
-    
-    
+
+
+
             $files = glob($directorio . '*'); //obtenemos todos los nombres de los archivos del fichero
-    
+
             foreach ($files as $files) {
                 if (is_file($files)) {
-    
+
                     unlink($files); //elimino el archivo
                 }
             }
+        } 
+    }
+
+    public function verCorreo()
+    {
 
 
 
 
-        }else{
+
+        $fecha = '12/12/2020';
+        $junta = 'Junta Extraordinaria';
+
+
+        $fecha = obtenerFechaEnLetras($fecha);
+
+        $data['asunto'] = "Eleccion de nueva mesa directiva";
+        $data['junta'] = $junta;
+        $data['sociedad'] = 'Sociedad Stadio Italiano di Concepción';
+        $data['fecha'] = $fecha;
 
 
 
-        }
+
+        $accionistas = $this->model_accionistas->datosaccionista("3");
+
+        $data['accionista'] = $accionistas[0];
 
 
-       
+
+        $this->load->view('plantilla/Head');
+        $this->load->view('accionistas/sociedad/correo_citacion', $data);
+        $this->load->view('plantilla/Footer');
     }
 
 
@@ -157,15 +228,15 @@ class Correo extends CI_Controller
 
 
         $accionistas[0] = array(
-            'rut' => '19332562-9',
+            'rut' => '1233323-8',
 
-            'correo' => 'gersonchaparro@gmail.com',
+            'correo' => 'mail@mai.com',
 
         );
         $accionistas[1] = array(
             'rut' => '11111111-1',
 
-            'correo' => 'gchaparro@stadioitalianodiconcepcion.cl',
+            'correo' => 'mail@mai.com',
 
         );
 

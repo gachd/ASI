@@ -1,5 +1,9 @@
 <?php
 
+use Mpdf\Tag\A;
+use Mpdf\Tag\I;
+use MyCLabs\Enum\Enum;
+use Psr\Log\NullLogger;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -284,7 +288,46 @@ class SA extends CI_Controller
 
             $this->model_sa->nueva_junta($dataJunta);
 
-            $this->enviarCorreo($tipo_junta, $motivo, $fecha, $pathCarta, $pathPoderes);
+            $accionistas = $this->model_accionistas->accionistas();
+
+            $id_junta = $this->model_sa->obtenerUltimaJunta($fecha, $motivo, $tipo_junta);
+
+            $id_junta = $id_junta[0]->id_junta;
+
+
+
+
+
+            $Validacion = $this->enviarCorreo($accionistas, $id_junta, $tipo_junta, $motivo, $fecha, $pathCarta, $pathPoderes);
+
+            if ($Validacion['validacion']) {
+
+                echo "Se ha enviado a todos el correo";
+                $Enviados = $Validacion['enviados'];
+
+                foreach ($Enviados as $index => $enviado) {
+
+                    $this->model_sa->RegistrarCorreo($enviado);
+                }
+            } else {
+
+                echo "Alguien falto el envio";
+
+                $Enviados = $Validacion['enviados'];
+
+                $NoEnviados = $Validacion['no_enviados'];
+
+
+                foreach ($Enviados as $index => $enviado) {
+
+                    $this->model_sa->RegistrarCorreo($enviado);
+                }
+
+                foreach ($NoEnviados as $index => $no_enviado) {
+
+                    $this->model_sa->RegistrarCorreo($no_enviado);
+                }
+            }
         } else {
             //se envia un mensaje de error
 
@@ -293,15 +336,11 @@ class SA extends CI_Controller
     }
 
 
-    private function enviarCorreo($tipoJunta, $motivo, $fecha, $Pathcarta, $Pathpoderes)
+
+
+    private function enviarCorreo($accionistas, $id_junta, $tipoJunta, $motivo, $fecha, $Pathcarta, $Pathpoderes)
     {
 
-        $id_junta = $this->model_sa->obtenerUltimaJunta($fecha, $motivo, $tipoJunta);
-
-        foreach ($id_junta as $index => $junta) {
-
-            $id_junta = $junta->id_junta;
-        }
 
 
         if ($tipoJunta == 1) {
@@ -318,7 +357,9 @@ class SA extends CI_Controller
 
         $asunto = "Citacion a " . $junta . " el dia " . $formatoFecha;
 
-
+        $data['sociedad'] = 'Sociedad Stadio Italiano di Concepción';
+        $data['junta'] = $junta;
+        $data['fecha'] = obtenerFechaEnLetras($fecha);
 
         $accionistas = $this->model_accionistas->datosaccionista("3");
 
@@ -338,15 +379,8 @@ class SA extends CI_Controller
 
 
 
-
-
-
-
-
-
-
-
         $data['asunto'] = $motivo;
+        $data['junta'] = $junta;
 
 
         $this->load->library('email', $config);
@@ -356,15 +390,20 @@ class SA extends CI_Controller
         $hoy = date("Y-m-d");
         $contadorEnviados = 0;
         $contadorNoEnviados = 0;
+        $contadorCorreos = 0;
 
         foreach ($accionistas as $index => $a) {
 
 
 
-           /*  $this->email->initialize($configuraciones); */
+            /*  $this->email->initialize($configuraciones); */
 
             $correoA = $a->prsn_email;
             $id_accionista = $a->id_accionista;
+
+            $hashCorreo = md5(rand());
+
+            $data['hash'] = $hashCorreo;
 
             $data["accionista"] = $a;
 
@@ -380,20 +419,26 @@ class SA extends CI_Controller
             $this->email->attach($Pathcarta);
             $this->email->attach($Pathpoderes);
 
+
+
             if ($this->email->send()) {
+
+           
 
                 $CorreoEnviadoBD = array(
 
                     'id_accionista' => $id_accionista,
-                    "id_junta" => $id_junta,
+                    'id_junta' => $id_junta,
                     'correo_enviado' => 1,
-                    'fecha_envio' =>  $hoy,
+                    'fecha_envio' => $hoy,
+                    'correo_apertura' => 0,
+                    'hash_envio' => $hashCorreo,
+                    
+
                 );
 
-                $this->model_sa->RegitrarCorreoEnviado($CorreoEnviadoBD);
+                $CorreoEnviados[$contadorEnviados] = $CorreoEnviadoBD;
 
-
-                $CorreosEnviados[$contadorEnviados] = $CorreoEnviadoBD;
                 $contadorEnviados++;
             } else {
 
@@ -404,15 +449,41 @@ class SA extends CI_Controller
                     'correo_enviado' => 0,
                     'fecha_envio' =>  $hoy,
                 );
+
+
+
+
                 $Correos_no_enviados[$contadorNoEnviados] = $CorreoNoEnviadoBD;
 
-                $this->model_sa->RegitrarCorreoEnviado($CorreoNoEnviadoBD);  
 
-                
                 $contadorNoEnviados++;
             }
 
-           
+            $contadorCorreos++;
+        }
+        if ($contadorCorreos == $contadorEnviados) {
+
+            $respuesta = array(
+
+                'validacion' => true,
+                'enviados' => $CorreoEnviados,
+
+            );
+
+            return $respuesta;
+        } else {
+
+
+            $respuesta = array(
+
+                'validacion' => false,
+                "enviados" => $CorreoEnviados,
+                "no_enviados" => $Correos_no_enviados,
+
+
+            );
+
+            return $respuesta;
         }
     }
 
@@ -469,10 +540,112 @@ class SA extends CI_Controller
         echo json_encode($detalle);
     }
 
+
     public function obtener_correo_junta()
+
+    {
+        $id_junta = $this->input->post('id_junta');
+        $estado = $this->input->post('estado');
+
+        if ($estado == "enviados") {
+
+
+
+            $correosSI = $this->model_sa->ObtenerCorreo_Enviados($id_junta);
+            $data['correosSI'] = $correosSI;
+            $data['correosNo'] = null;
+        } else if ($estado == "no_enviados") {
+
+
+
+            $correosSI = $this->model_sa->ObtenerCorreo_Enviados($id_junta);
+            $correosNo = $this->model_sa->ObtenerCorreo_NoEnviados($id_junta);
+
+            if (empty($correosSI)) {
+                $data['correosSI'] = null;
+            } else {
+                $data['correosSI'] = $correosSI;
+            }
+
+            $data['correosNo'] = $correosNo;
+        }
+
+        echo json_encode($data);
+    }
+
+
+    public function reEnvioCorreo()
     {
 
+        $id_junta = $this->input->post('id_junta');
+
+        if ($id_junta) {
+
+            $accionistas_a_reenviar = $this->model_sa->ObtenerCorreo_NoEnviados($id_junta);
+            $DatosJunta = $this->model_sa->obtenerJuntas($id_junta);
+            $DatosJunta = $DatosJunta[0];
+
+            $id_junta = $DatosJunta->id_junta;
+            $tipo_junta = $DatosJunta->tipo_junta;
+            $pathCarta = $DatosJunta->path_carta_junta;
+            $pathPoderes = $DatosJunta->path_registro_poderes;
+            $fecha_junta = $DatosJunta->fecha_junta;
+
+            $asunto = $DatosJunta->asunto_junta;
+
+
+
+            $respuesta = $this->enviarCorreo($accionistas_a_reenviar, $id_junta, $tipo_junta, $asunto, $fecha_junta, $pathCarta, $pathPoderes);
+
+
+
+            if ($respuesta["enviados"]) {
+
+                $actualizar = $respuesta["enviados"];
+                $hoy = date("Y-m-d");
+
+                foreach ($actualizar as $key => $act) {
+
+                    $HASH = $act["hash_envio"];
+                    
+
+                    $DataUpdate = array(
+                        'correo_enviado' => 1,
+                        'fecha_envio' => $hoy,
+                        'hash_envio' =>  $HASH
+                    );
+            
+
+                    $this->model_sa->UpdateCorreoNoEnviado($act["id_junta"], $act["id_accionista"], $DataUpdate);
+                }
+            }
+        }
+    }
+
+    public function rastreoCorreoJunta()
+    {
+
+        //THIS RETURNS THE IMAGE
+        header('Content-Type: image/gif');
+       
+        if (isset($_GET['code'])) {
+
+            $codigoRastreo = $_GET["code"];
+    
+            $ahora = date("Y-m-d");
+    
+            $data = array(
+                'correo_apertura' => 1,
+                'fecha_apertura' => $ahora,
+            );
+    
+            $this->model_sa->RegistrarAperturaCorreo($codigoRastreo,$data);
+
+        }
         
+
+    
+       
     }
 
 
