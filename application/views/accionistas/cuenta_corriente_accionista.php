@@ -159,6 +159,7 @@ function listadoDirectorio($directorio)
 </script>
 
 
+<?php var_dump($CorreosAccionista) ?>
 
 
 
@@ -444,7 +445,7 @@ function listadoDirectorio($directorio)
                                 </td>
                                 <td class="">
 
-                                    <?php if (!empty($titulo)) { ?>
+                                    <?php if (!empty($titulos)) { ?>
 
                                         <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
                                             <thead>
@@ -494,6 +495,82 @@ function listadoDirectorio($directorio)
                         </tbody>
                     </table>
 
+
+                </div>
+
+            </div>
+            <?php
+
+            function tipoJunta($tipo)
+            {
+
+
+                if ($tipo == 1) {
+                    return "Junta Ordinaria";
+                } else if ($tipo == 2) {
+                    return "Junta Extraordinaria";
+                }
+            }
+            
+            function enviado($enviado)
+            {
+
+                if ($enviado == 1) {
+                    return "SI";
+                } else if ($enviado == 0) {
+                    return "NO";
+                }
+
+            }
+
+
+            ?>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" >
+
+                        <h3 class="panel-title"> Registro de Correo</h3>
+
+                    </div>
+
+
+                    <div class="panel-body">
+
+                        <?php if (!empty($CorreosAccionista)) { ?>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Junta</th>
+                                        <th>Motivo Junta</th>
+                                        <th>Fecha Envio</th>
+                                        <th>Recibido</th>
+                                        <th>Fecha Apertura Correo</th>
+        
+        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($CorreosAccionista as $correo) { ?>
+        
+                                        <tr>
+                                            <td><?php echo tipoJunta($correo->tipo_junta) ?></td>
+                                            <td><?php echo $correo->asunto_junta ?></td>
+                                            <td><?php echo formato_fecha($correo->fecha_envio) ?></td>
+                                            <td><?php echo enviado($correo->correo_apertura) ?></td>
+                                            <td><?php echo formato_fecha ($correo->fecha_apertura) ?></td>
+        
+        
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+        
+        
+                            </table>
+        
+                        <?php } ?>
+
+                    </div>
 
                 </div>
 

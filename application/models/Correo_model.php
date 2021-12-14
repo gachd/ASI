@@ -19,6 +19,22 @@ class Correo_model extends CI_Model
 
        
     }
+
+    function CorreoFueAbierto($hash){
+            
+            $this->db->select('apertura');
+            $this->db->from('correo');
+            $this->db->where('hash_correo', $hash);
+            $query = $this->db->get();
+            $result = $query->row();
+    
+            if($result->apertura == 1){
+                return true;
+            }else{
+                return false;
+            }
+    
+    }
 }
 
 

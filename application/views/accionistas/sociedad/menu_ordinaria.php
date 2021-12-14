@@ -80,7 +80,7 @@
 
                     <div class="modal-footer">
 
-                        <button id="btn_correo_enviar" class="btn btn-primary"><span id="">Ok</span></button>
+                        <button id="btn_correo_enviar" class="btn btn-primary"><span id="letras_span">Ok</span></button>
 
                     </div>
 
@@ -687,17 +687,19 @@
                         btn_enviar.removeClass('btn-primary');
                         btn_enviar.addClass('btn-warning');
 
-                        $("#btn_correo_enviar span").html(`Reenviar correos`);
+                        $("#letras_span").html('Reenviar correos');
 
                         btn_enviar.attr('data-funcionamiento', 'reenviar');
 
 
 
                     } else {
+
+                        
                         btn_enviar.removeClass('btn-warning');
                         btn_enviar.addClass('btn-success');
 
-                        $("#btn_correo_enviar span").html(`Cerrar`);
+                        $("#letras_span").html("Cerrar");
 
                         btn_enviar.attr('data-funcionamiento', 'cerrar');
 

@@ -298,6 +298,23 @@
 			$p = $this->db->get();
 			return $p->result();
 		}
+
+		function correos_junta($id_accionista){
+
+			
+			$this->db->select('*');
+			$this->db->from('s_accionista AS a , sa_juntas AS j ,sa_junta_envio_correo AS c');
+			$this->db->where('a.id_accionista',$id_accionista);
+			$this->db->where('c.id_accionista = a.id_accionista');
+			$this->db->where('c.id_junta = j.id_junta');
+			$this->db->order_by('c.fecha_envio','desc');
+
+			$p = $this->db->get();
+			return $p->result();
+
+		}
+
+
 	}
 
 

@@ -37,13 +37,21 @@ class Correo extends CI_Controller
             $codigoRastreo = $_GET["code"];
     
             $ahora = date("Y-m-d H:i:s");
+
+
+            if(!($this->Correo_model->CorreoFueAbierto($codigoRastreo))){
+
+
+                $data = array(
+                    'apertura' => 1,
+                    'fecha_apertura' => $ahora,
+                );
+     
+        
+                $this->Correo_model->RegistrarAperturaCorreo($codigoRastreo,$data);
+            }
+            
     
-            $data = array(
-                'apertura' => 1,
-                'fecha_apertura' => $ahora,
-            );
-    
-            $this->Correo_model->RegistrarAperturaCorreo($codigoRastreo,$data);
 
         }
         

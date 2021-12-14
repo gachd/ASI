@@ -118,20 +118,31 @@ class model_sa extends CI_Model
         $this->db->insert('sa_junta_envio_correo', $dataEnviado);
     }
 
-    function RegistrarAperturaCorreo($hash,$dataUpdate)
+    function RegistrarAperturaCorreo($hash, $dataUpdate)
     {
 
         $this->db->where('hash_envio', $hash);
         $this->db->update('sa_junta_envio_correo', $dataUpdate);
-
-
-       
     }
 
-    function UpdateCorreoNoEnviado($id_junta, $id_accionista,$DataUpdate)
+    function CorreoFueAbierto($hash)
+    {
+
+        $this->db->select('correo_apertura');
+        $this->db->from('sa_junta_envio_correo');
+        $this->db->where('hash_envio', $hash);
+        $this->db->where('correo_apertura', 1);
+
+        $query = $this->db->get();
+        return $query->result();
+     
+        
+    }
+
+    function UpdateCorreoNoEnviado($id_junta, $id_accionista, $DataUpdate)
     {
         $this->db->where('id_junta', $id_junta);
-        $this->db->where('id_accionista', $id_accionista);      
+        $this->db->where('id_accionista', $id_accionista);
 
         $this->db->update('sa_junta_envio_correo', $DataUpdate);
     }

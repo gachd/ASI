@@ -676,12 +676,19 @@ class inicio extends CI_Controller
 
         $Tranferencia_de_acciones = array();
 
+       $data['CorreosAccionista'] = $CorreosAccionista = $this->model_accionistas->correos_junta($id);
+
+
+
+   
+
 
         $data['accionista'] = $this->model_accionistas->datosaccionista($id);
   
-        $data['titulos'] = $this->model_accionistas->TitulosActivosporAccionista($id);
+        $data['titulos'] =  $this->model_accionistas->TitulosActivosporAccionista($id);
   
   
+      
   
         //Consulta a BD por todos los titulos que posee o fueron alguna ves del accionista
   
@@ -860,7 +867,6 @@ class inicio extends CI_Controller
   
   
         $data['socio'] = $this->model_accionistas->accionistas_es_socio($rut_accionista);
-  
   
   
   

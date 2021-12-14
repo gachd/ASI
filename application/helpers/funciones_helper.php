@@ -78,5 +78,19 @@ if (!function_exists('es_localhost')) {
     }
 }
 
+if (!function_exists('formato_fecha')) {
+
+    /**
+     * Ingresa la fecha en formato Y-m-d y regresa la fecha en formato d-m-Y
+     *  @return fecha   */
+
+    function formato_fecha($fecha)
+    {
+        $fecha = date('d-m-Y', strtotime($fecha));
+        return $fecha;
+       
+    }
+}
+
 
 

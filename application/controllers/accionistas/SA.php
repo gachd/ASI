@@ -423,7 +423,7 @@ class SA extends CI_Controller
 
             if ($this->email->send()) {
 
-           
+
 
                 $CorreoEnviadoBD = array(
 
@@ -433,7 +433,7 @@ class SA extends CI_Controller
                     'fecha_envio' => $hoy,
                     'correo_apertura' => 0,
                     'hash_envio' => $hashCorreo,
-                    
+
 
                 );
 
@@ -607,14 +607,14 @@ class SA extends CI_Controller
                 foreach ($actualizar as $key => $act) {
 
                     $HASH = $act["hash_envio"];
-                    
+
 
                     $DataUpdate = array(
                         'correo_enviado' => 1,
                         'fecha_envio' => $hoy,
                         'hash_envio' =>  $HASH
                     );
-            
+
 
                     $this->model_sa->UpdateCorreoNoEnviado($act["id_junta"], $act["id_accionista"], $DataUpdate);
                 }
@@ -627,25 +627,39 @@ class SA extends CI_Controller
 
         //THIS RETURNS THE IMAGE
         header('Content-Type: image/gif');
-       
+
         if (isset($_GET['code'])) {
 
             $codigoRastreo = $_GET["code"];
-    
-            $ahora = date("Y-m-d");
-    
-            $data = array(
-                'correo_apertura' => 1,
-                'fecha_apertura' => $ahora,
-            );
-    
-            $this->model_sa->RegistrarAperturaCorreo($codigoRastreo,$data);
 
+
+            $ahora = date("Y-m-d H:i:s");
+            $validacion = $this->model_sa->CorreoFueAbierto($codigoRastreo);
+
+            if (empty($validacion)) {
+
+
+                $data = array(
+                    'correo_apertura' => 1,
+                    'fecha_apertura' => $ahora,
+                    'ultima_apertura' => $ahora,
+                );
+
+
+                $this->model_sa->RegistrarAperturaCorreo($codigoRastreo, $data);
+
+            } else {
+
+                $data = array(
+
+                    'ultima_apertura' => $ahora
+                );
+
+                $this->model_sa->RegistrarAperturaCorreo($codigoRastreo, $data);
+            }
         }
-        
+
         exit;
-    
-       
     }
 
 
