@@ -149,9 +149,11 @@ class Correo extends CI_Controller
                     
                 );
 
+                $this->Correo_model->RegistrarCorreo($DataCorreo);
+
                 echo "correo enviado";
 
-                
+
             } else {
                 echo "correo no enviado";
             }
