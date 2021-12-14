@@ -643,7 +643,7 @@ class SA extends CI_Controller
 
         }
         
-
+        exit;
     
        
     }

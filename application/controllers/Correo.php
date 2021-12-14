@@ -28,18 +28,15 @@ class Correo extends CI_Controller
 
         //THIS RETURNS THE IMAGE
         header('Content-Type: image/gif');
-
-       
-
+     
         $ahora = date("Y-m-d");
 
-        header('Content-Type: image/gif');
        
         if (isset($_GET['code'])) {
 
             $codigoRastreo = $_GET["code"];
     
-            $ahora = date("Y-m-d");
+            $ahora = date("Y-m-d H:i:s");
     
             $data = array(
                 'apertura' => 1,
