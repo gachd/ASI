@@ -2016,7 +2016,7 @@
                                   if ($c->certificado == 1) {
                                     $cert = '';
                                     $url  = certificado_carga($InfoSocio->path, $c->prsn_rut);
-                                    $img = '<a target="_blank" href="' . $url . ' "><img width="20px" src="' . base_url() . '/assets/images/pdf-flat.png"></a>';
+                                    $img = '<a target="_blank" href="' . $url . ' " download><img width="20px" src="' . base_url() . '/assets/images/pdf-flat.png"></a>';
                                   } else {
                                     $cert = 'NO';
                                     $img = '';
