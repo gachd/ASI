@@ -43,6 +43,7 @@
 			$this->db->where('a.prsn_rut = p.prsn_rut');
 			$this->db->where('a.id_accionista = t.id_accionista');
 			$this->db->group_by('t.id_accionista');
+			$this->db->order_by('p.prsn_nombres', 'ASC');
 
 			$Q = $this->db->get();
 
@@ -55,14 +56,14 @@
 		function accionistasALL()
 		{
 
-			$p = $this->db->query('SELECT p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_titulos t, s_personas p WHERE  a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY t.id_accionista');
+			$p = $this->db->query('SELECT p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_titulos t, s_personas p WHERE  a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista GROUP BY t.id_accionista ORDER BY p.prsn_nombres ASC');
 
 			return $p->result();
 		}
 		function accionistasALL_Activos()
 		{
 
-			$p = $this->db->query('SELECT p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_titulos t, s_personas p WHERE  a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.estado_accionista="1" GROUP BY t.id_accionista');
+			$p = $this->db->query('SELECT p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut, a.id_accionista FROM s_accionista a, s_titulos t, s_personas p WHERE  a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND a.estado_accionista="1" GROUP BY t.id_accionista ORDER BY p.prsn_nombres ASC');
 
 			return $p->result();
 		}

@@ -86,8 +86,36 @@ if (!function_exists('formato_fecha')) {
 
     function formato_fecha($fecha)
     {
-        $fecha = date('d-m-Y', strtotime($fecha));
+
+        if ($fecha != '') {
+
+            $fecha = date("d-m-Y", strtotime($fecha));
+        } else {
+
+            $fecha = 'No Registra';
+        }
         return $fecha;
+       
+    }
+}
+if (!function_exists('formato_fecha_hora')) {
+
+    /**
+     * Ingresa la fecha en formato Y-m-d H:i:s y regresa la fecha en formato d-m-Y H:i:s
+     *  @return fecha   */
+
+    function formato_fecha_hora($fecha)
+    {
+
+        if ($fecha != '') {
+
+            $fecha = date("H:i:s d-m-Y ", strtotime($fecha));
+        } else {
+
+            $fecha = 'No Registra';
+        }
+        return $fecha;
+       
        
     }
 }

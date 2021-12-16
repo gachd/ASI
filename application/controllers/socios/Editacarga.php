@@ -340,13 +340,7 @@ class editaCarga extends CI_Controller
 
     //por cada uo de estos arrays vamos a crear una query para poder hacer un update en la base de datos. y para eso necesitamos recorrer el array por cada uno de sus posiciones
 
-
-
     //$prsn_id = $this -> model_socios -> ultimoId();
-
-
-
-
 
     //Por cada objeto que encuentra en el array lo separa y crea una query
 

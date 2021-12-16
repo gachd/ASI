@@ -110,8 +110,6 @@ function listadoDirectorio($directorio)
 
         unset($listado[array_search('..', $listado, true)]);
 
-        /*    var_dump($listado);
-        var_dump($directorio); */
 
 
         if (count($listado) < 1) {
@@ -140,7 +138,7 @@ function listadoDirectorio($directorio)
         echo 'No existe directorio';
     }
 }
-//var_dump($accionista);
+
 
 
 ?>
@@ -159,7 +157,7 @@ function listadoDirectorio($directorio)
 </script>
 
 
-<?php var_dump($CorreosAccionista) ?>
+
 
 
 
@@ -511,7 +509,7 @@ function listadoDirectorio($directorio)
                     return "Junta Extraordinaria";
                 }
             }
-            
+
             function enviado($enviado)
             {
 
@@ -520,7 +518,6 @@ function listadoDirectorio($directorio)
                 } else if ($enviado == 0) {
                     return "NO";
                 }
-
             }
 
 
@@ -528,7 +525,7 @@ function listadoDirectorio($directorio)
 
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading" >
+                    <div class="panel-heading">
 
                         <h3 class="panel-title"> Registro de Correo</h3>
 
@@ -543,33 +540,42 @@ function listadoDirectorio($directorio)
                                     <tr>
                                         <th>Junta</th>
                                         <th>Motivo Junta</th>
+                                        <th>Enviado</th>
                                         <th>Fecha Envio</th>
                                         <th>Recibido</th>
                                         <th>Fecha Apertura Correo</th>
-        
-        
+                                        <th>Fecha Ultima Apertura</th>
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($CorreosAccionista as $correo) { ?>
-        
+
                                         <tr>
                                             <td><?php echo tipoJunta($correo->tipo_junta) ?></td>
                                             <td><?php echo $correo->asunto_junta ?></td>
+                                            <td><?php echo enviado($correo->correo_enviado) ?></td>
                                             <td><?php echo formato_fecha($correo->fecha_envio) ?></td>
                                             <td><?php echo enviado($correo->correo_apertura) ?></td>
-                                            <td><?php echo formato_fecha ($correo->fecha_apertura) ?></td>
-        
-        
+                                            <td><?php echo formato_fecha_hora($correo->fecha_apertura) ?></td>
+                                            <td><?php echo formato_fecha_hora($correo->fecha_apertura) ?></td>
+
+
                                         </tr>
                                     <?php } ?>
                                 </tbody>
-        
-        
-                            </table>
-        
-                        <?php } ?>
 
+
+                            </table>
+
+                        <?php } else { ?>
+
+                            <div>
+                                 No posee registros de correo.
+                            </div>
+
+                        <?php } ?>
                     </div>
 
                 </div>

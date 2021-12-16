@@ -167,7 +167,7 @@ if ($año >= 3) {
             La sociedad anónima Stadio Italiano fue creada en el año de 2001, con el objetivo de promover el deporte y la cultura italiana.
             <br>
             <br>
-            Acualmente se compone del sigueinte directorio:
+            Acualmente se compone del siguiente directorio:
 
           </span>
 
@@ -175,75 +175,40 @@ if ($año >= 3) {
 
       </div>
 
-      <div class="row panel">
+
+
+      <div class="panel panel-default">
+
+
+
 
         <div id="div_directorio" class="table-responsive">
+          <?php if ($directorio) { ?>
 
-          <table class="table">
+            Presidente: <?php echo $directorio["presidente"]->prsn_nombres . " " . $directorio["presidente"]->prsn_apellidopaterno . " " . $directorio["presidente"]->prsn_apellidomaterno ?> <br>
+            <br>
+            Viceprecidente : <?php echo $directorio["vicepresidente"]->prsn_nombres . " " . $directorio["vicepresidente"]->prsn_apellidopaterno . " " . $directorio["vicepresidente"]->prsn_apellidomaterno ?><br>
+            <br>
+            Directores: <br># <?php echo $directorio["director"][1]->prsn_nombres . " " . $directorio["director"][1]->prsn_apellidopaterno . " " . $directorio["director"][1]->prsn_apellidomaterno ?>
+            <br> # <?php echo $directorio["director"][2]->prsn_nombres . " " . $directorio["director"][2]->prsn_apellidopaterno . " " . $directorio["director"][2]->prsn_apellidomaterno ?>
+            <br># <?php echo $directorio["director"][3]->prsn_nombres . " " . $directorio["director"][3]->prsn_apellidopaterno . " " . $directorio["director"][3]->prsn_apellidomaterno ?>
+            <br># <?php echo $directorio["director"][4]->prsn_nombres . " " . $directorio["director"][4]->prsn_apellidopaterno . " " . $directorio["director"][4]->prsn_apellidomaterno ?>
+            <br># <?php echo $directorio["director"][5]->prsn_nombres . " " . $directorio["director"][5]->prsn_apellidopaterno . " " . $directorio["director"][5]->prsn_apellidomaterno ?> <br><br>
+            Gerente : <?php echo $directorio["gerente"] ?>
 
-            <thead>
-
-              <tr>
-                <th>Rut</th>
-                <th>Nombre</th>
-                <th>Cargo</th>
-                <th>Fecha Nombramiento</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-            <?php $noMostrar =array ("fecha","gerente"); ?>
-
-
-              <?php foreach ($directorio  as $indexDir => $Dir) { ?>
+            <br><br>
+            En la Junta realizada el día <?php echo $directorio["junta"]->fecha_junta ?> .
 
 
 
 
-                <?php if (!in_array($indexDir,$noMostrar)){  ?>
+          <?php } else { ?>
 
 
-                  <?php if ($indexDir != "director") { ?>
+            <h5>&nbsp; No se registran datos.</h5>
 
-                    <tr>
-                      <td> <?php echo  $Dir->prsn_rut ?> </td>
-                      <td> <?php echo  $Dir->prsn_nombres . ' ' . $Dir->prsn_apellidopaterno . ' ' . $Dir->prsn_apellidomaterno ?> </td>
-                      <td> <?php echo strtoupper($indexDir) ?> </td>
-                      <td> <?php echo $directorio["fecha"] ?> </td>
-                    </tr>
 
-                  <?php } else { ?>
-
-                    <?php foreach ($Dir as $indexDirec => $Directores) { ?>
-
-                      <tr>
-                        <td> <?php echo  $Directores->prsn_rut ?> </td>
-                        <td> <?php echo  $Directores->prsn_nombres . ' ' . $Directores->prsn_apellidopaterno . ' ' . $Directores->prsn_apellidomaterno ?> </td>
-                        <td> <?php echo strtoupper($indexDir) ?> </td>
-                        <td> <?php echo $directorio["fecha"] ?> </td>
-                      </tr>
-                    <?php } ?>
-
-                  <?php } ?>
-                <?php  }  ?>
-              <?php } ?>
-
-            </tbody>
-          </table>
-
-        <table class="table">
-          <thead>
-            <th>Gerente</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td> <?php echo $directorio["gerente"] ?> </td>
-            </tr>
-          </tbody>
-        </table>
+          <?php } ?>
 
         </div>
 
@@ -318,33 +283,43 @@ if ($año >= 3) {
           </table>
 
         </div>
-        <div class="row panel">
-          <h5>Ultimos Accionitas</h5>
-          <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
-            <thead class="thead-light">
-              <tr>
-                <th width="40%">Accionistas </th>
-                <th>Fecha</th>
-                <th># Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div class="panel panel-default">
 
-              <?php if (!empty($ultimos)) {
+          <div class="panel-heading">
 
-                foreach ($ultimos as $u) {
-                  echo '<tr class="odd gradeX">';
-                  echo '<td>' . $u->prsn_nombres . ' ' . $u->prsn_apellidopaterno . '</td>';
-                  echo '<td>' . $u->fecha . '</td>';
-                  echo '<td>' . $u->accionesA . '</td>';
-                  echo '</tr>';
+            <h5>Ultimos Accionitas</h5>
+          </div>
+
+          <div>
+            <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="datos">
+              <thead class="thead-light">
+                <tr>
+                  <th width="40%">Accionistas </th>
+                  <th>Fecha</th>
+                  <th># Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <?php if (!empty($ultimos)) {
+
+                  foreach ($ultimos as $u) {
+                    echo '<tr class="odd gradeX">';
+                    echo '<td>' . $u->prsn_nombres . ' ' . $u->prsn_apellidopaterno . '</td>';
+                    echo '<td>' . formato_fecha($u->fecha) . '</td>';
+                    echo '<td style="text-align: center;" >' . $u->accionesA . '</td>';
+                    echo '</tr>';
+                  }
                 }
-              }
-              ?>
-            </tbody>
-          </table>
+                ?>
+              </tbody>
+            </table>
+
+          </div>
 
         </div>
+
+
       </div>
 
 

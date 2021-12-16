@@ -31,29 +31,14 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<title>ASI - Stadio Italiano di Concepcion</title>
 
 
+	<!-- Bootstrap -->
+	<link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
+
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-	<!-- Morris Charts JavaScript -->
-	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/raphael.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/plugins/morris/morris-data.js"></script>
-	<!-- 
-	<script src="<?php echo base_url(); ?>assets/js/plugins/jquery.dataTables.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/plugins/dataTables.bootstrap.min.js"></script>
- -->
-
-
-
-
-
-	<!-- Bootstrap -->
-	<link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-	<!-- 	<link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"> -->
-
-
 
 
 	<!-- Custom CSS -->
@@ -140,6 +125,60 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		.navbar-default .navbar-nav>li>a:focus {
 			color: #fff;
 			background-color: #8dc89e;
+		}
+
+		.autocomplete-items {
+
+			/*position: absolute;*/
+
+			position: inherit;
+
+			border: 1px solid #d4d4d4;
+
+			border-bottom: none;
+
+			border-top: none;
+
+			z-index: 99;
+
+			/*position the autocomplete items to be the same width as the container:*/
+
+			top: 100%;
+
+			left: 0;
+
+			right: 0;
+
+		}
+
+		.autocomplete-items div {
+
+			padding: 10px;
+
+			cursor: pointer;
+
+			background-color: #fff;
+
+			border-bottom: 1px solid #d4d4d4;
+
+		}
+
+		.autocomplete-items div:hover {
+
+			/*when hovering an item:*/
+
+			background-color: #8dc89e;
+
+		}
+
+		.autocomplete-active {
+
+			/*when navigating through the items using the arrow keys:*/
+
+			background-color: #8dc89e !important;
+
+			color: #ffffff;
+
 		}
 
 
@@ -271,10 +310,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 				top: 0;
 			}
 
-			nav.sidebar:hover+.main {
-				margin-left: 200px;
-			}
-
+		
 			nav.sidebar.navbar.sidebar>.container .navbar-brand,
 			.navbar>.container-fluid .navbar-brand {
 				margin-left: 0px;
@@ -292,7 +328,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			}
 
 			nav.sidebar .navbar-nav>li:first-child {
-				border-top: 1px #e5e5e5 solid;
+				border-top: 2px #e5e5e5 solid;
+				
 			}
 
 			nav.sidebar .navbar-nav>li {
@@ -341,6 +378,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			.forAnimate {
 				opacity: 0;
 			}
+
+
 
 
 		}
@@ -498,6 +537,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			}
 		}
 		detectAdBlock() */
+
+
 
 
 
@@ -950,6 +991,4 @@ $ci->load->model("model_login");;
 				/* ocultar(); */
 
 			});
-
-		
 		</script>

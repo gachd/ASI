@@ -72,6 +72,15 @@ class model_sa extends CI_Model
         return $query->result();
     }
 
+    function juntas_historico()
+    {
+        $this->db->select('*');
+        $this->db->from('sa_juntas');
+        $this->db->order_by('fecha_junta', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function ingresoDetalleJunta($DataDetalleJunta)
     {
         $this->db->insert('sa_junta_detalle', $DataDetalleJunta);

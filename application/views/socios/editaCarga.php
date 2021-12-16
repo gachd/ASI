@@ -979,11 +979,6 @@
 
 
 
-
-
-
-
-
         var fecha_nac = $('#nacCarga').val();
 
         var parentesco = $("#parentesco option:selected").val();
@@ -1003,8 +998,6 @@
         var est = $("#est_carga option:selected").val();
 
         var sexo = $("#sexo_carga option:selected").val();
-
-
 
 
         var data = JSON.stringify(DATA);

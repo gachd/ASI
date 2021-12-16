@@ -18,10 +18,29 @@
     <div class="container">
 
 
+
+
         <div>
-            <div class="row">
+            <div class="row well">
+                <div class="panel panel-default">
+                    <h3 class="h3" style="margin-left:13px;">Nuevo Directorio</h3>
+                </div>
+
+
 
                 <form action="" id="form-directorio" class="">
+
+                    <div class="form-group col-md-3">
+
+                        <label for="">Junta</label>
+                        <select name="junta" id="junta" class="form-control" required>
+                            <option value="">Seleccione</option>
+                            <?php foreach ($juntas as $j) { ?>
+                                <option value="<?php echo $j->id_junta ?>"><?php echo formato_fecha($j->fecha_junta) . "  " . $j->asunto_junta ?></option>
+                            <?php } ?>
+                        </select>
+
+                    </div>
 
                     <div class="form-group col-md-3">
 
@@ -143,11 +162,19 @@
 
 
 
-                    <div class="form-group col-md-3">
+                    <!--   <div class="form-group col-md-3">
 
                         <label for="fecha_directorio">Fecha eleccion</label>
 
                         <input type="date" id="fecha_directorio" name="fecha_directorio" class="form-control" required>
+
+                    </div> -->
+
+                    <div class="form-group col-md-4 col-md-offset-4" style="text-align: center;">
+
+                        <label for="gerente">Gerente</label>
+
+                        <input type="text" id="gerente" name="gerente" class="form-control" onkeyup="mayusculas(this)" required>
 
                     </div>
 
@@ -156,7 +183,7 @@
 
 
 
-                    <div class="col-md-6 col-md-offset-4">
+                    <div class="col-md-4 col-md-offset-4" style="text-align: center;">
 
 
 
@@ -169,18 +196,140 @@
             </div>
         </div>
 
-    </div>
-
-    <div id="resultados">
 
 
     </div>
+    <br>
+
+    <div class="container-fluid ">
+
+
+        <div class="well">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <h2 class="panel-title">Elecciones Historicas</h2>
+                    <br>
+
+                </div>
+
+
+
+
+                <div id="div_tabla_directorio" class="table-responsive">
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
 
 
 </div>
 
 
 <script>
+    const CargatablaDirectorio = () => {
+
+        divtabla = $('#div_tabla_directorio');
+
+
+        $.ajax({
+            url: '<?php echo base_url("accionistas/SA/getDirectorios") ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+
+
+                let directorio = data.directorio;
+
+                console.log(directorio);
+
+                if (directorio) {
+
+
+                    let html = '';
+
+                    html += `<table class="table table-striped table-bordered table-hover" id="tabla_directorio" style="font-size: 12px;" >
+                                <thead>
+                                    <tr>
+                                        <th>Fecha Eleccion</th>
+                                        <th>Presidente</th>
+                                        <th>Vicepresidente</th>
+                                        <th>Director</th>
+                                        <th>Director</th>
+                                        <th>Director</th>
+                                        <th>Director</th>
+                                        <th>Director</th>
+                                        <th>Gerente</th>
+                                        <th>Junta</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+
+                    for (let index = directorio.length - 1; index >= 0; index--) {
+
+                        let fecha = directorio[index].fecha;
+                        let presidente = directorio[index].presidente;
+                        let vice = directorio[index].vicepresidente;
+                        let gerente = directorio[index].gerente;
+                        let directores = directorio[index].director;
+                        let junta = directorio[index].junta;
+
+                        html += `<tr>
+                                    <td>${fecha}</td>
+                                    <td>${presidente.prsn_nombres} ${presidente.prsn_apellidopaterno} ${presidente.prsn_apellidomaterno}</td>
+                                    <td>${vice.prsn_nombres} ${vice.prsn_apellidopaterno} ${vice.prsn_apellidomaterno}</td>
+                                    <td>${directores[1].prsn_nombres} ${directores[1].prsn_apellidopaterno} ${directores[1].prsn_apellidomaterno}</td>
+                                    <td>${directores[2].prsn_nombres} ${directores[2].prsn_apellidopaterno} ${directores[2].prsn_apellidomaterno}</td>
+                                    <td>${directores[3].prsn_nombres} ${directores[3].prsn_apellidopaterno} ${directores[3].prsn_apellidomaterno}</td>
+                                    <td>${directores[4].prsn_nombres} ${directores[4].prsn_apellidopaterno} ${directores[4].prsn_apellidomaterno}</td>
+                                    <td>${directores[5].prsn_nombres} ${directores[5].prsn_apellidopaterno} ${directores[5].prsn_apellidomaterno}</td>                            
+                                    <td>${gerente}</td>
+                                    <td>${junta.asunto_junta}</td>
+                                </tr>`;
+
+                    }
+
+                    html += `</tbody>
+                            </table>`;
+
+                    divtabla.html(html);
+
+                    tabla = $('#tabla_directorio');
+
+
+                    tabla.DataTable({
+                        "language": spain,
+
+                        "order": [
+                            [0, "desc"]
+                        ],
+
+                    });
+
+                } else {
+                    divtabla.html(`<h5>No hay registros</h5>`);
+                }
+
+
+
+
+            }
+        });
+
+    }
+
+    CargatablaDirectorio();
+
+
     $('#form-directorio').on('change', '.elecciones', function() {
 
         var select = $(this);
@@ -214,6 +363,7 @@
         e.preventDefault();
 
         var formData = new FormData(document.getElementById("form-directorio"));
+        let formulario = $(this);
 
         $.ajax({
             url: '<?php echo base_url() ?>accionistas/SA/nuevo_directorio',
@@ -223,29 +373,21 @@
             contentType: false,
             processData: false,
             success: function(respuesta) {
-                
-                
+
+                formulario.trigger('reset');
+                CargatablaDirectorio();
+
+
+
                 swal({
-                        title: "Registrado!",
-                        text: "Directorio registrado correctamente",
-                        icon: "success",
-                        buttons: {
+                    title: "Registrado!",
+                    text: "Directorio registrado correctamente",
+                    icon: "success",
+                    buttons: {
 
-                            OK: true,
-                        },
-                    })
-                    .then((ok) => {
-
-                        if (ok) {
-
-                            window.location.href = '<?php echo base_url() ?>accionistas/SA/directorio'
-
-                        } else {
-                            window.location.href = '<?php echo base_url() ?>accionistas/SA/directorio'
-
-                        }
-
-                    });
+                        OK: true,
+                    },
+                })
 
             }
         });

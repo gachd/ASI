@@ -66,6 +66,7 @@
         <div class="col-md-2">
             <label for="year">Año:</label>
             <select class="form-control" name="year" id="year">
+                <option value="2022">2022</option>
                 <option value="2021">2021</option>
                 <option value="2020">2020</option>
                 <option value="2019">2019</option>

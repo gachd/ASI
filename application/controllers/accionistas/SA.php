@@ -58,47 +58,59 @@ class SA extends CI_Controller
         $directorioActual = $this->model_sa->directorio_sa_actual();
 
 
-        foreach ($directorioActual as $Index => $directorioA) {
+        if ($directorioActual) {
 
-            $presidente = $this->model_accionistas->datosaccionista($directorioA->presidente);
-            $presidente = $presidente[0];
-            $vicepresidente = $this->model_accionistas->datosaccionista($directorioA->vicepresidente);
-            $vicepresidente = $vicepresidente[0];
-            $director1 = $this->model_accionistas->datosaccionista($directorioA->director1);
-            $director1 = $director1[0];
-            $director2 = $this->model_accionistas->datosaccionista($directorioA->director2);
-            $director2 = $director2[0];
-            $director3 = $this->model_accionistas->datosaccionista($directorioA->director3);
-            $director3 = $director3[0];
-            $director4 = $this->model_accionistas->datosaccionista($directorioA->director4);
-            $director4 = $director4[0];
-            $director5 = $this->model_accionistas->datosaccionista($directorioA->director5);
-            $director5 = $director5[0];
-            $fecha = $directorioA->fecha_directorio;
-            $gerente = $directorioA->gerente;
+
+            foreach ($directorioActual as $Index => $directorioA) {
+
+                $presidente = $this->model_accionistas->datosaccionista($directorioA->presidente);
+                $presidente = $presidente[0];
+                $vicepresidente = $this->model_accionistas->datosaccionista($directorioA->vicepresidente);
+                $vicepresidente = $vicepresidente[0];
+                $director1 = $this->model_accionistas->datosaccionista($directorioA->director1);
+                $director1 = $director1[0];
+                $director2 = $this->model_accionistas->datosaccionista($directorioA->director2);
+                $director2 = $director2[0];
+                $director3 = $this->model_accionistas->datosaccionista($directorioA->director3);
+                $director3 = $director3[0];
+                $director4 = $this->model_accionistas->datosaccionista($directorioA->director4);
+                $director4 = $director4[0];
+                $director5 = $this->model_accionistas->datosaccionista($directorioA->director5);
+                $director5 = $director5[0];
+                $fecha = $directorioA->fecha_directorio;
+                $gerente = $directorioA->gerente;
+                $junta = $this->model_sa->obtenerJuntas($directorioA->directorio_junta);
+                $junta = $junta[0];
+            }
+
+            $directores = array(
+                1 => $director1,
+                2 => $director2,
+                3 => $director3,
+                4 => $director4,
+                5 => $director5,
+            );
+
+            $directorio = array(
+                'presidente' => $presidente,
+                'vicepresidente' => $vicepresidente,
+                'director' => $directores,
+                'gerente' => $gerente,
+                'fecha' => $fecha,
+                'junta' => $junta,
+            );
+
+
+
+
+
+            $data['directorio'] = $directorio;
+        } else {
+
+            $data['directorio'] = null;
         }
 
-        $directores = array(
-            1 => $director1,
-            2 => $director2,
-            3 => $director3,
-            4 => $director4,
-            5 => $director5,
-        );
 
-        $directorio = array(
-            'presidente' => $presidente,
-            'vicepresidente' => $vicepresidente,
-            'director' => $directores,
-            'gerente' => $gerente,
-            'fecha' => $fecha,
-        );
-
-
-
-
-
-        $data['directorio'] = $directorio;
 
 
 
@@ -625,7 +637,7 @@ class SA extends CI_Controller
     public function rastreoCorreoJunta()
     {
 
-        //THIS RETURNS THE IMAGE
+        //retorna una imagen
         header('Content-Type: image/gif');
 
         if (isset($_GET['code'])) {
@@ -647,7 +659,6 @@ class SA extends CI_Controller
 
 
                 $this->model_sa->RegistrarAperturaCorreo($codigoRastreo, $data);
-
             } else {
 
                 $data = array(
@@ -677,7 +688,9 @@ class SA extends CI_Controller
 
         $directorio = $this->model_sa->directorio_sa_actual();
 
+        $juntas = $this->model_sa->juntas_historico();
 
+        $data["juntas"] = $juntas;
 
 
         $accionistas = $this->model_accionistas->accionistas();
@@ -692,6 +705,9 @@ class SA extends CI_Controller
 
     public function nuevo_directorio()
     {
+
+        $junta = $this->input->post('junta');
+
 
 
         $directorioActual = $this->model_sa->directorio_sa_actual();
@@ -711,12 +727,16 @@ class SA extends CI_Controller
                 $this->model_sa->actualizar_directorio($DA->id_directorio, $estado);
             }
         }
+        $DatosJunta = $this->model_sa->obtenerJuntas($junta);
+        $DatosJunta = $DatosJunta[0];
+
+        $fecha = $DatosJunta->fecha_junta;
 
 
 
         $directorio = array(
 
-            'fecha_directorio' => $this->input->post('fecha_directorio'),
+            'fecha_directorio' => $fecha,
             'presidente' => $this->input->post('presidente'),
             'vicepresidente' => $this->input->post('vicepresidente'),
             'director1' => $this->input->post('director1'),
@@ -725,9 +745,76 @@ class SA extends CI_Controller
             'director4' => $this->input->post('director4'),
             'director5' => $this->input->post('director5'),
             'estado_directorio' => 1,
+            'gerente' => $this->input->post('gerente'),
+            'directorio_junta' => $junta,
         );
 
 
         return ($this->model_sa->insertar_directorio($directorio));
+    }
+
+    public function  getDirectorios()
+    {
+        $directoriosH = $this->model_sa->directorios_sa_historico();
+        $directorioIndex = 0;
+
+        if ($directoriosH) {
+
+
+            foreach ($directoriosH as $indexDH => $DH) {
+
+                $presidente = $this->model_accionistas->datosaccionista($DH->presidente);
+                $presidente = $presidente[0];
+                $vicepresidente = $this->model_accionistas->datosaccionista($DH->vicepresidente);
+                $vicepresidente = $vicepresidente[0];
+                $director1 = $this->model_accionistas->datosaccionista($DH->director1);
+                $director1 = $director1[0];
+                $director2 = $this->model_accionistas->datosaccionista($DH->director2);
+                $director2 = $director2[0];
+                $director3 = $this->model_accionistas->datosaccionista($DH->director3);
+                $director3 = $director3[0];
+                $director4 = $this->model_accionistas->datosaccionista($DH->director4);
+                $director4 = $director4[0];
+                $director5 = $this->model_accionistas->datosaccionista($DH->director5);
+                $director5 = $director5[0];
+                $fecha = $DH->fecha_directorio;
+                $gerente = $DH->gerente;
+                $junta = $this->model_sa->obtenerJuntas($DH->directorio_junta);
+                $junta = $junta[0];
+
+
+                $directores = array(
+                    1 => $director1,
+                    2 => $director2,
+                    3 => $director3,
+                    4 => $director4,
+                    5 => $director5,
+                );
+
+                $directorio[$directorioIndex] = array(
+                    'presidente' => $presidente,
+                    'vicepresidente' => $vicepresidente,
+                    'director' => $directores,
+                    'gerente' => $gerente,
+                    'fecha' => $fecha,
+                    'junta' => $junta,
+                );
+
+                $directorioIndex++;
+            }
+
+
+
+
+
+
+
+            $data['directorio'] = $directorio;
+        } else {
+
+            $data['directorio'] = null;
+        }
+
+        echo json_encode($data);
     }
 }

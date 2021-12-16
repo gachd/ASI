@@ -3,11 +3,16 @@
 </main>
 
 <!--========== MAIN JS ==========-->
-<script src="/ASI/assets_sidebar/js/main.js"></script>
+<!-- <script src="/ASI/assets_sidebar/js/main.js"></script> -->
 </body>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+
 <script>
+
+  function mayusculas(e) {
+    e.value = e.value.toUpperCase();
+  }
+
   jQuery(document).ready(function($) {
     setTimeout(function() {
       $(".error").fadeOut(1500);
@@ -24,4 +29,5 @@
 </div>
 
 </body>
+
 </html>

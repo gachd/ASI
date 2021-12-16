@@ -99,7 +99,7 @@
 			"path": "application/views/plantilla/Head.php",
 			"bookmarks": [
 				{
-					"line": 582,
+					"line": 623,
 					"column": 20,
 					"label": "Control tiempo sesion"
 				}
