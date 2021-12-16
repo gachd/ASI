@@ -428,10 +428,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-		.salto_celu {
-
-			display: none;
-		}
+	
 
 		input[type=file]::-webkit-file-upload-button {
 			display: none;
@@ -510,11 +507,11 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		}
 
 
-		@media only screen and (max-width: 480px) {}
+		
 	</style>
 
 	<script>
-		/* async function detectAdBlock() {
+		/*  async function detectAdBlock() {
 			let adBlockEnabled = false
 			const googleAdUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
 			try {
@@ -536,10 +533,11 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 			}
 		}
-		detectAdBlock() */
+		detectAdBlock()  */
 
 
 
+		spinnerHTML= ('<div class="spinner"></div>');
 
 
 		spain = {
@@ -767,6 +765,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 <?php
 
 $this->load->library('session');
+$useraaa = $_SESSION;
 $usuario = $this->session->userdata('id');
 $ci = &get_instance();
 $ci->load->model("model_login");;

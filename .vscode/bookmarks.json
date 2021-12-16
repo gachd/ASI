@@ -59,7 +59,7 @@
 			"path": "application/views/socios/ficha.php",
 			"bookmarks": [
 				{
-					"line": 1681,
+					"line": 1679,
 					"column": 0,
 					"label": "Documentos socio"
 				}
@@ -99,7 +99,7 @@
 			"path": "application/views/plantilla/Head.php",
 			"bookmarks": [
 				{
-					"line": 623,
+					"line": 621,
 					"column": 20,
 					"label": "Control tiempo sesion"
 				}

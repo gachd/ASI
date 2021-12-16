@@ -79,13 +79,11 @@
         </div>
         <div class="filtro">
           <select name="year" id="year" class="form-control input-sm">
-            <?php
-            //$year= date("Y");
-            $year = '2021';
+            <?php        
+            $year = annio_planificar();
             for ($i = $year; $i >= 2016; $i--) {
               echo '<option value="' . $i . '">' . $i . '</option>';
             }
-
             ?>
           </select>
         </div>

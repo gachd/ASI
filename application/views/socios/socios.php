@@ -285,7 +285,7 @@
               </div>
 
 
-             
+
 
             </div>
 
@@ -336,190 +336,194 @@
 
         <div class="col-md-12">
 
+      
 
+          <div class="content-box-large panel panel-default">
+           
+              <div class="panel-heading">
 
-          <div class="content-box-large">
 
-            <div class="panel-heading">
 
-              <div class="panel-title">LISTADO DE SOCIOS CORPORACIONES</div>
-
-            </div>
-
-            <div class="panel-body">
-
-              <div class="table-responsive">
-
-                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
-
-                  <thead>
-
-                    <tr>
-
-
-
-                      <th width="28%">Rut</th>
-
-                      <th width="50%">Nombre Completo</th>
-
-                      <th width="7%">Tipo Socio</th>
-
-                      <th width="3%">Centro</th>
-
-                      <th width="3%">Atletico</th>
-
-                      <th width="3%">Concordia</th>
-
-                      <th width="3%">Stadio</th>
-
-                      <th width="3%">Scuola</th>
-
-                      <th>Último Pago</th>
-
-                      <th>Cuota Social</th>
-
-
-
-
-
-
-
-                    </tr>
-
-                  </thead>
-
-                  <tbody>
-
-                    <?php if (!empty($socios)) {
-
-                      $corp = [];
-
-                      $corp[0] = '70331500-3';
-
-                      $corp[1] = '71888800-k';
-
-                      $corp[2] = '72265900-7';
-
-                      $corp[3] = '65106820-7';
-
-                      $corp[4] = '65467840-5';
-
-
-
-
-
-                      foreach ($socios as $s) {
-
-
-
-
-
-                        echo '<tr class="odd gradeX">';
-
-                        echo '<td><div class="col-md-9">' . $s->prsn_rut . '</div><div class="col-md-3"><a  href="' . base_url() . '/socios/ficha/detalle/' . $s->prsn_rut . '"><span class="ico badge badge-info"><i class="glyphicon glyphicon-search"></i></span></a></div>';
-
-                        //
-
-                        echo '<td>' . $s->prsn_nombres . ' ' . $s->prsn_apellidopaterno . ' ' . $s->prsn_apellidomaterno . '</td>';
-
-
-
-                        if (($s->tipo_id == 3) || ($s->tipo_id == 2)) {
-
-                          $tiposocio = 1;
-
-                          echo '<td><div hidden>' . $tiposocio . '</div><center><img title="Honorario" src="' . base_url() . 'assets/images/honorario.png"></center></td>';
-                        } else {
-
-                          $tiposocio = 0;
-
-                          echo '<td><div hidden>' . $tiposocio . '</div><center><img  src="' . base_url() . 'assets/images/socio_activo.png"></center></td>';
-                        }
-
-
-
-
-
-                        (string) $rut = $s->prsn_rut;
-
-                        for ($i = 0; $i < 5; $i++) {
-
-                          $corpora = $this->model_socios->socio_corp($rut, $corp[$i]);
-
-                          if (!empty($corpora)) {
-
-                            $estado = 1;
-
-                            echo '<td><div hidden>' . $estado . '</div><center><span class="ico badge badge-success"><i class="glyphicon glyphicon-ok"></i></span></center></td>';
-                          } else {
-
-                            $estado = 0;
-
-                            echo '<td><div hidden>' . $estado . '</div><center><span class="ico badge badge-danger"><i class="glyphicon glyphicon-remove"></i></span></center></td>';
-                          }
-                        }
-
-
-
-                        if ($tiposocio == 1) {
-
-                          echo '<td  style="color:#043596;font-weight: bold;font-family: Arial;"><center>No aplica</center></td>';
-
-                          echo '<td><center><span class="label label-primary">Exento de pago</span></center></td>';
-                        } else {
-
-
-
-                          $ult_pago = $this->model_socios->ultima_cuota($rut);
-
-                          if (!empty($ult_pago)) {
-
-                            foreach ($ult_pago as $u) {
-
-                              echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>' . $u->ano . '-' . $u->semestre . '</center></td>';
-                            }
-                          } else {
-
-                            echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>No registra</center></td>';
-                          }
-
-
-
-
-                          $saldo = $this->model_socios->saldoSocio($rut);
-
-                          $nuevorut = explode("-", $rut);
-
-                          if ($saldo > 0) {
-
-                            echo '<td><center><a class="button" href="' . base_url() . '/socios/socios/detallePagos/' . $rut . '"><span class="label label-danger">$' . $saldo . '</span></a></center></td>';
-                          } else {
-
-                            echo '<td><center><a class="button" href="' . base_url() . '/socios/socios/detallePagos/' . $rut . '"><span class="label label-success">$0</span></a></center></td>';
-                          }
-                        }
-
-
-
-
-
-
-
-                        echo '</tr>';
-                      }
-                    }
-
-                    ?>
-
-
-
-                  </tbody>
-
-                </table>
+                <div class="panel-title">LISTADO DE SOCIOS CORPORACIONES</div>
 
               </div>
 
-            </div>
+              <div class="panel-body">
+
+                <div class="table-responsive">
+
+                  <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
+
+                    <thead>
+
+                      <tr>
+
+
+
+                        <th width="28%">Rut</th>
+
+                        <th width="50%">Nombre Completo</th>
+
+                        <th width="7%">Tipo Socio</th>
+
+                        <th width="3%">Centro</th>
+
+                        <th width="3%">Atletico</th>
+
+                        <th width="3%">Concordia</th>
+
+                        <th width="3%">Stadio</th>
+
+                        <th width="3%">Scuola</th>
+
+                        <th>Último Pago</th>
+
+                        <th>Cuota Social</th>
+
+
+
+
+
+
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      <?php if (!empty($socios)) {
+
+                        $corp = [];
+
+                        $corp[0] = '70331500-3';
+
+                        $corp[1] = '71888800-k';
+
+                        $corp[2] = '72265900-7';
+
+                        $corp[3] = '65106820-7';
+
+                        $corp[4] = '65467840-5';
+
+
+
+
+
+                        foreach ($socios as $s) {
+
+
+
+
+
+                          echo '<tr class="odd gradeX">';
+
+                          echo '<td><div class="col-md-9">' . $s->prsn_rut . '</div><div class="col-md-3"><a  href="' . base_url() . '/socios/ficha/detalle/' . $s->prsn_rut . '"><span class="ico badge badge-info"><i class="glyphicon glyphicon-search"></i></span></a></div>';
+
+                          //
+
+                          echo '<td>' . $s->prsn_nombres . ' ' . $s->prsn_apellidopaterno . ' ' . $s->prsn_apellidomaterno . '</td>';
+
+
+
+                          if (($s->tipo_id == 3) || ($s->tipo_id == 2)) {
+
+                            $tiposocio = 1;
+
+                            echo '<td><div hidden>' . $tiposocio . '</div><center><img title="Honorario" src="' . base_url() . 'assets/images/honorario.png"></center></td>';
+                          } else {
+
+                            $tiposocio = 0;
+
+                            echo '<td><div hidden>' . $tiposocio . '</div><center><img  src="' . base_url() . 'assets/images/socio_activo.png"></center></td>';
+                          }
+
+
+
+
+
+                          (string) $rut = $s->prsn_rut;
+
+                          for ($i = 0; $i < 5; $i++) {
+
+                            $corpora = $this->model_socios->socio_corp($rut, $corp[$i]);
+
+                            if (!empty($corpora)) {
+
+                              $estado = 1;
+
+                              echo '<td><div hidden>' . $estado . '</div><center><span class="ico badge badge-success"><i class="glyphicon glyphicon-ok"></i></span></center></td>';
+                            } else {
+
+                              $estado = 0;
+
+                              echo '<td><div hidden>' . $estado . '</div><center><span class="ico badge badge-danger"><i class="glyphicon glyphicon-remove"></i></span></center></td>';
+                            }
+                          }
+
+
+
+                          if ($tiposocio == 1) {
+
+                            echo '<td  style="color:#043596;font-weight: bold;font-family: Arial;"><center>No aplica</center></td>';
+
+                            echo '<td><center><span class="label label-primary">Exento de pago</span></center></td>';
+                          } else {
+
+
+
+                            $ult_pago = $this->model_socios->ultima_cuota($rut);
+
+                            if (!empty($ult_pago)) {
+
+                              foreach ($ult_pago as $u) {
+
+                                echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>' . $u->ano . '-' . $u->semestre . '</center></td>';
+                              }
+                            } else {
+
+                              echo '<td style="color:#043596;font-weight: bold;font-family: Arial;"><center>No registra</center></td>';
+                            }
+
+
+
+
+                            $saldo = $this->model_socios->saldoSocio($rut);
+
+                            $nuevorut = explode("-", $rut);
+
+                            if ($saldo > 0) {
+
+                              echo '<td><center><a class="button" href="' . base_url() . '/socios/socios/detallePagos/' . $rut . '"><span class="label label-danger">$' . $saldo . '</span></a></center></td>';
+                            } else {
+
+                              echo '<td><center><a class="button" href="' . base_url() . '/socios/socios/detallePagos/' . $rut . '"><span class="label label-success">$0</span></a></center></td>';
+                            }
+                          }
+
+
+
+
+
+
+
+                          echo '</tr>';
+                        }
+                      }
+
+                      ?>
+
+
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+        
 
           </div>
 

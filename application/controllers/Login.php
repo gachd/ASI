@@ -37,7 +37,7 @@ class Login extends CI_Controller
 
 					$permiso_principal = $this->model_login->menu_principal($usuario->funcionario);
 
-					$permiso_principal = $permiso_principal[0]->perm_principal;
+				
 
 					$usuario_data = array(
 						'id' => $usuario->funcionario,

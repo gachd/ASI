@@ -142,8 +142,10 @@ class planificacion extends CI_Controller
 		$a = $this->db->last_query();
 		//$turnos=$this -> model_turnos -> getTurnoTipo($tipo_funcionario);
 		$numero = cal_days_in_month(CAL_GREGORIAN, $mes, $year);
+		$contTurnos = 0;
 		foreach ($data_fun as $df) {
 			$selected = "";
+			
 			for ($i = 1; $i <= $numero; $i++) {
 
 				$post = ('turno' . $df->rut . '' . $i . '');
@@ -160,6 +162,7 @@ class planificacion extends CI_Controller
 					/*echo('<pre>');var_dump($data);echo('</pre>');*/
 					/*INSERTO turnos funcioncionario*/
 					$this->model_turnos->insertar_turno($data);
+					$contTurnos++;
 				}
 			}
 		}
@@ -167,14 +170,17 @@ class planificacion extends CI_Controller
 		/*echo $funcionario;
 		echo "<br>";
 		echo $a;*/
-		if ($this->db->affected_rows() > 0) {
 
-			$this->session->set_flashdata('category_success', 'Agregado exitosamente.');
-			redirect(base_url() . 'turnos/planificacion');
-			
+
+		 if ($contTurnos > 0) {
+			$rJson["Turnos"] = $contTurnos;
 		} else {
-			echo 'error';
-		}
+			$rJson["Turnos"] = 0;
+		} 
+
+		echo json_encode($rJson);
+
+		
 	}
 
 

@@ -723,15 +723,13 @@
   function certificado_carga($dir_socio, $rut_carga)
   {
 
-
-
     if (!empty($dir_socio)) {
 
       $ignorados = array('.', '..', '.svn', '.htaccess');
       $archivos = array();
       $urlBase = base_url();
 
-      $directorio = $dir_socio . "/cargas/" . $rut_carga;
+      $directorio = $dir_socio . "/cargas/" . $rut_carga. "/certificados";
 
       if (is_dir($directorio)) {
 

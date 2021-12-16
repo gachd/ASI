@@ -44,9 +44,7 @@
             swal({
                 title: "Turnos",
                 text: "<?php echo $this->session->flashdata('category_success'); ?>",
-                timer: 4000,
-                type: 'success',
-                showConfirmButton: false
+                icon: "success",
             });
         </script>
 
@@ -54,7 +52,7 @@
 
     <?php
     /*print_r($this->session->all_userdata());*/
-    echo form_open(base_url() . 'turnos/planificacion/guardar');
+    echo form_open(base_url() . 'turnos/planificacion/guardar', array('id' => 'form_planificacion'));
     echo validation_errors();
     ?>
     <nav class="navbar navbar-default nav-titulo">
@@ -66,12 +64,13 @@
         <div class="col-md-2">
             <label for="year">Año:</label>
             <select class="form-control" name="year" id="year">
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
+                <?php
+                $year = annio_planificar();
+
+                for ($i = $year; $i >= 2016; $i--) {
+                    echo '<option value="' . $i . '">' . $i . '</option>';
+                }
+                ?>
 
             </select>
         </div>
@@ -80,18 +79,14 @@
             <!--   <div class="input-form-sm"> -->
             <label for="mes">Mes:</label>
             <select class="form-control form-control-sm" name="mes" id="mes">
-                <option value="1">Enero</option>
-                <option value="2">Febrero</option>
-                <option value="3">Marzo</option>
-                <option value="4">Abril</option>
-                <option value="5">Mayo</option>
-                <option value="6">Junio</option>
-                <option value="7">Julio</option>
-                <option value="8">Agosto</option>
-                <option value="9">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
+                <?php
+
+                $meses = obtener_meses();
+                foreach ($meses as $key => $value) {
+                    echo '<option value="' . $key . '">' . $value . '</option>';
+                }
+
+                ?>
             </select>
             <!--     </div>-->
         </div>
@@ -127,6 +122,7 @@
 
     </nav>
 
+   
 
 
 
@@ -147,20 +143,55 @@
 </div>
 
 <script>
+    $('#form_planificacion').submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var url = form.attr('action');
+        let method = form.attr('method');
+        var data = form.serialize();
+        
+ 
+     $.ajax({
+         type: method,
+         url: url,
+         data: data,
+         dataType: 'json',
+         
+         success: function (rJson) {
+
+            console.log(rJson);
+
+            
+
+            $('#planificacion').empty();
+
+            swal({
+                title: "Turnos",
+                text: "Planificación cargada correctamente",
+                icon: "success",
+            });
+             
+         }
+     });
+
+      
+    });
+
+
 
     $.get("<?php echo base_url() ?>turnos/planificacion/carga_tipo", function(data) {
 
         $('#tipo_funcionario').html(data);
-        
+
     });
 
-    
+
     $(document).ready(function() {
 
 
 
-        
-       
+
+
 
 
 
@@ -212,7 +243,7 @@
 
     $("#enviar").click(function() {
 
-        $('#planificacion').html('<div><img src="<?php echo base_url() ?>assets/images/loading.gif"/></div>');
+        $('#planificacion').html('<div class="spinner"></div>');
 
         tipo_funcionario = $('#tipo_funcionario').val();
         funcionario = $('#funcionario').val();
@@ -220,27 +251,47 @@
         year = $('#year').val();
 
 
-        $.post("<?php echo base_url() ?>turnos/planificacion/cargar", {
-                funcionario: funcionario,
-                year: year,
-                mes: mes,
-                tipo_funcionario: tipo_funcionario
-            },
-            function(data) {
-                $('#planificacion').empty();
-                $("#planificacion").html(data);
 
 
-                $('#planificacion select').on('change', function(ev) {
-                    
-                    $(this).attr('class', '').addClass($(this).children(":selected").attr("id"));
-                    //$("select[name*='turno']").addClass($(this).children(":selected").attr("id"));
+
+        if (tipo_funcionario == 0) {
+
+            swal({
+                title: "Seleccione una opción",
+                text: "Debe seleccionar un tipo de funcionario",
+                icon: "warning",
+            });
+
+            $('#planificacion').empty();
+
+        } else {
+
+
+            $.post("<?php echo base_url() ?>turnos/planificacion/cargar", {
+                    funcionario: funcionario,
+                    year: year,
+                    mes: mes,
+                    tipo_funcionario: tipo_funcionario
+                },
+                function(data) {
+
+                    $('#planificacion').empty();
+                    $("#planificacion").html(data);
+
+
+                    $('#planificacion select').on('change', function(ev) {
+
+                        $(this).attr('class', '').addClass($(this).children(":selected").attr("id"));
+                        //$("select[name*='turno']").addClass($(this).children(":selected").attr("id"));
+
+
+                    });
 
 
                 });
+        }
 
 
-            });
 
     });
 
