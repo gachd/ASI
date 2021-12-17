@@ -123,9 +123,14 @@ function listadoDirectorio($directorio)
 
         $urlBase = base_url();
 
+       
+
         unset($listado[array_search('.', $listado, true)]);
 
         unset($listado[array_search('..', $listado, true)]);
+        unset($listado[array_search('index.html', $listado, true)]);
+
+        
 
         /*    var_dump($listado);
         var_dump($directorio); */

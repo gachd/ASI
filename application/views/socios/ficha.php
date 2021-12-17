@@ -725,7 +725,7 @@
 
     if (!empty($dir_socio)) {
 
-      $ignorados = array('.', '..', '.svn', '.htaccess');
+      $ignorados = array('.', '..', '.svn', '.htaccess', 'index.html');
       $archivos = array();
       $urlBase = base_url();
 
@@ -788,6 +788,9 @@
       unset($listado[array_search('.', $listado, true)]);
 
       unset($listado[array_search('..', $listado, true)]);
+
+      unset($listado[array_search('index.html', $listado, true)]);
+
 
       /*    var_dump($listado);
         var_dump($directorio); */

@@ -76,6 +76,14 @@ class Titulos extends CI_Controller
         $this->load->view('plantilla/Footer');
     }
 
+    public function getTitulosNoEntregados()
+    {
+        $data['sin_entregar'] = $this->model_titulo->titulos_no_entregados();
+
+        echo json_encode($data);
+    }
+
+
     public  function entregar()
     {
 

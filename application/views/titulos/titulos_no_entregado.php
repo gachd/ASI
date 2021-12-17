@@ -41,19 +41,7 @@
 
 
 
-    <?php
 
-    if ($this->session->flashdata('exito'))
-
-      echo '<script>
-
-    toastr.success("Actualizado");
-    
-    </script>    
-    
-    '
-
-    ?>
 
 
 
@@ -63,33 +51,41 @@
 
 
 
-      <form class="form-inline row well" action="<?php echo base_url(); ?>accionistas/titulos/entregar" method="post">
+      <form class=" row well" action="<?php echo base_url(); ?>accionistas/titulos/entregar" method="post" id="form_entregar_titulo">
         <h3><strong>Entrega de titulo</strong></h3>
 
-        <div class="form-group col-md-4">
-          <label for="Titulo">Seleccione titulo</label>
-          <select class="form-control" name="Titulo" id="Titulo" required>
-            <option value=""> Seleccionar </option>
-            <?php
-            foreach ($sin_entregar as $i) {
+        <div class="col-md-8 " style="padding-top: 50px;">
 
-              echo ' <option value="' . $i->id_titulos   . '" >' . $i->id_titulos . '</option>';
-            }
+          <div class="col-md-5">
+            <label for="Titulo">Seleccione titulo</label>
 
-            ?>
-          </select>
+            <select class="form-control" name="Titulo" id="Titulo" required>
+              <option value=""> Seleccionar </option>
+              <?php
+              foreach ($sin_entregar as $i) {
+
+                echo ' <option value="' . $i->id_titulos   . '" >' . $i->id_titulos . '</option>';
+              }
+
+              ?>
+            </select>
+
+          </div>
+          <div class="col-md-5">
+
+            <label>Seleccione Fecha entrega</label>
+            <input class="form-control" type="date" name="fecha" id="Fecha" autocomplete="off" required>
+
+          </div>
+          <div class="col-md-2" style="padding-top: 23px;">
+            <button type="submit" id="cesion" class="btn btn-default">Entregar</button>
+          </div>
 
         </div>
 
-        <div class="form-group col-md-4">
-          <label>Seleccione Fecha entrega en persona</label>
-          <input class="form-control" type="text" name="fecha" id="Fecha" autocomplete="off" required>
-        </div>
 
 
-        <div class="col-md-4">
-          <button type="submit" id="cesion" class="btn btn-default">Entregar</button>
-        </div>
+
 
 
 
@@ -104,8 +100,8 @@
 
 
 
-    <div class="container table-responsive well ">
-      <div class="">
+    <div class="container well ">
+      <div class="panel panel-default table-responsive">
         <h3><strong>No entregados</strong></h3>
         <br>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered " id="grid">
@@ -118,10 +114,6 @@
               <th>Fecha Emision</th>
               <th>Poseedor</th>
               <th>Rut</th>
-
-
-
-
 
 
 
@@ -180,22 +172,9 @@
   </div>
 
 </body>
-<link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery.js"></script>
-<!-- jQuery UI -->
-<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 
 
-<script src="<?php echo base_url(); ?>/assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
 
-<script src="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.js"></script>
-
-<script src="<?php echo base_url(); ?>/assets/js/custom.js"></script>
-<script src="<?php echo base_url(); ?>/assets/js/tables.js"></script>
-<!-- Latest compiled and minified CSS -->
 
 <script>
   $("#menuprincipal").click(function() {
@@ -204,31 +183,43 @@
 
 
 
-  $('#grid').DataTable({
-    "oLanguage": {
-      "sProcessing": "Procesando...",
-      "sLengthMenu": "Mostrar _MENU_ registros",
-      "sZeroRecords": "No se encontraron resultados",
-      "sEmptyTable": "Ningún dato disponible en esta tabla",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "sInfoPostFix": "",
-      "sSearch": "Buscar:",
-      "sUrl": "",
-      "sInfoThousands": ",",
-      "sLoadingRecords": "Cargando...",
-      "oPaginate": {
-        "sFirst": "Primero",
-        "sLast": "Último",
-        "sNext": "Siguiente",
-        "sPrevious": "Anterior"
-      },
-      "oAria": {
-        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+  $("#form_entregar_titulo").submit(function(e) {
+    e.preventDefault();
+
+
+    let form = $(this);
+    let url = $(this).attr('action');
+    let method = $(this).attr('method');
+
+    let data = $(this).serialize();
+
+
+    $.ajax({
+
+
+      method: method,
+      url: url,
+      data: data,
+
+
+      success: function(response) {
+       
+        form.trigger('reset');
+        swal("Titulo entregado", "Entrega registrada con exito", "success").then(function() {
+          window.location.href = "<?php echo base_url(); ?>accionistas/titulos/entregados";
+        });
+
+
       }
-    }
+    });
+
+
+  });
+
+
+
+  $('#grid').DataTable({
+    "language": spain,
   });
 
   $.datepicker.regional['es'] = {
@@ -248,24 +239,6 @@
     showMonthAfterYear: false,
     yearSuffix: ''
   };
-
-
-  $(function() {
-
-    $.datepicker.setDefaults($.datepicker.regional['es']);
-
-
-
-    $("#Fecha").datepicker({
-      dateFormat: "yy-mm-dd",
-      changeYear: true,
-      yearRange: "-100:+0"
-
-
-    });;
-
-
-  });
 </script>
 
 </html>

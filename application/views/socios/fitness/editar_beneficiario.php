@@ -725,7 +725,7 @@
       if (is_dir($dir)) {
 
         $dir = $dir . "/perfil";
-        $ignorados = array('.', '..', '.svn', '.htaccess');
+        $ignorados = array('.', '..', '.svn', '.htaccess', 'index.html');
         $archivos = array();
         $urlBase = base_url();
 

@@ -110,6 +110,11 @@ function listadoDirectorio($directorio)
 
         unset($listado[array_search('..', $listado, true)]);
 
+        unset($listado[array_search('index.html', $listado, true)]);
+
+
+
+
 
 
         if (count($listado) < 1) {

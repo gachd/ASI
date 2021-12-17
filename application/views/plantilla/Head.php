@@ -6,7 +6,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 	<?php die; ?>
 
-<?php } 
+<?php }
 
 
 ?>
@@ -531,7 +531,15 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		}
 		detectAdBlock()  */
 
+		function listo() {
 
+			$(".loader").fadeOut(200);
+
+		}
+
+		window.onbeforeunload = function(e) {
+			$(".loader").fadeIn(200);
+		};
 
 		spinnerHTML = ('<div class="spinner"></div>');
 
@@ -596,17 +604,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 		var minutos = 0;
 
-		function listo() {
 
-			$(".loader").fadeOut(200);
-
-			/* 	toggleFullScreen(document.body); */
-			/* TimerSesion(); */
-
-
-
-
-		}
 
 
 
@@ -753,8 +751,6 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			alert("Navegador no compatible")
 			document.location = "<?php echo base_url(); ?>login/logout"; //Es IE <= 11, REDIRECCIONA A PAGINA QUE SUGIERE USAR UNA MAYOR VERSIÓN!
 		}
-
-	
 	</script>
 
 
