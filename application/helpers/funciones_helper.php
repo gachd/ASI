@@ -179,12 +179,12 @@ if (!function_exists('index_archivos')) {
 
     function index_archivos($path_archivos)
     {
-      
+
         if (file_exists($path_archivos)) {
 
             $archivo = fopen($path_archivos . "/index.html", "w");
 
-            $html= ('<!DOCTYPE html>
+            $html = ('<!DOCTYPE html>
             <html>
             <head>
                 <title>Acceso restringido</title>
@@ -198,15 +198,39 @@ if (!function_exists('index_archivos')) {
             ');
             fwrite($archivo, $html);
             fclose($archivo);
-          
-            return true;
 
-        }else{
+            return true;
+        } else {
 
             return false;
         }
-    
     }
 }
+if (!function_exists('index_all')) {
 
+    /**
+     * Crea un archivo index.html en cada uno de los directorios 
+     * del proyecto dentro del carpeta en la raiz "archivos"
+     *  @return  index.html  */
 
+    function index_all($path_padre)
+    {
+
+        if (is_dir($path_padre)) {
+            $archivos = scandir($path_padre);
+
+            if (index_archivos($path_padre)) {
+
+                foreach ($archivos as $archivo) {
+                    if ($archivo != "." && $archivo != "..") {
+                        $pathHijo = $path_padre . $archivo . "/";
+                        if (is_dir($pathHijo)) {
+
+                            index_all($pathHijo);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

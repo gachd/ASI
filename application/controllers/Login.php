@@ -35,15 +35,24 @@ class Login extends CI_Controller
 
 				if ($usuario) {
 
-					$permiso_principal = $this->model_login->menu_principal($usuario->funcionario);
 
-				
+					$permiso_principal = $this->model_login->menu_principal($usuario->funcionario);
+					$cont = 0;
+
+					foreach ($permiso_principal as $permiso) {
+
+						$permisos[$cont] = $permiso->perm_principal;
+					}
+
+
+
 
 					$usuario_data = array(
 						'id' => $usuario->funcionario,
 						'username' => $usuario->username,
 						'permisos' => $usuario->permisos,
 						'perm_principal' => $permiso_principal,
+						'permisos_principal' => $permisos,
 						'logueado' => TRUE
 					);
 					$this->session->set_userdata($usuario_data);
