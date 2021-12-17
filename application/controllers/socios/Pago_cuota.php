@@ -119,6 +119,7 @@ class pago_cuota extends CI_Controller
       if (!is_dir($Dir_archivos)) {
 
         mkdir($Dir_archivos, 0777, true);
+        index_archivos($Dir_archivos);
       }
 
 

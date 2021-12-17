@@ -2,15 +2,14 @@
 
 if (!isset($this->session->userdata['logueado'])) { ?>
 
-
-
-
 	<?php $this->view('errors/no_sesion');  ?>
 
+	<?php die; ?>
 
-	<?php die ?>
+<?php } 
 
-<?php } ?>
+
+?>
 
 
 <!DOCTYPE html>
@@ -310,7 +309,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 				top: 0;
 			}
 
-		
+
 			nav.sidebar.navbar.sidebar>.container .navbar-brand,
 			.navbar>.container-fluid .navbar-brand {
 				margin-left: 0px;
@@ -329,7 +328,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 			nav.sidebar .navbar-nav>li:first-child {
 				border-top: 2px #e5e5e5 solid;
-				
+
 			}
 
 			nav.sidebar .navbar-nav>li {
@@ -428,7 +427,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-	
+
 
 		input[type=file]::-webkit-file-upload-button {
 			display: none;
@@ -505,9 +504,6 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			background: url('<?php echo base_url(); ?>assets/images/carga_pagina.gif') 50% 50% no-repeat rgb(249, 249, 249);
 			opacity: .97;
 		}
-
-
-		
 	</style>
 
 	<script>
@@ -537,7 +533,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
-		spinnerHTML= ('<div class="spinner"></div>');
+		spinnerHTML = ('<div class="spinner"></div>');
 
 
 		spain = {
@@ -757,6 +753,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			alert("Navegador no compatible")
 			document.location = "<?php echo base_url(); ?>login/logout"; //Es IE <= 11, REDIRECCIONA A PAGINA QUE SUGIERE USAR UNA MAYOR VERSIÓN!
 		}
+
+	
 	</script>
 
 

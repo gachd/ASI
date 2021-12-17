@@ -265,6 +265,7 @@
         if (!file_exists($carpeta)) {
 
           mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+          index_archivos($carpeta);
         }
 
 
@@ -315,6 +316,7 @@
     if (!file_exists($Dir_archivos)) {
 
       mkdir($Dir_archivos, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+      index_archivos($Dir_archivos);
     }
 
 

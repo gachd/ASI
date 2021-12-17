@@ -388,24 +388,10 @@ class nuevo_socio extends CI_Controller
    
    {
 
-      var_dump($DatosCorp);
+     
 
 
-      function formatFecha($fecha)
-      {
-
-         if ($fecha != "") {
-
-            $fechaNew = explode("/", $fecha);
-
-            $fecha_mysql = $fechaNew[2] . '-' . $fechaNew[1] . '-' . $fechaNew[0];
-
-            return $fecha_mysql;
-         } else {
-
-            return "0000-00-00";
-         }
-      }
+      
 
 
 
@@ -443,7 +429,7 @@ class nuevo_socio extends CI_Controller
 
 
 
-
+      $path = 'archivos/socios/' . $rut_socio;
 
       for ($i = 0; $i < count($DATA); $i++) {
 
@@ -463,7 +449,7 @@ class nuevo_socio extends CI_Controller
             $italiano = 1;
          }
 
-         $path = 'archivos/socios/' . $rut_socio;
+         
 
          $data = array(
 
@@ -495,10 +481,7 @@ class nuevo_socio extends CI_Controller
 
             'path' => $path
          );
-
-         
-
-
+       
 
          $this->model_socios->insertarSocCorp($data);
       }
@@ -835,6 +818,7 @@ class nuevo_socio extends CI_Controller
       if (!file_exists($Dir_archivos)) {
 
          mkdir($Dir_archivos, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+         index_archivos($Dir_archivos);
       }
 
 
@@ -896,6 +880,7 @@ class nuevo_socio extends CI_Controller
             if (!file_exists($carpeta)) {
 
                mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+               index_archivos($carpeta);
             }
             var_dump($carpeta);
 
@@ -949,6 +934,7 @@ class nuevo_socio extends CI_Controller
          if (!file_exists($directorio)) {
 
             mkdir($directorio, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+            index_archivos($directorio);
          }
 
          $dir = opendir($directorio);

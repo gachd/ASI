@@ -28,7 +28,7 @@ if (!function_exists('obtenerFechaEnLetra')) {
 
 if (!function_exists('conocerDiaSemanaFecha')) {
 
-    /**
+    /** 
      * Ingresa una fecha en formato Y-m-d y regresa el nombre del día de la semana.
      *  @return dia_semana  */
 
@@ -60,8 +60,8 @@ if (!function_exists('ip_hosting')) {
 if (!function_exists('es_localhost')) {
 
     /**
-     * Envia la ip del hosting al servidor,
-     * Esto debe cambiar si la ip del servidor cambia
+     *Se valida si la ip donde se trabaja sea localhost
+     * para cambiar parametros de produccion y desarrollo
      *  @return booleano   */
 
     function es_localhost()
@@ -168,3 +168,45 @@ if (!function_exists('obtener_meses')) {
         return $meses;
     }
 }
+if (!function_exists('index_archivos')) {
+
+    /**
+     * Crea un archivo index.html en el directorio recibio
+     * para que el navegador no busque archivos,
+     * el direcrorio debe estar creado previamente
+     *  @return  index.html  */
+
+
+    function index_archivos($path_archivos)
+    {
+      
+        if (file_exists($path_archivos)) {
+
+            $archivo = fopen($path_archivos . "/index.html", "w");
+
+            $html= ('<!DOCTYPE html>
+            <html>
+            <head>
+                <title>Acceso restringido</title>
+            </head>
+            <body>
+            
+            <p>Acceso restringido</p>
+            
+            </body>
+            </html>
+            ');
+            fwrite($archivo, $html);
+            fclose($archivo);
+          
+            return true;
+
+        }else{
+
+            return false;
+        }
+    
+    }
+}
+
+

@@ -28,6 +28,7 @@ class SA extends CI_Controller
     {
 
 
+
         $data['accionistas'] = $this->model_accionistas->accionistas();
 
         $data['ultimos'] = $this->model_accionistas->ultimos();
@@ -244,6 +245,7 @@ class SA extends CI_Controller
             if (!file_exists($directorio)) {
 
                 mkdir($directorio, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+                index_archivos($directorio);
             }
 
 

@@ -31,6 +31,7 @@ class DumpSQL extends CI_Controller
 
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
+                index_archivos($path);
             }
 
             $this->load->dbutil();

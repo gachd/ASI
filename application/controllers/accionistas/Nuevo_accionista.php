@@ -1234,6 +1234,7 @@ class nuevo_accionista extends CI_Controller
 				if (!file_exists($carpeta)) {
 
 					mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+					index_archivos($carpeta);
 				}
 			
 
@@ -1265,6 +1266,7 @@ class nuevo_accionista extends CI_Controller
 
 			}
 		}
+		
 	}
 
 
@@ -1296,6 +1298,7 @@ class nuevo_accionista extends CI_Controller
 				if (!file_exists($carpeta)) {
 
 					mkdir($carpeta, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+					index_archivos($carpeta);
 				}
 				var_dump($carpeta);
 

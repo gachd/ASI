@@ -90,6 +90,7 @@ class Correo extends CI_Controller
         if (!file_exists($directorio)) {
 
             mkdir($directorio, 0777, true) or die("Error al crear el directorio");
+            index_archivos($directorio);
         }
 
 

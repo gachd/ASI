@@ -460,6 +460,7 @@ class editaCarga extends CI_Controller
       if (!file_exists($micarpeta)) {
 
         mkdir($micarpeta, 0777, true);
+        index_archivos($micarpeta);
       }
 
       $config['upload_path'] = $micarpeta;

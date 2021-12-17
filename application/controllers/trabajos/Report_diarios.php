@@ -29,6 +29,7 @@ class report_diarios extends CI_Controller
     $this->load->view('trabajos/report_diarios', $data);
     $this->load->view('plantilla/Footer');
   }
+  
   function listdepen()
   {
     $sector  = $this->input->post('sector');
@@ -165,22 +166,19 @@ class report_diarios extends CI_Controller
         $nom_cataegoria = $c->rc_nombre;
       }
 
-
-
-      //Definimos el mensaje a enviar
-      $this->email->message('<html>
-		<style>
-		body {
-    font-size: 12px !important;
-    font-family: "Telex", sans-serif;
+$html =  '<html>
+<style>
+body {
+font-size: 12px !important;
+font-family: "Telex", sans-serif;
 }
-    table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: middle;
-    border: 1px solid #ddd;
+table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+padding: 8px;
+line-height: 1.42857143;
+vertical-align: middle;
+border: 1px solid #ddd;
 }
-		</style>
+</style>
 <head>
 <meta charset="utf-8">
 <title>Documento sin título</title>
@@ -188,36 +186,39 @@ class report_diarios extends CI_Controller
 
 <body>
 <table style="text-transform:uppercase;">
-  <tbody>
-    <tr>
-      <td>SECTOR ' . $sector . ':</td>
-      <td>' . $nom_dependencia . '</td>
-    </tr>
-    <tr>
-      <td>' . $nom_cataegoria . '</td>
-      <td>' . $descripcion . '</td>
-    </tr>
-    <tr>
-      <td>Reporta:</td>
-      <td>' . $nom_fun . ' ' . $ape_fun . '</td>
-    </tr>
-  </tbody>
+<tbody>
+<tr>
+  <td>SECTOR ' . $sector . ':</td>
+  <td>' . $nom_dependencia . '</td>
+</tr>
+<tr>
+  <td>' . $nom_cataegoria . '</td>
+  <td>' . $descripcion . '</td>
+</tr>
+<tr>
+  <td>Reporta:</td>
+  <td>' . $nom_fun . ' ' . $ape_fun . '</td>
+</tr>
+</tbody>
 </table>
 <br>Para mayor información revisa en <a href="http://www.stadioitalianodiconcepcion.cl/ASI">ASI</a>
 </body>
-</html>');
+</html>';
 
-      if ($this->email->send()) {
+      //Definimos el mensaje a enviar
+      $this->email->message($html);
+      echo $html;
+     /*  if ($this->email->send()) {
 
         //mensaje de exito
         $this->session->set_flashdata('category_success', 'Incidente agregado exitosamente.');
-        /*redirect (base_url().'trabajos/report_diarios');*/
+       // redirect (base_url().'trabajos/report_diarios');
         echo '<script>
 				window.location.href = "' . base_url() . 'trabajos/report_diarios";
 				</script>';
       } else {
         echo 'error al enviar el mail';
-      }
+      } */
     }
   }
   function coment_report()
