@@ -105,7 +105,7 @@
 
                     <div class="form-group col-md-4 " id="divfechaN">
                         <label for="first-name">Fecha Nacimiento</label>
-                        <input value="<?php echo $persona->prsn_fechanacimi ?>"  style="background-color: white;" type="text" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN" onkeypress="return false;">
+                        <input value="<?php echo $persona->prsn_fechanacimi ?>" max="<?php echo fecha_mayor18() ?>"  style="background-color: white;" type="date" autocomplete="off" class="form-control" placeholder="Fecha de Nacimiento" id="FechaN" name="FechaN" onkeypress="return false;">
                     </div>
 
                     <div class="form-group col-md-4">
@@ -234,7 +234,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="FechaIgreso">Fecha Ingreso</label>
-                        <input type=" text" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" onkeypress="return false;" required>
+                        <input type="date" autocomplete="off" class="form-control" placeholder="Fecha de Ingreso" id="FechaIgreso" name="fechaIng" style="background-color: white;" onkeypress="return false;" required>
 
                     </div>
 
@@ -289,8 +289,8 @@
                         <input min="1" type="number" name="NumeroTitulo" class="form-control" placeholder="Nro del Titulo" id="NumeroTitulo" required autocomplete="off">
                     </div>
                     <div class="form-group col-md-4">
-                        <label ">Fecha Emision Titulo Nuevo</label>
-                        <input type=" text" style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT"  onkeypress="return false;" required>
+                        <label>Fecha Emision Titulo Nuevo</label>
+                        <input type="date" style="background-color: white;" autocomplete="off" class="form-control" placeholder="Fecha de titulo" id="fechaT" name="fechaT"  onkeypress="return false;" required>
                     </div>
 
                     <div class="form-group col-md-4 procedente oculto" id="Aprocedente">
@@ -318,8 +318,8 @@
 
 
                     <div class="form-group col-md-4 oculto" id="DivFechaCesion">
-                        <label ">Fecha Cesion</label>
-                        <input type=" text" autocomplete="off"  style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required onkeypress="return false;">
+                        <label>Fecha Cesion</label>
+                        <input type="date" autocomplete="off"  style="background-color: white;" class="form-control" placeholder="Fecha cesion accion" id="fechaC" name="fechaC" required onkeypress="return false;">
                     </div>
 
 
@@ -464,56 +464,6 @@
             $(this).closest('#inputFormRow').remove();
         });
 
-
-
-
-
-        $.datepicker.regional['es'] = {
-            closeText: 'Cerrar',
-            prevText: '< Ant',
-            nextText: 'Sig >',
-            currentText: 'Hoy',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércole xs', 'Jueves', 'Viernes', 'Sábado'],
-            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-            weekHeader: 'Sm',
-            dateFormat: 'dd/mm/yy',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-        };
-
-
-
-
-
-
-        $(function() {
-
-            $.datepicker.setDefaults($.datepicker.regional['es']);
-
-            $("#FechaN").datepicker({
-                dateFormat: "yy-mm-dd",
-                changeMonth: true,
-                changeYear: true,
-                maxDate: "-18y",
-                yearRange: "-100:+0"
-
-            });
-
-            $("#fechaT,#fechaC,#FechaIgreso").datepicker({
-                dateFormat: "yy-mm-dd",
-                changeYear: true,
-                maxDate: +0,
-                yearRange: "-100:+0",
-
-
-            });
-
-        });
 
 
 

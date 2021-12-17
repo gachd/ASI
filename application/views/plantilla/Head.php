@@ -9,7 +9,6 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 <?php }
 
 
-
 ?>
 
 
@@ -121,6 +120,19 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 	<style>
+		input[type="date"]::-webkit-calendar-picker-indicator {
+			background: transparent;
+			bottom: 0;
+			color: transparent;
+			cursor: pointer;
+			height: auto;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: auto;
+		}
+
 		.navbar-default .navbar-nav>li>a:hover,
 		.navbar-default .navbar-nav>li>a:focus {
 			color: #fff;

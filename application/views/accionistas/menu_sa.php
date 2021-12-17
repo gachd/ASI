@@ -183,6 +183,16 @@ if ($año >= 3) {
 
 
         <div id="div_directorio" class="table-responsive">
+          <?php function tipojunta($nro){
+
+            if ($nro == 1) {
+              return "Junta Ordinaria";
+            } else {
+              return "Junta Extraordinaria";
+            }
+          } ?>
+
+
           <?php if ($directorio) { ?>
 
             Presidente: <?php echo $directorio["presidente"]->prsn_nombres . " " . $directorio["presidente"]->prsn_apellidopaterno . " " . $directorio["presidente"]->prsn_apellidomaterno ?> <br>
@@ -197,7 +207,7 @@ if ($año >= 3) {
             Gerente : <?php echo $directorio["gerente"] ?>
 
             <br><br>
-            En la Junta realizada el día <?php echo $directorio["junta"]->fecha_junta ?> .
+            En la <?php echo tipojunta($directorio["junta"]->tipo_junta) ?> realizada el <?php echo obtenerFechaEnLetras($directorio["junta"]->fecha_junta) ?> .
 
 
 

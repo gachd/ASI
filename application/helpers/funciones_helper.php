@@ -234,3 +234,28 @@ if (!function_exists('index_all')) {
         }
     }
 }
+
+
+if (!function_exists('fecha_mayor18')) {
+
+    /**
+     * Devuelve la fecha de hoy si es mayor a 18 años
+     *  @return  fecha */
+
+    function fecha_mayor18()
+    {
+        $hoy = date("Y-m-d");
+
+        $annio_actual = date("Y");
+        $annio_mayor = $annio_actual - 18;
+     
+
+        $fecha_mayor18 = $annio_mayor . "-" . date("m-d");
+
+
+        return $fecha_mayor18;
+
+
+
+    }
+}
