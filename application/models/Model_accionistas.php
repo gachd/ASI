@@ -315,6 +315,16 @@
 
 		}
 
+		function es_accionista($rut){
+
+			$this->db->select('*');
+			$this->db->from('s_accionista');
+			$this->db->where('prsn_rut',$rut);
+			$p = $this->db->get();
+			return $p->result();
+
+		}
+
 
 	}
 

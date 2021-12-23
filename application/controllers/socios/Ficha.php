@@ -68,6 +68,15 @@ class  ficha extends CI_Controller
 
     $data['InfoSocio'] = $this->model_socios->InfoSocio($rut);
 
+    $accionista = $this->model_accionistas->es_accionista($rut);
+
+    if ($accionista) {
+      $data['accionista'] = $this->model_accionistas->es_accionista($rut);
+    } else {
+      $data['accionista'] = false;
+    }
+
+
 
 
 
@@ -199,7 +208,7 @@ class  ficha extends CI_Controller
 
 
         $html = $this->load->view('socios/ficha/ficha_socio', $data, true);
-       
+
         ob_end_clean();
         $html = html_entity_decode($html);
         $mpdf = new \Mpdf\Mpdf(['debug' => true]);

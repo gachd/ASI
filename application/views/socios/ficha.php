@@ -923,11 +923,27 @@
                 </tbody>
 
               </table>
-              <div style="padding-top:20px ;">
+              <div style="padding-top:20px ;padding-bottom:20px;">
                 <button class="btn btn-xs btn-danger" id="ficha_socio_pdf" data-rut="<?php echo $rut  ?>">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 </button>
+                <div id="formulario_accionista"></div>
               </div>
+
+              <?php if (!$accionista) { ?>
+
+                <div class="alert alert-danger alert-dismissable fade in" style="text-transform: none; font-size:13px">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>Aviso!</strong> Socio no se encuentra registrado en accionistas
+                  <?php  ?>
+                  <br>
+                  <br>
+                  <button class="btn btn-danger btn-ms" id="registrar_accionista" data-rut="<?php echo $rut  ?>">Ingresar Socio</button>
+
+                </div>
+
+              <?php } ?>
+
             </div>
 
 
@@ -2119,6 +2135,16 @@
 
 
 <script type="text/javascript">
+  function imprSelec(nombre) {
+    var ficha = document.getElementById(nombre);
+    var ventimp = window.open(' ', 'popimpr');
+    ventimp.document.write(ficha.innerHTML);
+    ventimp.document.close();
+    ventimp.print();
+    ventimp.close();
+  }
+
+
   $("#ficha_socio_pdf").click(function() {
 
 
@@ -2146,6 +2172,28 @@
 
   });
 
+
+  //on click registrar_accionista
+
+  $("#registrar_accionista").click(function() {
+
+    var rut_socio = $(this).attr('data-rut');
+
+    var url = '<?php echo base_url() ?>accionistas/nuevo_accionista';
+
+    let formulario_html = `
+    <form action="${url}" name="accionista_socio" method="post" style="display:none;">
+        <input type="text" name="rut" value="${rut_socio}" />
+    </form>
+    `;
+
+
+    $('#formulario_accionista').html(formulario_html);
+
+    document.forms['accionista_socio'].submit();
+
+
+  });
 
 
 
