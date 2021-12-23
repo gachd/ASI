@@ -69,7 +69,12 @@ class  dashboard extends CI_Controller
 
          $rut = $s->prsn_rut;
          $ult_pago = $this->model_socios->ultimaCuota($rut);
-         $periodo =  $ult_pago[0]->ano . '-' . $ult_pago[0]->semestre;
+         if ($ult_pago) {
+            
+            $periodo =  $ult_pago[0]->ano . '-' . $ult_pago[0]->semestre;
+         }else{
+            $periodo = '-';
+         }
 
          // = $ult_pago['ano'] .'-'.$ult_pago['semestre'];
 
@@ -97,7 +102,9 @@ class  dashboard extends CI_Controller
          $data[] = [(string)$nombres[$j], (int)$rango[$j]];
       }
 
-      echo json_encode($data);
+      $datajson = json_encode($data);
+
+      echo json_encode($datajson);
    }
 
 

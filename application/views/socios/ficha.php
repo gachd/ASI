@@ -24,11 +24,11 @@
   .tbl-afiliacion {
     color: #353535;
 
-    font-size: 10px;
+    font-size: 11px;
 
     text-transform: capitalize;
 
-    border: 1px #b9b6b6 solid;
+    border: 1px #b9b6b6;
 
   }
 
@@ -515,11 +515,8 @@
 
 
 
-  /*==================================================
 
-
-
-
+  /* 
 
   @media (max-width:768px) {
 
@@ -564,10 +561,7 @@
 
     }
 
-
-
   }
-
  */
 </style>
 
@@ -592,7 +586,7 @@
 
   foreach ($datos_personales as $dp) {
 
-
+    $rut = $dp->prsn_rut;
 
     $nombre = $dp->prsn_nombres;
 
@@ -729,7 +723,7 @@
       $archivos = array();
       $urlBase = base_url();
 
-      $directorio = $dir_socio . "/cargas/" . $rut_carga. "/certificados";
+      $directorio = $dir_socio . "/cargas/" . $rut_carga . "/certificados";
 
       if (is_dir($directorio)) {
 
@@ -861,11 +855,11 @@
 
             <div class="col-md-4">
 
-              <table width="100%" border="1" class="tbl-afiliacion">
+              <table width="100%" border="1" class=" tbl-afiliacion">
 
                 <thead>
 
-                  <tr>
+                  <tr style="background-color: #4b7006;color: #ffffff;">
                     <th width="80%">Corporación</th>
 
                     <th width="20%">Nº Registro</th>
@@ -929,8 +923,13 @@
                 </tbody>
 
               </table>
-
+              <div style="padding-top:20px ;">
+                <button class="btn btn-xs btn-danger" id="ficha_socio_pdf" data-rut="<?php echo $rut  ?>">
+                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
+
 
           </div>
 
@@ -964,285 +963,284 @@
 
                     <!-- <li role="presentation"><a href="#messages" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-briefcase"></i>  <span><br>Acciones</span></a></li> -->
 
-                    <!--                     <li role="presentation"><a href="#noti" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-envelope"></i>  <span><br> Notificaciones</span></a></li>
- -->
-
-
+                    <!--  <li role="presentation"><a href="#noti" aria-controls="settings" role="tab" data-toggle="tab"><i class="fa fa-envelope"></i>  <span><br> Notificaciones</span></a></li>-->
                   </ul>
 
+                </div>
 
 
-                  <!-- Tab panes -->
 
-                  <div class="tab-content" style="background: #f8f8f8;">
+                <!-- Tab panes -->
 
+                <div class="tab-content" style="background: #f8f8f8;">
 
 
-                    <div role="tabpanel" class="tab-pane active" id="home">
 
-                      <!-- datos personales -->
+                  <div role="tabpanel" class="tab-pane active" id="home">
 
-                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
+                    <!-- datos personales -->
 
-                        <h4>Datos Personales</h4>
+                    <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
-                        <table width="100%" class="table tbl-datos">
+                      <h4>Datos Personales</h4>
 
-                          <tbody>
+                      <table width="100%" class="table tbl-datos">
 
-                            <tr>
+                        <tbody>
 
-                              <td width="31%">Sexo</td>
+                          <tr>
 
-                              <td width="69%"><?php echo $sexo_txt; ?></td>
+                            <td width="31%">Sexo</td>
 
-                            </tr>
+                            <td width="69%"><?php echo $sexo_txt; ?></td>
 
-                            <tr>
+                          </tr>
 
-                              <td>fecha de nacimiento</td>
+                          <tr>
 
-                              <td><?php echo iconv('ISO-8859-1', 'UTF-8', strftime('%d %b de %Y',  strtotime($fecha_nacimiento))); ?></td>
+                            <td>fecha de nacimiento</td>
 
-                            </tr>
+                            <td><?php echo iconv('ISO-8859-1', 'UTF-8', strftime('%d %b de %Y',  strtotime($fecha_nacimiento))); ?></td>
 
-                            <tr>
+                          </tr>
 
-                              <td>estado civil</td>
+                          <tr>
 
-                              <td><?php echo $estado_civil; ?></td>
+                            <td>estado civil</td>
 
-                            </tr>
+                            <td><?php echo $estado_civil; ?></td>
 
-                            <tr>
+                          </tr>
 
-                              <td>nacionalidad</td>
+                          <tr>
 
-                              <td><?php echo $nacionalidad; ?></td>
+                            <td>nacionalidad</td>
 
-                            </tr>
+                            <td><?php echo $nacionalidad; ?></td>
 
-                          </tbody>
+                          </tr>
 
-                        </table>
+                        </tbody>
 
-                      </div>
-
-                      <!--DATOS DE CONTACTO -->
-
-                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
-
-                        <h4>Datos de Contacto</h4>
-
-                        <table width="100%" class="table tbl-datos">
-
-                          <tbody>
-
-                            <tr>
-
-                              <td width="31%">Telefono Fijo</td>
-
-                              <td width="69%"><?php echo $telefono ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Celular</td>
-
-                              <td><?php echo $celular ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Correo</td>
-
-                              <td><?php echo $email; ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Dirección</td>
-
-                              <td><?php echo $direccion_txt . '' . $poblacion_txt . '' . $comuna . ', ' . $provincia . ', ' . $region; ?></td>
-
-                            </tr>
-
-                          </tbody>
-
-                        </table>
-
-                      </div>
-
-                      <!--DATOS DE trabajo -->
-
-                      <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
-
-                        <h4>Antecendes Laborales</h4>
-
-                        <table width="100%" class="table tbl-datos">
-
-                          <tbody>
-
-                            <tr>
-
-                              <td width="31%">Situación Laboral</td>
-
-                              <td width="69%">Contrato Fijo</td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Actividad o Profesión</td>
-
-                              <td><?php echo $profesion; ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Empresa</td>
-
-                              <td><?php echo $empresa_job; ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Dirección</td>
-
-                              <td><?php echo $direccion_job; ?></td>
-
-                            </tr>
-
-                            <tr>
-
-                              <td>Telefono</td>
-
-                              <td><?php echo $fono_job; ?></td>
-
-                            </tr>
-
-                          </tbody>
-
-                        </table>
-
-                      </div>
+                      </table>
 
                     </div>
 
-                    <!-- PESTAÑA SOSCIO -->
+                    <!--DATOS DE CONTACTO -->
 
-                    <div role="tabpanel" class="tab-pane" id="profile">
+                    <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
 
-                      <div class="col-md-9">
+                      <h4>Datos de Contacto</h4>
 
-                        <div class="panel panel-default">
+                      <table width="100%" class="table tbl-datos">
 
-                          <div class="panel-heading">Registro Corporaciones</div>
+                        <tbody>
 
-                          <div class="panel-body table-responsive">
+                          <tr>
 
-                            <table width="100%" class="registro_socios table table-striped">
+                            <td width="31%">Telefono Fijo</td>
 
-                              <thead>
+                            <td width="69%"><?php echo $telefono ?></td>
 
-                                <tr>
+                          </tr>
 
-                                  <th>Rut Corporación</th>
+                          <tr>
 
-                                  <th>Corporación</th>
+                            <td>Celular</td>
 
-                                  <th>Estado</th>
+                            <td><?php echo $celular ?></td>
 
-                                  <th>Nº Registro</th>
+                          </tr>
 
-                                  <th>Nº Libro</th>
+                          <tr>
 
-                                  <th>Fecha de registro</th>
+                            <td>Correo</td>
 
-                                  <th>Fecha de retiro</th>
+                            <td><?php echo $email; ?></td>
 
-                                </tr>
+                          </tr>
 
-                              </thead>
+                          <tr>
 
-                              <tbody>
+                            <td>Dirección</td>
 
-                                <?php
+                            <td><?php echo $direccion_txt . '' . $poblacion_txt . '' . $comuna . ', ' . $provincia . ', ' . $region; ?></td>
 
-                                foreach ($corporaciones as $c) {
+                          </tr>
 
-                                  $rut_corp = $c->co_rut;
+                        </tbody>
 
-                                  if ($rut_corp <> "96942660-9") {
-                                    echo '<tr>';
+                      </table>
 
-                                    echo '<td>' . $rut_corp . '</td>';
+                    </div>
+
+                    <!--DATOS DE trabajo -->
+
+                    <div class="bs-callout bs-callout-green col-md-4 panel panel-default">
+
+                      <h4>Antecendes Laborales</h4>
+
+                      <table width="100%" class="table tbl-datos">
+
+                        <tbody>
+
+                          <tr>
+
+                            <td width="31%">Situación Laboral</td>
+
+                            <td width="69%">Contrato Fijo</td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td>Actividad o Profesión</td>
+
+                            <td><?php echo $profesion; ?></td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td>Empresa</td>
+
+                            <td><?php echo $empresa_job; ?></td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td>Dirección</td>
+
+                            <td><?php echo $direccion_job; ?></td>
+
+                          </tr>
+
+                          <tr>
+
+                            <td>Telefono</td>
+
+                            <td><?php echo $fono_job; ?></td>
+
+                          </tr>
+
+                        </tbody>
+
+                      </table>
+
+                    </div>
+
+                  </div>
+
+                  <!-- PESTAÑA SOSCIO -->
+
+                  <div role="tabpanel" class="tab-pane" id="profile">
+
+                    <div class="col-md-9">
+
+                      <div class="panel panel-default">
+
+                        <div class="panel-heading">Registro Corporaciones</div>
+
+                        <div class="panel-body table-responsive">
+
+                          <table width="100%" class="registro_socios table table-striped">
+
+                            <thead>
+
+                              <tr>
+
+                                <th>Rut Corporación</th>
+
+                                <th>Corporación</th>
+
+                                <th>Estado</th>
+
+                                <th>Nº Registro</th>
+
+                                <th>Nº Libro</th>
+
+                                <th>Fecha de registro</th>
+
+                                <th>Fecha de retiro</th>
+
+                              </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                              <?php
+
+                              foreach ($corporaciones as $c) {
+
+                                $rut_corp = $c->co_rut;
+
+                                if ($rut_corp <> "96942660-9") {
+                                  echo '<tr>';
+
+                                  echo '<td>' . $rut_corp . '</td>';
 
 
-                                    echo '<td class="r_coorp">' . $c->co_nombre . ' </td>';
+                                  echo '<td class="r_coorp">' . $c->co_nombre . ' </td>';
 
 
 
-                                    $corp = $this->model_socios->socio_corp($rut, $rut_corp);
+                                  $corp = $this->model_socios->socio_corp($rut, $rut_corp);
 
-                                    //var_dump($corp);
+                                  //var_dump($corp);
 
-                                    if (!empty($corp)) {
+                                  if (!empty($corp)) {
 
-                                      foreach ($corp as $ci) {
+                                    foreach ($corp as $ci) {
 
-                                        $ci_n_registro = $ci->n_registro;
+                                      $ci_n_registro = $ci->n_registro;
 
-                                        $ci_libro  = $ci->n_libro;
+                                      $ci_libro  = $ci->n_libro;
 
-                                        $fecha_registro = $ci->fecha_registro;
+                                      $fecha_registro = $ci->fecha_registro;
 
-                                        $ci_fecha_retiro = $ci->fecha_retiro;
+                                      $ci_fecha_retiro = $ci->fecha_retiro;
 
-                                        $ci_condicion = $ci->estado;
+                                      $ci_condicion = $ci->estado;
 
-                                        //$ci_color = $ci -> cond_color;
+                                      //$ci_color = $ci -> cond_color;
 
-                                        $ci_color = '#1bbd1b';
-
-
-
-                                        if ((empty($ci_fecha_retiro)) or ($ci_fecha_retiro == "0000-00-00")) {
-
-                                          $ci_fecha_retiro_b = "-";
-                                        } else {
-
-                                          $ci_fecha_retiro_b = $ci_fecha_retiro;
-                                        }
+                                      $ci_color = '#1bbd1b';
 
 
 
-                                        if ((empty($fecha_registro)) || ($fecha_registro == "0000-00-00")) {
+                                      if ((empty($ci_fecha_retiro)) or ($ci_fecha_retiro == "0000-00-00")) {
 
-                                          $fecha_registro_b = "-";
-                                        } else {
+                                        $ci_fecha_retiro_b = "-";
+                                      } else {
 
-                                          $fecha_registro_b = $fecha_registro;
-                                        }
-
-
-
-                                        if ($ci_condicion == 0) {
-
-                                          $estado = 'Vigente';
-                                        } else {
-
-                                          $estado = 'No Vigente';
-                                        }
+                                        $ci_fecha_retiro_b = $ci_fecha_retiro;
+                                      }
 
 
 
-                                        echo '
+                                      if ((empty($fecha_registro)) || ($fecha_registro == "0000-00-00")) {
+
+                                        $fecha_registro_b = "-";
+                                      } else {
+
+                                        $fecha_registro_b = $fecha_registro;
+                                      }
+
+
+
+                                      if ($ci_condicion == 0) {
+
+                                        $estado = 'Vigente';
+                                      } else {
+
+                                        $estado = 'No Vigente';
+                                      }
+
+
+
+                                      echo '
 
                                   <td><span class="label" style="background:' . $ci_color . ';">' . $estado . '</span></td>
 
@@ -1253,10 +1251,10 @@
                                   <td>' . $fecha_registro . '</td>
 
                                   <td>' . $ci_fecha_retiro_b . '</td>';
-                                      }
-                                    } else {
+                                    }
+                                  } else {
 
-                                      echo ' <td></td>                                  
+                                    echo ' <td></td>                                  
 
                                   <td></td>
 
@@ -1265,155 +1263,156 @@
                                   <td></td>
 
                                   <td></td>';
-                                    }
-
-                                    echo '</tr>';
                                   }
+
+                                  echo '</tr>';
                                 }
-
-                                ?>
-
-
-
-
-
-                              </tbody>
-
-                            </table>
-
-                          </div>
-
-                        </div>
-
-
-
-                      </div>
-
-                      <div class="col-md-3">
-
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Socio Patrocinador</div>
-
-                          <div class="panel-body box-pat">
-
-                            <ul>
-
-                              <?php
-
-                              if (!empty($patrocinadores)) {
-
-                                foreach ($patrocinadores as $p) {
-
-                                  echo '<li class="pat"><a href="' . base_url() . 'socios/ficha/detalle/' . $p->prsn_rut . '" target="_blank">' . $p->prsn_apellidopaterno . ' ' . $p->prsn_apellidomaterno . ' ' . $p->prsn_nombres . '</a></li>';
-                                }
-                              } else {
-                                echo "<li>No registra.</li>";
-                              }
-
-                              ?>
-
-                            </ul>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                      <div class="col-md-3">
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Patrocina a : </div>
-
-                          <div class="panel-body box-pat">
-
-                            <ul>
-
-                              <?php
-
-                              if (!empty($patrocinados)) {
-
-                                foreach ($patrocinados as $pp) {
-
-                                  echo '<li class="pat"><a  href="' . base_url() . '/socios/ficha/detalle/' . $pp->prsn_rut . '" target="_blank">' . $pp->prsn_apellidopaterno . ' ' . $pp->prsn_apellidomaterno . ' ' . $pp->prsn_nombres . '</a></li>';
-                                }
-                              } else {
-                                echo "<li>No registra.</li>";
                               }
 
                               ?>
 
 
 
-                            </ul>
 
-                          </div>
+
+                            </tbody>
+
+                          </table>
 
                         </div>
 
                       </div>
-
-
 
 
 
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="noti">
 
-                      <div class="col-md-12">
+                    <div class="col-md-3">
 
-                        <div class="panel panel-default">
+                      <div class="panel panel-default">
 
-                          <div class="panel-heading">Registro de notificaciones </div>
+                        <div class="panel-heading">Socio Patrocinador</div>
 
-                          <div class="panel-body table-responsive">
+                        <div class="panel-body box-pat">
 
-                            <table width="100%" id="reg_accion" class="table table-bordered table-hover">
+                          <ul>
 
-                              <thead>
+                            <?php
 
-                                <tr>
-                                  <td width="10%">Motivo</td>
-                                  <td width="10%">Fecha</td>
-                                  <td width="55%">Observación</td>
-                                  <td width="15%">Tipo Contacto</td>
-                                  <td width="10%">Responsable</td>
-                                </tr>
-                              </thead>
-                              <tbody>
+                            if (!empty($patrocinadores)) {
 
-                                <?php
-                                $noti = $this->model_socios->notificaciones($rut);
+                              foreach ($patrocinadores as $p) {
 
-                                //var_dump($corp);
+                                echo '<li class="pat"><a href="' . base_url() . 'socios/ficha/detalle/' . $p->prsn_rut . '" target="_blank">' . $p->prsn_apellidopaterno . ' ' . $p->prsn_apellidomaterno . ' ' . $p->prsn_nombres . '</a></li>';
+                              }
+                            } else {
+                              echo "<li>No registra.</li>";
+                            }
 
-                                if (!empty($noti)) {
+                            ?>
 
-                                  foreach ($noti as $n) {
-                                    $rutUsuario = $n->funcionario;
-                                    $usuario = $this->model_socios->funcionario($rutUsuario);
-                                    foreach ($usuario as $u) {
-                                      $nombre = $u->nombre_fun;
-                                      $paterno = $u->paterno;
-                                    }
-                                    $fecha = date("d-m-Y", strtotime($n->fecha_resol));
+                          </ul>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="panel panel-default">
+
+                        <div class="panel-heading">Patrocina a : </div>
+
+                        <div class="panel-body box-pat">
+
+                          <ul>
+
+                            <?php
+
+                            if (!empty($patrocinados)) {
+
+                              foreach ($patrocinados as $pp) {
+
+                                echo '<li class="pat"><a  href="' . base_url() . '/socios/ficha/detalle/' . $pp->prsn_rut . '" target="_blank">' . $pp->prsn_apellidopaterno . ' ' . $pp->prsn_apellidomaterno . ' ' . $pp->prsn_nombres . '</a></li>';
+                              }
+                            } else {
+                              echo "<li>No registra.</li>";
+                            }
+
+                            ?>
 
 
-                                    $contacto = $n->tip_contacto;
-                                    if ($contacto == 1) {
-                                      $tip_contact = 'Teléfonico';
-                                    }
-                                    if ($contacto == 2) {
-                                      $tip_contact = 'Email';
-                                    }
-                                    if ($contacto == 3) {
-                                      $tip_contact = 'Whatsapp';
-                                    }
-                                    if ($contacto == 4) {
-                                      $tip_contact = 'Visita';
-                                    }
-                                    echo '<tr>
+
+                          </ul>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+
+
+
+                  </div>
+
+                  <div role="tabpanel" class="tab-pane" id="noti">
+
+                    <div class="col-md-12">
+
+                      <div class="panel panel-default">
+
+                        <div class="panel-heading">Registro de notificaciones </div>
+
+                        <div class="panel-body table-responsive">
+
+                          <table width="100%" id="reg_accion" class="table table-bordered table-hover">
+
+                            <thead>
+
+                              <tr>
+                                <td width="10%">Motivo</td>
+                                <td width="10%">Fecha</td>
+                                <td width="55%">Observación</td>
+                                <td width="15%">Tipo Contacto</td>
+                                <td width="10%">Responsable</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                              <?php
+                              $noti = $this->model_socios->notificaciones($rut);
+
+                              //var_dump($corp);
+
+                              if (!empty($noti)) {
+
+                                foreach ($noti as $n) {
+                                  $rutUsuario = $n->funcionario;
+                                  $usuario = $this->model_socios->funcionario($rutUsuario);
+                                  foreach ($usuario as $u) {
+                                    $nombre = $u->nombre_fun;
+                                    $paterno = $u->paterno;
+                                  }
+                                  $fecha = date("d-m-Y", strtotime($n->fecha_resol));
+
+
+                                  $contacto = $n->tip_contacto;
+                                  if ($contacto == 1) {
+                                    $tip_contact = 'Teléfonico';
+                                  }
+                                  if ($contacto == 2) {
+                                    $tip_contact = 'Email';
+                                  }
+                                  if ($contacto == 3) {
+                                    $tip_contact = 'Whatsapp';
+                                  }
+                                  if ($contacto == 4) {
+                                    $tip_contact = 'Visita';
+                                  }
+                                  echo '<tr>
                               <td>' . $n->motivo_resol . '</td>
                               <td>' . $fecha . '</td>
                               <td>' . $n->obs_resol . '</td>
@@ -1421,16 +1420,89 @@
                                <td>' . $tip_contact . '</td>
 
                               </tr>';
-                                  }
                                 }
+                              }
 
 
 
-                                ?>
+                              ?>
 
-                              </tbody>
-                            </table>
-                          </div>
+                            </tbody>
+                          </table>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div role="tabpanel" class="tab-pane" id="messages">
+
+                    <div class="col-md-3">
+
+                      <div class="panel panel-default">
+                        <?php
+
+                        $nro_acciones = $this->model_accionistas->nro_acciones($rut);
+                        if (empty($nro_acciones)) {
+                          $nro_acciones = 0;
+                        }
+
+                        $datos = $this->model_accionistas->datos_ac($rut);
+                        $largo = count($datos);
+
+                        $titulos = [];
+                        $libro = [];
+                        $fojas = [];
+                        $i = 0;
+                        foreach ($datos as $d) {
+
+
+
+                          $titulos[$i] =  $this->model_accionistas->nro_titulo($d->prsn_rut);
+
+                          $libro[$i] = $d->libro_accionista;
+                          $fojas[$i] = $d->foja_accionista;
+                          $i++;
+                        }
+
+
+
+
+                        ?>
+                        <div style="text-align: center;">
+                          <h2 class="n_accion"><?php echo $nro_acciones; ?></h2><span>Acción</span>
+                        </div>
+
+                        <div>
+                          <table style="width:100%" class="table table-bordered table-hover" border="0">
+                            <tr>
+                              <th>N° Título</th>
+                              <?php for ($i = 0; $i < $largo; $i++) {
+                                echo '<td><center>';
+
+                                foreach ($titulos[$i] as $t) {
+                                  echo ' #' . $t->nro_titulo;
+                                }
+                                echo '</center></td>';
+                              } ?>
+
+                            </tr>
+                            <tr>
+                              <th>Libro</th>
+                              <?php for ($i = 0; $i < $largo; $i++) {
+                                echo '<td><center>' . $libro[$i] . '</center></td>';
+                              } ?>
+                            </tr>
+                            <tr>
+                              <th>Fojas</th>
+                              <?php for ($i = 0; $i < $largo; $i++) {
+                                echo '<td><center>' . $fojas[$i] . '</center></td>';
+                              } ?>
+                            </tr>
+                          </table>
+
 
                         </div>
 
@@ -1438,127 +1510,54 @@
 
                     </div>
 
-                    <div role="tabpanel" class="tab-pane" id="messages">
+                    <div class="col-md-9">
 
-                      <div class="col-md-3">
+                      <div class="panel panel-default">
 
-                        <div class="panel panel-default">
-                          <?php
+                        <div class="panel-heading">Registro de acciones </div>
 
-                          $nro_acciones = $this->model_accionistas->nro_acciones($rut);
-                          if (empty($nro_acciones)) {
-                            $nro_acciones = 0;
-                          }
+                        <div class="panel-body">
 
-                          $datos = $this->model_accionistas->datos_ac($rut);
-                          $largo = count($datos);
+                          <table width="100%" id="reg_accion" class="table table-bordered table-hover" style="text-align: center;">
 
-                          $titulos = [];
-                          $libro = [];
-                          $fojas = [];
-                          $i = 0;
-                          foreach ($datos as $d) {
+                            <thead>
 
-
-
-                            $titulos[$i] =  $this->model_accionistas->nro_titulo($d->prsn_rut);
-
-                            $libro[$i] = $d->libro_accionista;
-                            $fojas[$i] = $d->foja_accionista;
-                            $i++;
-                          }
-
-
-
-
-                          ?>
-                          <div style="text-align: center;">
-                            <h2 class="n_accion"><?php echo $nro_acciones; ?></h2><span>Acción</span>
-                          </div>
-
-                          <div>
-                            <table style="width:100%" class="table table-bordered table-hover" border="0">
                               <tr>
-                                <th>N° Título</th>
-                                <?php for ($i = 0; $i < $largo; $i++) {
-                                  echo '<td><center>';
 
-                                  foreach ($titulos[$i] as $t) {
-                                    echo ' #' . $t->nro_titulo;
-                                  }
-                                  echo '</center></td>';
-                                } ?>
+                                <td>fecha emisión</td>
+
+                                <td>tipo de <br>transaccion<br></td>
+
+                                <td>Comprado a </td>
+
+                                <td>Vendido a</td>
+
+                                <td>Nº Titulo<br>Nuevo del <br>Comprador</td>
+
+                                <td>Nº Titulo<br>Inutilizado</td>
+
+
 
                               </tr>
-                              <tr>
-                                <th>Libro</th>
-                                <?php for ($i = 0; $i < $largo; $i++) {
-                                  echo '<td><center>' . $libro[$i] . '</center></td>';
-                                } ?>
-                              </tr>
-                              <tr>
-                                <th>Fojas</th>
-                                <?php for ($i = 0; $i < $largo; $i++) {
-                                  echo '<td><center>' . $fojas[$i] . '</center></td>';
-                                } ?>
-                              </tr>
-                            </table>
+
+                            </thead>
+
+                            <tbody>
+                              <?php
+
+                              foreach ($datos as $d) {
+
+                                if ($d->tipo == 1) {
+                                  $compradoA = '-';
+                                  $vendidoA = '-';
+                                  $tipoTrans = 'Nueva';
+                                  $fecha = $d->fecha;
+                                  $titulo = $d->nro_titulo;
+                                  $titulo_in = '-';
+                                }
 
 
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                      <div class="col-md-9">
-
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Registro de acciones </div>
-
-                          <div class="panel-body">
-
-                            <table width="100%" id="reg_accion" class="table table-bordered table-hover" style="text-align: center;">
-
-                              <thead>
-
-                                <tr>
-
-                                  <td>fecha emisión</td>
-
-                                  <td>tipo de <br>transaccion<br></td>
-
-                                  <td>Comprado a </td>
-
-                                  <td>Vendido a</td>
-
-                                  <td>Nº Titulo<br>Nuevo del <br>Comprador</td>
-
-                                  <td>Nº Titulo<br>Inutilizado</td>
-
-
-
-                                </tr>
-
-                              </thead>
-
-                              <tbody>
-                                <?php
-
-                                foreach ($datos as $d) {
-
-                                  if ($d->tipo == 1) {
-                                    $compradoA = '-';
-                                    $vendidoA = '-';
-                                    $tipoTrans = 'Nueva';
-                                    $fecha = $d->fecha;
-                                    $titulo = $d->nro_titulo;
-                                    $titulo_in = '-';
-                                  }
-
-
-                                  echo '<tr>
+                                echo '<tr>
                              <td>' . $fecha . '</td>
                              <td>' . $tipoTrans . '</td>
                              <td>' . $compradoA . '</td>
@@ -1567,122 +1566,13 @@
                              <td>' . $titulo_in . '</td>
                              
                              </tr>';
-                                }
-
-                                ?>
-
-                              </tbody>
-
-                            </table>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                    <div role="tabpanel" class="tab-pane" id="depor">
-
-
-
-
-
-                      <div id="div2" class="col-md-7">
-
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Deportes:</div>
-
-                          <div class="panel-body ">
-
-                            <ul>
-
-                              <?php
-
-                              for ($i = 0; $i < count($deportes); $i++) {
-
-                                $comp = trim($deportes[$i]);
-
-
-
-                                if (strcmp($comp, '1') == 0) {
-
-                                  echo ' <li>Fútbol</li>';
-                                }
-
-                                if (strcmp($comp, '2') == 0) {
-
-                                  echo ' <li>Basketball</li>';
-                                }
-
-                                if (strcmp($comp, '3') == 0) {
-
-                                  echo ' <li>Tenis</li>';
-                                }
-
-                                if (strcmp($comp, '4') == 0) {
-
-                                  echo ' <li>Tiro al Plato</li>';
-                                }
-
-                                if (strcmp($comp, '5') == 0) {
-
-                                  echo ' <li>Natación</li>';
-                                }
-
-                                if (strcmp($comp, '6') == 0) {
-
-                                  echo ' <li>Voleiball</li>';
-                                }
-
-                                if (strcmp($comp, '7') == 0) {
-
-                                  echo ' <li>Pool</li>';
-                                }
                               }
-
-
-
-
-
-
 
                               ?>
 
+                            </tbody>
 
-
-                            </ul>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-
-
-                    </div>
-
-
-
-
-                    <div role="tabpanel" class="tab-pane" id="archivos">
-
-                      <div class="col-md-12">
-
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Documentos del Socio</div>
-
-                          <div class="panel-body">
-
-                            <?php Ver_ArchivosSocios($InfoSocio->path) ?>
-
-
-
-                          </div>
+                          </table>
 
                         </div>
 
@@ -1690,76 +1580,183 @@
 
                     </div>
 
+                  </div>
+
+                  <div role="tabpanel" class="tab-pane" id="depor">
 
 
 
-                    <div role="tabpanel" class="tab-pane" id="cuotas">
 
-                      <div class="col-md-12">
 
-                        <div class="panel panel-default">
+                    <div id="div2" class="col-md-7">
 
-                          <div class="panel-heading">Pagos Cuotas Sociales</div>
+                      <div class="panel panel-default">
 
-                          <div class="panel-body table-responsive">
+                        <div class="panel-heading">Deportes:</div>
 
-                            <table width="100%" id="pagos" class="table table-bordered table-hover">
+                        <div class="panel-body ">
 
-                              <thead>
+                          <ul>
 
-                                <tr>
+                            <?php
 
-                                  <td style="width: 10%;">Año</td>
+                            for ($i = 0; $i < count($deportes); $i++) {
 
-                                  <td style="width: 10%;">Semestre</td>
+                              $comp = trim($deportes[$i]);
 
-                                  <td>Total Pagado</td>
 
-                                  <td>Observación</td>
 
-                                  <td>Estado</td>
+                              if (strcmp($comp, '1') == 0) {
 
-                                  <td>Detalle</td>
+                                echo ' <li>Fútbol</li>';
+                              }
 
-                                </tr>
+                              if (strcmp($comp, '2') == 0) {
 
-                              </thead>
+                                echo ' <li>Basketball</li>';
+                              }
 
-                              <tbody>
+                              if (strcmp($comp, '3') == 0) {
 
-                                <?php
+                                echo ' <li>Tenis</li>';
+                              }
 
-                                foreach ($cuotas as $ct) {
+                              if (strcmp($comp, '4') == 0) {
 
-                                  $ano = $ct->ano;
+                                echo ' <li>Tiro al Plato</li>';
+                              }
 
-                                  $sem = $ct->semestre;
+                              if (strcmp($comp, '5') == 0) {
 
-                                  $pagado = $ct->total_pagado;
+                                echo ' <li>Natación</li>';
+                              }
 
-                                  $obser = $ct->observ_cuota;
+                              if (strcmp($comp, '6') == 0) {
 
-                                  $estado = $ct->estado;
+                                echo ' <li>Voleiball</li>';
+                              }
 
-                                  $id_cuota = $ct->cuota_ordinaria_id_cuota;
+                              if (strcmp($comp, '7') == 0) {
 
-                                  $pag = number_format($pagado, 0, ",", ".");
+                                echo ' <li>Pool</li>';
+                              }
+                            }
 
-                                  $saldo = $ct->saldo;
 
-                                  $saldo_total = $saldo_total + $saldo;
 
-                                  $total = $total + $pagado;
 
-                                  if ($estado == 1) {
 
-                                    $es = 'Pagada';
-                                  } else {
 
-                                    $es = 'Impaga';
-                                  }
 
-                                  echo '<tr>
+                            ?>
+
+
+
+                          </ul>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+
+                  </div>
+
+
+
+
+                  <div role="tabpanel" class="tab-pane" id="archivos">
+
+                    <div class="col-md-12">
+
+                      <div class="panel panel-default">
+
+                        <div class="panel-heading">Documentos del Socio</div>
+
+                        <div class="panel-body">
+
+                          <?php Ver_ArchivosSocios($InfoSocio->path) ?>
+
+
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  <div role="tabpanel" class="tab-pane" id="cuotas">
+
+                    <div class="col-md-12">
+
+                      <div class="panel panel-default">
+
+                        <div class="panel-heading">Pagos Cuotas Sociales</div>
+
+                        <div class="panel-body table-responsive">
+
+                          <table width="100%" id="pagos" class="table table-bordered table-hover">
+
+                            <thead>
+
+                              <tr>
+
+                                <td style="width: 10%;">Año</td>
+
+                                <td style="width: 10%;">Semestre</td>
+
+                                <td>Total Pagado</td>
+
+                                <td>Observación</td>
+
+                                <td>Estado</td>
+
+                                <td>Detalle</td>
+
+                              </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                              <?php
+
+                              foreach ($cuotas as $ct) {
+
+                                $ano = $ct->ano;
+
+                                $sem = $ct->semestre;
+
+                                $pagado = $ct->total_pagado;
+
+                                $obser = $ct->observ_cuota;
+
+                                $estado = $ct->estado;
+
+                                $id_cuota = $ct->cuota_ordinaria_id_cuota;
+
+                                $pag = number_format($pagado, 0, ",", ".");
+
+                                $saldo = $ct->saldo;
+
+                                $saldo_total = $saldo_total + $saldo;
+
+                                $total = $total + $pagado;
+
+                                if ($estado == 1) {
+
+                                  $es = 'Pagada';
+                                } else {
+
+                                  $es = 'Impaga';
+                                }
+
+                                echo '<tr>
 
                                     <td>' . $ano . '</td>
 
@@ -1771,69 +1768,57 @@
 
                                     <td>' . $es . '</td>
 
-               <td><button type="button" class="btn btn-default" data-toggle="modal" href="#modalcuotas"  id="' . $id_cuota . '" onClick="selPersona(\'' . $id_cuota . '\',\'' . $ano . '\',\'' . $sem . '\',\'' . $rut . '\');">  <span class="glyphicon glyphicon-edit"></span></button></td>';
+                                    <td>
+                                      <button type="button" class="btn btn-default" data-toggle="modal" href="#modalcuotas"  id="' . $id_cuota . '" onClick="selPersona(\'' . $id_cuota . '\',\'' . $ano . '\',\'' . $sem . '\',\'' . $rut . '\');"> 
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                      </button>
+                                    </td>';
 
 
 
-                                  echo '</tr>';
-                                }
+                                echo '</tr>';
+                              }
 
 
 
+                              ?>
 
 
 
+                            </tbody>
 
-
-
-                                ?>
-
-
-
-                              </tbody>
-
-                            </table>
-
+                          </table>
 
 
 
 
 
-                            <!-- Modal -->
 
-                            <div class="modal fade" id="modalcuotas" role="dialog">
+                          <!-- Modal -->
 
-                              <div class="modal-dialog">
+                          <div class="modal fade" id="modalcuotas" role="dialog">
 
-                                <!-- Modal content-->
+                            <div class="modal-dialog">
 
-                                <div class="modal-content" style="width: 800px;">
+                              <!-- Modal content-->
 
-                                  <div class="modal-header">
+                              <div class="modal-content" style="width: 800px;">
 
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="modal-header">
 
-
-
-                                  </div>
-
-                                  <div class="modal-body">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
 
 
 
-                                    <div id="modal_cuotas"></div>
+                                </div>
 
-                                    <div class="form-group">
+                                <div class="modal-body">
 
 
 
-                                    </div>
+                                  <div id="modal_cuotas"></div>
 
-                                  </div>
-
-                                  <div class="modal-footer">
-
-                                    <!--Uso la funcion onclick para llamar a la funcion en javascript-->
+                                  <div class="form-group">
 
 
 
@@ -1841,194 +1826,191 @@
 
                                 </div>
 
+                                <div class="modal-footer">
+
+                                  <!--Uso la funcion onclick para llamar a la funcion en javascript-->
+
+
+
+                                </div>
+
                               </div>
 
                             </div>
 
-
-
-
-
                           </div>
-                          <div>
-                            <span style="font-size: 24px;"> Total Pagado Cuotas: <?php $total_pag = number_format($total, 0, ",", ".");
-                                                                                  echo '$' . $total_pag; ?></span>
 
-                            <br>
 
-                            <span style="font-size: 24px;"> Deuda Total Cuotas: <?php $total_sal = number_format($saldo_total, 0, ",", ".");
-                                                                                echo '$' . $total_sal; ?></span>
 
-                          </div>
+
+
+                        </div>
+                        <div>
+                          <span style="font-size: 24px;"> Total Pagado Cuotas: <?php $total_pag = number_format($total, 0, ",", ".");
+                                                                                echo '$' . $total_pag; ?></span>
+
+                          <br>
+
+                          <span style="font-size: 24px;"> Deuda Total Cuotas: <?php $total_sal = number_format($saldo_total, 0, ",", ".");
+                                                                              echo '$' . $total_sal; ?></span>
 
                         </div>
 
-
-
                       </div>
+
+
 
                     </div>
 
+                  </div>
 
 
 
+                  <div role="tabpanel" class="tab-pane" id="extra">
+
+                    <div class="col-md-12">
+
+                      <div class="panel panel-default">
+
+                        <div class="panel-heading">Datos cargas familiares</div>
+
+                        <div class="panel-body table-responsive">
+
+                          <table width="100%" id="cargas" class="table table-bordered table-hover">
+
+                            <thead>
+
+                              <tr>
+
+                                <td>Estado</td>
+
+                                <td>parentesco</td>
+
+                                <td>rut</td>
+
+                                <td>nombre</td>
+
+                                <td>fecha nacimiento</td>
+
+                                <td>edad</td>
+
+                                <td>telefono</td>
+
+                                <td>mail</td>
+
+                                <td>estudiante</td>
+
+                                <td>certificado<br>
+
+                                  alumno regular</td>
+
+                              </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                              <?php
+
+                              //var_dump($cargas);
+
+                              function calculaedad($fechanacimiento)
+                              {
+
+                                list($ano, $mes, $dia) = explode("-", $fechanacimiento);
+
+                                $ano_diferencia  = date("Y") - $ano;
+
+                                $mes_diferencia = date("m") - $mes;
+
+                                $dia_diferencia   = date("d") - $dia;
+
+                                if ($dia_diferencia < 0 || $mes_diferencia < 0)
+
+                                  $ano_diferencia--;
+
+                                return $ano_diferencia;
+                              }
 
 
 
+                              foreach ($cargas as $c) {
+
+                                $id_parentesco = $c->s_parentesco_pt_id;
+
+                                if (!empty($c->prsn_fechanacimi)) {
+                                  $edad = calculaedad($c->prsn_fechanacimi);
+                                } else {
+                                  $edad = '-';
+                                }
+
+                                $bloqueo = $c->estado_carga;
+
+                                $class_bloq = "";
+
+                                $estado = "";
+
+                                if ($bloqueo == 1) {
+
+                                  $estado = "Bloqueado";
+                                  $class_bloq = "bloqueado";
+                                  $motivoBloqueo = 'Sistema';
+                                } else {
+                                  $estado = "Activo";
+                                }
+
+                                if ((($edad > 18) && ($id_parentesco == 2))) {
+
+                                  $class_bloq = "bloqueado";
+                                  $estado = "Bloqueado";
+                                  $motivoBloqueo = 'Edad';
+                                }
+
+                                if ($motivoBloqueo == 'Edad') {
+                                  if ($c->certificado == 1) {
+                                    $estado = "Activo";
+                                    $class_bloq = "";
+                                  }
+                                }
 
 
+                                if ($c->prsn_email == '0') {
+                                  $email = '-';
+                                } else {
+                                  $email = $c->prsn_email;
+                                }
 
+                                if ($c->prsn_fono_movil == 0) {
+                                  $celu = '-';
+                                } else {
+                                  $celu = $c->prsn_fono_movil;
+                                }
 
-                    <div role="tabpanel" class="tab-pane" id="extra">
+                                if ($c->prsn_fono_casa == 0) {
+                                  $fono = '-';
+                                } else {
+                                  $fono = $c->prsn_fono_casa;
+                                }
 
-                      <div class="col-md-12">
+                                if ($c->estudiante == 1) {
+                                  $est = 'SI';
+                                } else {
+                                  $est = 'NO';
+                                }
 
-                        <div class="panel panel-default">
-
-                          <div class="panel-heading">Datos cargas familiares</div>
-
-                          <div class="panel-body table-responsive">
-
-                            <table width="100%" id="cargas" class="table table-bordered table-hover">
-
-                              <thead>
-
-                                <tr>
-
-                                  <td>Estado</td>
-
-                                  <td>parentesco</td>
-
-                                  <td>rut</td>
-
-                                  <td>nombre</td>
-
-                                  <td>fecha nacimiento</td>
-
-                                  <td>edad</td>
-
-                                  <td>telefono</td>
-
-                                  <td>mail</td>
-
-                                  <td>estudiante</td>
-
-                                  <td>certificado<br>
-
-                                    alumno regular</td>
-
-                                </tr>
-
-                              </thead>
-
-                              <tbody>
-
-                                <?php
-
-                                //var_dump($cargas);
-
-                                function calculaedad($fechanacimiento)
-                                {
-
-                                  list($ano, $mes, $dia) = explode("-", $fechanacimiento);
-
-                                  $ano_diferencia  = date("Y") - $ano;
-
-                                  $mes_diferencia = date("m") - $mes;
-
-                                  $dia_diferencia   = date("d") - $dia;
-
-                                  if ($dia_diferencia < 0 || $mes_diferencia < 0)
-
-                                    $ano_diferencia--;
-
-                                  return $ano_diferencia;
+                                if ($c->certificado == 1) {
+                                  $cert = '';
+                                  $url  = certificado_carga($InfoSocio->path, $c->prsn_rut);
+                                  $img = '<a target="_blank" href="' . $url . ' " download><img width="20px" src="' . base_url() . '/assets/images/pdf-flat.png"></a>';
+                                } else {
+                                  $cert = 'NO';
+                                  $img = '';
                                 }
 
 
 
-                                foreach ($cargas as $c) {
 
-                                  $id_parentesco = $c->s_parentesco_pt_id;
-
-                                  if (!empty($c->prsn_fechanacimi)) {
-                                    $edad = calculaedad($c->prsn_fechanacimi);
-                                  } else {
-                                    $edad = '-';
-                                  }
-
-                                  $bloqueo = $c->estado_carga;
-
-                                  $class_bloq = "";
-
-                                  $estado = "";
-
-                                  if ($bloqueo == 1) {
-
-                                    $estado = "Bloqueado";
-                                    $class_bloq = "bloqueado";
-                                    $motivoBloqueo = 'Sistema';
-
-
-                                  } else {
-                                    $estado = "Activo";
-                                  }
-
-                                  if ((($edad > 18) && ($id_parentesco == 2))) {
-
-                                    $class_bloq = "bloqueado";
-                                    $estado = "Bloqueado";
-                                    $motivoBloqueo = 'Edad';
-
-                                  }
-
-                                  if($motivoBloqueo == 'Edad'){
-                                   if( $c->certificado == 1){
-                                    $estado = "Activo";
-                                    $class_bloq = "";
-                                    
-                                   }
-
-                                  }
-
-
-                                  if ($c->prsn_email == '0') {
-                                    $email = '-';
-                                  } else {
-                                    $email = $c->prsn_email;
-                                  }
-
-                                  if ($c->prsn_fono_movil == 0) {
-                                    $celu = '-';
-                                  } else {
-                                    $celu = $c->prsn_fono_movil;
-                                  }
-
-                                  if ($c->prsn_fono_casa == 0) {
-                                    $fono = '-';
-                                  } else {
-                                    $fono = $c->prsn_fono_casa;
-                                  }
-
-                                  if ($c->estudiante == 1) {
-                                    $est = 'SI';
-                                  } else {
-                                    $est = 'NO';
-                                  }
-
-                                  if ($c->certificado == 1) {
-                                    $cert = '';
-                                    $url  = certificado_carga($InfoSocio->path, $c->prsn_rut);
-                                    $img = '<a target="_blank" href="' . $url . ' " download><img width="20px" src="' . base_url() . '/assets/images/pdf-flat.png"></a>';
-                                  } else {
-                                    $cert = 'NO';
-                                    $img = '';
-                                  }
-
-
-
-
-                                  echo '<tr class="' . $class_bloq . '">
+                                echo '<tr class="' . $class_bloq . '">
 
                                     <td>' . $estado . '</td>
 
@@ -2051,45 +2033,43 @@
                                     <td><center>' . $cert . '' . $img . '</center></td>                                    
 
                                   </tr>';
-                                }
+                              }
 
-                                ?>
-
-
-
-                                <tr>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                  <td>&nbsp;</td>
-
-                                </tr>
-
-                              </tbody>
-
-                            </table>
+                              ?>
 
 
 
+                              <tr>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                                <td>&nbsp;</td>
+
+                              </tr>
+
+                            </tbody>
+
+                          </table>
 
 
-                          </div>
+
+
 
                         </div>
 
@@ -2097,55 +2077,34 @@
 
                     </div>
 
-
-
                   </div>
 
 
 
                 </div>
 
+
+
               </div>
 
             </div>
 
-
-
           </div>
-
-
-
-
-
-
-
-
 
 
 
         </div>
 
 
-
-
-
       </div>
 
 
 
-
-
-    </div>
-
+    </div> <!-- continer-fluid -->
 
 
 
-
-
-
-  </div>
-
-
+  </div> <!-- main -->
 
 
 
@@ -2155,7 +2114,30 @@
 
 </html>
 
+
+
+
+
 <script type="text/javascript">
+  $("#ficha_socio_pdf").click(function() {
+
+
+    let rut_socio = $(this).parent().find('button').attr('data-rut');
+
+    let url = '<?php echo base_url() ?>socios/ficha/generar_ficha_socios';
+    url = "<?php echo base_url(); ?>socios/ficha/generar_ficha_socios/" + rut_socio;
+
+    window.open(url, '_blank');
+
+
+
+
+
+
+
+  });
+
+
   $(document).ready(function() {
     var numTabs = $('.nav-tabs').find('li').length;
     var tabWidth = 100 / numTabs;

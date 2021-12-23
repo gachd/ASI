@@ -15,8 +15,7 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo base_url(); ?>assets/css/plugins/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
-
+  
 
 
     <title>Error Sesion</title>
@@ -42,7 +41,7 @@
     <script>
         function redireccion() {
             document.getElementById('mensaje').innerHTML = 'Será redirigido después de <span id="contador"></span> segundos ...';
-            var count =10;
+            var count =30;
             document.getElementById('contador').innerHTML = count;
             setInterval(function() {
                 count--;

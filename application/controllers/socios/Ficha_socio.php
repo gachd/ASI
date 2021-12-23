@@ -5,8 +5,6 @@ require_once APPPATH . '/vendor/autoload.php';
 class  ficha_socio extends CI_Controller
 {
 
-
-
 	function __construct()
 	{
 
@@ -58,15 +56,11 @@ class  ficha_socio extends CI_Controller
 
 		ob_end_clean();
 		$html = html_entity_decode($html);
-
 		$mpdf = new \Mpdf\Mpdf(['debug' => true]);
 		$mpdf->AddPage($orientacion);
 		$mpdf->SetHTMLHeader($cabecera);
 		$mpdf->shrink_tables_to_fit = 1;
 		$mpdf->WriteHTML($html);
-		
-		$mpdf->Output('Ficha inscripcion socio.pdf','D');
-
-
+		$mpdf->Output('Ficha inscripcion socio.pdf', 'D');
 	}
 }

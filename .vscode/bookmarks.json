@@ -89,7 +89,7 @@
 			"path": "application/views/socios/editar_socio.php",
 			"bookmarks": [
 				{
-					"line": 750,
+					"line": 749,
 					"column": 0,
 					"label": "Editar socio - datos de persona "
 				}
@@ -99,7 +99,7 @@
 			"path": "application/views/plantilla/Head.php",
 			"bookmarks": [
 				{
-					"line": 628,
+					"line": 675,
 					"column": 20,
 					"label": "Control tiempo sesion"
 				}

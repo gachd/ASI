@@ -192,13 +192,18 @@ class SA extends CI_Controller
 
 
 
+
         $Juntas = $this->model_sa->alljunta($tipo_junta);
 
         foreach ($Juntas as $index => $junta) {
 
+
+           
+
             $tieneDetalle = $this->model_sa->obtenerDetalleJunta($junta->id_junta);
             $tieneCorreo = $this->model_sa->ObtenerCorreo_NoEnviados($junta->id_junta);
             if ($tieneDetalle) {
+
                 $detalle = $tieneDetalle[0];;
                 $Juntas[$index]->detalle = $detalle;
             } else {
@@ -220,11 +225,21 @@ class SA extends CI_Controller
     {
 
 
+
+        //Datos de Junta
         $fecha = $this->input->post('fecha_junta');
         $motivo = $this->input->post("motivo_junta");
         $tipo_junta = $this->input->post("tipo_junta"); // 1 ordinaria 2 extraordinaria
+        $temas_junta = $this->input->post("temas_junta"); // 1 ordinaria 2 extraordinaria
 
+        // Abogado Calificador
+        $nombre_abogado = $this->input->post("nombre_abogado");
+        $mail_abogado = $this->input->post("mail_abogado");
+        $carta_abogado = $_FILES['carta_abogado'];
 
+        //CMF
+        $mail_super = $this->input->post("mail_super");
+        $carta_cmf = $_FILES["carta_super"];
 
         if (!empty($_FILES["carta_junta"]) && !empty($_FILES["registro_poderes"])) { //subia de archivo cartas
 
@@ -234,12 +249,21 @@ class SA extends CI_Controller
 
 
             if ($tipo_junta == 1) {
-                $directorio = 'archivos/sa/junta_ordinaria';
+                $directorio = 'archivos/sa/junta_ordinaria/' . $fecha;
                 $junta = '_junta_ordinaria.';
+                $annio = date("Y", strtotime($fecha));
+                $motivo = 'Invitación Junta Ordinaria de Accionistas de Stadio Italiano di Concepción S.A año ' . $annio;
+                $temas_junta = '';
+
+                $nombre_junta = 'Junta_Ordinaria';
             }
+
+
+
             if ($tipo_junta == 2) {
-                $directorio = 'archivos/sa/junta_extraordinaria';
+                $directorio = 'archivos/sa/junta_extraordinaria/' . $fecha;
                 $junta = '_junta_extraordinaria.';
+                $nombre_junta = 'Junta_Extraordinaria';
             }
 
             if (!file_exists($directorio)) {
@@ -258,7 +282,14 @@ class SA extends CI_Controller
 
             $nombreArchivo = 'carta_junta_' . $fecha . '.' . $tipo_archivo;
 
+
+
             $directorio2 = $directorio . '/';
+
+
+            /**
+             * Validamos la subida de los archivos
+             */
 
             $pathCarta = $directorio2 . $nombreArchivo;
 
@@ -284,11 +315,47 @@ class SA extends CI_Controller
             } else {
                 $subidaPoderes = false;
             }
+
+
+
+
+            // subimos carta abogado
+            $path_archivo = $directorio . '/' . $carta_abogado["name"]; //indicamos la ruta de destino de los archivos
+
+            $tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+            $nombreArchivo = 'abogado_calificador_' . $fecha . '.' . $tipo_archivo;
+
+            $pathCartaAbogado = $directorio2 . $nombreArchivo;
+
+            if (move_uploaded_file($carta_abogado["tmp_name"], $pathCartaAbogado)) {
+
+                $subidaCartaAbogado = true;
+            } else {
+                $subidaCartaAbogado = false;
+            }
+
+            // subimos carta cmf
+
+            $path_archivo = $directorio . '/' . $carta_cmf["name"]; //indicamos la ruta de destino de los archivos
+
+            $tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+            $nombreArchivo = 'carta_cmf_' . $fecha . '.' . $tipo_archivo;
+
+            $pathCartaCMF = $directorio2 . $nombreArchivo;
+
+            if (move_uploaded_file($carta_cmf["tmp_name"], $pathCartaCMF)) {
+
+                $subidaCartaCMF = true;
+            } else {
+                $subidaCartaCMF = false;
+            }
         }
 
 
 
-        if ($subidaCarta && $subidaPoderes) {
+        if ($subidaCarta && $subidaPoderes && $subidaCartaAbogado && $subidaCartaCMF) {
 
             $dataJunta = array(
 
@@ -297,6 +364,9 @@ class SA extends CI_Controller
                 'tipo_junta' => $tipo_junta,
                 'path_carta_junta' => $pathCarta,
                 'path_registro_poderes' => $pathPoderes,
+                'path_carta_abogado' => $pathCartaAbogado,
+                'path_carta_cmf' => $pathCartaCMF,
+                'tema_junta' => $temas_junta,
 
             );
 
@@ -312,7 +382,10 @@ class SA extends CI_Controller
 
 
 
-            $Validacion = $this->enviarCorreo($accionistas, $id_junta, $tipo_junta, $motivo, $fecha, $pathCarta, $pathPoderes);
+            $Validacion = $this->enviarCorreo($accionistas, $id_junta, $tipo_junta, $motivo, $fecha, $pathCarta, $pathPoderes, $temas_junta);
+
+            $Validacion_Abogado = $this->enviar_correo_abogado($fecha, $mail_abogado, $id_junta, $tipo_junta, $motivo, $pathCartaAbogado, $pathCartaCMF, $mail_super, $nombre_abogado);
+            $Validaicon_CMF = $this->enviar_correo_cmf($fecha, $mail_abogado, $id_junta, $tipo_junta, $motivo, $pathCartaAbogado, $pathCartaCMF, $mail_super, $nombre_abogado);
 
             if ($Validacion['validacion']) {
 
@@ -352,44 +425,81 @@ class SA extends CI_Controller
 
 
 
-    private function enviarCorreo($accionistas, $id_junta, $tipoJunta, $motivo, $fecha, $Pathcarta, $Pathpoderes)
+    private function enviarCorreo($accionistas, $id_junta, $tipoJunta, $motivo, $fecha, $Pathcarta, $Pathpoderes, $temas_junta)
     {
 
 
+        $fechaMensaje = obtenerFechaEnLetras($fecha);
+
+        $temas = $temas_junta;
 
         if ($tipoJunta == 1) {
 
             $junta = 'Junta Ordinaria';
+            $mensaje = 'Se solicta su participacion en ' . $junta . ' de Accionistas de Stadio Italiano di Concepción S.A  para el dia
+            ' . $fechaMensaje . '
+            <br>
+            <br>
+            <ol>
+    
+                <li>Examen de la situación de la sociedad e informe de auditores externos.
+                </li>
+    
+                <li>Aprobación o rechazo de memoria, balance y estados e informes financieros
+                    aprobados por los administradores.</li>
+    
+                <li>Distribución de utilidades del ejercicio y reparto de dividendos, si los
+                    hubiere.</li>
+                <li>Nombramiento de Auditores externos.</li>
+                <li>En general, cualquier materia de interés social que no sea propia de una junta
+                    ordinaria.</li>
+    
+            </ol>
+    
+            <br>
+            <br>
+            Se adjunta carta correspondiente y el registro de poderes en caso de
+            ser
+            necesario.';
         }
         if ($tipoJunta == 2) {
 
             $junta = 'Junta Extraordinaria';
+            $mensaje = 'Se solicta su participacion en ' . $junta . ' de Accionistas de Stadio Italiano di Concepción S.A  para el dia
+            ' . $fechaMensaje . '
+            <br>
+            <br>
+            <dl>
+
+                <dt> <strong>Temas:</strong> </dt>
+
+                <dd>' . $temas . '</dd>
+
+            </dl>
+
+                  
+    
+            <br>
+            <br>
+            Se adjunta carta correspondiente y el registro de poderes en caso de
+            ser
+            necesario.';
         }
 
         $formatoFecha = explode("-", $fecha);
         $formatoFecha = $formatoFecha[2] . '/' . $formatoFecha[1] . '/' . $formatoFecha[0];
 
-        $asunto = "Citacion a " . $junta . " el dia " . $formatoFecha;
+        /* $asunto = "Citacion a " . $junta . " el dia " . $formatoFecha; */
+        $asunto = $motivo;
 
-        $data['sociedad'] = 'Sociedad Stadio Italiano di Concepción';
+
         $data['junta'] = $junta;
-        $data['fecha'] = obtenerFechaEnLetras($fecha);
+        $fechaMensaje = obtenerFechaEnLetras($fecha);
 
-        $accionistas = $this->model_accionistas->datosaccionista("3");
+        $accionistas = $this->model_accionistas->datosaccionista("3"); // borrar esto en produccion
 
 
-        $config = array(
-
-            'protocol' => 'smtp', // protocolo de envio
-            'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
-            'smtp_port' => 587, //Puerto de envio
-            'smtp_user' => 'prueba@stadioitalianodiconcepcion.cl', // Usuario del correo
-            'smtp_pass' => 'Stadio.2020', // Contraseña del correo
-            'mailtype' => 'html', //Formato de correo
-            'charset' => 'utf-8', //Codificación
-            'wordwrap' => TRUE
-
-        );
+        $config = servidor_correo_junta();
 
 
 
@@ -406,6 +516,14 @@ class SA extends CI_Controller
         $contadorNoEnviados = 0;
         $contadorCorreos = 0;
 
+
+
+
+        $remite = correo_que_envia();
+        $correo_remitente = $remite['correo'];
+        $usuario_remitente = $remite['usuario'];
+
+
         foreach ($accionistas as $index => $a) {
 
 
@@ -419,19 +537,40 @@ class SA extends CI_Controller
 
             $data['hash'] = $hashCorreo;
 
-            $data["accionista"] = $a;
 
-            $mensaje = $this->load->view('accionistas/sociedad/correo_citacion', $data, true);
+
+            $data["mensaje"] = $mensaje;
+
+
+            $destinatario = ' Estimado(a):
+            <br>' .
+                $a->prsn_nombres . ' ' . $a->prsn_apellidopaterno . ' ' . $a->prsn_apellidomaterno;
+
+            $data["destinatario"] = $destinatario;
+
+            $mensaje = $this->load->view('accionistas/sociedad/correos/correo_citacion', $data, true);
+
+
 
 
             $this->email->set_newline("\r\n");
-            $this->email->from('prueba@stadioitalianodiconcepcion.cl', "Informaciones Stadio Italiano");
+            $this->email->from($correo_remitente, $usuario_remitente);
             $this->email->to($correoA);
             $this->email->subject($asunto);
             $this->email->message($mensaje);
 
-            $this->email->attach($Pathcarta);
-            $this->email->attach($Pathpoderes);
+
+            $fechaJ = formato_fecha($fecha);
+
+            $ext = pathinfo($Pathcarta, PATHINFO_EXTENSION);
+            $nombreAdjuntoCarta = 'Invitacion ' . $junta  . ' ' . $fechaJ . ' Stadio Italiano Di Concepcion S.A.' . $ext;
+            $this->email->attach($Pathcarta, 'attachment',  $nombreAdjuntoCarta);
+
+
+            $ext = pathinfo($Pathpoderes, PATHINFO_EXTENSION);
+            $nombreAdjuntoPoderes = 'Registro de Poderes ' . $junta  . ' ' . $fechaJ . ' Stadio Italiano Di Concepcion S.A.' . $ext;
+
+            $this->email->attach($Pathpoderes, 'attachment',  $nombreAdjuntoPoderes);
 
 
 
@@ -455,6 +594,8 @@ class SA extends CI_Controller
 
                 $contadorEnviados++;
             } else {
+
+                $error = $this->email->print_debugger();
 
                 $CorreoNoEnviadoBD = array(
 
@@ -483,8 +624,6 @@ class SA extends CI_Controller
                 'enviados' => $CorreoEnviados,
 
             );
-
-            return $respuesta;
         } else {
 
 
@@ -496,10 +635,246 @@ class SA extends CI_Controller
 
 
             );
-
-            return $respuesta;
         }
+        $this->email->clear(TRUE);
+        return $respuesta;
     }
+
+
+
+
+    private function enviar_correo_abogado($fecha_junta, $correo_abogado, $id_junta, $tipoJunta, $motivo, $carta_abogado, $carta_cmf, $correo_cmf, $nombre_abogado)
+
+    {
+        $asunto = $motivo;
+
+        $config = servidor_correo_junta();
+
+        if ($tipoJunta == 1) {
+
+            $junta = 'Junta Ordinaria';
+            $asuntoAbogado = "Invitación Junta Ordinaria de Accionistas de Stadio Italiano di Concepción S.A";
+        }
+        if ($tipoJunta == 2) {
+
+            $junta = 'Junta Extraordinaria';
+            $asuntoAbogado = "Invitación Junta Extraordinaria de Accionistas de Stadio Italiano di Concepción S.A,";
+        }
+
+        $formatoFecha = explode("-", $fecha_junta);
+        $formatoFecha = $formatoFecha[2] . '/' . $formatoFecha[1] . '/' . $formatoFecha[0];
+
+
+
+
+
+        $hoy = date("Y-m-d");
+
+
+        /*  $this->email->initialize($configuraciones); */
+
+
+        /* Envio de correo a abogado  */
+        $this->load->library('email', $config);
+
+        $remite = correo_que_envia();
+        $correo_remitente = $remite['correo'];
+        $usuario_remitente = $remite['usuario'];
+
+        $hashCorreoAbogado = md5(rand());
+        $mensaje = "Junto con saludar, sírvase encontrar en archivo adjunto, carta invitación para efectos de actuar como abogado calificador en " . $junta . " de Accionistas de Stadio Italiano di Concepción S.A, en fecha que indica.
+        <br>
+        <br>
+        Muy Atte.
+        <br>
+        La Administración";
+
+
+
+
+        $destinatario = ' Señor(a): <br>' . $nombre_abogado;
+
+        $data['hash'] = $hashCorreoAbogado;
+        $data['mensaje'] = $mensaje;
+        $data['destinatario'] = $destinatario;
+
+        $mensaje = $this->load->view('accionistas/sociedad/correos/correo_citacion', $data, true);
+        $this->email->set_newline("\r\n");
+        $this->email->from($correo_remitente, $usuario_remitente);
+        $this->email->to($correo_abogado);
+        $this->email->subject($asuntoAbogado);
+        $this->email->message($mensaje);
+        $fecha = formato_fecha($fecha_junta);
+
+        $ext = pathinfo($carta_abogado, PATHINFO_EXTENSION);
+        $nombreAdjunto = 'Invitacion' . $junta  . ' ' . $fecha . ' Stadio Italiano Di Concepcion S.A.' . $ext;
+
+
+        $this->email->attach($carta_abogado, 'attachment', $nombreAdjunto);
+
+
+
+        if ($this->email->send()) {
+
+            $CorreoEnviadoAbogado = array(
+
+                'id_junta' => $id_junta,
+                'fecha_envio' => $hoy,
+                'correo_enviado' => 0,
+                'correo_abogado' => $correo_abogado,
+
+
+            );
+
+            $envioAbogado = true;
+        } else {
+
+            $CorreoNoEnviadoAbogado = array(
+
+                'id_junta' => $id_junta,
+                'fecha_envio' => $hoy,
+                'correo_enviado' => 0,
+                'correo_abogado' => $correo_abogado,
+            );
+
+            $envioAbogado = false;
+        }
+
+        // validar el envio de correo abogado calificador
+
+        if ($envioAbogado) {
+
+            $respuesta = array(
+
+                'validacion' => true,
+                'enviados_abogado' => $CorreoEnviadoAbogado,
+
+
+            );
+        } else {
+            $respuesta = array(
+
+                'validacion' => false,
+                'no_enviado_abogado' => $CorreoNoEnviadoAbogado,
+            );
+        }
+        $this->email->clear(TRUE);
+        return $respuesta;
+    }
+
+    private function enviar_correo_cmf($fecha_junta, $correo_abogado, $id_junta, $tipoJunta, $motivo, $carta_abogado, $carta_cmf, $correo_cmf, $nombre_abogado)
+
+    {
+        // Envio de correo a CMF
+
+
+        $asunto = $motivo;
+
+        $config = servidor_correo_junta();
+
+        if ($tipoJunta == 1) {
+
+            $junta = 'Junta Ordinaria';
+            $asuntoCMF = "Junta Ordinaria de Accionistas de Stadio Italiano di Concepción S.A";
+        }
+        if ($tipoJunta == 2) {
+
+            $junta = 'Junta Extraordinaria';
+            $asuntoCMF = " Junta Extraordinaria de Accionistas de Stadio Italiano di Concepción S.A,";
+        }
+
+        $formatoFecha = explode("-", $fecha_junta);
+        $formatoFecha = $formatoFecha[2] . '/' . $formatoFecha[1] . '/' . $formatoFecha[0];
+
+        $hoy = date("Y-m-d");
+
+        $FechaLetras = obtenerFechaEnLetras($fecha_junta);
+
+
+
+
+
+
+
+        $hashCorreoCMF = md5(rand());
+        $mensaje = "Junto con saludar, sírvase encontrar en archivo adjunto de carta  para efectos de actuar como CMF en " . $junta . " de Accionistas de Stadio Italiano di Concepción S.A, en fecha " . $FechaLetras;
+        $data['hash'] = $hashCorreoCMF;
+        $data['mensaje'] = $mensaje;
+
+        $destinatario = ' Comisión para el Mercado Financiero :  <br>';
+
+        $data['destinatario'] = $destinatario;
+
+        $mensaje = $this->load->view('accionistas/sociedad/correos/correo_citacion', $data, true);
+        $remite = correo_que_envia();
+
+        $correo_remitente = $remite['correo'];
+        $usuario_remitente = $remite['usuario'];
+
+
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
+
+        $this->email->from($correo_remitente, $usuario_remitente);
+        $this->email->to($correo_cmf);
+        $this->email->subject($asuntoCMF);
+        $this->email->message($mensaje);
+        $fecha = formato_fecha($fecha_junta);
+
+        $ext = pathinfo($carta_cmf, PATHINFO_EXTENSION);
+        $nombreAdjunto = 'Carta ' . $junta  . ' ' . $fecha . ' Stadio Italiano Di Concepcion.' . $ext;
+        $this->email->attach($carta_cmf, 'attachment',   $nombreAdjunto);
+
+        if ($this->email->send()) {
+
+            $CorreoEnviadoCMF = array(
+
+                'id_junta' => $id_junta,
+                'fecha_envio' => $hoy,
+                'correo_enviado' => 0,
+                'correo_cmf' => $correo_cmf,
+
+            );
+
+            $envioCMF = true;
+        } else {
+
+            $CorreoNoEnviadoCMF = array(
+
+                'id_junta' => $id_junta,
+                'fecha_envio' => $hoy,
+                'correo_enviado' => 0,
+                'correo_cmf' => $correo_cmf,
+            );
+
+            $envioCMF = false;
+        }
+
+
+        // validar el envio de correo a CMF
+        if ($envioCMF) {
+
+            $respuesta = array(
+
+                'validacion' => true,
+                'enviado_cmf' => $CorreoEnviadoCMF,
+
+
+            );
+        } else {
+            $respuesta = array(
+
+                'validacion' => false,
+                'no_enviado_cmf' => $CorreoNoEnviadoCMF,
+            );
+        }
+        $this->email->clear(TRUE);
+        return $respuesta;
+    }
+
+
+
+
 
 
 
@@ -508,13 +883,77 @@ class SA extends CI_Controller
 
         $id_junta = $this->input->post('id_junta_detalle');
         $tipo_junta = $this->input->post('tipo_junta_detalle');
-        $detalle_junta = $this->input->post('detalle_junta');
 
+        $archivo_detalle_junta = $_FILES["detalle_junta"];
         $fecha_actual = date("Y-m-d");
+
+        $infoJunta = $this->model_sa->obtenerJuntas($id_junta);
+
+        foreach ($infoJunta as $IJ) {
+
+            $fecha =  $IJ->fecha_junta;
+        }
+
+
+
+
+
+        if ($tipo_junta == 1) {
+            $directorio = 'archivos/sa/junta_ordinaria/' . $fecha;
+            $junta = '_junta_ordinaria.';
+            $annio = date("Y", strtotime($fecha));
+            $motivo = 'Invitación Junta Ordinaria de Accionistas de Stadio Italiano di Concepción S.A año ' . $annio;
+            $temas_junta = '';
+
+            $nombre_junta = 'Junta_Ordinaria';
+        }
+
+
+
+        if ($tipo_junta == 2) {
+            $directorio = 'archivos/sa/junta_extraordinaria/' . $fecha;
+            $junta = '_junta_extraordinaria.';
+            $nombre_junta = 'Junta_Extraordinaria';
+        }
+
+        if (!file_exists($directorio)) {
+
+            mkdir($directorio, 0777, true) or die("Hubo un error al crear el directorio de almacenamiento");
+            index_archivos($directorio);
+        }
+
+
+        //Abrimos el directorio
+        $dir = opendir($directorio);
+
+        $path_archivo = $directorio . '/' . $archivo_detalle_junta["name"]; //indicamos la ruta de destino de los archivos
+
+        $tipo_archivo = pathinfo($path_archivo, PATHINFO_EXTENSION);
+
+        $nombreArchivo = 'detalle_junta_' . $fecha . '.' . $tipo_archivo;
+
+
+
+        $directorio2 = $directorio . '/';
+
+
+
+
+
+        $pathDetalle = $directorio2 . $nombreArchivo;
+
+        if (move_uploaded_file($archivo_detalle_junta["tmp_name"], $pathDetalle)) {
+
+            $subidaCarta = true;
+        } else {
+            $subidaCarta = false;
+        }
+
+
 
         $dataJunta = array(
             'id_junta' => $id_junta,
-            'detalle_junta' => $detalle_junta,
+            'detalle_junta' => $pathDetalle,
             'fecha_detalle' => $fecha_actual,
         );
 
@@ -604,12 +1043,13 @@ class SA extends CI_Controller
             $pathCarta = $DatosJunta->path_carta_junta;
             $pathPoderes = $DatosJunta->path_registro_poderes;
             $fecha_junta = $DatosJunta->fecha_junta;
+            $tema_junta = $DatosJunta->tema_junta;
 
             $asunto = $DatosJunta->asunto_junta;
 
 
 
-            $respuesta = $this->enviarCorreo($accionistas_a_reenviar, $id_junta, $tipo_junta, $asunto, $fecha_junta, $pathCarta, $pathPoderes);
+            $respuesta = $this->enviarCorreo($accionistas_a_reenviar, $id_junta, $tipo_junta, $asunto, $fecha_junta, $pathCarta, $pathPoderes, $tema_junta);
 
 
 

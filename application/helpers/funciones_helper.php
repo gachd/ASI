@@ -248,14 +248,58 @@ if (!function_exists('fecha_mayor18')) {
 
         $annio_actual = date("Y");
         $annio_mayor = $annio_actual - 18;
-     
+
 
         $fecha_mayor18 = $annio_mayor . "-" . date("m-d");
 
 
         return $fecha_mayor18;
+    }
+}
 
+if (!function_exists('servidor_correo_junta')) {
 
+    /**
+     * Devuelve un arreglo con los datos del servidor de correo
+     *  @return  array */
 
+    function servidor_correo_junta()
+    {
+
+        $config = array(
+
+            'protocol' => 'smtp', // protocolo de envio
+            'smtp_host' => 'mail.stadioitalianodiconcepcion.cl', //servidor de correo
+            'smtp_port' => 587, //Puerto de envio
+            'smtp_user' => 'informaciones@stadioitalianodiconcepcion.cl', // Usuario del correo
+            'smtp_pass' => '#.{5k%]_H&a1', // Contraseña del correo
+            'mailtype' => 'html', //Formato de correo
+            'charset' => 'utf-8', //Codificación
+            'wordwrap' => TRUE
+        );
+
+        return $config;
+    }
+}
+
+if (!function_exists('correo_que_envia')) {
+
+    /**
+     * Devuelve array con los datos del remitente del correo
+     *  @return  array */
+
+    function correo_que_envia()
+    {
+
+        $correo = servidor_correo_junta();
+
+        $correo = $correo['smtp_user'];
+
+        $remiente = array(
+            'correo' => $correo,
+            'usuario' => 'Informaciones Stadio Italiano'
+        );
+
+        return $remiente;
     }
 }

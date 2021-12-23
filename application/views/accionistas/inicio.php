@@ -152,6 +152,8 @@
                   <a href="#" title="Generar" id="pdf" class="descargar btn  btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar</a>
                 </div>
 
+
+
               </div>
             </div>
 
@@ -159,6 +161,30 @@
           </nav>
         </div>
 
+
+        <?php if ($no_entregados > 0) { ?>
+
+
+
+          <div class="col-sm-2">
+
+            <div class="input-group">
+              <span class="form-control" style="font-size: 12px;border-radius:4px">
+                <a href="<?php echo base_url(); ?>accionistas/titulos/entregados">Titulos sin entregar</a>
+              </span>
+              <span class="input-group-btn">
+                <a href="<?php echo base_url(); ?>accionistas/titulos/entregados" class=" btn btn-danger"><?php echo $no_entregados ?></a>
+              </span>
+            </div>
+
+
+          </div>
+          <div class="row"></div>
+
+
+
+
+        <?php } ?>
 
 
       </div> <!-- row well -->
@@ -274,12 +300,10 @@
 
 
 
+      <div class="" id="mostrarAccionistas">
+        <div class="container-fluid">
 
-
-      <div class="row panel table-responsive" id="mostrarAccionistas">
-        <div class="col-md-12">
-
-          <div class="content-box-large">
+          <div class=" panel panel-default">
 
 
             <div class="panel-heading">
@@ -287,7 +311,7 @@
             </div>
 
             <div class="panel-body">
-              <div class="table  table_wrapper">
+              <div class="table-responsive">
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="grid">
                   <thead>
                     <tr>

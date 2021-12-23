@@ -96,4 +96,22 @@ class Login extends CI_Controller
 
 		$this->load->view('errors/404');
 	}
+
+	public function comprobar_sesion()
+	{
+
+		
+		if (isset($this->session->userdata['logueado'])) {
+
+			$ESTADO_SESSION = 1;
+
+		} else {
+
+			$ESTADO_SESSION = null;
+		}
+
+		echo json_encode($ESTADO_SESSION);
+
+	} 
+
 }

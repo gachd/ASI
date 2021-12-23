@@ -9,6 +9,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 <?php }
 
 
+
 ?>
 
 
@@ -54,6 +55,12 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
+	<!-- JavaScript -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+
 
 	<!-- pickerDate -->
 	<script src="<?php echo base_url(); ?>assets/picker_fecha/js/picker.js"></script>
@@ -63,6 +70,8 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>assets/picker_fecha/css/default.date.css" rel="stylesheet">
 
+	<!-- Font Awesome -->
+	<!-- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" > -->
 
 
 	<!-- 	<script src="<?php echo base_url(); ?>assets/js/plugins/jquery.dataTables.min.js"></script>
@@ -131,6 +140,15 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			right: 0;
 			top: 0;
 			width: auto;
+
+		}
+
+		.linea_separacion {
+			border-top: 1px solid #adadad;
+			height: 2px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			margin: 20px auto 0 auto;
 		}
 
 		.navbar-default .navbar-nav>li>a:hover,
@@ -544,13 +562,42 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		}
 		detectAdBlock()  */
 
+
+		function valida_sesion() {
+		
+			$.ajax({
+				type: "GET",
+				url: "<?php echo base_url(); ?>login/comprobar_sesion",
+				dataType: "json",
+				success: function(validacion) {
+					
+					if (validacion) {
+
+					
+						
+					} else {
+					
+						window.location.href = "<?php echo base_url(); ?>";
+						
+					}
+
+				},
+			
+			});
+		}
+		setInterval(valida_sesion, 30000);
+
+
 		function listo() {
 
 			$(".loader").fadeOut(200);
 
+			let URLactual = window.location; // obtener url actual
+
+
 		}
 
-		window.onbeforeunload = function(e) {
+		window.onbeforeunload = function(e) { // al cambiar de pagina
 			$(".loader").fadeIn(200);
 		};
 
@@ -865,7 +912,7 @@ $ci->load->model("model_login");;
 
 
 								if (($principal == 6) or ($principal == 0)) {
-									echo ' <li ><a href="' . base_url() . 'socios/socios" >Socios<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench  Try it"></span></a> </li>';
+									echo ' <li ><a href="' . base_url() . 'socios/inicio" >Socios<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench  Try it"></span></a> </li>';
 								}
 								if (($principal == 7) or ($principal == 0)) {
 									echo ' <li ><a href="' . base_url() . 'accionistas/inicio" >Accionistas<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase  Try it"></span></a> </li>';

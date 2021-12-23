@@ -9,13 +9,14 @@ class Configuraciones extends CI_Controller
         parent::__construct();
         $this->load->library("session");
         $this->load->model("model_login");
+        $this->load->model("model_socios");
 
         if ($this->session->userdata('logueado')) {
 
             if (!in_array("0", $_SESSION['permisos_principal'])) {
                 redirect(base_url() . 'calendario');
-            }else{
-                echo"SuperUser<br><br>";  // borrar else{} si no se necesita
+            } else {
+                echo "SuperUser<br><br>";  // borrar else{} si no se necesita
             }
         } else {
             redirect(base_url() . 'login');
@@ -23,8 +24,6 @@ class Configuraciones extends CI_Controller
     }
     public function index()
     {
-        
-
     }
     public function index_all()
     {
@@ -35,7 +34,42 @@ class Configuraciones extends CI_Controller
         $pathArchivos = "archivos/";
 
         index_all($pathArchivos);
-        
+    }
 
+    public function path_socios_antiguos()
+    {
+
+        $socios = $this->model_socios->sociosAll();
+
+
+        $pathPadre = "archivos/socios/";
+
+        foreach ($socios as $socio) {
+            
+            $rutsocio = $socio->prsn_rut;
+            $path = $pathPadre . $rutsocio;
+
+            if(!$socio->path){
+
+    
+                $datos = array(
+                    'path' => $path,
+                    
+                );
+
+                echo $path . "<br>";
+    
+                $this->model_socios->updateSocio($datos, $rutsocio);
+
+            }else{
+                echo $rutsocio." ya tiene path, ".$path."<br>";
+            }
+
+         
+
+           
+        }
+
+        
     }
 }

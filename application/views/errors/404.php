@@ -44,7 +44,7 @@
         
         function redireccion() {
             document.getElementById('mensaje').innerHTML = 'Espere, será redirigido después de <span id="contador"></span> ';
-            var count = 15;
+            var count = 30;
             document.getElementById('contador').innerHTML = count;
             setInterval(function() {
                 count--;

@@ -1,4 +1,8 @@
-<?php class  ficha extends CI_Controller
+<?php
+
+require_once APPPATH . '/vendor/autoload.php';
+
+class  ficha extends CI_Controller
 {
 
 
@@ -48,7 +52,7 @@
 
     $rut = $this->uri->segment(4);
 
-  	
+
 
     $data['rut'] = $rut;
 
@@ -64,7 +68,7 @@
 
     $data['InfoSocio'] = $this->model_socios->InfoSocio($rut);
 
-    
+
 
 
 
@@ -156,6 +160,59 @@
           $insertar_cuota = $this->model_socios->insert_cuotas($data);
         }
       }
+    }
+  }
+
+
+  function generar_ficha_socios($rut_socio)
+  {
+    if ($rut_socio) {
+
+
+
+      $corporaciones = $this->model_socios->RutSocio_corp($rut_socio);
+
+      if ($corporaciones) {
+
+
+        $data['corporaciones'] =   $corporaciones;
+        $Datosp = $this->model_socios->persona($rut_socio);
+
+        $data['datos_personales'] = $Datosp[0];
+
+        $data['patrocinadores'] = $this->model_socios->patrocinadores($rut_socio);
+
+        $data['patrocinados'] = $this->model_socios->patrocinados($rut_socio);
+
+        $data['cargas'] = $this->model_socios->cargas($rut_socio);
+
+        $data['cuotas'] = $this->model_socios->cuotas($rut_socio);
+
+        $data['InfoSocio'] = $this->model_socios->InfoSocio($rut_socio);
+
+
+
+        $cabecera = "";
+        //$pie = "<div>Pág {PAGENO}/{nb}</div>";
+        $orientacion = "P";
+
+
+
+        $html = $this->load->view('socios/ficha/ficha_socio', $data, true);
+       
+        ob_end_clean();
+        $html = html_entity_decode($html);
+        $mpdf = new \Mpdf\Mpdf(['debug' => true]);
+        $mpdf->AddPage($orientacion);
+        $mpdf->SetHTMLHeader($cabecera);
+        $mpdf->shrink_tables_to_fit = 1;
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('Ficha inscripcion socio.pdf', 'D');
+      } else {
+        echo "No existe el rut ingresado";
+      }
+    } else {
+      echo "No se puede generar la ficha";
     }
   }
 }

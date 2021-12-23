@@ -382,25 +382,26 @@
 		{
 
 
-			/* $this->db->select('*');
-			$this->db->from('s_personas');
+			$this->db->select('*');
+			$this->db->from('s_personas, s_condicion_laboral,s_estado_civil,s_nacionalidades,s_comunas,s_provincia,s_regiones');
 			$this->db->where('prsn_rut', $rut);
-	
+			$this->db->where('s_condicion_laboral_condlab_id = condlab_id');
+			$this->db->where('s_estado_civil_estacivil_id = estacivil_id');
+			$this->db->where('s_nacionalidades_nac_id = nac_id');
+			$this->db->where('s_comunas_comuna_id = comuna_id');
+			$this->db->where('s_provincia_provincia_id = provincia_id');
+			$this->db->where('s_regiones_region_id=region_id');
 			$consulta = $this->db->get();
 
 			$consulta = $consulta->result();
 
 			return $consulta;
-			 */
-
-
-			$persona = $this->db->query('SELECT * FROM s_personas, s_condicion_laboral,s_estado_civil,s_nacionalidades,s_comunas,s_provincia,s_regiones WHERE prsn_rut="' . $rut . '" AND s_condicion_laboral_condlab_id = condlab_id AND s_estado_civil_estacivil_id = estacivil_id AND s_nacionalidades_nac_id = nac_id AND s_comunas_comuna_id = comuna_id AND s_provincia_provincia_id = provincia_id AND s_regiones_region_id=region_id');
 
 
 
+			/* 	$persona = $this->db->query('SELECT * FROM s_personas, s_condicion_laboral,s_estado_civil,s_nacionalidades,s_comunas,s_provincia,s_regiones WHERE prsn_rut="' . $rut . '" AND s_condicion_laboral_condlab_id = condlab_id AND s_estado_civil_estacivil_id = estacivil_id AND s_nacionalidades_nac_id = nac_id AND s_comunas_comuna_id = comuna_id AND s_provincia_provincia_id = provincia_id AND s_regiones_region_id=region_id');
 
-
-			return $persona->result();
+			return $persona->result(); */
 		}
 
 		function persona_fitness($rut)
@@ -781,7 +782,7 @@
 		function socios_activos()
 		{
 
-		/* 	$this->db->distinct(); */
+			/* 	$this->db->distinct(); */
 
 			$this->db->select('prsn_rut');
 
@@ -796,16 +797,16 @@
 			$query2 = $this->db->get();
 
 
-	 		$returnArray    = array();
+			$returnArray    = array();
 
 			$returnArray['num_rows'] = $query2->num_rows();  //get num_rows before you do the result()
 
-			return $returnArray; 
+			return $returnArray;
 		}
 
 		function socios_baja()
 		{
-/* 
+			/* 
 			$this->db->distinct(); */
 
 			$this->db->select('prsn_rut');
@@ -821,7 +822,7 @@
 
 			$returnArray    = array();
 
-			$returnArray['num_rows'] = $query2->num_rows(); 
+			$returnArray['num_rows'] = $query2->num_rows();
 
 			return $returnArray;
 		}
@@ -829,7 +830,7 @@
 		function socios_inactivos()
 		{
 
-		/* 	$this->db->distinct(); */
+			/* 	$this->db->distinct(); */
 
 			$this->db->select('prsn_rut');
 
@@ -844,7 +845,7 @@
 
 			$returnArray    = array();
 
-			$returnArray['num_rows'] = $query2->num_rows();  
+			$returnArray['num_rows'] = $query2->num_rows();
 
 			return $returnArray;
 		}
@@ -871,7 +872,6 @@
 			$num_rows = $query2->num_rows();
 
 			return $num_rows;
-			
 		}
 
 		function mostrar_sociosb($estado, $rut_corp)
@@ -1527,10 +1527,40 @@
 		function sociosAll()
 		{
 
-			$cant = $this->db->query('');
+			$this->db->select('*');
+			$this->db->from('s_socios');
 
-			return $cant->result();
+			$query = $this->db->get();
+			return $query->result();
 		}
+
+
+		function RutSocio_corp($rut)
+		{
+
+			$this->db->select('*');
+			$this->db->from('corporaciones AS c , s_socios AS s');
+			$this->db->where('s.prsn_rut', $rut);
+			$this->db->where('s.corporacion = c.co_rut');
+			$this->db->group_by('c.co_rut');
+			$query = $this->db->get();
+			$resultado = $query->result();
+
+
+			if ($resultado) {
+
+				foreach ($resultado as $corp) {
+
+					$corporacion[$corp->co_rut] = $corp;
+				}
+
+				return $corporacion;
+			} else {
+				return false;
+			}
+		}
+
+		
 	}
 
 

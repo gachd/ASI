@@ -31,13 +31,19 @@
 
         <h2>Junta Ordinaria</h2>
 
+        <div class="linea_separacion"></div>
         <div class="row" style="padding: 20px;">
 
             <div class="col-md-offset-8">
 
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal_nueva_junta">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    Nueva <br>Junta Ordinaria
+                    <span class="badge">
+
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+
+                        Nueva <br>Junta Ordinaria
+
+                    </span>
                 </button>
 
             </div>
@@ -49,7 +55,7 @@
 
         </div>
 
-        
+
 
 
         <div class="modal fade " id="correo_junta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -188,29 +194,28 @@
 
                         <div class="modal-body">
 
-                            <input type="hidden" name="tipo_junta_detalle" value="<?php echo $tipo_junta ?>">
-                            <input type="hidden" name="id_junta_detalle" id="id_junta_detalle" value="">
+                            <div class="row">
 
+                                <div class="col-md-6">
+                                    <input type="hidden" name="tipo_junta_detalle" value="<?php echo $tipo_junta ?>">
+                                    <input type="hidden" name="id_junta_detalle" id="id_junta_detalle" value="">
 
+                                    <div class="">
+                                        <label for="detalle_junta" class="h4">Archivo Resolucion Junta</label>
 
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="detalle_junta">Redacte aqui lo ocurrido en la junta ordinaria</label>
-                                    <textarea class="form-control" id="detalle_junta" name="detalle_junta" rows="1" required></textarea>
+                                        <input type="file" name="detalle_junta" id="detalle_junta" class="form-control" onchange="valida_archivo_detalle(this)" required>
 
+                                    </div>
                                 </div>
+
                             </div>
-
-
-
-
-
 
                         </div>
 
+                        
+
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Guardar</button>
-
 
                         </div>
                     </form>
@@ -234,36 +239,90 @@
                     <form id="form_ingreso_nuevo_junta" action="<?php echo base_url() ?>/accionistas/SA/nueva_junta" method="POST">
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="motivo_junta">Motivo de Junta</label>
-                                        <input type="text" autocomplete="off" class="form-control" id="motivo_junta" name="motivo_junta" placeholder="Nombre de la Junta" required>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Datos Junta Ordinaria</div>
+                                    <div class="panel-body well">
+
+                                        <!-- <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="motivo_junta">Motivo de Junta</label>
+                                                <input type="text" autocomplete="off" class="form-control" id="motivo_junta" name="motivo_junta" placeholder="Nombre de la Junta" required>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="fecha_junta">Fecha de la Junta</label>
+                                                <input type="date" class="form-control" min="<?php echo date('Y-m-d') ?>" <?php  ?> id="fecha_junta" name="fecha_junta" placeholder="Fecha de la Junta" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="carta_junta">Archivo Carta Notariada</label>
+                                                <input type="file" class="form-control" id="carta_junta" name="carta_junta" placeholder="Archivo Carta Notariada" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="registro_poderes">Registro de Poderes</label>
+                                                <input type="file" class="form-control" id="registro_poderes" name="registro_poderes" placeholder="Carta de Poderes" required>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="fecha_junta">Fecha de la Junta</label>
-                                        <input type="date" class="form-control" id="fecha_junta" name="fecha_junta" placeholder="Fecha de la Junta" required>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Archivos Legales</div>
+                                    <div class="panel-body well">
+
+
+                                        <div class="col-md-6 well">
+                                            <h3>Abogado Calificador</h3>
+                                            <div class="linea_separacion"></div>
+                                            <div class="form-group">
+                                                <label for="nombre_abogado">Nombre Abogado Calificador</label>
+                                                <input type="text" id="nombre_abogado" name="nombre_abogado" placeholder="Ingreso Nombre" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mail_abogado">Correo Abogado Calificador</label>
+                                                <input type="email" id="mail_abogado" name="mail_abogado" placeholder="Correo" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="carta_abogado">Archivo Carta Abogado</label>
+                                                <input type="file" class="form-control" id="carta_abogado" onchange="valida_archivo(this)" name="carta_abogado" placeholder="Archivo Carta Notariada" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6 well">
+                                            <h3>CMF</h3>
+                                            <div class="linea_separacion"></div>
+                                            <div class="form-group">
+                                                <label for="mail_super">Correo SuperIntendencia Valores y Seguro</label>
+                                                <input type="email" id="mail_super" name="mail_super" placeholder="Correo" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="carta_super">Archivo Carta SuperIntendencia</label>
+                                                <input type="file" class="form-control" id="carta_super" name="carta_super" placeholder="Archivo Carta Notariada" onchange="valida_archivo(this)" required>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
+
+
                             </div>
 
                             <input type="hidden" name="tipo_junta" value="<?php echo $tipo_junta ?>">
 
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="carta_junta">Archivo Carta Notariada</label>
-                                        <input type="file" class="form-control" id="carta_junta" name="carta_junta" placeholder="Archivo Carta Notariada" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="registro_poderes">Registro de Poderes</label>
-                                        <input type="file" class="form-control" id="registro_poderes" name="registro_poderes" placeholder="Carta de Poderes" required>
-                                    </div>
-                                </div>
+
+
 
                             </div>
 
@@ -312,7 +371,7 @@
     </div>
 
 
-
+<a href=""></a>
 
 
 
@@ -346,7 +405,7 @@
                 dataType: "json",
 
                 success: function(info) {
-                    console.log(info);
+              
 
                     let base_url = "<?php echo base_url() ?>";
                     /* console.log(info); */
@@ -379,9 +438,18 @@
 
                         let boton_detalle = "";
 
+                      
+
                         if (info[i].detalle) { // si tiene detalle de junta
 
-                            boton_detalle = ` <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ver_detalle" data-id="${info[i].id_junta}" data-accion="ver" ><span class="glyphicon glyphicon-list-alt"></span> Ver</button>`;
+                         
+                            let url_detalle = `${base_url}${info[i].detalle.detalle_junta}`;
+                           
+
+
+                            boton_detalle = `<a href="${url_detalle}"  download class="btn btn-primary btn-xs">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </a>`;
 
 
                         } else {
@@ -453,9 +521,9 @@
                         text: "No se pudo cargar la tabla",
                         icon: "error",
                         button: "Aceptar",
-                        
+
                     });
-                   
+
                 }
 
             });
@@ -498,7 +566,6 @@
 
 
 
-        $("#detalle_junta").summernote();
 
 
         $('#accion_junta').on('show.bs.modal', function(evento) {
@@ -604,8 +671,7 @@
                     NoEnviados = data.correosNo;
                     Enviados = data.correosSI;
 
-                    console.log(NoEnviados);
-                    console.log(Enviados);
+             
 
                     htmlEnviados = `
                     <h4>Enviados</4>
@@ -616,6 +682,7 @@
                                 <th>Nombre</th>
                                 <th>Correo</th>
                                 <th>Fecha</th>
+                                <th>Fecha Apertura</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -631,6 +698,7 @@
                                 <td>${Enviados[i].prsn_nombres} ${Enviados[i].prsn_apellidopaterno} ${Enviados[i].prsn_apellidomaterno} </td>
                                 <td>${Enviados[i].prsn_email}</td>
                                 <td>${formatoFecha(Enviados[i].fecha_envio)}</td>
+                                <td>${Enviados[i].fecha_apertura}</td>
                             </tr>
                             `;
 
@@ -695,7 +763,7 @@
 
                     } else {
 
-                        
+
                         btn_enviar.removeClass('btn-warning');
                         btn_enviar.addClass('btn-success');
 
@@ -770,7 +838,7 @@
             } else if (funcionamiento == 'reenviar') {
 
                 let id_junta = modalCorreo.find('#id_junta_correo').val();
-               
+
 
                 boton.html(`Cargando..<i class="fa fa-spinner fa-spin">`);
 
@@ -795,12 +863,12 @@
                             button: "Cerrar",
                         });
 
-                     
+
 
                         modalCorreo.modal('hide');
 
                         boton.html(`Reenviar correos`);
-                        
+
                     }
 
                 });
@@ -852,6 +920,37 @@
                     swal({
                         title: "Archivo no permitido",
                         text: "Solo Archivos:  jpg/jpeg ,PNG y PDF",
+                        icon: "error",
+                        button: "Aceptar",
+                    });
+
+                    archivo.value = "";
+                }
+
+            } else {
+                archivo.value = "";
+            }
+
+
+        }
+
+        function valida_archivo_detalle(archivo) {
+
+            let nombre_archivo = archivo.value; //obtengo el nombre del archvo
+
+            if (nombre_archivo) {
+
+
+                let idxpunto = nombre_archivo.lastIndexOf(".") + 1; // ubicacion del punto de extension
+                let extension = nombre_archivo.substr(idxpunto, nombre_archivo.length).toLowerCase(); // otengo la extension del archivo
+
+                let archivos_permitidos = ["jpg", "jpeg", "png", "pdf", "docx", "doc", "txt"]; // extensiones en minusculas
+
+                if (!archivos_permitidos.includes(extension)) { //validamos la extension del archivos
+
+                    swal({
+                        title: "Archivo no permitido",
+                        text: "Solo Archivos:  jpg/jpeg ,png, pdf, docx, doc",
                         icon: "error",
                         button: "Aceptar",
                     });

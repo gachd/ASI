@@ -697,22 +697,21 @@
       $dir = $dir . "/perfil";
 
       if (is_dir($dir)) {
-        $ignorados = array('.', '..', '.svn', '.htaccess', 'index.html');
+
+        $compatibles = array('jpg', 'jpeg', 'png', 'gif');
         $archivos = array();
         $urlBase = base_url();
 
 
         foreach (scandir($dir) as $listado) {
 
+          $InfoArchivo = pathinfo($listado);
+          $extension =  strtolower($InfoArchivo['extension']);
+
           //validor los elementos oermitidos
-          if (!in_array($listado, $ignorados)) {
+          if (in_array($extension, $compatibles)) {
 
-            //valido que el elemto no sea un directorio
-            if (!is_dir($dir . '/' . $listado)) {
-
-
-              $archivos[$listado] = filemtime($dir . '/' . $listado);
-            }
+            $archivos[$listado] = filemtime($dir . '/' . $listado);
           }
         }
         //ordeno del mas reciente al mas antiguo gracias al filetime

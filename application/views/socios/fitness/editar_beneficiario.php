@@ -716,57 +716,7 @@
     return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
   }
 
-  function FotoPerfil($dir)
-  {
-
-    //valido que se encuentre directorio en base de datos
-    if (!empty($dir)) {
-
-      if (is_dir($dir)) {
-
-        $dir = $dir . "/perfil";
-        $ignorados = array('.', '..', '.svn', '.htaccess', 'index.html');
-        $archivos = array();
-        $urlBase = base_url();
-
-        foreach (scandir($dir) as $listado) {
-
-          //validor los elementos oermitidos
-          if (!in_array($listado, $ignorados)) {
-
-            //valido que el elemto no sea un directorio
-            if (!is_dir($dir . '/' . $listado)) {
-
-
-              $archivos[$listado] = filemtime($dir . '/' . $listado);
-            }
-          }
-        }
-        //ordeno del mas reciente al mas antiguo gracias al filetime
-        arsort($archivos);
-
-        $archivos = array_keys($archivos);
-
-        //valido que el directorio no este vacio
-        if (empty($archivos)) {
-
-          echo base_url() . "assets/images/camara-icon.png";
-        } else {
-
-          //muestro la foto mas reciente
-
-          echo ($urlBase . $dir . '/' . $archivos[0]);
-        }
-      } else {
-
-        echo base_url() . "assets/images/camara-icon.png";
-      }
-    } else {
-      echo base_url() . "assets/images/camara-icon.png";
-    }
-  }
-
-
+  
 
 
   setlocale(LC_ALL, 'es_ES') . ': ';
