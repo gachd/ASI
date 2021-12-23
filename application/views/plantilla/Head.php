@@ -535,6 +535,18 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 			background: url('<?php echo base_url(); ?>assets/images/carga_pagina.gif') 50% 50% no-repeat rgb(249, 249, 249);
 			opacity: .97;
 		}
+
+		.ir-arriba {
+			display: none;
+			background-repeat: no-repeat;
+			font-size: 20px;
+			color: black;
+			cursor: pointer;
+			position: fixed;
+			bottom: 10px;
+			right: 10px;
+			z-index: 2;
+		}
 	</style>
 
 	<script>
@@ -564,25 +576,25 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 		function valida_sesion() {
-		
+
 			$.ajax({
 				type: "GET",
 				url: "<?php echo base_url(); ?>login/comprobar_sesion",
 				dataType: "json",
 				success: function(validacion) {
-					
+
 					if (validacion) {
 
-					
-						
+
+
 					} else {
-					
+
 						window.location.href = "<?php echo base_url(); ?>";
-						
+
 					}
 
 				},
-			
+
 			});
 		}
 		setInterval(valida_sesion, 30000);
@@ -758,7 +770,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 		$(document).ready(function() {
 
-
+			irArriba();
 
 
 
@@ -799,6 +811,28 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 
 
+		function irArriba() {
+			$('.ir-arriba').click(function() {
+				$('body,html').animate({
+					scrollTop: '0px'
+				}, 500);
+			});
+			$(window).scroll(function() {
+				if ($(this).scrollTop() > 0) {
+					$('.ir-arriba').slideDown(300);
+				} else {
+					$('.ir-arriba').slideUp(300);
+				}
+			});
+			$('.ir-abajo').click(function() {
+				$('body,html').animate({
+					scrollTop: '1000px'
+				}, 1000);
+			});
+		}
+
+
+
 		function getIEVersion() {
 			var match = navigator.userAgent.match(/(?:MSIE |Trident\/.*; rv:)(\d+)/);
 			return match ? parseInt(match[1]) : undefined;
@@ -825,6 +859,12 @@ $ci = &get_instance();
 $ci->load->model("model_login");;
 
 ?>
+<a class="ir-arriba" javascript:void(0) title="Volver arriba">
+	<span class="fa-stack">
+		<i class="fa fa-circle fa-stack-2x"></i>
+		<i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>
+	</span>
+</a>
 
 <body onload="listo()" onkeypress="resetTiempo()" onclick="resetTiempo()" onMouseMove="resetTiempo()" ontouchstart="resetTiempo()">
 	<div id="wrapper">
