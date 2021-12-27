@@ -220,6 +220,17 @@
 
   <div class="main">
 
+    <div class="container-fluid ">
+
+
+      <ul class="breadcrumb">
+
+        <li><a href="<?php echo base_url()  ?>socios/inicio">Inicio</a></li>
+            <li>Mantenedor Socios</li>
+      </ul>
+
+    </div>
+
     <div class="container">
 
 
@@ -329,7 +340,7 @@
 
             <div class="panel-heading">
 
-              <center><a href="<?php echo base_url(); ?>socios/ficha"><strong>BUSCADOR SOCIOS</strong></a></center>
+              <center><a href="<?php echo base_url(); ?>socios/ficha"><strong>BUSCAR EN HISTORICO SOCIOS</strong></a></center>
 
             </div>
 

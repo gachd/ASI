@@ -620,6 +620,17 @@
 
 <div class="main">
 
+  <div class="container-fluid ">    
+    <ul class="breadcrumb">
+
+      <li><a href="<?php echo base_url()  ?>socios/inicio">Inicio</a></li>
+      <li><a href="<?php echo base_url()  ?>socios/m_socios">Mantenedor Socios</a></li>
+      <li>Editar Socio</li>
+
+    </ul>
+  </div>
+
+
   <div class="container-fluid">
 
     <div class="row">
@@ -842,7 +853,7 @@
 
     rut = $('#rut_socio').val();
 
- 
+
 
     if (rut) {
 
@@ -972,8 +983,8 @@
           }
         }
 
-        console.log("iNPUT "+ArchivosInput);
-        console.log("aRCHIVOS INPUT "+ArchivosSoc.length);
+        console.log("iNPUT " + ArchivosInput);
+        console.log("aRCHIVOS INPUT " + ArchivosSoc.length);
 
 
         if (ArchivosInput == ArchivosSoc.length) {
@@ -983,7 +994,7 @@
           validadorInput = 0;
         }
 
-        } else {
+      } else {
 
         validadorInput = 1;
 
@@ -1204,14 +1215,14 @@
               })
               .then((ok) => {
                 if (ok) {
-                 $("#edit_socios").empty();
-                 $("#div_guardar").hide();
-                 $("#rut_socio").val('');
+                  $("#edit_socios").empty();
+                  $("#div_guardar").hide();
+                  $("#rut_socio").val('');
 
                 } else {
-                 $("#edit_socios").empty();
-                 $("#div_guardar").hide();
-                 $("#rut_socio").val('');
+                  $("#edit_socios").empty();
+                  $("#div_guardar").hide();
+                  $("#rut_socio").val('');
                 }
 
               });

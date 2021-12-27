@@ -71,9 +71,13 @@ class  ficha extends CI_Controller
     $accionista = $this->model_accionistas->es_accionista($rut);
 
     if ($accionista) {
+
       $data['accionista'] = $this->model_accionistas->es_accionista($rut);
+
     } else {
+
       $data['accionista'] = false;
+      
     }
 
 
@@ -216,12 +220,14 @@ class  ficha extends CI_Controller
         $mpdf->SetHTMLHeader($cabecera);
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML($html);
-        $mpdf->Output('Ficha inscripcion socio.pdf', 'D');
+        $mpdf->Output($rut_socio.' ficha inscripcion de socio.pdf', 'D');
       } else {
         echo "No existe el rut ingresado";
+        echo "<script>window.close();</script>";
       }
     } else {
       echo "No se puede generar la ficha";
+      echo "<script>window.close();</script>";
     }
   }
 }

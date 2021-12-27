@@ -373,7 +373,7 @@ class Socio_model extends CI_Model{
 			//$query = $this->db->query('SELECT * FROM a_detalle_visita ad, a_acompanante ac WHERE ad.id_visita = "' . $visita .'" ');
 
             $query= $this->db->query('SELECT Acom.rut_acompanante , Acom.nombres,Acom.paterno,Acom.materno
-            FROM a_acompanante as Acom , a_visita as  Visi, a_detalle_visita as DeVi 
+            FROM a_acompanante as Acom , a_visita_1 as  Visi, a_detalle_visita as DeVi 
             WHERE Visi.id_visita = "' . $visita . '"
             AND DeVi.id_visita = Visi.id_visita
             AND DeVi.id_acompanante = Acom.id_acompanante');

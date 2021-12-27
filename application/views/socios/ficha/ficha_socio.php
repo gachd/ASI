@@ -164,6 +164,14 @@
       font-size: 12px;
 
     }
+
+    .td_datos{
+
+    
+      font-weight: bold;
+
+
+    }
   </style>
 
 <?php 
@@ -224,7 +232,7 @@ $InfoSocio;
 
                     <td>CENTRO ITALIANO DI CONCEPCIÓN</td>
 
-                    <td><?php echo $corporaciones["70331500-3"]->n_registro  ?></td>
+                    <td class="td_datos" ><?php echo $corporaciones["70331500-3"]->n_registro  ?></td>
 
                   </tr>
 
@@ -232,7 +240,7 @@ $InfoSocio;
 
                     <td>SOCIEDAD SOCORROS MUTUOS CONCORDIA</td>
 
-                    <td><?php echo $corporaciones["72265900-7"]->n_registro  ?></td>
+                    <td class="td_datos"><?php echo $corporaciones["72265900-7"]->n_registro  ?></td>
 
                   </tr>
 
@@ -240,7 +248,7 @@ $InfoSocio;
 
                     <td>STADIO ATLETICO ITALIANO</td>
 
-                    <td><?php echo $corporaciones["71888800-k"]->n_registro  ?></td>
+                    <td class="td_datos"><?php echo $corporaciones["71888800-k"]->n_registro  ?></td>
 
                   </tr>
 
@@ -248,7 +256,7 @@ $InfoSocio;
 
                     <td>STADIO ITALIANO DI CONCEPCIÓN</td>
 
-                    <td><?php echo $corporaciones["65106820-7"]->n_registro  ?></td>
+                    <td class="td_datos"><?php echo $corporaciones["65106820-7"]->n_registro  ?></td>
 
                   </tr>
 
@@ -256,7 +264,7 @@ $InfoSocio;
 
                     <td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
 
-                    <td><?php echo $corporaciones["65467840-5"]->n_registro  ?></td>
+                    <td class="td_datos"><?php echo $corporaciones["65467840-5"]->n_registro  ?></td>
 
                   </tr>
 
@@ -264,7 +272,7 @@ $InfoSocio;
 
                     <td>Nº ACCIONES</td>
 
-                    <td></td>
+                    <td class="td_datos"> </td>
 
                   </tr>
 
@@ -314,11 +322,11 @@ $InfoSocio;
           <td width="15%">RUT </td>
 
 
-          <td><?php echo $datos_personales->prsn_rut ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_rut ?></td>
 
           <td width="15%">NOMBRES </td>
 
-          <td><?php echo $datos_personales->prsn_nombres ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_nombres ?></td>
 
         </tr>
 
@@ -326,11 +334,11 @@ $InfoSocio;
 
           <td width="21%">APELLIDO PATERNO </td>
 
-          <td><?php echo $datos_personales->prsn_apellidopaterno ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_apellidopaterno ?></td>
 
           <td width="20%">APELLIDO MATERNO </td>
 
-          <td><?php echo $datos_personales->prsn_apellidomaterno ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_apellidomaterno ?></td>
 
         </tr>
 
@@ -338,11 +346,11 @@ $InfoSocio;
 
           <td>FECHA DE NACIMIENTO </td>
 
-          <td><?php echo $datos_personales->prsn_fechanacimi ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_fechanacimi ?></td>
 
           <td>LUGAR </td>
 
-          <td><?php echo $datos_personales->prsn_nac ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_nac ?></td>
 
 
 
@@ -352,11 +360,11 @@ $InfoSocio;
 
           <td>ESTADO CIVIL </td>
 
-          <td><?php echo $datos_personales->estacivil_nombre ?></td>
+          <td class="td_datos"><?php echo $datos_personales->estacivil_nombre ?></td>
 
           <td>NACIONALIDAD </td>
 
-          <td><?php echo $datos_personales->nac_nombre ?></td>
+          <td class="td_datos"><?php echo $datos_personales->nac_nombre ?></td>
 
         </tr>
 
@@ -364,11 +372,11 @@ $InfoSocio;
 
           <td>TELEFONO </td>
 
-          <td><?php echo $datos_personales->prsn_fono_casa ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_fono_casa ?></td>
 
           <td>CELULAR </td>
 
-          <td><?php echo $datos_personales->prsn_fono_movil ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_fono_movil ?></td>
 
         </tr>
 
@@ -376,11 +384,11 @@ $InfoSocio;
 
           <td>CIUDAD </td>
 
-          <td><?php echo $datos_personales->comuna_nombre ?></td>
+          <td class="td_datos"><?php echo $datos_personales->comuna_nombre ?></td>
 
           <td>DOMICILIO(CALLE) </td>
 
-          <td><?php echo $datos_personales->prsn_direccion ?></td>
+          <td class="td_datos"><?php echo $datos_personales->prsn_direccion ?></td>
 
         </tr>
 

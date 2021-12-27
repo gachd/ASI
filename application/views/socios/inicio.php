@@ -22,9 +22,13 @@
 
       <div class="row">
 
-        <h1>Módulo Socios</h1>
+        <h1>Administración de Socios</h1>
+
 
       </div>
+
+
+      <!-- indicadores -->
 
       <div class="well row estado">
 
@@ -67,7 +71,23 @@
 
       </div>
 
-      <div class="row" id="mostrar"> </div>
+      <!-- fin indicadores -->
+
+      <div>
+        <div class="row" id="mostrar">
+
+
+        </div>
+
+        <div class="row" style="display: none;" id="div_volver">
+          <a href="javascript:void(0);" type="button" class="btn btn-info" id="volver_menu">Volver</a>
+        </div>
+
+
+
+      </div>
+
+
 
 
 
@@ -195,7 +215,7 @@
 
         </div>
         <div class="clearfix visible-sm-block"></div>
-        <div></div>
+
 
 
 
@@ -212,15 +232,13 @@
 </html>
 
 <script type="text/javascript">
-
-  
   $("#btnactivo").click(function() {
 
     var estado = 0;
 
     $('#contenido').hide();
 
-    // $('#mostrar').show();
+    $('#mostrar').fadeIn();
 
     $('#mostrar').html('<div class = "spinner"></div>');
 
@@ -234,7 +252,11 @@
 
       function(data) {
 
+
         $("#mostrar").html(data);
+
+        $("#div_volver").fadeIn();;
+
 
         //  $("#valores").css("display","block")        
 
@@ -246,13 +268,17 @@
 
 
 
+
+
   $("#btninactivo").click(function() {
 
     var estado = 4;
 
+
+
     $('#contenido').hide();
 
-    // $('#mostrar').show();
+    $('#mostrar').fadeIn();
 
     $('#mostrar').html('<div class = "spinner"></div>');
 
@@ -266,6 +292,7 @@
 
       function(data) {
 
+        $("#div_volver").fadeIn();
         $("#mostrar").html(data);
 
         //  $("#valores").css("display","block")        
@@ -290,7 +317,7 @@
 
     $('#contenido').hide();
 
-    // $('#mostrar').show();
+    $('#mostrar').fadeIn();
 
     $('#mostrar').html('<div class = "spinner"></div>');
 
@@ -303,15 +330,32 @@
       },
 
       function(data) {
-        console.log(data);
+
 
         $("#mostrar").html(data);
+        $("#div_volver").fadeIn();
 
         //  $("#valores").css("display","block")        
 
 
 
       });
+
+  });
+
+
+
+  $("#volver_menu").click(function() {
+
+
+    $('#mostrar').hide();
+
+    $('#div_volver').hide();
+
+    $('#mostrar').empty();
+
+    $('#contenido').fadeIn();
+
 
   });
 </script>

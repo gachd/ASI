@@ -30,96 +30,108 @@
 
 	}
 </style>
-<?php function estadoSocio($estado) {
+<?php function estadoSocio($estado)
+{
 
 	if ($estado == 0) {
 
 		return '<span class="ico badge badge-success">Activo</span>';
-
 	} else {
 
 		return '<span class="ico badge badge-danger">Inactivo</span>';
-
 	}
-
 } ?>
 
 } ?>
+
 <body>
 
 	<div class="main">
 
+		<div class="container-fluid ">
+
+
+			<ul class="breadcrumb">
+
+				<li><a href="<?php echo base_url()  ?>socios/inicio">Inicio</a></li>
+				<li><a href="<?php echo base_url()  ?>socios/m_socios">Mantenedor Socios</a></li>
+
+				<li>Listado Historico</li>
+			</ul>
+
+		</div>
+
 		<div class="container-fluid">
 
-			<div class="row panel table-responsive" id="mostrarSocios" >
+			<div class="row panel table-responsive" id="mostrarSocios">
 				<div class="col-md-12">
 
 					<div class="panel panel-default">
 
 
 						<div class="panel-heading">
-							<div class="panel-title">LISTADO DE SOCIOS</div>
+							<div class="panel-title">LISTADO HISTORICO DE SOCIOS</div>
 						</div>
 
 						<div class="panel-body">
 							<div class="table  table_wrapper">
 
-							<table class="table table-bordered table-responsive" id="t_personas">
+								<table class="table table-bordered table-responsive" id="t_personas">
 
-								<thead>
+									<thead>
 
-									<tr>
+										<tr>
 
-										<td>RUT</td>
+											<td>RUT</td>
 
-										<td>NOMBRE</td>
+											<td>NOMBRE</td>
 
-										<td>AP. PATERNO</td>
+											<td>AP. PATERNO</td>
 
-										<td>AP. MATERNO</td>
+											<td>AP. MATERNO</td>
 
-										<td>FICHA</td>
+											<td>FICHA</td>
 
-										<td>ESTADO </td>
+											<td>ESTADO </td>
 
-									</tr>
+										</tr>
 
-								</thead>
+									</thead>
 
-								<tbody>
+									<tbody>
 
-									<?php
+										<?php
 
-									function getPuntosRut($rut)
-									{
+										function getPuntosRut($rut)
+										{
 
-										$rutTmp = explode("-", $rut);
+											$rutTmp = explode("-", $rut);
 
-										return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
-									}
-
-									foreach ($personas as $p) {
-
-										$paterno = $p->prsn_apellidopaterno;
-
-										$materno = $p->prsn_apellidomaterno;
-
-										$nombre = $p->prsn_nombres;
-
-										$rut = $p->prsn_rut;
-
-										$estado = $p->estado;
-
-										if ($estado == 1) {
-											$glyphy = 'glyphicon glyphicon-remove';
-											$badge = 'ico badge badge-danger';
-										} else {
-
-											$glyphy = 'glyphicon glyphicon-ok';
-											$badge = 'ico badge badge-success';
+											return number_format($rutTmp[0], 0, "", ".") . '-' . $rutTmp[1];
 										}
 
-										echo '
+										foreach ($personas as $p) {
+
+											$paterno = $p->prsn_apellidopaterno;
+
+											$materno = $p->prsn_apellidomaterno;
+
+											$nombre = $p->prsn_nombres;
+
+											$rut = $p->prsn_rut;
+
+											$estado = $p->estado;
+
+											if ($estado == 1) {
+												$glyphy = 'glyphicon glyphicon-remove';
+												$badge = 'ico badge badge-danger';
+											} else {
+
+												$glyphy = 'glyphicon glyphicon-ok';
+												$badge = 'ico badge badge-success';
+											}
+
+											echo '
 
                 			            <tr>
 
@@ -146,13 +158,13 @@
                 			            	
 
                 			            </tr>';
-									}
+										}
 
-									?>
+										?>
 
-								</tbody>
+									</tbody>
 
-							</table>
+								</table>
 
 
 
@@ -213,8 +225,6 @@
 
 
 	});
-
-
 </script>
 
 </html>

@@ -216,7 +216,16 @@
 
   <div class="main">
 
+    <div class="container-fluid ">
 
+      <ul class="breadcrumb">
+
+        <li><a href="<?php echo base_url()  ?>socios/inicio">Inicio</a></li>
+        <li><a href="<?php echo base_url()  ?>socios/m_socios">Mantenedor Socios</a></li>
+        <li>Nuevo Socio</li>
+      </ul>
+
+    </div>
 
 
 
@@ -1431,7 +1440,7 @@
   var DatosCargas = new Object();
 
   var formData = new FormData(); // guarda todos datos a enviar al controlador
- 
+
 
   var CerificadosdeCarga = new FormData();
 
@@ -3026,7 +3035,7 @@
 
 
 
-     
+
 
       var archivos = document.getElementById('imagen_perfil').files[0];
 
@@ -3040,7 +3049,7 @@
       formData.append('DatosDeportes', JSON.stringify(DatosDeportes));
 
       for (var item of inputs) {
-      
+
         formData.append('archivosSoc[]', item.files[0]);
 
       }
@@ -3225,11 +3234,11 @@
       var fecha_nac_carga2 = document.getElementById('nac_carga').value.length;
       var esEstudiante = document.getElementById('est_carga').value;
 
-     let CertificadoAlumno = document.getElementById('cert_alumno').files[0];
+      let CertificadoAlumno = document.getElementById('cert_alumno').files[0];
 
       console.log(CertificadoAlumno);
 
-     
+
 
 
 
@@ -3318,7 +3327,7 @@
             var sptext = text.split();
 
 
-          
+
 
             subido = 1;
 

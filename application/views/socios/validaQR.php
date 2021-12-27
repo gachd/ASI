@@ -1,45 +1,62 @@
-<!DOCTYPE html>
-<html>
+<style>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Validacion Entrada</title>
-</head>
-<script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
+#audio{
+display: none
+}
 
-<body>
-  <div class="main">
-
-    <div class="container">
+</style>
+<div class="main">
+  <div class="container">
 
 
 
-      <h3>Testqr</h3>
-      <hr>
-
-      <br>
-      <div style="width: 500px" id="reader"></div>
-      <hr>
-      <input type="hidden" name="qr_texto" id="qr_texto">
-      <hr>
-      <ul></ul>
-    </div>
-
+    <h3>Testqr</h3>
+    <hr>
+    <select id="select" class="form-control"></select>
+    <br>
+    <canvas class="col-md-6"></canvas>
+    <hr>
+    <input type="hidden" name="qr_texto" id="qr_texto">
+    <hr>
+    <ul></ul>
+    <audio id="audio" controls>   
+      <source type="audio/wav" src=" <?php echo base_url()."assets/audio/beep_qr.mp3"  ?>">
+    </audio>
   </div>
-  <script>
-    function onScanSuccess(decodedText, decodedResult) {
-      // Handle on success condition with the decoded text or result.
-      console.log(`Scan result: ${decodedText}`, decodedResult);
+</div>
+
+
+<script type="text/javascript" src="<?php echo base_url() ?>assets/js/qrcodelib.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/js/webcodecamjs.js"></script>
+
+<script type="text/javascript">
+  var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init(arg).play();
+
+  document.getElementById('select').addEventListener('change', function() {
+    decoder.pause().play();
+  });
+
+  var arg = {
+
+  };
+
+  var audio = document.getElementById("audio");
+
+
+
+  function resultado(res) {
+
+    codigo = res.code;
+    audio.play();
+    decoder.pause();
+    //decoder.stop();
+
+    if (confirm(`Socio ${codigo}?`)) {
+      decoder.play();
+    } else {
+      decoder.play();
     }
 
-    var html5QrcodeScanner = new Html5QrcodeScanner(
-      "reader", {
-        fps: 10,
-        qrbox: 250
-      });
-    html5QrcodeScanner.render(onScanSuccess);
-  </script>
 
-</body>
-
-</html>
+  };
+</script>

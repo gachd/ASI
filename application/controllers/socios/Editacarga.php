@@ -390,19 +390,31 @@ class editaCarga extends CI_Controller
 
 
 
+    
+$paretesco = $_POST['parentesco'];
+
+$estado_carga = 0;
+
+
+if ($paretesco == '2') {
+
+
+  $carg_estud = $_POST['estudiante'];
+  
+  if ($carg_estud == 0 && $ano_diferencia > 18) {
+  
+    $estado_carga = 1;
+  } else {
+  
+    $estado_carga = 0;
+  }
+
+
+}
 
 
 
 
-    $carg_estud = $_POST['estudiante'];
-
-    if ($carg_estud == 0 && $ano_diferencia > 18) {
-
-      $estado_carga = 1;
-    } else {
-
-      $estado_carga = 0;
-    }
 
 
 
@@ -487,7 +499,7 @@ class editaCarga extends CI_Controller
         echo json_encode(true);
       }
     } else {
-      echo 'error';
+      echo 'no tiene documento';
     }
   }
 }

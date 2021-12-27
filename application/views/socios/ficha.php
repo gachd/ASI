@@ -825,6 +825,17 @@
 
   <div class="main">
 
+    <div class="container-fluid hidden-print">
+
+      <ul class="breadcrumb">
+
+        <li><a href="<?php echo base_url()  ?>socios/inicio">Inicio</a></li>
+        <li><a href="<?php echo base_url()  ?>socios/m_socios">Mantenedor Socios</a></li>
+        <li>Ficha Socios</li>
+      </ul>
+
+    </div>
+
     <div class="container-fluid">
 
 

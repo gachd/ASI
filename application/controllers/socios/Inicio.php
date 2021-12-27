@@ -83,6 +83,8 @@ class inicio extends CI_Controller
 
     $scuola = '65467840-5';
 
+    
+
 
 
 
@@ -184,6 +186,10 @@ class inicio extends CI_Controller
 
 
 
-    echo '<a href="' . base_url() . 'socios/inicio" type="button" class="btn btn-info">Volver</a>';
+/*     echo '<a href="javascript:void(0);" type="button" class="btn btn-info" id="volver_menu">Volver</a>'; */
+
+   
+
+   /*  echo '<a href="' . base_url() . 'socios/inicio" type="button" class="btn btn-info" id="volver_menu">Volver</a>'; */
   }
 }

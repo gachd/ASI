@@ -130,7 +130,7 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 
 	<style>
 		input[type="date"]::-webkit-calendar-picker-indicator {
-			
+
 			background: transparent;
 			color: transparent;
 			cursor: pointer;
@@ -535,13 +535,26 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 		.ir-arriba {
 			display: none;
 			background-repeat: no-repeat;
-			font-size: 20px;
+			font-size: 25px;
 			color: black;
 			cursor: pointer;
 			position: fixed;
 			bottom: 10px;
 			right: 10px;
 			z-index: 2;
+		}
+
+		@media print {
+
+			.no-print,
+			.no-print * {
+				display: none !important;
+			}
+
+			.bradcrumb,
+			.bradcrumb * {
+				display: none!important;
+			}
 		}
 	</style>
 
@@ -855,7 +868,7 @@ $ci = &get_instance();
 $ci->load->model("model_login");;
 
 ?>
-<a class="ir-arriba" javascript:void(0) title="Volver arriba">
+<a class="ir-arriba no-print" javascript:void(0) title="Volver arriba">
 	<span class="fa-stack">
 		<i class="fa fa-circle fa-stack-2x"></i>
 		<i class="fa fa-arrow-up fa-stack-1x fa-inverse"></i>

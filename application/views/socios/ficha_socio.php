@@ -92,13 +92,13 @@
 
     <div class="row">
 
-      <div class="col-md-4">
+      <div class="col-sm-4">
 
         <img src="<?php echo base_url(); ?>assets/images/user.jpg" width="150px" height="120px" alt="user" border="0">
 
       </div>
 
-      <div class="col-md-4">
+      <div class="col-sm-4">
 
         <img width="320" height="195" src="http://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png">
 
@@ -106,7 +106,7 @@
 
       </div>
 
-      <div class="col-md-4">
+      <div class="col-sm-4">
 
 
 
@@ -180,7 +180,10 @@
 
       </div>
 
-      <div class="col-md-12"><a href="#" title="Exportar Pdf" id="pdf" class="descargar btn btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF</a>
+      <div class="col-md-12">
+        <a href="#" title="Exportar Pdf" id="pdf" class="descargar btn btn-sm btn-warning">
+          <span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar PDF
+      </a>
 
         <h3 align="center">FICHA INCORPORACIÓN SOCIOS</h3>
       </div>
@@ -979,9 +982,7 @@
 <script>
   $("a[id=pdf]").click(function() {
 
-
     url = "<?php echo base_url(); ?>socios/Ficha_socio/ficha_socios";
-
     window.open(url, '_blank');
 
   });

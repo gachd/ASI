@@ -61,8 +61,7 @@ var WebCodeCamJS = function(element) {
             },
             flipVertical: false,
             flipHorizontal: false,
-            zoom: 0,
-            beep: 'audio/beep.mp3',
+            zoom: 0,         
             decoderWorker: 'js/DecoderWorker.js',
             brightness: 0,
             autoBrightnessValue: 0,
@@ -72,6 +71,8 @@ var WebCodeCamJS = function(element) {
             sharpness: [],
             resultFunction: function(res) {
                 console.log(res.format + ": " + res.code);
+                resultado (res);
+                
             },
             cameraSuccess: function(stream) {
                 console.log('cameraSuccess');
@@ -156,11 +157,11 @@ var WebCodeCamJS = function(element) {
         }
     }
 
-    function beep() {
+    /* function beep() {
         if (options.beep) {
             beepSound.play();
         }
-    }
+    } */
 
     function cameraSuccess(stream) {
         localStream = stream;
@@ -225,7 +226,7 @@ var WebCodeCamJS = function(element) {
                     delay();
                     setTimeout(function() {
                         if (options.codeRepetition || lastCode != e.data.result[0].Value) {
-                            beep();
+                           // beep();
                             lastCode = e.data.result[0].Value;
                             options.resultFunction({
                                 format: e.data.result[0].Format,
@@ -249,7 +250,7 @@ var WebCodeCamJS = function(element) {
                 delay();
                 setTimeout(function() {
                     if (options.codeRepetition || lastCode != a) {
-                        beep();
+                        //beep();
                         lastCode = a;
                         options.resultFunction({
                             format: 'QR Code',
