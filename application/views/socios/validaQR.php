@@ -33,7 +33,7 @@ display: none
   var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init(arg).play();
 
   document.getElementById('select').addEventListener('change', function() {
-    decoder.pause().play();
+    decoder.stop().play();
   });
 
   var arg = {
