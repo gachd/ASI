@@ -1,26 +1,30 @@
 <style>
-
-#audio{
-display: none
-}
-
+  .audio {
+    display: none
+  }
 </style>
 <div class="main">
   <div class="container">
 
 
 
-    <h3>Testqr</h3>
-    <hr>
+    <h3>Validar entrada</h3>
+    <div class="linea_separacion "></div>
+
+    <div class="from-group">
+    
+    <h4>Selecciones una Camara</h4>
     <select id="select" class="form-control"></select>
+
+
+    </div>
+
     <br>
     <canvas class="col-md-6"></canvas>
-    <hr>
-    <input type="hidden" name="qr_texto" id="qr_texto">
-    <hr>
+    
     <ul></ul>
-    <audio id="audio" controls>   
-      <source type="audio/wav" src=" <?php echo base_url()."assets/audio/beep_qr.mp3"  ?>">
+    <audio id="audio" class="audio" controls>
+      <source type="audio/wav" src=" <?php echo base_url() . "assets/audio/beep_qr.mp3"  ?>">
     </audio>
   </div>
 </div>
@@ -30,24 +34,28 @@ display: none
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/webcodecamjs.js"></script>
 
 <script type="text/javascript">
-  var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init(arg).play();
+
+  var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init().play();
 
   document.getElementById('select').addEventListener('change', function() {
+
     decoder.stop().play();
+
   });
 
-  var arg = {
+ 
 
-  };
+// SONIDO AL DETECTAR QR
+  var beep = document.getElementById("audio");
 
-  var audio = document.getElementById("audio");
 
 
+  // ESTE ES EL QUE SE EJECUTA AL DETECTAR UN CODIGO QR , NO BORRAR
 
   function resultado(res) {
 
     codigo = res.code;
-    audio.play();
+    beep.play();
     decoder.pause();
     //decoder.stop();
 

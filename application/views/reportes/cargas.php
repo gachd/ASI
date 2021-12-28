@@ -122,7 +122,7 @@ $hooy = date("d-m-Y");
 
 
 
-  <div class="main">
+  <div class="">
      <div class="panel-title">
                  <table width="100%" border="0" style="margin-bottom: 40px;">
           <tbody>

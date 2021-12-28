@@ -999,6 +999,7 @@
 
         var sexo = $("#sexo_carga option:selected").val();
 
+        var cert = $('input[name=certi]:checked').val();
 
         var data = JSON.stringify(DATA);
 
@@ -1007,12 +1008,14 @@
 
         var formData = new FormData();
 
+   
+
 
 
 
         if (est == 1) {
 
-          var cert = 1;
+          
 
           // var doc = archivos[0]; //Sólo queremos la primera imagen, ya que el usuario pudo seleccionar más
 

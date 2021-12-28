@@ -131,7 +131,7 @@ $hooy = date("d-m-Y");
 
 
 
-  <div class="main">
+  <div class="">
   	 <div class="panel-title">
                  <table width="100%" border="0">
           <tbody>
@@ -159,7 +159,7 @@ $hooy = date("d-m-Y");
                 <td width="5%"><label class="titulo">RUT:</label></td>
                 <td width="15%"> <span class="label label-info" id="rut"><?php echo getPuntosRut($rut) ?></span>   </td>
                 <td width="20%"><label class="titulo">FECHA REGISTRO:</label></td>
-                <td width="10%"><span class="label label-info" id="rut"><?php echo $fechaReg; ?></span> </td>
+                <td width="10%"><span class="label label-info" id="rut"><?php echo formato_fecha($fechaReg); ?></span> </td>
               </tr>
 
             </table>  
@@ -313,23 +313,6 @@ $hooy = date("d-m-Y");
      </div>
  </div>
  </div>
- <link href="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- jQuery UI -->
-    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?php echo base_url(); ?>/assets/bootstrap/js/bootstrap.min.js"></script>
-
-    <script src="<?php echo base_url(); ?>/assets/vendors/datatables/js/jquery.dataTables.min.js"></script>
-
-    <script src="<?php echo base_url(); ?>/assets/vendors/datatables/dataTables.bootstrap.js"></script>
-
-    <script src="<?php echo base_url(); ?>/assets/js/custom.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/js/tables.js"></script>
-    <!-- Latest compiled and minified CSS -->
-
 
 
 </body>

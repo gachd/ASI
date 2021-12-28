@@ -1453,13 +1453,16 @@
 
 		function sociosVigentes()
 		{
-			$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno,p.prsn_fechanacimi, s.tipo_id FROM s_personas p, s_socios s WHERE s.prsn_rut = p.prsn_rut AND s.estado = 0 order by p.prsn_apellidopaterno');
+			$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno,p.prsn_fechanacimi, s.tipo_id FROM s_personas p, s_socios s WHERE s.prsn_rut = p.prsn_rut AND s.estado = 0 order by p.prsn_nombres asc');
 
 			return $cant->result();
 		}
 		function sociosActivos()
 		{
 			$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, s.tipo_id FROM s_personas p, s_socios s WHERE s.prsn_rut = p.prsn_rut AND s.estado = 0 AND s.tipo_id = 1 order by p.prsn_apellidopaterno asc');
+
+
+			
 
 			return $cant->result();
 		}
@@ -1559,8 +1562,6 @@
 				return false;
 			}
 		}
-
-		
 	}
 
 

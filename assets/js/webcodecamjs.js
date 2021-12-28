@@ -174,6 +174,7 @@ var WebCodeCamJS = function(element) {
     }
 
     function setEventListeners() {
+        
         video.addEventListener('canplay', function(e) {
             if (!isStreaming) {
                 if (video.videoWidth > 0) {
