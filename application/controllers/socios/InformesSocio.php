@@ -384,6 +384,9 @@ class InformesSocio extends CI_Controller
 
                 break;
         }
+
+        echo $html;
+        die;
         ob_end_clean();
         $html = html_entity_decode($html);
 

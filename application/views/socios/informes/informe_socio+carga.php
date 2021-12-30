@@ -118,6 +118,8 @@ function getParentestco($id)
 }
 
 
+$ContCTotal= 0;
+
 ?>
 
 
@@ -220,6 +222,8 @@ function getParentestco($id)
                                     <tbody>
 
                                         <?php foreach ($cargas as $c) : ?>
+                                            
+                                            <?php $ContCTotal ++ ?>
 
                                             <tr class="odd gradeX">
 
@@ -245,5 +249,8 @@ function getParentestco($id)
                     <?php endforeach; ?>
             </tbody>
         </table>
+
+        <div> Cargas totales <?php echo $ContCTotal ?></div>
     </div>
 </div>
+
