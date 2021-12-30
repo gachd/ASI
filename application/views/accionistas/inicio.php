@@ -163,7 +163,7 @@
 
 
           </nav>
-          <button title="Informe Accionistas CMF" id="cmf" class="btn btn-default btn-sm"><img src="<?php echo base_url()."assets\images\cmf logo.png" ?>" width="30px" alt=""></button>
+          <button title="Informe Accionistas CMF" id="cmf" class="btn btn-default btn-sm"><img src="<?php echo base_url()."assets/images/cmf_logo.png" ?>" width="30px" alt=""></button>
           
         </div>
 
