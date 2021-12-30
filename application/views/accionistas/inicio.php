@@ -130,8 +130,8 @@
                   <select class="form-control" name="tipo" id="select_formato">
 
                     <option value="">seleccionar</option>
-                    <option value="1">Excel</option>
-                    <option value="2">PDF</option>
+                    <option value="EXCEL">Excel</option>
+                    <option value="PDF">PDF</option>
 
                   </select>
                 </div>
@@ -141,24 +141,30 @@
 
                   <select class="form-control" name="tipo" id="select_tipo">
 
-                    <option value="0">seleccionar</option>
-                    <option value="1">Todos</option>
-                    <option value="2">Mayoritarios</option>
+                    <option value="">seleccionar</option>
+                    <option value="TODOS">Todos</option>
+                    <option value="MAYOR">Mayoritarios</option>
 
                   </select>
                 </div>
 
                 <div class="form-group">
+                           
+                  
                   <a href="#" title="Generar" id="pdf" class="descargar btn  btn-sm btn-warning"><span class="glyphicon glyphicon-circle-arrow-down"></span> Descargar</a>
+                 
                 </div>
 
 
 
               </div>
+              
             </div>
 
 
           </nav>
+          <button title="Informe Accionistas CMF" id="cmf" class="btn btn-default btn-sm"><img src="<?php echo base_url()."assets\images\cmf logo.png" ?>" width="30px" alt=""></button>
+          
         </div>
 
 
@@ -459,6 +465,19 @@
 
 
 <script type="text/javascript">
+
+$('#cmf').click(function() {
+
+  url = "<?php echo base_url(); ?>accionistas/inicio/reporteCMF";
+
+ 
+  window.open(url, '_blank');
+  
+
+})
+
+
+
   $('#modal_accion_accionista').on('show.bs.modal', function(evento) {
 
     $("#contenido_modal").empty();
@@ -522,6 +541,7 @@
 
 
 
+
   $(document).ready(function() {
 
 
@@ -571,7 +591,7 @@
     informe = $('#select_tipo').val();
 
     if (formato == 0 || informe == 0) {
-      swal("", "Ingrese una opcion valida", "warning");
+      swal("Ingrese una opcion valida", "", "warning");
 
     } else {
 

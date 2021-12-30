@@ -153,13 +153,6 @@ function listadoDirectorio($directorio)
 
 
 
-<script>
-    $(document).ready(function() {
-        $(".open-dropdown").click(function() {
-            $(this).next("ul.dropdown").toggleClass('d-none');
-        });
-    });
-</script>
 
 
 
@@ -169,19 +162,33 @@ function listadoDirectorio($directorio)
 
 
 <div class="container well">
+    <div class="visible-print-block  ">
+
+        <h1 class="h1"> Cuenta Corriente </h1>
+        <div class="linea_separacion"></div>
+
+    </div>
 
     <div class="panel-body">
+
 
         <div class="row">
 
             <div class="col-md-4">
 
-                <img alt="" style="max-width:150px;" title="" class="img-circle img-thumbnail isTooltip" src="<?php echo base_url(); ?>assets\img\icon_accionista.png" data-original-title="Usuario">
+                <img alt="" style="max-width:150px;" title="" class="img-circle img-thumbnail isTooltip hidden-print" src="<?php echo base_url(); ?>assets\img\icon_accionista.png" data-original-title="Usuario">
+
+
 
 
                 <h3>
+
+                    <button class="btn btn-primary btn-sm hidden-print" id="imprimir"><i class="fa fa-print" aria-hidden="true"></i></button>
+
+
                     <table class="table">
                         <tbody>
+
 
                             <tr>
                                 <td>
@@ -329,7 +336,7 @@ function listadoDirectorio($directorio)
                             </tr>
 
 
-                            <tr>
+                            <tr class="hidden-print">
                                 <td>
                                     <strong>
                                         <span class="glyphicon glyphicon "></span>
@@ -528,7 +535,7 @@ function listadoDirectorio($directorio)
 
             ?>
 
-            <div class="col-md-12">
+            <div class="col-md-12 hidden-print">
                 <div class="panel panel-default">
                     <div class="panel-heading">
 
@@ -537,7 +544,7 @@ function listadoDirectorio($directorio)
                     </div>
 
 
-                    <div class="panel-body">
+                    <div class="panel-body show_print">
 
                         <?php if (!empty($CorreosAccionista)) { ?>
                             <table class="table table-bordered table-hover">
@@ -577,7 +584,7 @@ function listadoDirectorio($directorio)
                         <?php } else { ?>
 
                             <div>
-                                 No posee registros de correo.
+                                No posee registros de correo.
                             </div>
 
                         <?php } ?>
@@ -624,7 +631,7 @@ function listadoDirectorio($directorio)
     </div>
 
 
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true">
 
         <div class="panel panel-default">
 
@@ -638,7 +645,7 @@ function listadoDirectorio($directorio)
             </div>
 
 
-            <div id="DivHistorico" class="panel-collapse in collapse " role="tabpanel">
+            <div id="DivHistorico" class="panel-collapse in collapse show_print" role="tabpanel">
 
                 <div class="panel-body">
 
@@ -710,7 +717,7 @@ function listadoDirectorio($directorio)
             </div>
 
 
-            <div id="DivSuscritas" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div id="DivSuscritas" class="panel-collapse collapse show_print" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
                     <?php if (!empty($TitulosSuscritos)) { ?>
 
@@ -781,7 +788,7 @@ function listadoDirectorio($directorio)
                 </h4>
             </div>
 
-            <div id="DivVentas" class="panel-collapse collapse" data-parent="#accordion" role="tabpanel">
+            <div id="DivVentas" class="panel-collapse collapse show_print" data-parent="#accordion" role="tabpanel">
                 <div class="panel-body">
                     <?php if (!empty($Tranferencia_de_accionesVedidas)) { ?>
 
@@ -859,7 +866,7 @@ function listadoDirectorio($directorio)
                 </h4>
             </div>
 
-            <div id="DivCompra" class="panel-collapse collapse " role="tabpanel">
+            <div id="DivCompra" class="panel-collapse collapse show_print" role="tabpanel">
                 <div class="panel-body">
                     <?php if (!empty($Tranferencia_de_accionesCompradas)) { ?>
 
@@ -927,3 +934,15 @@ function listadoDirectorio($directorio)
 
 
 </div>
+
+
+<script>
+    $(".open-dropdown").click(function() {
+        $(this).next("ul.dropdown").toggleClass('d-none');
+    });
+
+    $("#imprimir").click(function() {
+
+        print();
+    });
+</script>

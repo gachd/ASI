@@ -508,7 +508,7 @@
 
 
 
-		function informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha)
+		function informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha,$estadoActual)
 		{
 			
 
@@ -520,14 +520,14 @@
 				
 					//incorporaciones
 
-					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut  AND s.fecha_registro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_registro");
-
+					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut  AND s.estado = '"."$estadoActual"."'  AND s.fecha_registro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."'  ORDER BY s.fecha_registro");
+ 
 					return $sql->result();
 				}
 				if ($tipoFecha == "2") {
 					//bajas
 
-					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut  AND s.fecha_retiro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_retiro");
+					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut AND s.estado = '"."$estadoActual"."'  AND s.fecha_retiro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_retiro");
 
 					return $sql->result();
 				}
@@ -537,7 +537,7 @@
 
 					//incorporaciones
 
-					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut AND s.corporacion = '"."$rutCorp"."' AND s.fecha_registro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_registro");
+					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut AND s.estado = '"."$estadoActual"."' AND s.corporacion = '"."$rutCorp"."' AND s.fecha_registro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_registro");
 
 					
 					return $sql->result();
@@ -545,7 +545,7 @@
 				if ($tipoFecha == "2") {
 					//bajas
 
-					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut AND s.corporacion = '"."$rutCorp"."' AND s.fecha_retiro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_retiro");
+					$sql = $this->db->query("SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno,p.prsn_sexo,p.prsn_apellidomaterno,p.prsn_email, p.prsn_fechanacimi,p.prsn_fono_movil,s.fecha_registro, s.fecha_retiro from s_personas p, s_socios s WHERE p.prsn_rut = s.prsn_rut AND s.estado = '"."$estadoActual"."' AND s.corporacion = '"."$rutCorp"."' AND s.fecha_retiro BETWEEN '"."$desdeFecha"."' AND '".$hastaFecha."' ORDER BY s.fecha_retiro");
 
 
 					

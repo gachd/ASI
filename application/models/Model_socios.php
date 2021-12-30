@@ -396,13 +396,27 @@
 			$consulta = $consulta->result();
 
 			return $consulta;
-
-
-
-			/* 	$persona = $this->db->query('SELECT * FROM s_personas, s_condicion_laboral,s_estado_civil,s_nacionalidades,s_comunas,s_provincia,s_regiones WHERE prsn_rut="' . $rut . '" AND s_condicion_laboral_condlab_id = condlab_id AND s_estado_civil_estacivil_id = estacivil_id AND s_nacionalidades_nac_id = nac_id AND s_comunas_comuna_id = comuna_id AND s_provincia_provincia_id = provincia_id AND s_regiones_region_id=region_id');
-
-			return $persona->result(); */
 		}
+
+		function datosSocio($rut)
+		{
+			$this->db->select('*');
+			$this->db->from('s_socios as s, s_personas as p');
+			$this->db->where('s.prsn_rut', $rut);
+			$this->db->where('s.prsn_rut = p.prsn_rut');
+			$this->db->group_by('s.prsn_rut');
+			$consulta = $this->db->get();
+
+			$consulta = $consulta->result();
+
+			return $consulta;
+		}
+
+
+
+
+
+
 
 		function persona_fitness($rut)
 		{
@@ -422,13 +436,19 @@
 		function patrocinadores($rut)
 		{
 
-			//$this->db->where("pat_patrocinador",$rut);	
 
-			//$patrocinadores = $this ->db->get('s_patrocinador');	
 
-			$query = $this->db->query('SELECT p.prsn_rut,pat.s_socios_prsn_rut, pat.s_socios_prsn_rut1,p.prsn_nombres,p.prsn_apellidopaterno, p.prsn_apellidomaterno  FROM s_personas p, s_patrocinador_has_s_socios pat WHERE pat.s_socios_prsn_rut = "' . $rut . '" AND pat.s_socios_prsn_rut1 = p.prsn_rut');
 
-			return $query->result();
+			$this->db->select('*');
+			$this->db->from('s_personas as p, s_patrocinador_has_s_socios as pat,s_socios as s');
+			$this->db->where('pat.s_socios_prsn_rut', $rut);
+			$this->db->where('pat.s_socios_prsn_rut1 = p.prsn_rut');
+			$this->db->where('s.prsn_rut = pat.s_socios_prsn_rut1');
+			$this->db->group_by('pat.s_socios_prsn_rut1');
+
+			$consulta = $this->db->get();
+
+			return $consulta->result();
 		}
 
 
@@ -454,15 +474,15 @@
 		function cargas($rut)
 		{
 
+			$this->db->select('*');
+			$this->db->from('s_cargas_socios c, s_personas p,s_parentesco pa');
+			$this->db->where('c.s_socios_prsn_rut', $rut);
+			$this->db->where('p.prsn_rut = c.s_personas_prsn_rut');
+			$this->db->where('pa.pt_id = c.s_parentesco_pt_id');
 
+			$consulta = $this->db->get();
 
-			$cargas = $this->db->query('SELECT c.certificado,c.estudiante,c.estado_carga,p.prsn_fono_casa,p.prsn_fono_movil,p.prsn_email,p.prsn_rut,pa.pt_nombre,p.prsn_fechanacimi,p.prsn_apellidopaterno,p.prsn_apellidomaterno,p.prsn_nombres,c.s_personas_prsn_rut, c.s_socios_id_socio, c.s_socios_prsn_rut, c.s_parentesco_pt_id FROM s_cargas_socios c, s_personas p,s_parentesco pa WHERE c.s_socios_prsn_rut = "' . $rut . '" AND p.prsn_rut = c.s_personas_prsn_rut AND pa.pt_id = c.s_parentesco_pt_id ');
-
-			//	$cargas = $this ->db->get('s_cargas_socios');	
-
-
-
-			return $cargas->result();
+			return $consulta->result();
 		}
 
 
@@ -1462,7 +1482,7 @@
 			$cant = $this->db->query('SELECT DISTINCT(p.prsn_rut), p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, s.tipo_id FROM s_personas p, s_socios s WHERE s.prsn_rut = p.prsn_rut AND s.estado = 0 AND s.tipo_id = 1 order by p.prsn_apellidopaterno asc');
 
 
-			
+
 
 			return $cant->result();
 		}

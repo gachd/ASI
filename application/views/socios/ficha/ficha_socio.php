@@ -15,6 +15,7 @@
       margin: 5px;
 
     }
+
     @page carta {
 
       size: 216mm 280mm;
@@ -26,7 +27,7 @@
       page: oficio;
 
     }
-    
+
 
     div.encab {
       width: 100%;
@@ -165,30 +166,100 @@
 
     }
 
-    .td_datos{
+    .td_datos {
 
-    
+
       font-weight: bold;
+      font-style: monospace;
+      font-size: 14px;
+      text-align: center;
+
+      
+      
 
 
     }
+
+    .img_circulo {
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      padding: 4px;
+    }
   </style>
 
-<?php 
-
-$corporaciones;
-$datos_personales;
-$patrocinadores;
-$patrocinados;
-$cargas;
-$cuotas;
-$InfoSocio;
+  <?php
 
 
+  function FotoPerfil($dir)
+  {
+    //valido que se encuentre directorio en base de datos
+    if (!empty($dir)) {
+
+      $dir = $dir . "/perfil";
+      $permitidos = array('jpeg', 'png', 'jpg', 'gif');
+      $archivos = array();
+      $urlBase = base_url();
+
+      if (is_dir($dir)) {
+
+        foreach (scandir($dir) as $listado) {
+
+          //validor los elementos oermitidos
+
+          //valido que el elemto no sea un directorio
+          if (!is_dir($dir . '/' . $listado)) {
+
+            $extension = pathinfo($dir . '/' . $listado, PATHINFO_EXTENSION);
+
+            $extension = strtolower($extension);
+
+            if (in_array($extension, $permitidos)) {
+
+
+              $archivos[$listado] = filemtime($dir . '/' . $listado);
+            }
+          }
+        }
+        //ordeno del mas reciente al mas antiguo gracias al filetime
+        arsort($archivos);
+
+        $archivos = array_keys($archivos);
+
+        //valido que el directorio no este vacio
+        if (empty($archivos)) {
+
+          echo 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png';
+        } else {
+
+          //muestro la foto mas reciente
+
+          echo ($urlBase . $dir . '/' . $archivos[0]);
+        }
+      } else {
+
+        echo 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png';
+      }
+    } else {
+      echo 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png';
+    }
+  }
+
+
+  $corporaciones;
+  $datos_personales;
+  $patrocinadores;
+  $patrocinados;
+  $cargas;
+  $cuotas;
+  $InfoSocio;
 
 
 
-?>
+
+
+
+  ?>
+
 
 
 
@@ -202,7 +273,7 @@ $InfoSocio;
 
           <tr>
 
-            <td width="27%"><img src="<?php echo base_url(); ?>assets/images/user.jpg" width="150px" height="150px" alt="user"></td>
+            <td width="27%"><img src="<?php FotoPerfil($InfoSocio->path) ?>" width="150px" height="150px" alt="user" class="img_circulo"></td>
 
             <td width="45%"><img class="logo" width="80%" height="220" src="http://www.stadioitalianodiconcepcion.cl/ASI/assets/images/logo_instituciones.png"></td>
 
@@ -224,7 +295,7 @@ $InfoSocio;
 
                 </thead>
 
-                
+
 
                 <tbody>
 
@@ -232,7 +303,7 @@ $InfoSocio;
 
                     <td>CENTRO ITALIANO DI CONCEPCIÓN</td>
 
-                    <td class="td_datos" ><?php echo $corporaciones["70331500-3"]->n_registro  ?></td>
+                    <td class="td_datos"><?php echo $corporaciones["70331500-3"]->n_registro  ?></td>
 
                   </tr>
 
@@ -300,7 +371,7 @@ $InfoSocio;
 
 
 
-    <h2 align="center">FICHA INCORPORACIÓN SOCIOS</h2>
+    <h2 align="center">FICHA REGISTRO SOCIOS</h2>
 
 
     <table width="100%" class="table tbl-datos">
@@ -346,7 +417,7 @@ $InfoSocio;
 
           <td>FECHA DE NACIMIENTO </td>
 
-          <td class="td_datos"><?php echo $datos_personales->prsn_fechanacimi ?></td>
+          <td class="td_datos"><?php echo formato_fecha($datos_personales->prsn_fechanacimi) ?></td>
 
           <td>LUGAR </td>
 
@@ -392,23 +463,13 @@ $InfoSocio;
 
         </tr>
 
-        <tr>
 
-          <td>Nª </td>
-
-          <td></td>
-
-          <td>DPTO </td>
-
-          <td></td>
-
-        </tr>
         <tr>
 
           <td>EMAIL</td>
-          <td  colspan="3"><?php echo $datos_personales->prsn_email ?></td>
+          <td class="td_datos" colspan="3"><?php echo $datos_personales->prsn_email ?></td>
 
-       
+
 
         </tr>
 
@@ -434,27 +495,21 @@ $InfoSocio;
 
           <td width="25%">ACTIVIDAD O PROFESIÓN </td>
 
-          <td colspan="2"><?php echo $datos_personales->prsn_profesion ?></td>
+          <td class="td_datos" colspan="2"><?php echo $datos_personales->prsn_profesion ?></td>
 
           <td width="10%">EMPRESA </td>
 
-          <td colspan="2"><?php echo $datos_personales->prsn_empresa ?></td>
+          <td class="td_datos" colspan="2"><?php echo $datos_personales->prsn_empresa ?></td>
 
         </tr>
 
         <tr>
 
-          <td>CALLE </td>
+          <td>DIRECCION </td>
 
-          <td width="30%"><?php echo $datos_personales->prsn_direccion_empresa ?></td>
+          <td  colspan="4" class="td_datos"><?php echo $datos_personales->prsn_direccion_empresa ?></td>
 
-          <td width="5%">Nº </td>
 
-          <td></td>
-
-          <td width="8%">DPTO </td>
-
-          <td></td>
 
         </tr>
 
@@ -480,7 +535,7 @@ $InfoSocio;
 
           <td width="21%">NOMBRE SOCIO </td>
 
-          <td colspan="3"></td>
+          <td class="td_datos" colspan="3"> <?php echo $patrocinadores[0]->prsn_nombres . " " . $patrocinadores[0]->prsn_apellidopaterno . " " . $patrocinadores[0]->prsn_apellidomaterno  ?></td>
 
         </tr>
 
@@ -488,11 +543,11 @@ $InfoSocio;
 
           <td>FECHA DE NACIMIENTO </td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($patrocinadores[0]->prsn_fechanacimi) ?></td>
 
           <td width="18%">Nº DE REGISTRO </td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $patrocinadores[0]->n_registro ?></td>
 
         </tr>
 
@@ -500,7 +555,7 @@ $InfoSocio;
 
           <td width="20%">NOMBRE SOCIO </td>
 
-          <td colspan="3"></td>
+          <td class="td_datos" colspan="3"> <?php echo $patrocinadores[1]->prsn_nombres . " " . $patrocinadores[1]->prsn_apellidopaterno . " " . $patrocinadores[1]->prsn_apellidomaterno  ?> </td>
 
         </tr>
 
@@ -508,18 +563,18 @@ $InfoSocio;
 
           <td>FECHA DE NACIMIENTO </td>
 
-          <td></td>
+          <td class="td_datos"> <?php echo formato_fecha($patrocinadores[1]->prsn_fechanacimi) ?> </td>
 
           <td>Nº DE REGISTRO </td>
 
-          <td></td>
+          <td class="td_datos"> <?php echo $patrocinadores[1]->n_registro ?> </td>
 
         </tr>
 
       </tbody>
 
     </table>
-
+    <!-- 
     <table width="100%" class="table tbl-datos">
 
       <thead>
@@ -565,7 +620,7 @@ $InfoSocio;
       </tbody>
 
     </table>
-
+ -->
 
 
     <table width="100%" class="table tbl-datos">
@@ -574,13 +629,14 @@ $InfoSocio;
 
         <tr>
 
-          <th colspan="4">5.- ANTECEDENTES FAMILIARES</th>
+          <th colspan="4">4.- ANTECEDENTES FAMILIARES</th>
 
         </tr>
 
+        
         <tr>
 
-          <th colspan="4">5.1.- CONYUGE</th>
+          <th colspan="4">4.1.- CONYUGE</th>
 
         </tr>
 
@@ -592,11 +648,11 @@ $InfoSocio;
 
           <td>NOMBRE </td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $beneficiarios["conyugue"]->prsn_nombres?></td>
 
           <td>APELLIDO PATERNO </td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $beneficiarios["conyugue"]->prsn_apellidopaterno ?></td>
 
         </tr>
 
@@ -604,11 +660,11 @@ $InfoSocio;
 
           <td>APELLIDO MATERNO </td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $beneficiarios["conyugue"]->prsn_apellidomaterno ?></td>
 
-          <td>RUT </td>
+          <td >RUT </td>
 
-          <td></td>
+          <td class="td_datos"> <?php echo $beneficiarios["conyugue"]->s_personas_prsn_rut ?> </td>
 
         </tr>
 
@@ -616,11 +672,11 @@ $InfoSocio;
 
           <td width="21%">FECHA DE NACIMIENTO </td>
 
-          <td width="28%"></td>
+          <td width="28%" class="td_datos"> <?php echo formato_fecha($beneficiarios["conyugue"]->prsn_fechanacimi )?></td>
 
           <td width="20%">CELULAR </td>
 
-          <td></td>
+          <td class="td_datos"> <?php echo $beneficiarios["conyugue"]->prsn_fono_movil?></td>
 
         </tr>
 
@@ -628,7 +684,7 @@ $InfoSocio;
 
           <td>EMAIL </td>
 
-          <td colspan="3"></td>
+          <td class="td_datos" colspan="3"></td>
 
         </tr>
 
@@ -644,7 +700,7 @@ $InfoSocio;
 
         <tr>
 
-          <th colspan="4">5.2.- PADRES</th>
+          <th colspan="4">4.2.- PADRES</th>
 
         </tr>
 
@@ -660,7 +716,7 @@ $InfoSocio;
 
           <td>NOMBRE </td>
 
-          <td colspan="2"></td>
+          <td class="td_datos" colspan="2"><?php echo   $beneficiarios['padre']->prsn_nombres ?></td>
 
         </tr>
 
@@ -668,7 +724,7 @@ $InfoSocio;
 
           <td>APELLIDO PATERNO </td>
 
-          <td colspan="2"></td>
+          <td class="td_datos" colspan="2"><?php echo   $beneficiarios['padre']->prsn_apellidopaterno ?></td>
 
         </tr>
 
@@ -676,7 +732,7 @@ $InfoSocio;
 
           <td>APELLIDO MATERNO </td>
 
-          <td colspan="2"></td>
+          <td class="td_datos" colspan="2"><?php echo   $beneficiarios['padre']->prsn_apellidomaterno ?></td>
 
         </tr>
 
@@ -684,7 +740,7 @@ $InfoSocio;
 
           <td width="26%">FECHA DE NACIMIENTO </td>
 
-          <td colspan="2"></td>
+          <td class="td_datos" colspan="2">  <?php echo formato_fecha($beneficiarios["padre"]->prsn_fechanacimi )?> </td>
 
         </tr>
 
@@ -694,7 +750,7 @@ $InfoSocio;
 
           <td>NOMBRE </td>
 
-          <td colspan="2"></td>
+          <td class="td_datos" colspan="2">  <?php  echo   $beneficiarios['madre']->prsn_nombres ?> </td>
 
         </tr>
 
@@ -702,7 +758,7 @@ $InfoSocio;
 
           <td>APELLIDO PATERNO </td>
 
-          <td colspan="2"></td>
+          <td class="td_datos" colspan="2"> <?php  echo   $beneficiarios['madre']->prsn_apellidopaterno ?> </td>
 
         </tr>
 
@@ -710,7 +766,7 @@ $InfoSocio;
 
           <td>APELLIDO MATERNO </td>
 
-          <td colspan="2"></td>
+          <td class="td_datos" colspan="2"> <?php  echo   $beneficiarios['madre']->prsn_apellidomaterno ?> </td>
 
         </tr>
 
@@ -718,7 +774,7 @@ $InfoSocio;
 
           <td>FECHA DE NACIMIENTO </td>
 
-          <td colspan="2"></td>
+          <td class="td_datos" colspan="2">    <?php echo formato_fecha($beneficiarios["madre"]->prsn_fechanacimi )?> </td>
 
         </tr>
 
@@ -732,11 +788,15 @@ $InfoSocio;
 
         <tr>
 
-          <th colspan="5">5.3.- CARGAS O BENEFICIARIOS</th>
+          <th colspan="5">4.3.- CARGAS O BENEFICIARIOS</th>
 
         </tr>
 
       </thead>
+
+      <?php if ($beneficiarios){ ?>
+
+     
 
       <tbody>
 
@@ -764,55 +824,39 @@ $InfoSocio;
 
         </tr>
 
-        <tr>
 
-          <td height="30px"></td>
-
-          <td></td>
-
-          <td></td>
-
-          <td></td>
-
-          <td></td>
-
-        </tr>
+        <?php foreach ( $cargas as $index => $c){ ?>
 
         <tr>
 
-          <td height="30px"></td>
+          <td height="30px"><?php echo $c->pt_nombre  ?> </td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $c->prsn_nombres.' '.$c->prsn_apellidopaterno.' '.$c->prsn_apellidomaterno  ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $c->prsn_rut  ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($c->prsn_fechanacimi)  ?></td>
 
-          <td></td>
-
-        </tr>
-
-        <tr>
-
-          <td height="30px"></td>
-
-          <td></td>
-
-          <td></td>
-
-          <td></td>
-
-          <td></td>
+          <td class="td_datos"><?php echo $c->prsn_fono_movil  ?></td>
 
         </tr>
+
+      
+
+     
+        <?php } ?>
 
 
 
       </tbody>
 
-    </table>
+      <?php }else{
+        echo "<tr><td colspan='5'><center>No hay beneficiarios registrados</center></td></tr>";
+      } ?>
 
-    <table width="100%" class="table tbl-motiva">
+    </table>
+    <!-- 
+    <table width="100%" class="table tbl-motiva" >
 
       <thead>
 
@@ -834,7 +878,7 @@ $InfoSocio;
 
       </tbody>
 
-    </table>
+    </table> -->
 
     <table width="100%" class="table tbl-datos">
 
@@ -842,13 +886,13 @@ $InfoSocio;
 
         <tr>
 
-          <th colspan="3">7.- USO INTERNO</th>
+          <th colspan="3">5.- USO INTERNO</th>
 
         </tr>
 
         <tr>
 
-          <th colspan="3">7.1.- INGRESO</th>
+          <th colspan="3">5.1.- INGRESO</th>
 
         </tr>
 
@@ -876,9 +920,9 @@ $InfoSocio;
 
           <td>CENTRO ITALIANO DE CONCEPCIÓN</td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['70331500-3']->fecha_registro) ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $corporaciones['70331500-3']->n_registro ?></td>
 
         </tr>
 
@@ -886,9 +930,9 @@ $InfoSocio;
 
           <td>STADIO ATLÉTICO ITALIANO</td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['71888800-k']->fecha_registro) ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $corporaciones['71888800-k']->n_registro ?></td>
 
         </tr>
 
@@ -896,9 +940,9 @@ $InfoSocio;
 
           <td>SOCIEDAD DE SOCORROS MUTUOS CONCORDIA</td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['72265900-7']->fecha_registro) ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $corporaciones['72265900-7']->n_registro ?></td>
 
         </tr>
 
@@ -906,9 +950,9 @@ $InfoSocio;
 
           <td>STADIO ITALIANO DI CONCEPCIÓN</td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['65106820-7']->fecha_registro) ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $corporaciones['65106820-7']->n_registro ?></td>
 
         </tr>
 
@@ -916,15 +960,16 @@ $InfoSocio;
 
           <td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
 
-          <td></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['65467840-5']->fecha_registro) ?></td>
+
+          <td class="td_datos"><?php echo $corporaciones['65467840-5']->n_registro ?></td>
 
         </tr>
 
         <tr>
 
-          <th colspan="3">7.2.- RETIRO</th>
+          <th colspan="3">5.2.- RETIRO</th>
 
         </tr>
 
@@ -944,13 +989,14 @@ $InfoSocio;
 
         </tr>
 
+   
         <tr>
 
           <td>CENTRO ITALIANO DE CONCEPCIÓN</td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['70331500-3']->fecha_retiro) ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $corporaciones['70331500-3']->n_registro ?></td>
 
         </tr>
 
@@ -958,9 +1004,9 @@ $InfoSocio;
 
           <td>STADIO ATLÉTICO ITALIANO</td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['71888800-k']->fecha_retiro) ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $corporaciones['71888800-k']->n_registro ?></td>
 
         </tr>
 
@@ -968,9 +1014,9 @@ $InfoSocio;
 
           <td>SOCIEDAD DE SOCORROS MUTUOS CONCORDIA</td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['72265900-7']->fecha_retiro) ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $corporaciones['72265900-7']->n_registro ?></td>
 
         </tr>
 
@@ -978,9 +1024,9 @@ $InfoSocio;
 
           <td>STADIO ITALIANO DI CONCEPCIÓN</td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['65106820-7']->fecha_retiro) ?></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo $corporaciones['65106820-7']->n_registro ?></td>
 
         </tr>
 
@@ -988,9 +1034,10 @@ $InfoSocio;
 
           <td>SCUOLA ITALIANA DI CONCEPCIÓN</td>
 
-          <td></td>
 
-          <td></td>
+          <td class="td_datos"><?php echo formato_fecha($corporaciones['65467840-5']->fecha_retiro) ?></td>
+
+          <td class="td_datos"><?php echo $corporaciones['65467840-5']->n_registro ?></td>
 
         </tr>
 
@@ -1004,7 +1051,7 @@ $InfoSocio;
 
         <tr>
 
-          <th colspan="5">8.- INFORMACIÓN ACCIONISTAS</th>
+          <th colspan="5">6.- INFORMACIÓN ACCIONISTAS</th>
 
         </tr>
 
@@ -1035,46 +1082,38 @@ $InfoSocio;
           </th>
 
         </tr>
+        <?php if($titulos){ ?>
+
+        <?php foreach ($titulos as $titulo) { ?>
 
         <tr>
 
-          <td height="30px"></td>
+          <td class="td_datos" height="30px">   <?php echo $titulo->numero_acciones ?>  </td>
 
-          <td></td>
+          <td  class="td_datos"><?php echo $accionista->libro_accionista ?> </td>
 
-          <td></td>
+          <td  class="td_datos"><?php echo $accionista->foja_accionista ?>  </td>
 
-          <td></td>
+          <td  class="td_datos"><?php echo $titulo->id_titulos ?> </td>
 
-          <td></td>
-
-        </tr>
-
-        <tr>
-
-          <th colspan="5">DATOS DE LA VENTA DE LA ACCION</th>
+          <td  class="td_datos"><?php echo formato_fecha($titulo->fecha) ?> </td>
 
         </tr>
 
-        <tr>
+        <?php } ?>
 
-          <th colspan="2">
-            <center>FECHA DE VENTA</center>
-          </th>
+        <?php }else{?>
+          <tr>
 
-          <th colspan="3">
-            <center>NOMBRE COMPRADOR</center>
-          </th>
+            <td colspan="5"  class="td_datos"> No registra acciones </td>
 
-        </tr>
+          </tr>
 
-        <tr>
 
-          <td height="30px" colspan="2"></td>
+          <?php } ?>
+        
 
-          <td colspan="3"></td>
-
-        </tr>
+      
 
 
 

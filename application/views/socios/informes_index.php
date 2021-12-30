@@ -1482,6 +1482,7 @@ if ($this->session->flashdata('socio') == 'exito') {
     var desdeFecha = $("#desdeFecha").val();
     var hastaFecha = $("#hastaFecha").val();
 
+    
 
 
 

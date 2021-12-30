@@ -48,10 +48,9 @@
 			$Q = $this->db->get();
 
 			return $Q->result();
-
 		}
 
-	
+
 
 		function accionistasALL()
 		{
@@ -98,6 +97,27 @@
 		{
 
 			$p = $this->db->query('SELECT SUM(t.numero_acciones)as numero_acciones, a.fecha, p.prsn_nombres, p.prsn_apellidopaterno, p.prsn_apellidomaterno, a.prsn_rut FROM s_accionista a, s_titulos t, s_personas p WHERE a.prsn_rut = p.prsn_rut AND a.id_accionista = t.id_accionista AND t.estado=1 GROUP BY t.id_accionista ORDER BY p.prsn_nombres ASC');
+
+			return $p->result();
+		}
+
+
+		function accionistas_alfabetico_apellido()
+		{
+
+			$p = $this->db->query('SELECT 
+			SUM(t.numero_acciones)as numero_acciones, 
+			a.fecha, p.prsn_nombres, 
+			p.prsn_apellidopaterno, 
+			p.prsn_apellidomaterno, 
+			a.prsn_rut,p.prsn_tipo,
+			p.prsn_direccion
+			FROM s_accionista a, s_titulos t, s_personas p 
+			WHERE a.prsn_rut = p.prsn_rut 
+			AND a.id_accionista = t.id_accionista 
+			AND t.estado=1 
+			GROUP BY t.id_accionista 
+			ORDER BY p.prsn_apellidopaterno ASC');
 
 			return $p->result();
 		}
@@ -300,32 +320,52 @@
 			return $p->result();
 		}
 
-		function correos_junta($id_accionista){
+		function correos_junta($id_accionista)
+		{
 
-			
+
 			$this->db->select('*');
 			$this->db->from('s_accionista AS a , sa_juntas AS j ,sa_junta_envio_correo AS c');
-			$this->db->where('a.id_accionista',$id_accionista);
+			$this->db->where('a.id_accionista', $id_accionista);
 			$this->db->where('c.id_accionista = a.id_accionista');
 			$this->db->where('c.id_junta = j.id_junta');
-			$this->db->order_by('c.fecha_envio','desc');
+			$this->db->order_by('c.fecha_envio', 'desc');
 
 			$p = $this->db->get();
 			return $p->result();
-
 		}
 
-		function es_accionista($rut){
+		function es_accionista($rut)
+		{
 
 			$this->db->select('*');
 			$this->db->from('s_accionista');
-			$this->db->where('prsn_rut',$rut);
+			$this->db->where('prsn_rut', $rut);
 			$p = $this->db->get();
 			return $p->result();
-
 		}
 
+		function datos_personales($rut)
+		{
 
+
+			$this->db->select('*');
+			$this->db->from(' s_personas AS p , s_provincia AS pro, s_comunas AS c, s_regiones AS r');			
+			$this->db->where('p.prsn_rut', $rut);
+			$this->db->where('p.s_comunas_comuna_id  = c.comuna_id');
+			$this->db->where('c.s_provincia_provincia_id = pro.provincia_id');
+			$this->db->where('pro.s_regiones_region_id = r.region_id');
+
+
+			$p = $this->db->get();
+			$resultado = $p->result();
+
+			if ($resultado) {
+				return $resultado[0];
+			}else{
+				return false;
+			}
+		}
 	}
 
 

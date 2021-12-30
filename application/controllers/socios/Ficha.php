@@ -73,11 +73,9 @@ class  ficha extends CI_Controller
     if ($accionista) {
 
       $data['accionista'] = $this->model_accionistas->es_accionista($rut);
-
     } else {
 
       $data['accionista'] = false;
-      
     }
 
 
@@ -193,16 +191,100 @@ class  ficha extends CI_Controller
 
         $data['datos_personales'] = $Datosp[0];
 
+        $dataSocio = $this->model_socios->datosSocio($rut_socio);
+
+        $data['datos_socio'] = $dataSocio[0];
+
         $data['patrocinadores'] = $this->model_socios->patrocinadores($rut_socio);
 
         $data['patrocinados'] = $this->model_socios->patrocinados($rut_socio);
 
-        $data['cargas'] = $this->model_socios->cargas($rut_socio);
+        $cargas = $this->model_socios->cargas($rut_socio);
+
+        $data['cargas'] = $cargas;
+
+
+
+        if ($cargas) {
+
+          foreach ($cargas as $index => $carga) {
+
+            switch ($carga->s_parentesco_pt_id) {
+
+              case '1':
+                # conyugue
+                $beneficiarios['conyugue'] = $carga;
+
+
+                break;
+              case '2':
+                # hijos
+                $beneficiarios['hijos'][] = $carga;
+
+
+
+                break;
+              case '3':
+                # padre
+                $beneficiarios['padre'] = $carga;
+
+
+
+                break;
+              case '4':
+                # madre
+                $beneficiarios['madre'] = $carga;
+
+
+                break;
+              case '5':
+                # hijastro
+                $beneficiarios['hijos'][] = $carga;
+
+
+
+                break;
+
+
+              default:
+                # code...
+                break;
+            }
+          }
+        } else {
+          $beneficiarios = null;
+        }
+
+
+
+
+        $data['beneficiarios'] = $beneficiarios;
 
         $data['cuotas'] = $this->model_socios->cuotas($rut_socio);
 
         $data['InfoSocio'] = $this->model_socios->InfoSocio($rut_socio);
 
+
+
+        // accionista
+
+        $accionista = $this->model_accionistas->es_accionista($rut_socio);
+
+        if ($accionista) {
+
+          $accionista = $accionista[0];
+
+          $titulos =  $this->model_accionistas->TitulosActivosporAccionista($accionista->id_accionista);
+   
+          $data['titulos'] = $titulos;
+
+          $data['accionista'] = $accionista;
+
+        } else {
+
+          $data['accionista'] = false;
+          $data['titulos'] = false;
+        }
 
 
         $cabecera = "";
@@ -212,7 +294,8 @@ class  ficha extends CI_Controller
 
 
         $html = $this->load->view('socios/ficha/ficha_socio', $data, true);
-
+       /*  echo $html;
+        die; */
         ob_end_clean();
         $html = html_entity_decode($html);
         $mpdf = new \Mpdf\Mpdf(['debug' => true]);
@@ -220,7 +303,7 @@ class  ficha extends CI_Controller
         $mpdf->SetHTMLHeader($cabecera);
         $mpdf->shrink_tables_to_fit = 1;
         $mpdf->WriteHTML($html);
-        $mpdf->Output($rut_socio.' ficha inscripcion de socio.pdf', 'D');
+        $mpdf->Output($rut_socio . ' ficha inscripcion de socio.pdf', 'D');
       } else {
         echo "No existe el rut ingresado";
         echo "<script>window.close();</script>";

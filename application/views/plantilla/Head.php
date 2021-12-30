@@ -551,11 +551,17 @@ if (!isset($this->session->userdata['logueado'])) { ?>
 				display: none !important;
 			}
 
-			.bradcrumb,
-			.bradcrumb * {
-				display: none!important;
+			.breadcrumb,
+			.breadcrumb * {
+				display: none !important;
+			}
+
+			.show_print {
+				display: contents;
 			}
 		}
+
+		
 	</style>
 
 	<script>

@@ -877,7 +877,7 @@ class InformesSocio extends CI_Controller
         switch ($corpFecha) {
             case 1:
                 $rutCorp = "Todas";
-                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha,$estado);
 
                 $cont = 0;
                 foreach ($activos as $s) {
@@ -891,7 +891,7 @@ class InformesSocio extends CI_Controller
                 break;
             case 2:
                 $rutCorp = "65106820-7";
-                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha,$estado);
                 $cont = 0;
                 foreach ($activos as $s) {
                     $cont++;
@@ -905,7 +905,7 @@ class InformesSocio extends CI_Controller
                 break;
             case 3:
                 $rutCorp = "65467840-5";
-                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha,$estado);
 
                 $cont = 0;
                 foreach ($activos as $s) {
@@ -920,7 +920,7 @@ class InformesSocio extends CI_Controller
                 break;
             case 4:
                 $rutCorp = "70331500-3";
-                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha,$estado);
 
                 $cont = 0;
                 foreach ($activos as $s) {
@@ -935,7 +935,7 @@ class InformesSocio extends CI_Controller
                 break;
             case 5:
                 $rutCorp = "71888800-k";
-                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha,$estado);
 
                 $cont = 0;
                 foreach ($activos as $s) {
@@ -950,7 +950,7 @@ class InformesSocio extends CI_Controller
                 break;
             case 6:
                 $rutCorp = "72265900-7";
-                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha);
+                $activos = $this->model_informe->informes_estadosSocios($rutCorp, $tipoFecha, $desdeFecha, $hastaFecha,$estado);
 
                 $cont = 0;
                 foreach ($activos as $s) {

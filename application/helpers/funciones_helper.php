@@ -173,7 +173,7 @@ if (!function_exists('index_archivos')) {
     /**
      * Crea un archivo index.html en el directorio recibio
      * para que el navegador no busque archivos,
-     * el direcrorio debe estar creado previamente
+     * el directorio debe estar creado previamente
      *  @return  index.html  */
 
 
@@ -302,4 +302,126 @@ if (!function_exists('correo_que_envia')) {
 
         return $remiente;
     }
+}
+
+
+
+if (!function_exists('rellenoString')) {
+
+    /**
+     * @param string
+     * 
+     * Funcion que rellena o corta un string para que cumpla con el formato solictado
+     * $limite: numero de caracteres que se quiere que tenga el string
+     * $relleno: con lo que rellenaremos el string
+     * $posicionRelleno: "der" o "izq"
+     * 
+     *  @return  string */
+
+    function rellenoString($input, $limite = 100, $relleno = ' ', $posicionRelleno = "der")
+    {
+        $tamanoInput = mb_strwidth($input, 'UTF-8');
+        $recorte = "";
+
+
+        if ($tamanoInput < $limite) { // si falta por llenar
+
+            $porLlenar = $limite - $tamanoInput;
+
+
+
+            if ($posicionRelleno == "izq") { // relleno a la izquierda
+
+
+                for ($i = 0; $i < $porLlenar; $i++) {
+
+                    $recorte .= $relleno;
+                }
+
+                $recorte .= $input;
+
+                return $recorte;
+            } elseif ($posicionRelleno == "der") { //relleno a la derecha
+
+                for ($i = 0; $i < $porLlenar; $i++) {
+
+                    $input .= $relleno;
+                }
+            }
+
+            return $input;
+        } else { // si no se recorta a limite
+
+            for ($i = 0; $i < $limite; $i++) {
+
+                $recorte .= $input[$i];
+            }
+            return $recorte;
+        }
+    }
+}
+if (!function_exists('formato_caracteres')) {
+
+    /**
+     * @param string
+     * 
+     * Funcion que cambia los acentos de un string , la letrera "ñ" y los caracteres especiales
+     * por su equivalente sin acento y sin tildes
+     * 
+     *  @return  string */
+
+    function formato_caracteres($cadena)
+    {
+
+       //Reemplazamos la A y a
+       $cadena = str_replace(
+          array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª'),
+          array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
+          $cadena
+       );
+
+       //Reemplazamos la E y e
+       $cadena = str_replace(
+          array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
+          array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
+          $cadena
+       );
+
+       //Reemplazamos la I y i
+       $cadena = str_replace(
+          array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
+          array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
+          $cadena
+       );
+
+       //Reemplazamos la O y o
+       $cadena = str_replace(
+          array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
+          array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
+          $cadena
+       );
+
+       //Reemplazamos la U y u
+       $cadena = str_replace(
+          array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
+          array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
+          $cadena
+       );
+
+       //Reemplazamos la N, n, C y c
+       $cadena = str_replace(
+          array('Ñ', 'ñ', 'Ç', 'ç'),	
+          array('#', '#', 'C', 'c'),
+          $cadena
+       );
+
+       //Reemplazamos los caracteres especiales
+
+       $cadena = preg_replace('([^A-Za-z0-9 #])', '', $cadena);
+
+
+
+       return $cadena;
+    }
+
 }
