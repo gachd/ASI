@@ -675,7 +675,7 @@ class inicio extends CI_Controller
 
 
 
-         //Consulta a BD por todos los titulos que posee o fueron alguna ves del accionista
+         //Consulta a BD por todos los titulos que posee o fueron alguna vez del accionista
 
          $TitulosHistoricosAccionista = $this->model_accionistas->HistorialTitulosporAccionista($id);
 
@@ -714,7 +714,7 @@ class inicio extends CI_Controller
 
 
 
-               //Guardamos en un array con indice del mismo numero de titulos del accionista de $TitulosHistoricosAccionista
+               //Guardamos en un array con indice del mismo numero de titulo del accionista de $TitulosHistoricosAccionista
 
                $Tranferencia_de_accionesVedidas[$t_h->id_titulos] = $HistoricoTitulosVendidos;
             }
@@ -802,6 +802,7 @@ class inicio extends CI_Controller
             }
          }
 
+         var_dump($Tranferencia_de_accionesVedidas);
 
          $data['TitulosHistoricosAccionista'] = $TitulosHistoricosAccionista;
          $data['Tranferencia_de_accionesVedidas'] = $Tranferencia_de_accionesVedidas;

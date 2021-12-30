@@ -402,7 +402,7 @@
 		function cargas_activos($rut)
 		{
 
-			$sql = $this->db->query("SELECT DISTINCT(s_personas_prsn_rut) as rut_carga,s_socios_prsn_rut as rut_socio,prsn_nombres,prsn_apellidopaterno,prsn_apellidomaterno,c.s_parentesco_pt_id,prsn_sexo,YEAR(CURDATE())-YEAR(p.prsn_fechanacimi)+IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(p.prsn_fechanacimi,'%m-%d'), 0 , -1 ) AS edad FROM s_cargas_socios c,s_personas p WHERE c.s_socios_prsn_rut=" . "'$rut'" . " AND c.s_personas_prsn_rut= p.prsn_rut AND c.estado_carga=1");
+			$sql = $this->db->query("SELECT DISTINCT(s_personas_prsn_rut) as rut_carga,s_socios_prsn_rut as rut_socio,prsn_nombres,prsn_apellidopaterno,prsn_apellidomaterno,c.s_parentesco_pt_id,prsn_sexo,YEAR(CURDATE())-YEAR(p.prsn_fechanacimi)+IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(p.prsn_fechanacimi,'%m-%d'), 0 , -1 ) AS edad FROM s_cargas_socios c,s_personas p WHERE c.s_socios_prsn_rut=" . "'$rut'" . " AND c.s_personas_prsn_rut= p.prsn_rut");
 
 			return $sql->result();
 		}

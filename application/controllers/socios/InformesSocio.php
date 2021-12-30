@@ -723,7 +723,6 @@ class InformesSocio extends CI_Controller
         switch ($corp) {
             case 1:
                 $activos = $this->model_informe->consolidado_mayorC($mayor, $sexo);
-
                 $data['activos'] = $activos;
                 $html = $this->load->view('socios/informes/informe_carga', $data, true);
                 break;

@@ -85,7 +85,7 @@ if (es_localhost()) {  // detetcta si es localhost donde se esta trabajando
 		'hostname' => 'localhost',
 		'username' => 'root',
 		'password' => '',
-		'database' => 'bd_test',
+		'database' => 'stadioit_stadioitaliano',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,
